@@ -13,7 +13,6 @@
     <main id="hero">
       <div class="base-layer" aria-hidden="true"></div>
       <div class="reveal-layer" id="revealLayer" aria-hidden="true"></div>
-      <canvas id="spotlightCanvas" aria-hidden="true"></canvas>
       <h1>
         <span>Portfolio</span>
         <span>under construction</span>
@@ -22,46 +21,15 @@
     <script>
       const SPOTLIGHT_R = 260;
       const revealLayer = document.getElementById("revealLayer");
-      const spotlightCanvas = document.getElementById("spotlightCanvas");
-      const context = spotlightCanvas.getContext("2d");
       const mouse = { x: -999, y: -999 };
       const smooth = { x: -999, y: -999 };
       let rafId;
 
-      function resizeCanvas() {
-        spotlightCanvas.width = window.innerWidth;
-        spotlightCanvas.height = window.innerHeight;
-      }
-
       function renderSpotlight() {
         smooth.x += (mouse.x - smooth.x) * 0.1;
         smooth.y += (mouse.y - smooth.y) * 0.1;
-
-        context.clearRect(0, 0, spotlightCanvas.width, spotlightCanvas.height);
-        const gradient = context.createRadialGradient(
-          smooth.x,
-          smooth.y,
-          0,
-          smooth.x,
-          smooth.y,
-          SPOTLIGHT_R,
-        );
-        gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-        gradient.addColorStop(0.4, "rgba(255, 255, 255, 1)");
-        gradient.addColorStop(0.6, "rgba(255, 255, 255, 0.75)");
-        gradient.addColorStop(0.75, "rgba(255, 255, 255, 0.4)");
-        gradient.addColorStop(0.88, "rgba(255, 255, 255, 0.12)");
-        gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-        context.fillStyle = gradient;
-        context.beginPath();
-        context.arc(smooth.x, smooth.y, SPOTLIGHT_R, 0, Math.PI * 2);
-        context.fill();
-
-        const mask = `url(${spotlightCanvas.toDataURL()})`;
-        revealLayer.style.maskImage = mask;
-        revealLayer.style.webkitMaskImage = mask;
-        revealLayer.style.maskSize = "100% 100%";
-        revealLayer.style.webkitMaskSize = "100% 100%";
+        revealLayer.style.setProperty("--spotlight-x", `${smooth.x}px`);
+        revealLayer.style.setProperty("--spotlight-y", `${smooth.y}px`);
         rafId = requestAnimationFrame(renderSpotlight);
       }
 
@@ -69,8 +37,6 @@
         mouse.x = event.clientX;
         mouse.y = event.clientY;
       });
-      window.addEventListener("resize", resizeCanvas);
-      resizeCanvas();
       renderSpotlight();
 
       window.addEventListener("pagehide", () => {
