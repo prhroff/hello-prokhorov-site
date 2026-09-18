@@ -56,11 +56,11 @@ h1 {
   z-index: 1;
   width: 100%;
   margin: 0;
-  padding: 0 20px;
+  padding: 0 clamp(16px, 2vw, 36px);
   text-align: center;
   color: #ffffff;
   font-family: "Playfair Display", serif;
-  font-size: 48px;
+  font-size: clamp(48px, 5.2vw, 112px);
   font-weight: 400;
   letter-spacing: -0.08em;
   line-height: 0.95;
@@ -75,9 +75,9 @@ h1 {
 }
 
 .hero-copy p {
-  margin: 22px 20px 0;
+  margin: clamp(18px, 1.7vw, 30px) clamp(16px, 2vw, 36px) 0;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 0.72rem;
+  font-size: clamp(0.7rem, 0.9vw, 1rem);
   letter-spacing: 0.02em;
   line-height: 1.4;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
@@ -87,20 +87,20 @@ h1 {
   position: absolute;
   z-index: 2;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.68rem;
+  font-size: clamp(0.64rem, 0.7vw, 0.88rem);
   letter-spacing: 0.02em;
   line-height: 1.4;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
 .corner-top-left {
-  top: 28px;
-  left: 28px;
+  top: clamp(20px, 2.2vw, 48px);
+  left: clamp(20px, 2.2vw, 48px);
 }
 
 .corner-top-right {
-  top: 28px;
-  right: 28px;
+  top: clamp(20px, 2.2vw, 48px);
+  right: clamp(20px, 2.2vw, 48px);
   color: #ffffff;
   text-decoration: none;
 }
@@ -111,8 +111,8 @@ h1 {
 }
 
 .corner-bottom-right {
-  right: 28px;
-  bottom: 28px;
+  right: clamp(20px, 2.2vw, 48px);
+  bottom: clamp(20px, 2.2vw, 48px);
   color: rgba(255, 255, 255, 0.58);
 }
 
@@ -166,23 +166,3 @@ h1 span:last-child {
   }
 }
 
-@media (max-width: 480px) {
-  h1 {
-    padding: 0 16px;
-  }
-
-  .corner-top-left {
-    top: 20px;
-    left: 20px;
-  }
-
-  .corner-top-right {
-    top: 20px;
-    right: 20px;
-  }
-
-  .corner-bottom-right {
-    right: 20px;
-    bottom: 20px;
-  }
-}
