@@ -9,40 +9,118 @@ body {
 }
 
 body {
-  display: grid;
   min-height: 100vh;
-  place-items: center;
-  background: #ffffff;
-  color: #111111;
+  background: #080807;
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
 }
 
 main {
-  padding: 24px;
-  text-align: center;
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-items: start center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.base-layer,
+.reveal-layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.base-layer {
+  z-index: -2;
+  background-image: url("https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260609_195923_b0ba8ace-1d1d-4f2c-9a28-1ab84b330680.png&w=1280&q=85");
+  animation: hero-zoom 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-layer {
+  z-index: -1;
+  background-image: url("https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260609_201152_bba90a12-bf12-459f-91f0-51f237dbaf3b.png&w=1280&q=85");
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+#spotlightCanvas {
+  display: none;
 }
 
 h1 {
-  margin: 0;
-  font-family: "Roboto Mono", monospace;
-  font-size: 20px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 14vh 0 0;
+  padding: 0 20px;
+  text-align: center;
+  color: #ffffff;
+  font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 400;
-  line-height: 1.4;
+  letter-spacing: -0.08em;
+  line-height: 0.95;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.3);
+}
+
+h1 span {
+  display: block;
+  animation: hero-reveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+h1 span:first-child {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  animation-delay: 0.25s;
+}
+
+h1 span:last-child {
+  animation-delay: 0.42s;
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .base-layer,
+  h1 span {
+    animation: none;
+  }
+
+  h1 span {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 480px) {
-  main {
-    padding: 16px;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 1024px) {
-  main {
-    padding: 24px;
-  }
-}
-
-@media (min-width: 1025px) {
-  main {
-    padding: 32px;
+  h1 {
+    margin-top: 12vh;
+    padding: 0 16px;
   }
 }
