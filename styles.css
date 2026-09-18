@@ -26,6 +26,20 @@ main {
   isolation: isolate;
 }
 
+.text-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1920px;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 3vw, 64px);
+  letter-spacing: -0.04em;
+}
+
 .base-layer,
 .reveal-layer {
   position: absolute;
@@ -56,14 +70,14 @@ h1 {
   z-index: 1;
   width: 100%;
   margin: 0;
-  padding: 0 clamp(16px, 2vw, 36px);
+  padding: 0;
   text-align: center;
   color: #ffffff;
-  font-family: "Playfair Display", serif;
-  font-size: clamp(48px, 5.2vw, 112px);
-  font-weight: 400;
-  letter-spacing: -0.08em;
-  line-height: 0.95;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(3.25rem, 15vw, 18rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.76;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.3);
 }
 
@@ -71,14 +85,20 @@ h1 {
   position: relative;
   z-index: 1;
   width: 100%;
+  height: 100%;
   text-align: center;
 }
 
 .hero-copy p {
-  margin: clamp(18px, 1.7vw, 30px) clamp(16px, 2vw, 36px) 0;
+  position: absolute;
+  top: clamp(18%, 25vh, 30%);
+  right: 0;
+  left: 0;
+  margin: 0;
   color: rgba(255, 255, 255, 0.72);
-  font-size: clamp(0.7rem, 0.9vw, 1rem);
-  letter-spacing: 0.02em;
+  font-size: clamp(1rem, 2.4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
   line-height: 1.4;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
@@ -87,22 +107,52 @@ h1 {
   position: absolute;
   z-index: 2;
   color: rgba(255, 255, 255, 0.82);
-  font-size: clamp(0.64rem, 0.7vw, 0.88rem);
-  letter-spacing: 0.02em;
+  font-size: clamp(0.64rem, 0.78vw, 1rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
   line-height: 1.4;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
 .corner-top-left {
   top: clamp(20px, 2.2vw, 48px);
-  left: clamp(20px, 2.2vw, 48px);
+  left: clamp(20px, 3vw, 64px);
+}
+
+.corner-top-left,
+.corner-nav-center,
+.corner-top-right {
+  font-size: clamp(1.5rem, 5vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.corner a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.corner a + a {
+  margin-left: clamp(12px, 1.2vw, 24px);
+}
+
+.corner a:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 5px;
 }
 
 .corner-top-right {
-  top: clamp(20px, 2.2vw, 48px);
-  right: clamp(20px, 2.2vw, 48px);
+  top: clamp(20px, 3vw, 64px);
+  right: clamp(20px, 3vw, 64px);
   color: #ffffff;
   text-decoration: none;
+}
+
+.corner-nav-center {
+  top: clamp(20px, 3vw, 64px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .corner-top-right:focus-visible {
@@ -121,16 +171,22 @@ h1 span {
   animation: hero-reveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-h1 span:first-child {
+h1 {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+h1 em {
   font-family: "Playfair Display", serif;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.05em;
-  animation-delay: 0.25s;
+  letter-spacing: -0.04em;
 }
 
-h1 span:last-child {
-  animation-delay: 0.42s;
+h1 span {
+  animation-delay: 0.25s;
 }
 
 @keyframes hero-zoom {
