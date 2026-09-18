@@ -60,11 +60,60 @@ h1 {
   text-align: center;
   color: #ffffff;
   font-family: "Playfair Display", serif;
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: 48px;
   font-weight: 400;
   letter-spacing: -0.08em;
   line-height: 0.95;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.3);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+}
+
+.hero-copy p {
+  margin: 22px 20px 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+.corner {
+  position: absolute;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+.corner-top-left {
+  top: 28px;
+  left: 28px;
+}
+
+.corner-top-right {
+  top: 28px;
+  right: 28px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.corner-top-right:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 5px;
+}
+
+.corner-bottom-right {
+  right: 28px;
+  bottom: 28px;
+  color: rgba(255, 255, 255, 0.58);
 }
 
 h1 span {
@@ -120,5 +169,20 @@ h1 span:last-child {
 @media (max-width: 480px) {
   h1 {
     padding: 0 16px;
+  }
+
+  .corner-top-left {
+    top: 20px;
+    left: 20px;
+  }
+
+  .corner-top-right {
+    top: 20px;
+    right: 20px;
+  }
+
+  .corner-bottom-right {
+    right: 20px;
+    bottom: 20px;
   }
 }
