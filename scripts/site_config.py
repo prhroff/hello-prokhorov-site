@@ -11,8 +11,11 @@ EMAIL = "contact@helloprokhorov.com"
 OG_IMAGE = "/assets/img/og.jpg"          # 1200×630, used when a page sets none
 
 # The project form on /contact/ posts here (any service that accepts a form
-# POST and answers JSON, e.g. https://formspree.io/f/xxxxxxx). Left empty, the
-# form opens the visitor's email app with their answers filled in instead.
+# POST and answers JSON, e.g. https://formspree.io/f/xxxxxxx).
+# FORM_ENDPOINT requires confirmation: no service is chosen yet. Left empty, the
+# form sends nothing: it shows the answers ready to copy into an email, and every
+# build warns. Once it is set: update the Privacy Policy (src/pages/privacy.html,
+# sections 4.3, 6 and 12, then scripts/build-pdf.py), rebuild, and send a real test.
 FORM_ENDPOINT = ""
 
 PERSON = {
@@ -35,7 +38,7 @@ SERVICES = [
     ("Design Direction", "Visual direction for websites and products: typography, colour, layout and interaction principles that keep them consistent."),
 ]
 
-# Pricing: one source for the contact page and /llms.txt, written to be lifted as it is into
+# Pricing: used by /llms.txt only (the contact page no longer shows it), written to be lifted as it is into
 # Contra, proposals, PDFs and email (nothing in it refers to the site). A price is the lowest a
 # project starts at, in USD; None means it is quoted per project. The prices are the live Contra
 # services: Design & Development ("Custom Website Design & Framer Development", $990) and

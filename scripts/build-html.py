@@ -58,7 +58,7 @@ The logic
   * <when live="/info/">…</when> keeps its content only once that page is
     live; <when draft="/info/">…</when> only until then.
   * The blog index stays noindex until at least one post is live; the feed is
-    written only then.
+    written only then, and a release build leaves /blog/ out entirely until then.
   * sitemap.xml lists exactly the pages that may be indexed.
 
 Also: <pic name="…" alt="…" sizes="…" [class] [eager]> becomes a responsive
@@ -137,7 +137,12 @@ def collect():
     for f in sorted((SRC / "blog").glob("*.html")):
         if not f.name.startswith("_"):
             add(f, f"/blog/{f.stem}/", "post")
-    return [p for p in pages if p["live"]] if RELEASE else pages
+    if not RELEASE:
+        return pages
+    pages = [p for p in pages if p["live"]]
+    if not any(p["kind"] == "post" for p in pages):
+        pages = [p for p in pages if p["path"] != "/blog/"]
+    return pages
 
 
 PAGES = collect()
@@ -213,38 +218,13 @@ def nav_menu(cur):
 def socials():
     return "\n".join(
         f'            <li><a class="social" href="{e(url)}" rel="noopener" target="_blank"><span class="social__name" data-roll>{t(name)}</span>'
-        f'<span class="social__short" aria-hidden="true">{short}</span><span class="visually-hidden"> (opens in a new tab)</span>{ARROW}</a></li>'
-        for name, short, url in C.PROFILES)
+        f'<span class="visually-hidden"> (opens in a new tab)</span>{ARROW}</a></li>'
+        for name, _, url in C.PROFILES)
 
 
-def price(amount, html=True):
-    """990 -> "from $990" (the "from" quieter on the page); None -> the quoted-per-project label."""
-    if amount is None:
-        return f'<span class="pricing__quoted">{t(C.PRICING["quoted"])}</span>' if html else C.PRICING["quoted"]
-    return f'<span class="pricing__from">from</span> ${amount:,}' if html else f"from ${amount:,}"
-
-
-def pricing():
-    """The contact page's pricing: the combined offer first, then each service as a row (site_config.PRICING)."""
-    P = C.PRICING
-    assert [name for name, _, _ in P["services"]] == [name for name, _ in C.SERVICES], "PRICING services must match SERVICES"
-    name, line, amount = P["lead"]
-    rows = "\n".join(f'          <li><div class="row"><h3 class="row__a">{t(n)}</h3><p class="row__b">{t(l)}</p><p class="row__c">{price(a)}</p></div></li>'
-                     for n, l, a in P["services"])
-    return f"""      <section class="block pricing" aria-labelledby="price-title">
-        <header class="block__head"><h2 id="price-title">{t(P["title"])}</h2><span class="count">(USD)</span></header>
-        <p class="pricing__intro">{t(P["intro"])}</p>
-        <div class="pricing__lead">
-          <h3 class="pricing__name">{t(name)}</h3>
-          <p class="pricing__price">{price(amount)}</p>
-          <p class="pricing__line">{t(line)}</p>
-        </div>
-        <ul class="rows pricing__rows">
-{rows}
-        </ul>
-        <p class="pricing__note">{t(P["factors"])} {t(P["note"])}</p>
-        <p class="pricing__next">{t(P["next"])}</p>
-      </section>"""
+def price(amount):
+    """990 -> "from $990"; None -> the quoted-per-project label (for /llms.txt)."""
+    return C.PRICING["quoted"] if amount is None else f"from ${amount:,}"
 
 
 def menu_socials():
@@ -367,6 +347,8 @@ def head(p):
         '<meta name="twitter:card" content="summary_large_image">',
         "",
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">',
+        '<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">',
+        '<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">',
         '<link rel="preload" href="/assets/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>',
     ]
     if HAS_FEED:
@@ -507,7 +489,7 @@ def context(p):
         nav_bar=nav_bar(cur), nav_menu=nav_menu(cur),
         # the one footer: in the home feed it is a plain row, on inner pages it also takes the page grid's foot cell
         foot_class="foot" if p["kind"] == "home" else "doc__foot foot",
-        socials=socials(), menu_socials=menu_socials(), pricing=pricing(),
+        socials=socials(), menu_socials=menu_socials(),
         profile_count=len(C.PROFILES), profile_count_2=f"{len(C.PROFILES):02d}",
         heading=t(m["heading"]), lead=t(m.get("lead", "")),
         crumbs=crumbs(p) if p["kind"] != "home" else "",
@@ -610,8 +592,8 @@ def llms():
              f"- Languages: English, Russian", f"- Contact: {C.EMAIL}", ""]
     lines += ["## Services", ""] + [f"- {name}: {line}" for name, line in C.SERVICES] + [""]
     P = C.PRICING
-    lines += ["## Pricing (USD)", "", P["intro"], "", f"- {P['lead'][0]}: {price(P['lead'][2], html=False)}. {P['lead'][1]}"]
-    lines += [f"- {n}: {price(a, html=False)}. {l}" for n, l, a in P["services"]]
+    lines += ["## Pricing (USD)", "", P["intro"], "", f"- {P['lead'][0]}: {price(P['lead'][2])}. {P['lead'][1]}"]
+    lines += [f"- {n}: {price(a)}. {l}" for n, l, a in P["services"]]
     lines += ["", f"{P['factors']} {P['note']}", ""]
     lines += ["## Pages", ""]
     for path in ("/", "/work/", "/info/", "/contact/", "/blog/"):
@@ -682,6 +664,8 @@ def main():
     LEDGER.write_text(json.dumps(sorted(written), indent=1))
 
     print(f"{'release' if RELEASE else 'preview'} build: {len(PAGES)} pages, {len(POSTS)} live posts")
+    if not C.FORM_ENDPOINT:
+        print("  ! FORM_ENDPOINT requires confirmation: the project form on /contact/ cannot send (scripts/site_config.py)")
     for path, state, warn in rows:
         print(f"  {path:<40} {state}" + ("".join(f"\n      ! {w}" for w in warn) if warn else ""))
     for title, paths in titles.items():

@@ -1,3 +1,8 @@
+# LEGACY — kept only as a reference: its CASES table is where the case-study copy came from.
+# It must never run: it rewrites src/index.html with the old case dialogs and TODO placeholders,
+# overwriting the current home page. The case pages now live in src/pages/work/*.html.
+raise SystemExit("build-cases.py is legacy and disabled: it would overwrite src/index.html. Edit src/pages/work/*.html instead.")
+
 # Generates the seven case dialogs in src/index.html from one data table.
 # Edit the CASES table, then: python scripts/build-cases.py && python scripts/build-html.py
 # Real facts come from the existing site copy, cases/monolith/Monolith ONE.md and

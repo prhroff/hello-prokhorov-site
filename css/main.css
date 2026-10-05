@@ -320,7 +320,6 @@ html.menu-open { overflow: hidden; }
 .motion-ok .social:active .social__arrow { scale: 0.8; }
 .motion-ok .social__arrow { transition: color 0.3s var(--ease), scale 0.3s var(--ease); }
 .social:focus-visible { outline-offset: 2px; }
-.social__short { display: none; }
 .social--down .social__arrow svg + svg { translate: 0 -100%; }
 .motion-ok .social--down:is(:hover, :focus-visible) .social__arrow svg:first-child { translate: 0 100%; }
 .services__no { display: inline-block; width: 2.2rem; color: var(--mute); font-size: 13px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
@@ -564,6 +563,8 @@ button.row:hover .row__a::after { translate: 4px 0; }
 /* A phone column is too narrow to justify without wide gaps. */
 @media (max-width: 767px) { .names { text-align: left; } }
 .client { white-space: nowrap; color: var(--fg); }
+/* the narrowest phones: a long name may wrap rather than push the page sideways */
+@media (max-width: 359px) { .client { white-space: normal; } }
 .names .nw { white-space: nowrap; }
 /* Two-digit number in a pill, like ⑭ in a type specimen: the pill is exactly as tall
    as the capitals around it (baseline to cap height), with semibold figures ~0.6
@@ -1305,25 +1306,6 @@ a.row:hover .row__c::after { translate: 4px 0; }
      --q-space  between two questions
      --q-gap    from a question to its answers
      --q-opt    one answer's height */
-/* Contact: pricing, ahead of the form. The combined offer at the size of the questions,
-   the services as the site's rows, the prices in the right column ("from" small and grey). */
-.pricing__intro { max-width: 34em; padding-bottom: 20px; color: var(--mute); }
-.pricing__lead { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: 16px; padding: 14px 0 22px; border-top: 1px solid var(--line); }
-.pricing__name, .pricing__price { font-size: var(--t-state); line-height: 1.15; letter-spacing: -0.04em; white-space: nowrap; }
-.pricing__name { white-space: normal; }
-.pricing__line { grid-column: 1 / -1; max-width: 34em; margin-top: 8px; color: var(--mute); }
-.pricing__from { margin-right: 0.25em; font-size: 13px; letter-spacing: 0; color: var(--mute); }
-.pricing .row { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) 9.5em; }
-.pricing .row__c { color: var(--fg); white-space: nowrap; }
-.pricing__quoted { color: var(--mute); }
-.pricing__note { max-width: 34em; margin-top: 20px; color: var(--mute); }
-.pricing__next { margin-top: 12px; }
-/* phones and tablets: the name and price on one line, the scope under them (as the rows on phones) */
-@media (max-width: 1199px) {
-  .pricing .row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
-  .pricing .row__b { grid-column: 1 / -1; grid-row: 2; }
-}
-
 .intake {
   --warn: #c4380a;
   --q-space: clamp(48px, 7svh, 72px);

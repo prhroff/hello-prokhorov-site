@@ -10,3 +10,5 @@ __pycache__/
 Thumbs.db
 desktop.ini
 node_modules/
+# the production package, made by scripts/build-release.py
+dist/
