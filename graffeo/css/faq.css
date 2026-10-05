@@ -1,0 +1,76 @@
+/* FAQ — Figma 1996:435 (1440 × 568)
+   Two 670 columns, 20 apart. Left: #FFFAF4 panel, text block at 32/32.
+   Right: seven #F8FAF9 rows (24 padding, 4 apart), question + 16px plus. */
+
+.faq {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
+}
+
+.faq__intro {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  min-width: 0;
+  padding: 3.2rem;
+  background: var(--warm);
+}
+
+.faq__contact { display: flex; flex-direction: column; align-items: flex-start; gap: 1.6rem; }
+.faq__contact p { width: 32.5rem; max-width: 100%; }
+.faq__nowrap { white-space: nowrap; }  /* Figma's second line runs past the 325 box */
+
+.faq__list {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.faq__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  background: var(--mist);
+}
+
+/* PP Editorial New 16 / 100% / -1% */
+.faq__q {
+  font-family: var(--serif);
+  font-size: var(--fs-16);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.faq__plus {
+  position: relative;
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.faq__plus::before,
+.faq__plus::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--green);
+  translate: -50% -50%;
+}
+.faq__plus::before { width: 1px; height: 1.2rem; }
+.faq__plus::after { width: 1.2rem; height: 1px; }
+
+@media (max-width: 1023px) {
+  .faq { flex-direction: column; }
+  .faq__intro, .faq__list { flex: none; }
+  .faq__intro { padding: 2.4rem 2rem; }
+  .faq__intro h2 br { display: none; }
+  .faq__nowrap { white-space: normal; }
+  .faq__item { padding: 2rem; }
+}

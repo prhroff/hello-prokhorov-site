@@ -1,0 +1,16 @@
+    <!-- Right column on every inner page: availability, the email, profiles -->
+    <aside class="doc__aside" aria-label="Get in Touch">
+      <div class="doc__aside-in">
+        <p class="doc__status"><span class="dot" aria-hidden="true"></span><span>Working Worldwide<span class="mute"> · Bishkek, <time data-clock>—</time></span></span></p>
+        <div class="doc__reach">
+          <p class="doc__reach-lead">Tell me about the product, the people it’s for and what you need from it.</p>
+          <p><span class="reach__mail">{{email}}</span><br><button class="reach__copy" type="button" data-copy="{{email}}"><span data-copy-label>Copy Email</span></button></p>
+        </div>
+        <div class="socials-wrap doc__socials">
+          <p class="side__label"><span>Socials</span><span>({{profile_count_2}})</span></p>
+          <ul class="socials" aria-label="Socials">
+{{socials}}
+          </ul>
+        </div>
+      </div>
+    </aside>

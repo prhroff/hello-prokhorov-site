@@ -1,0 +1,21 @@
+---
+# Live so the menu link works. Until the first post is live the build keeps this page
+# noindex and out of the sitemap automatically, and writes no feed.
+# The articles come from src/blog/*.html: the one marked featured: yes (or the newest)
+# goes on top, large; the rest follow, newest first. A preview build lists drafts too.
+title: Blog — Notes on Web Design and Development
+description: Notes by Artem Prokhorov on web design and development — how websites are planned, designed and built, and what each project teaches along the way.
+heading: Blog
+lead: Notes on designing and building websites, and on doing the work independently.
+status: live
+schema: CollectionPage
+class: doc--wide doc--blog
+---
+      <section class="block blog-feature" aria-labelledby="feature-title">
+        <header class="block__head"><h2 id="feature-title"><span class="block__no" aria-hidden="true">(01)</span>Featured</h2></header>
+        {{post_feature}}
+      </section>
+      <section class="block blog-list" aria-labelledby="posts-title">
+        <header class="block__head"><h2 id="posts-title"><span class="block__no" aria-hidden="true">(02)</span>All Articles</h2><span class="count">({{post_count}})</span></header>
+        {{post_list}}
+      </section>

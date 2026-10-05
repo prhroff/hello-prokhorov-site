@@ -1,0 +1,21 @@
+---
+title: Work — Website and Product Design Case Studies
+description: Selected work by Artem Prokhorov: websites, product landing pages, product concepts and a UX audit, each with its own case study.
+heading: Work
+label: Work
+lead: A selection of digital products and websites I’ve designed.
+status: live
+schema: CollectionPage
+class: doc--wide doc--work
+updated: 2026-10-05
+---
+      <!-- The home page's work section, with the room of the wide inner pages: the
+           same cards, built from the case pages themselves (src/pages/work/*.html,
+           their front matter) by scripts/build-html.py. -->
+      <section class="block" aria-labelledby="work-title">
+        <header class="block__head"><h2 id="work-title"><span class="block__no" aria-hidden="true">(01)</span>Selected Work</h2><span class="count">({{work_count}})</span></header>
+        <ul class="work work--all">
+{{work_list}}
+        </ul>
+      </section>
+      <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>

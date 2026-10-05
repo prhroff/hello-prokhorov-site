@@ -1,0 +1,289 @@
+/* The Archive — an endless canvas of pinned-up cards (js/archive/).
+   Self-contained: the portfolio's stylesheet is not loaded here, but the bar,
+   the logotype, the pills and the counts are the site's own, turned dark.
+   Layout: the whole screen under the bar is one canvas that moves in every
+   direction and never ends, the pieces pinned up on it as cards; the large
+   title stays in the middle above them. */
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/inter-opsz.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face { font-family: "Inter Fallback"; src: local("Arial"); size-adjust: 107%; ascent-override: 90%; }
+
+/* ---------- Tokens: the site's, on the dark ---------- */
+:root {
+  --bg: #0b0b0b;
+  --fg: #ededed;
+  --mute: #8d8d8d;
+  --line: #242424;
+  --soft: #1c1c1c;
+  --tile: #151515;     /* the space an image holds before it arrives */
+
+  --bar: 44px;
+  --pad: 20px;
+  --in: 16px;
+  --t-base: clamp(15px, 1vw, 17px);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+}
+@media (max-width: 767px) { :root { --pad: 12px; --in: 12px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+body {
+  margin: 0; height: 100svh; overflow: hidden;
+  background: var(--bg); color: var(--fg);
+  font-family: "Inter", "Inter Fallback", system-ui, sans-serif;
+  font-size: var(--t-base); font-weight: 500; line-height: 1.4; letter-spacing: -0.03em;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+h1, h2, p { margin: 0; }
+h1, h2 { font: inherit; }
+a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+a, button { transition: color 0.3s var(--ease); }
+button { font: inherit; color: inherit; letter-spacing: inherit; background: none; border: 0; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+img { display: block; }
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+::selection { background: var(--fg); color: var(--bg); }
+.r { font-size: 0.5em; vertical-align: 0.82em; margin-left: 0.04em; letter-spacing: 0; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.count { font-size: 13px; color: var(--mute); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+
+.ar-skip {
+  position: fixed; left: var(--pad); top: 8px; z-index: 100;
+  padding: 10px 14px; background: var(--fg); color: var(--bg);
+  transform: translateY(-200%);
+}
+.ar-skip:focus { transform: none; }
+
+/* ---------- Logotype (as css/main.css) ---------- */
+.logo {
+  --lh: calc(var(--t-base) * 1.59);
+  display: inline-flex; align-items: center; gap: calc(var(--lh) * 6 / 48);
+  color: var(--fg); line-height: 0;
+  transition: color 0.3s var(--ease);
+}
+.logo svg { fill: currentColor; flex: none; display: block; }
+.logo__mark { width: calc(var(--lh) * 47 / 48); height: var(--lh); }
+.logo__word { width: calc(var(--lh) * 181 / 48); height: calc(var(--lh) * 22 / 48); }
+
+/* ---------- The bar: the site's, the brand and the way back ---------- */
+.ar-bar {
+  position: fixed; inset: 0 0 auto; z-index: 20;
+  height: var(--bar);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad);
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.ar-bar__brand { display: inline-flex; }
+.ar-bar__brand:is(:hover, :focus-visible) .logo { color: var(--mute); }
+/* the way back: an outlined, fully rounded button, as the site's "Get in Touch" */
+.ar-bar__back {
+  padding: 2px 10px; border: 1px solid var(--fg); border-radius: 999px; line-height: 1.3;
+  transition: background-color 0.3s var(--ease);
+}
+@media (hover: hover) { .ar-bar__back:hover { background: var(--soft); } }
+
+/* ---------- The title: one large word in the middle, over the canvas ----------
+   It never moves and never takes the pointer; drawn in "difference", it
+   stays legible over dark and light pieces alike as they pass under it. */
+.ar-hero {
+  position: fixed; inset: var(--bar) 0 0; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 0 var(--pad); text-align: center;
+  pointer-events: none; user-select: none;
+  mix-blend-mode: difference; color: #fff;
+}
+.ar-hero__title {
+  font-size: clamp(88px, 15vw, 280px); font-weight: 400; line-height: 0.9; letter-spacing: -0.06em;
+  text-transform: lowercase;
+  margin-left: -0.06em;   /* the tracking would push the word right of centre */
+}
+.ar-hero__lead {
+  margin-top: clamp(16px, 2vw, 32px);
+  color: #8d8d8d; text-transform: uppercase; letter-spacing: 0;
+}
+
+/* ---------- The canvas ---------- */
+.ar-canvas {
+  position: fixed; inset: var(--bar) 0 0; overflow: hidden;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+  cursor: grab;
+}
+.ar-canvas:focus-visible { outline-offset: -2px; }
+.ar-canvas.is-dragging, .ar-canvas.is-dragging .ar-card { cursor: grabbing; }
+.ar-world { position: absolute; left: 0; top: 0; will-change: transform; }
+
+/* A card: the image with rounded corners, its caption centred under it, and
+   four small square handles just outside its corners, as a selected frame
+   in a design tool. It rests at its own slight tilt and leans with the
+   canvas while it moves (--lean, set by js/archive). */
+.ar-card {
+  position: absolute; display: block;
+  rotate: calc(var(--r) + var(--lean, 0deg));
+  -webkit-user-drag: none; -webkit-touch-callout: none;
+  transition: scale 0.5s var(--ease);
+}
+.ar-card__frame {
+  display: block; height: var(--ih); overflow: hidden;
+  border-radius: 8px; background: var(--tile);
+}
+.ar-card picture, .ar-card img { display: block; width: 100%; height: 100%; }
+.ar-card img {
+  object-fit: cover; object-position: 50% 0;   /* the tallest pieces lose their foot, never their head */
+  opacity: 0; transition: opacity 0.6s var(--ease);
+  -webkit-user-drag: none; pointer-events: none;
+}
+.ar-card.is-loaded img { opacity: 1; }
+.ar-card__cap {
+  display: block; margin-top: 10px; padding: 0 4px;
+  font-size: 13px; line-height: 1.3; letter-spacing: -0.01em; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ar-card__sel {
+  position: absolute; inset: -10px; pointer-events: none;
+  --s: 6px;
+  background:
+    linear-gradient(var(--fg), var(--fg)) 0 0 / var(--s) var(--s) no-repeat,
+    linear-gradient(var(--fg), var(--fg)) 100% 0 / var(--s) var(--s) no-repeat,
+    linear-gradient(var(--fg), var(--fg)) 0 100% / var(--s) var(--s) no-repeat,
+    linear-gradient(var(--fg), var(--fg)) 100% 100% / var(--s) var(--s) no-repeat;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ar-canvas:not(.is-dragging) .ar-card:hover { scale: 1.04; z-index: 1; }
+}
+.ar-card:focus-visible { outline-offset: 12px; }
+
+/* ---------- The hint, at the foot, under the title ---------- */
+.ar-hint {
+  position: fixed; z-index: 10; left: 50%; translate: -50% 0;
+  bottom: calc(var(--pad) + env(safe-area-inset-bottom, 0px));
+  padding: 2px 10px; border-radius: 999px; line-height: 1.3; white-space: nowrap;
+  background: var(--bg); color: var(--mute);
+  pointer-events: none;
+}
+.ar-hint__touch { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .ar-hint__fine { display: none; }
+  .ar-hint__touch { display: inline; }
+}
+
+.ar-status, .ar-note { color: var(--mute); }
+.ar-note { padding: 24px var(--pad); text-align: center; }
+.ar-note a { color: var(--fg); text-decoration: underline; }
+.ar-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- Viewer ---------- */
+.ar-viewer {
+  position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0;
+  background: transparent; color: var(--fg);
+  overflow: hidden; overscroll-behavior: contain;
+}
+/* the canvas stays faintly there behind the image: dimmed and softened,
+   so the other work is felt rather than read */
+.ar-viewer::backdrop {
+  background: rgb(11 11 11 / 0.86);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.ar-viewer[open]::backdrop { animation: ar-dim 0.35s var(--ease); }
+@keyframes ar-dim { from { opacity: 0; } }
+.ar-viewer[open] { display: grid; grid-template-rows: var(--bar) 1fr auto; }
+.ar-viewer__bar { display: flex; align-items: center; justify-content: flex-end; padding: 0 var(--pad); }
+.ar-viewer__stage {
+  position: relative; min-height: 0;
+  display: grid; place-items: center; place-content: center;
+  padding: 0 var(--pad);
+  touch-action: pan-y;
+}
+/* the quick (already loaded) image and the large one share one spot */
+.ar-viewer__stage picture { display: contents; }
+.ar-viewer__stage img {
+  grid-area: 1 / 1; max-width: 100%;
+  max-height: calc(100svh - var(--bar) - 76px);   /* the bar above, the caption below */
+  width: auto; height: auto; object-fit: contain;
+}
+.ar-viewer__low { filter: none; }
+.ar-viewer__full { opacity: 0; transition: opacity 0.35s var(--ease); }
+.ar-viewer__full.is-loaded { opacity: 1; }
+.ar-viewer__foot { display: flex; justify-content: space-between; gap: 16px; padding: 16px var(--pad) 20px; min-height: 56px; }
+.ar-viewer__meta { display: flex; gap: 8px; }
+.ar-viewer__meta span + span { color: var(--mute); }
+.ar-viewer__btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-width: 44px; min-height: 44px;
+  color: var(--mute); transition: color 0.3s var(--ease);
+}
+.ar-viewer__btn:hover, .ar-viewer__btn:focus-visible { color: var(--fg); }
+.ar-viewer__btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.ar-viewer[open] .ar-viewer__stage { animation: ar-in 0.3s var(--ease); }
+@keyframes ar-in { from { opacity: 0; scale: 0.985; } }
+@media (max-width: 767px) {
+  .ar-viewer__stage { padding: 0 var(--pad); }
+}
+
+/* The rail: a glass pill floating on the right, a small grip at its top,
+   square thumbnails in an endless scroll that snaps each one to the middle;
+   the one in the middle is the image shown, framed in white. Dark glass, so
+   the image behind it shows through only faintly. On a phone it lies along
+   the foot. --rh: the height of the scroll. */
+.ar-viewer { --thumb: 56px; --rail-w: calc(var(--thumb) + 20px); }
+.ar-viewer__rail {
+  position: absolute; z-index: 2; right: var(--pad); top: 50%; translate: 0 -50%;
+  --rh: min(560px, calc(100svh - var(--bar) * 2 - 120px));
+  width: var(--rail-w); padding: 22px 0 10px;
+  border-radius: 22px;
+  background: rgb(14 14 14 / 0.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2); backdrop-filter: blur(20px) saturate(1.2);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1), 0 12px 40px rgb(0 0 0 / 0.5);
+}
+.ar-viewer__grip {
+  position: absolute; top: 8px; left: 50%; translate: -50% 0;
+  width: 28px; height: 5px; border-radius: 3px; background: rgb(255 255 255 / 0.35);
+}
+.ar-viewer__scroller {
+  height: var(--rh); overflow-y: auto; overscroll-behavior: contain;
+  scroll-snap-type: y mandatory; scrollbar-width: none;
+}
+.ar-viewer__scroller::-webkit-scrollbar { display: none; }
+.ar-viewer__rail ol {
+  list-style: none; margin: 0;
+  padding: 6px 0;   /* the list repeats, so there is always more above and below */
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.ar-viewer__rail li { scroll-snap-align: center; }
+.ar-viewer__thumb {
+  display: block; width: var(--thumb); height: var(--thumb); padding: 0;
+  border-radius: 10px; overflow: hidden;
+  outline: 2px solid transparent; outline-offset: 3px;
+  transition: outline-color 0.25s var(--ease);
+}
+.ar-viewer__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--tile); }
+.ar-viewer__thumb.is-current { outline-color: #fff; }
+.ar-viewer__thumb:focus-visible { outline: 2px solid var(--fg); }
+/* the image keeps clear of the rail, and stays centred between equal margins */
+.ar-viewer__stage { padding-inline: calc(var(--rail-w) + var(--pad) * 2); }
+@media (max-width: 767px) {
+  .ar-viewer { --thumb: 48px; }
+  .ar-viewer[open] { grid-template-rows: var(--bar) minmax(0, 1fr) auto calc(var(--thumb) + 44px + env(safe-area-inset-bottom, 0px)); }
+  .ar-viewer__stage { padding-inline: var(--pad); }
+  .ar-viewer__rail {
+    top: auto; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); left: var(--pad); right: var(--pad); translate: none;
+    width: auto; padding: 10px 0; border-radius: 18px;
+  }
+  .ar-viewer__grip { display: none; }
+  .ar-viewer__scroller { height: auto; overflow: auto hidden; scroll-snap-type: x mandatory; }
+  .ar-viewer__rail ol { flex-direction: row; padding: 0 6px; }
+  .ar-viewer__stage img { max-height: calc(100svh - var(--bar) - 76px - var(--thumb) - 44px); }
+}
+
+/* ---------- Reduced motion: nothing travels ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ar-card { transition: none; }
+  .ar-card img { transition: opacity 0.2s linear; }
+  .ar-viewer[open] .ar-viewer__stage, .ar-viewer[open]::backdrop { animation: none; }
+}
+
+/* Arriving and leaving: the site's three colour sheets (css/transitions.css). */

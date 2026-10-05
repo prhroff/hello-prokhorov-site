@@ -1,0 +1,58 @@
+/* Gifting Options — Figma 1996:402 (1440 × 654)
+   Heading 32/120% centred · cards 320 × 400 (#F8FAF9), 20 apart, from x 40,
+   running past the right edge · slider row: line (200 of 1290 filled) + arrows. */
+
+.options { padding-inline: 0; }
+.options > .section__title,
+.options > .options__bar { padding-inline: var(--gutter); }
+
+.options__viewport {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
+}
+.options__viewport::-webkit-scrollbar { display: none; }
+.options__viewport:focus-visible { outline: 1px solid var(--green); outline-offset: -1px; }
+
+.options__cards {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+}
+
+.option {
+  position: relative;
+  flex: none;
+  width: 32rem;
+  height: 40rem;
+  background: var(--mist);
+}
+/* Product cut-out at its Figma position inside the card */
+.option img {
+  position: absolute;
+  left: calc(var(--x) * 0.1rem);
+  top: calc(var(--y) * 0.1rem);
+  width: calc(var(--w) * 0.1rem);
+  height: calc(var(--h) * 0.1rem);
+  object-fit: cover;
+}
+
+.options__bar { display: flex; align-items: center; gap: 2rem; }
+.options__bar .lines { flex: 1; }
+/* Thumb: 200 of 1290; moved by --p (0 → 1) */
+.options__bar .lines > span {
+  width: 15.504%;
+  translate: calc(var(--p, 0) * (100% / 0.15504 - 100%)) 0;
+}
+
+@media (max-width: 1023px) {
+  .option { width: 26rem; height: 32.5rem; }
+  .option img {
+    left: calc(var(--x) / 320 * 100%);
+    top: calc(var(--y) / 400 * 100%);
+    width: calc(var(--w) / 320 * 100%);
+    height: calc(var(--h) / 400 * 100%);
+  }
+}

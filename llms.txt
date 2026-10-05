@@ -1,0 +1,53 @@
+# Artem Prokhorov (Prokhorov®)
+
+> Artem Prokhorov is an independent web designer and developer who designs and builds websites from structure to launch, and works on UI/UX for digital products.
+
+- Role: Independent Web Designer & Developer
+- Based in: Bishkek, Kyrgyzstan (UTC+6); works remotely worldwide
+- Languages: English, Russian
+- Contact: contact@helloprokhorov.com
+
+## Services
+
+- Web Design: Structure, UX and visual design for websites that are clear, visually strong and easy to understand.
+- Website Development: The approved design built as a responsive, fast website that matches the layouts and is ready to launch.
+- Website Motion: Motion for websites and interfaces: transitions, scroll motion and hover states that show what’s clickable and keep your place between pages.
+- UI/UX Design: User flows, wireframes and interfaces for digital products, with a design system where the product needs one.
+- Design Direction: Visual direction for websites and products: typography, colour, layout and interaction principles that keep them consistent.
+
+## Pricing (USD)
+
+Starting prices, so you know roughly where a project sits before we talk.
+
+- Design & Development: from $990. A complete website, from structure and visual direction through development and launch — one person throughout.
+- Web Design: from $490. Structure, UX and visual design for a website or landing page, ready to build.
+- Website Development: Quoted per project. Your approved design built as a responsive, tested website, ready to launch.
+- Website Motion: Quoted per project. Transitions, scroll motion and hover states for a website or interface.
+- UI/UX Design: Quoted per project. User flows, wireframes and interface design for a digital product.
+- Design Direction: Quoted per project. A visual direction: typography, colour, layout and interaction principles.
+
+The price depends on scope and number of pages, how complex the site is, how much UX work it needs and the visual direction. Motion, development requirements, the materials you already have and the timeline matter too. “From” is where pricing starts, not a quote — once we agree the scope, you get a fixed price.
+
+## Pages
+
+- [Home](https://helloprokhorov.com/): Artem Prokhorov is an independent web designer and developer who designs and builds websites from structure to launch, and works on UI/UX for digital products.
+- [Work](https://helloprokhorov.com/work/): Selected work by Artem Prokhorov: a client website I designed and built, a website audit and its fixes, landing pages and website concepts.
+- [Info](https://helloprokhorov.com/info/): Artem Prokhorov is an independent web designer and developer in Bishkek, designing and building websites for founders, startups and companies worldwide.
+- [Contact](https://helloprokhorov.com/contact/): Tell Artem Prokhorov, an independent web designer and developer, about your website — what you need, when you want to start and your budget.
+
+## Case studies
+
+- [Powermatic®](https://helloprokhorov.com/work/powermatic/): A marketing website for Powermatic Technologies®, a strategy, design and engineering partner for growing businesses — designed and built from start to finish.
+- [Visual Hunters®](https://helloprokhorov.com/work/visual-hunters/): A web concept exploring bold typography and 3D in web design. Built as a personal experiment in visual direction and layout systems.
+- [Contour Office©](https://helloprokhorov.com/work/contour-office/): A typographic website concept for accounting and CPA firms, built on restraint and structure — grid, proportion and a design manifesto as the visual language.
+- [Monolith ONE](https://helloprokhorov.com/work/monolith-one/): An industrial audio system defined from its specification up, and the website that presents it. Bauhaus, Dieter Rams and German structuralism as references.
+- [Lattice](https://helloprokhorov.com/work/lattice/): A multi‑page website concept for an infrastructure control plane — “on‑prem that operates like the public cloud”, for teams that run their own hardware.
+- [Luma](https://helloprokhorov.com/work/luma/): A landing page concept for Luma, a product that scans incoming interactions from different sources and orders them by their estimated conversion potential.
+- [Website Audit](https://helloprokhorov.com/work/website-audit/): An audit of a Webflow portfolio site built on a purchased template — UX, technical SEO and front‑end performance — with a prioritised plan and implementation.
+
+## Profiles
+
+- LinkedIn: https://www.linkedin.com/in/helloprokhorov
+- Contra: https://contra.com/helloprokhorov
+- X: https://x.com/helloprokhorov
+- Instagram: https://www.instagram.com/hello.prokhorov/

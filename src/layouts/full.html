@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+{{head}}
+</head>
+<body>
+{{> defs}}
+  <a class="skip" href="#main">Skip to Content</a>
+
+{{> bar}}
+
+{{> menu}}
+{{draft_flag}}
+  <!-- ============ FULL-WIDTH PAGE ============
+       The site's bar, the page across the full width, the site footer.
+       Used by /work/ and by each case study (class: case — the cover, the
+       overview, each part as pictures then their text, the next case). -->
+  <main class="full{{page_class}}" id="main">
+{{content}}
+  </main>
+
+{{> foot}}
+</body>
+</html>

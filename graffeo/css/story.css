@@ -1,0 +1,176 @@
+/* ==========================================================================
+   Story — Figma 1997:805 "Slider Section": three 1440 × 960 slides
+   (1997:777, 1997:786, 1997:795) on one horizontal track in a sticky stage.
+
+   Each slide is reproduced as its Figma canvas: a 1440 × 960 box whose
+   children sit at their Figma coordinates, in --s units (1 Figma px / 10).
+   --s fits the canvas to the stage — by width like the rest of the page, or
+   by height when the viewport is short, keeping at least 56px above and
+   below the 690px content row. Backgrounds and slide 03's photograph run
+   to the stage edges, as the Figma frame runs to its own.
+   ========================================================================== */
+
+.story {
+  position: relative;
+  height: 400vh;
+}
+
+.story__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  container-type: size;
+  background: var(--white);
+}
+
+.story__track {
+  display: flex;
+  width: 300cqw;
+  height: 100%;
+  will-change: transform;
+}
+
+.slide {
+  --s: min(100cqw / 144, (100cqh - 112px) / 69);
+  position: relative;
+  flex: none;
+  width: 100cqw;
+  height: 100%;
+  overflow: hidden;
+  background: var(--white);
+}
+
+/* Figma 1440 × 960 frame, centred on the stage */
+.slide__canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(144 * var(--s));
+  height: calc(96 * var(--s));
+  translate: -50% -50%;
+}
+
+/* Everything inside the canvas is placed by --x / --y (Figma px / 10) */
+.slide__canvas > * {
+  position: absolute;
+  left: calc(var(--x) * var(--s));
+  top: calc(var(--y) * var(--s));
+}
+
+.slide__frame {
+  width: calc(var(--w) * var(--s));
+  height: calc(var(--h) * var(--s));
+  overflow: hidden;
+  background: var(--mist);
+}
+.slide__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* PP Editorial New 14 / 16.8 / -0.14px, #739A8A */
+.slide__kicker {
+  font-family: var(--serif);
+  font-size: max(calc(1.4 * var(--s)), 12px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--green-light);
+  white-space: nowrap;
+}
+
+.slide__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(2.4 * var(--s));
+  width: calc(32.5 * var(--s));
+}
+
+/* PP Editorial New 48 / 100% / -1%; two-line headings have 8px between lines */
+.slide__heading {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: calc(4.8 * var(--s));
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.slide__heading span { display: block; }
+.slide__heading span + span { margin-top: calc(0.8 * var(--s)); }
+
+/* Futura PT Book 16 / 20.8 / -0.16px, #828282 */
+.slide__text {
+  width: 100%;
+  font-size: max(calc(1.6 * var(--s)), 13px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--grey);
+}
+
+/* Futura PT Book 12 / 16, #739A8A */
+.slide__count {
+  font-size: max(calc(1.2 * var(--s)), 11px);
+  line-height: 1.3333;
+  color: var(--green-light);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* --- Slide 03: green page; photograph from x 470 to the stage's right edge, full height */
+.slide--3 { background: var(--green); color: var(--white); }
+.slide--3 .slide__kicker,
+.slide--3 .slide__text,
+.slide--3 .slide__count { color: var(--white); }
+.slide__canvas > .slide__bleed {
+  left: calc(47 * var(--s));
+  right: calc((144 * var(--s) - 100cqw) / 2);
+  top: calc((96 * var(--s) - 100cqh) / 2);
+  bottom: calc((96 * var(--s) - 100cqh) / 2);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Phones and portrait tablets. The Figma mobile frame has no slider section,
+   so each slide keeps its own elements in a stacked order — kicker, image,
+   copy, counter — and the track still pans between them.
+   ========================================================================== */
+@media (max-width: 1023px), (max-aspect-ratio: 4/5) {
+  .story { height: 330vh; }
+
+  .slide { --s: 1rem; }
+  .slide__canvas {
+    inset: 0;
+    width: auto;
+    height: auto;
+    translate: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.4rem;
+    padding: 6rem 2rem;
+  }
+  .slide__canvas > * { position: static; }
+  .slide__kicker { order: 0; }
+  .slide__frame { order: 1; width: 100%; height: min(calc((100cqw - 4rem) * 690 / 840), 46cqh); }
+  .slide--2 .slide__frame { height: min(calc((100cqw - 4rem) * 600 / 840), 46cqh); }
+  .slide__copy { order: 2; width: auto; max-width: 32.5rem; }
+  .slide__heading { font-size: clamp(3.6rem, 10cqw, 4.8rem); }
+  .slide__count { order: 3; }
+
+  .slide__canvas > .slide__bleed { order: 1; height: 50cqh; margin-inline: -2rem; }
+}
+
+/* ==========================================================================
+   Reduced motion, and phones in landscape: no pinned stage — the three
+   slides follow each other down the page at their full compositions.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce), (max-height: 480px) and (orientation: landscape) {
+  .story { height: auto; }
+  .story__stage { position: relative; height: auto; overflow: visible; container-type: inline-size; }
+  .story__track { flex-direction: column; width: 100%; }
+  .slide { --s: min(100cqw / 144, (100svh - 112px) / 69); height: 100svh; min-height: 360px; }
+}

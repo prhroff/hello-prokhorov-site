@@ -1,0 +1,21 @@
+---
+title: Work — Website Case Studies and Concepts
+description: Selected work by Artem Prokhorov: a client website designed and built in Framer, a Webflow audit and its fixes, landing pages and website concepts.
+heading: Work
+label: Work
+lead: Client work and self‑initiated concepts: websites, landing pages and a Webflow audit.
+status: live
+schema: CollectionPage
+class: doc--wide doc--work
+updated: 2026-10-05
+---
+      <!-- The home page's work section, with the room of the wide inner pages: the
+           same cards, built from the case pages themselves (src/pages/work/*.html,
+           their front matter) by scripts/build-html.py. -->
+      <section class="block" aria-labelledby="work-title">
+        <header class="block__head"><h2 id="work-title"><span class="block__no" aria-hidden="true">(01)</span>Selected Work</h2><span class="count">({{work_count}})</span></header>
+        <ul class="work work--all">
+{{work_list}}
+        </ul>
+      </section>
+      <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>

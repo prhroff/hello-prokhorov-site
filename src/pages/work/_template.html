@@ -1,0 +1,98 @@
+---
+title: [Project] — Case Study
+description: [The provided project description, ~140–160 characters]
+heading: [Project]
+label: [Project]
+status: draft
+layout: full
+class: case
+order: [8]
+card: [picture for /work/]
+card_alt: [what the picture shows]
+kind: [short descriptor, as on the home cards]
+tags: [the card's tags, listed on its right edge, separated by " / ": what it is, then a platform or ’26]
+year: [the caption's last slot, as on the home cards: ’26, a platform, or nothing]
+updated: [YYYY-MM-DD]
+---
+<!-- ==================================================================
+     CASE STUDY TEMPLATE — copy this file to src/pages/work/<slug>.html
+     (it becomes /work/<slug>/), replace every [bracketed] value, link a
+     work card to it with data-case-link (the case grows out of that card's
+     picture), set the "Next case" links of the case before it and of this
+     one so the cases still form one loop, and set status: live. The card on
+     /work/ is built from the front matter (card, card_alt, kind, year;
+     card_tags and card_text instead of a picture; progress: yes for a case
+     still in progress) and looks like the work cards on the home page.
+
+     Text: only real, provided copy. Never write filler, invented outcomes,
+     metrics or claims to make a case look complete. A part with no text and
+     no pictures is left out. The current cases take every text from the CASES
+     table in scripts/build-cases.py (do not run that script).
+
+     The page, in this order, as far as the content supports it:
+       Cover             the title (the page's only <h1>) with three short facts
+       (01) Project overview   label left; right: the project's own line
+                         (optional), a short paragraph, then (Details):
+                         Client, Industry, Role, Scope, Platform, Year — known ones only
+       (02) …            each part: its pictures first, then its text close
+                         underneath — label in the left half, text in the right
+       Gallery           pictures with no text: the label first, as their heading
+       Next case         the following project's name and cover; links to its page
+       (the site footer follows, from the layout)
+
+     Parts:
+       .cs-top    two equal halves: .cs-label (left) + .cs-text (right)
+       .cs-row    pictures: .cs-row--wide (one) or .cs-row--pair (two), ratio in --r
+       .cs-fig    one picture; .cs-fig--contain shows it whole (phone screens)
+       <dl class="cs-metrics">   numbers, only when they are real
+
+     Cover tone: case__cover--dark (white title on a dark picture),
+     --light (ink on a light, calm picture) or --panel (ink in a white
+     corner, for light and busy pictures). A case with no picture can use
+     case__cover--light case__cover--type with a .case__type list instead.
+
+     Status: to mark a case in progress, insert before the last span of .case__meta
+       <span class="case__status"><i class="dot"></i>In progress</span>
+     ================================================================== -->
+      <article class="cs" aria-labelledby="case-xx-title">
+        <figure class="case__cover case__cover--dark" data-case-cover>
+          <pic name="[cover-image]" alt="[What the cover shows]" sizes="100vw" eager>
+          <div class="case__over">
+            <h1 class="case__title" id="case-xx-title">[Project]</h1>
+            <p class="case__meta"><span>[Scope]</span><span>[Industry or client]</span><span>[Year or platform]</span></p>
+          </div>
+        </figure>
+        <section class="cs-part cs-overview" aria-labelledby="case-xx-s1">
+          <div class="cs-top">
+            <h2 class="cs-label" id="case-xx-s1"><span aria-hidden="true">(01)</span>Project Overview</h2>
+            <div class="cs-overview__body">
+              <p class="cs-head">[The project's own line — optional, only if provided]</p>
+              <p class="cs-lead">[The provided project description.]</p>
+              <p class="cs-details-label">(Details)</p>
+              <dl class="cs-facts"><div><dt>Client</dt><dd>[Client]</dd></div><div><dt>Role</dt><dd>[Role]</dd></div><div><dt>Scope</dt><dd>[Scope]</dd></div></dl>
+            </div>
+          </div>
+        </section>
+        <!-- A part with pictures and text: the pictures, then their text -->
+        <section class="cs-part cs-chapter" aria-labelledby="case-xx-s2">
+          <div class="cs-row cs-row--pair" style="--r: 4 / 5"><figure class="cs-fig"><div class="cs-fig__frame"><pic name="[image]" alt="[…]" sizes="(min-width: 768px) 50vw, 100vw"></div><figcaption>[Caption]</figcaption></figure><figure class="cs-fig"><div class="cs-fig__frame"><pic name="[image]" alt="[…]" sizes="(min-width: 768px) 50vw, 100vw"></div><figcaption>[Caption]</figcaption></figure></div>
+          <div class="cs-top">
+            <h2 class="cs-label" id="case-xx-s2"><span aria-hidden="true">(02)</span>[Label]</h2>
+            <div class="cs-text"><p>[Provided paragraph.]</p></div>
+          </div>
+        </section>
+        <!-- Pictures without text: the label heads them -->
+        <section class="cs-part cs-design" aria-labelledby="case-xx-s3">
+          <div class="cs-top">
+            <h2 class="cs-label" id="case-xx-s3"><span aria-hidden="true">(03)</span>Design</h2>
+          </div>
+          <div class="cs-row cs-row--wide" style="--r: 3 / 2"><figure class="cs-fig"><div class="cs-fig__frame"><pic name="[image]" alt="[…]" sizes="100vw"></div><figcaption>[Caption]</figcaption></figure></div>
+        </section>
+      </article>
+      <nav class="case__next-wrap" aria-label="Next Case">
+        <a class="case__next" href="/work/[next-slug]/" data-case-link>
+          <span class="case__next-top"><span>Next Case</span><span>[02] / [07]</span></span>
+          <span class="case__next-title">[Next project]</span>
+          <span class="case__next-media" data-next-media><pic name="[next cover]" alt="" sizes="100vw"></span>
+        </a>
+      </nav>

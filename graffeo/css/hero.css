@@ -1,0 +1,44 @@
+/* Hero — Figma 1996:345 (1440 × 1050)
+   Photo fills the frame · "Blackout" gradient 0 → 860, black 50% → 0 ·
+   heading block 48 from the top, centred, 12 between title and lede */
+
+.hero {
+  position: relative;
+  height: 105rem;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 1;
+  height: 86rem;
+  background: linear-gradient(to bottom, rgb(0 0 0 / 0.5), rgb(0 0 0 / 0));
+}
+
+.hero__heading {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding-top: var(--pad-y);
+  text-align: center;
+}
+
+@media (max-width: 1023px) {
+  .hero { height: 60rem; }            /* Figma Mobile 286:1986: 393 × 600 */
+  .hero::before { height: 80%; }
+  .hero__heading { padding-inline: 2rem; }
+}

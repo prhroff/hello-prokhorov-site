@@ -1,58 +1,491 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prokhorov® — Independent Web Designer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main>
-      <div class="base-layer" aria-hidden="true"></div>
-      <div class="reveal-layer" id="revealLayer" aria-hidden="true"></div>
-      <div class="text-container">
-        <div class="corner corner-top-left">
-          <a href="https://www.linkedin.com/in/helloprokhorov/" aria-label="LinkedIn">LinkedIn</a>
+<!doctype html>
+<!-- Generated from src/index.html by scripts/build-html.py — edit the source, not this file. -->
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Artem Prokhorov — Independent Web Designer &amp; Developer</title>
+  <meta name="description" content="Artem Prokhorov is an independent web designer and developer who designs and builds websites from structure to launch, and works on UI/UX for digital products.">
+  <link rel="canonical" href="https://helloprokhorov.com/">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prokhorov®">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:url" content="https://helloprokhorov.com/">
+  <meta property="og:title" content="Artem Prokhorov — Independent Web Designer &amp; Developer">
+  <meta property="og:description" content="Selected work, approach and contact for Artem Prokhorov — independent web designer and developer based in Bishkek, working worldwide.">
+  <meta property="og:image" content="https://helloprokhorov.com/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/transitions.css">
+  <script src="/js/transitions.js"></script>
+  <script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>
+  <script type="module" src="/js/main.js"></script>
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://helloprokhorov.com/#website",
+      "url": "https://helloprokhorov.com/",
+      "name": "Prokhorov®",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://helloprokhorov.com/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://helloprokhorov.com/#person",
+      "name": "Artem Prokhorov",
+      "alternateName": "Prokhorov®",
+      "jobTitle": "Independent Web Designer & Developer",
+      "url": "https://helloprokhorov.com/",
+      "email": "mailto:contact@helloprokhorov.com",
+      "image": "https://helloprokhorov.com/assets/img/portrait-1000.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bishkek",
+        "addressCountry": "KG"
+      },
+      "knowsAbout": [
+        "Web design",
+        "Website development",
+        "Front-end development",
+        "Web animation",
+        "Interaction design",
+        "UI/UX design",
+        "Art direction",
+        "Design systems",
+        "UX audits",
+        "Framer",
+        "Webflow"
+      ],
+      "knowsLanguage": [
+        "en",
+        "ru"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/helloprokhorov",
+        "https://contra.com/helloprokhorov",
+        "https://x.com/helloprokhorov",
+        "https://www.instagram.com/hello.prokhorov/"
+      ],
+      "mainEntityOfPage": "https://helloprokhorov.com/info/"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://helloprokhorov.com/#webpage",
+      "url": "https://helloprokhorov.com/",
+      "name": "Artem Prokhorov — Independent Web Designer & Developer",
+      "description": "Artem Prokhorov is an independent web designer and developer who designs and builds websites from structure to launch, and works on UI/UX for digital products.",
+      "isPartOf": {
+        "@id": "https://helloprokhorov.com/#website"
+      },
+      "inLanguage": "en",
+      "dateModified": "2026-10-05",
+      "about": {
+        "@id": "https://helloprokhorov.com/#person"
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <!-- Logotype (assets/img/Prokhorov_Logotype_SVG.svg), defined once and reused:
+       #pk-mark is the star (x 1–48, y 0–48), #pk-word the wordmark (x 54–235, y 13–35). -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+    <path id="pk-mark" d="M30.121 22.9744L38.1124 10.3932L25.7867 18.188L24.2968 6.97436L23.2133 17.9145L1 0L18.879 23.2479L14.8156 24.2051L18.7435 25.0256L10.8876 37.6068L23.3487 29.812L24.8386 41.1624L25.9222 30.2222L48 48L30.121 24.8889L34.3199 23.9316L30.121 22.9744Z"/>
+    <path id="pk-word" d="M97.71 13C99.7692 13 101.532 13.4445 102.997 14.334C104.482 15.2235 105.611 16.4988 106.383 18.1592C107.175 19.7997 107.57 21.7564 107.57 24.0293C107.57 26.3024 107.175 28.2598 106.383 29.9004C105.611 31.5409 104.482 32.8058 102.997 33.6953C101.532 34.565 99.7692 35 97.71 35C95.6706 35 93.9183 34.565 92.4531 33.6953C90.988 32.8058 89.8593 31.5409 89.0674 29.9004C88.2754 28.2598 87.8799 26.3024 87.8799 24.0293C87.8799 21.7564 88.2755 19.7997 89.0674 18.1592C89.8594 16.4988 90.9879 15.2235 92.4531 14.334C93.9183 13.4445 95.6707 13 97.71 13ZM154.375 13C156.434 13 158.197 13.4445 159.662 14.334C161.147 15.2235 162.276 16.4989 163.048 18.1592C163.84 19.7997 164.235 21.7564 164.235 24.0293C164.235 26.3024 163.84 28.2598 163.048 29.9004C162.276 31.5409 161.147 32.8058 159.662 33.6953C158.197 34.565 156.434 35 154.375 35C152.336 35 150.583 34.565 149.118 33.6953C147.653 32.8058 146.524 31.541 145.732 29.9004C144.94 28.2598 144.544 26.3025 144.544 24.0293C144.544 21.7564 144.94 19.7997 145.732 18.1592C146.524 16.4988 147.653 15.2235 149.118 14.334C150.583 13.4445 152.336 13 154.375 13ZM192.432 13C194.491 13 196.254 13.4445 197.719 14.334C199.204 15.2235 200.332 16.4988 201.104 18.1592C201.896 19.7997 202.292 21.7564 202.292 24.0293C202.292 26.3024 201.896 28.2598 201.104 29.9004C200.332 31.5409 199.204 32.8058 197.719 33.6953C196.254 34.565 194.491 35 192.432 35C190.392 35 188.64 34.565 187.175 33.6953C185.71 32.8058 184.581 31.5409 183.789 29.9004C182.997 28.2598 182.602 26.3024 182.602 24.0293C182.602 21.7564 182.997 19.7997 183.789 18.1592C184.581 16.4988 185.71 15.2235 187.175 14.334C188.64 13.4445 190.392 13 192.432 13ZM61.8701 13.4746C64.2857 13.4746 66.1673 14.0574 67.5137 15.2236C68.8601 16.3701 69.5332 17.9716 69.5332 20.0273C69.5332 21.3911 69.2261 22.5769 68.6123 23.585C67.9985 24.5733 67.1171 25.3345 65.9688 25.8682C64.8402 26.382 63.4737 26.6387 61.8701 26.6387H57.208V34.5254H54V13.4746H61.8701ZM79.5625 13.4746C81.0672 13.4746 82.3642 13.7313 83.4531 14.2451C84.5421 14.759 85.3835 15.4907 85.9775 16.4395C86.5715 17.3882 86.8691 18.5148 86.8691 19.8193C86.8691 20.768 86.6513 21.6181 86.2158 22.3691C85.8 23.1202 85.2352 23.7231 84.5225 24.1777C84.1249 24.4272 83.7104 24.6124 83.2803 24.7383C84.075 24.8684 84.7268 25.146 85.2354 25.5713C85.968 26.1643 86.3939 27.1038 86.5127 28.3887L87.0771 34.5254H83.8398L83.335 28.8037C83.2756 27.9539 82.9882 27.3309 82.4736 26.9355C81.9588 26.5204 81.1164 26.3125 79.9482 26.3125H74.3652V34.5254H71.1572V13.4746H79.5625ZM112.538 23.5254L121.418 13.4746H125.309L117.23 22.666L125.844 34.5254H122.071L115.092 24.9189L112.538 27.7656V34.5254H109.33V13.4746H112.538V23.5254ZM129.957 22.4883H139.698V13.4746H142.906V34.5254H139.698V25.3936H129.957V34.5254H126.749V13.4746H129.957V22.4883ZM174.284 13.4746C175.789 13.4746 177.086 13.7312 178.175 14.2451C179.264 14.759 180.105 15.4907 180.699 16.4395C181.293 17.3882 181.59 18.5148 181.59 19.8193C181.59 20.7681 181.372 21.618 180.937 22.3691C180.521 23.1201 179.957 23.7231 179.244 24.1777C178.847 24.4271 178.432 24.6124 178.002 24.7383C178.797 24.8684 179.449 25.146 179.957 25.5713C180.69 26.1643 181.115 27.1039 181.233 28.3887L181.798 34.5254H178.561L178.056 28.8037C177.996 27.9537 177.709 27.3309 177.194 26.9355C176.68 26.5205 175.838 26.3125 174.67 26.3125H169.086V34.5254H165.879V13.4746H174.284ZM210.931 30.9678L217.139 13.4746H220.554L212.921 34.5254H208.911L201.309 13.4746H204.724L210.931 30.9678ZM97.71 15.9355C96.3637 15.9356 95.2055 16.2618 94.2354 16.9141C93.2653 17.5465 92.5131 18.4654 91.9785 19.6709C91.4638 20.8766 91.2061 22.3296 91.2061 24.0293C91.2061 25.7292 91.4637 27.1829 91.9785 28.3887C92.5131 29.5744 93.2653 30.4838 94.2354 31.1162C95.2055 31.7487 96.3637 32.0644 97.71 32.0645C99.0761 32.0645 100.245 31.7487 101.215 31.1162C102.205 30.4838 102.957 29.5744 103.472 28.3887C103.986 27.1829 104.244 25.7292 104.244 24.0293C104.244 22.3296 103.986 20.8766 103.472 19.6709C102.957 18.4654 102.205 17.5465 101.215 16.9141C100.245 16.2618 99.0762 15.9355 97.71 15.9355ZM154.375 15.9355C153.029 15.9356 151.871 16.2618 150.9 16.9141C149.93 17.5466 149.177 18.4652 148.643 19.6709C148.128 20.8766 147.871 22.3296 147.871 24.0293C147.871 25.7292 148.128 27.1829 148.643 28.3887C149.177 29.5746 149.93 30.4837 150.9 31.1162C151.871 31.7486 153.029 32.0644 154.375 32.0645C155.741 32.0645 156.91 31.7487 157.88 31.1162C158.87 30.4838 159.622 29.5744 160.137 28.3887C160.652 27.1829 160.909 25.7292 160.909 24.0293C160.909 22.3296 160.651 20.8766 160.137 19.6709C159.622 18.4654 158.87 17.5465 157.88 16.9141C156.91 16.2618 155.741 15.9355 154.375 15.9355ZM192.432 15.9355C191.085 15.9356 189.927 16.2618 188.957 16.9141C187.987 17.5465 187.235 18.4654 186.7 19.6709C186.185 20.8766 185.928 22.3296 185.928 24.0293C185.928 25.7292 186.185 27.1829 186.7 28.3887C187.235 29.5744 187.987 30.4838 188.957 31.1162C189.927 31.7487 191.085 32.0644 192.432 32.0645C193.798 32.0645 194.966 31.7487 195.937 31.1162C196.926 30.4838 197.679 29.5744 198.193 28.3887C198.708 27.1829 198.966 25.7292 198.966 24.0293C198.966 22.3296 198.708 20.8766 198.193 19.6709C197.679 18.4654 196.926 17.5465 195.937 16.9141C194.966 16.2618 193.798 15.9355 192.432 15.9355ZM229.665 13.3428C230.393 13.3428 231.076 13.479 231.713 13.752C232.35 14.0249 232.909 14.4085 233.39 14.9023C233.884 15.3833 234.267 15.9431 234.54 16.5801C234.813 17.2169 234.95 17.9057 234.95 18.6465C234.95 19.3745 234.813 20.0639 234.54 20.7139C234.267 21.3508 233.884 21.9162 233.39 22.4102C232.909 22.8911 232.35 23.268 231.713 23.541C231.076 23.814 230.393 23.9512 229.665 23.9512C228.924 23.9511 228.229 23.8139 227.579 23.541C226.942 23.268 226.382 22.8912 225.901 22.4102C225.421 21.9162 225.043 21.3507 224.771 20.7139C224.498 20.0639 224.361 19.3745 224.361 18.6465C224.361 17.9057 224.498 17.2169 224.771 16.5801C225.044 15.9431 225.42 15.3833 225.901 14.9023C226.382 14.4083 226.942 14.025 227.579 13.752C228.229 13.4791 228.924 13.3428 229.665 13.3428ZM57.208 23.7334H61.7812C63.2265 23.7334 64.3257 23.4271 65.0781 22.8145C65.8305 22.182 66.207 21.2527 66.207 20.0273C66.207 18.8216 65.8305 17.9221 65.0781 17.3291C64.3257 16.7163 63.2267 16.4102 61.7812 16.4102H57.208V23.7334ZM74.3652 23.3779H79.6221C80.8298 23.3779 81.7806 23.0813 82.4736 22.4883C83.1864 21.8755 83.542 21.0151 83.542 19.9082C83.5419 18.7818 83.1861 17.9221 82.4736 17.3291C81.7608 16.7163 80.7207 16.4102 79.3545 16.4102H74.3652V23.3779ZM169.086 23.3779H174.344C175.551 23.3779 176.501 23.0811 177.194 22.4883C177.907 21.8755 178.264 21.0151 178.264 19.9082C178.264 18.7816 177.907 17.9221 177.194 17.3291C176.482 16.7164 175.442 16.4102 174.076 16.4102H169.086V23.3779ZM229.665 14.2598C228.82 14.2598 228.066 14.4613 227.403 14.8643C226.74 15.2542 226.214 15.7805 225.824 16.4434C225.447 17.1063 225.259 17.8406 225.259 18.6465C225.259 19.4395 225.447 20.1746 225.824 20.8506C226.214 21.5264 226.74 22.0658 227.403 22.4688C228.066 22.8587 228.82 23.0537 229.665 23.0537C230.51 23.0537 231.258 22.8587 231.908 22.4688C232.571 22.0658 233.091 21.5264 233.468 20.8506C233.845 20.1746 234.033 19.4395 234.033 18.6465C234.033 17.8406 233.845 17.1063 233.468 16.4434C233.091 15.7805 232.571 15.2542 231.908 14.8643C231.258 14.4613 230.51 14.2598 229.665 14.2598ZM229.51 15.7217C230.238 15.7217 230.81 15.8775 231.226 16.1895C231.642 16.5014 231.85 16.9372 231.85 17.4961C231.85 17.899 231.738 18.2433 231.518 18.5293C231.297 18.8023 230.978 18.9917 230.562 19.0957L232.024 21.6104H231.011L229.665 19.2314H228.476V21.6104H227.579V15.7217H229.51ZM228.476 18.4717H229.665C230.081 18.4717 230.4 18.3802 230.621 18.1982C230.855 18.0163 230.972 17.7689 230.972 17.457C230.972 17.1582 230.855 16.9238 230.621 16.7549C230.4 16.5729 230.081 16.4824 229.665 16.4824H228.476V18.4717Z"/>
+  </defs></svg>
+  <a class="skip" href="#main">Skip to Content</a>
+
+  <!-- ============ PRELOADER ============
+       Counts the real loading (font, first images), then lifts away.
+       Hidden without JS; hides itself after 6s if the script never runs. -->
+  <div class="loader" data-loader aria-hidden="true">
+    <div class="loader__top"><span class="loader__brand"><span class="logo"><svg class="logo__mark" viewBox="1 0 47 48" aria-hidden="true" focusable="false"><use href="#pk-mark"/></svg><svg class="logo__word" viewBox="54 13 181 22" aria-hidden="true" focusable="false"><use href="#pk-word"/></svg></span></span><span class="loader__time">Bishkek, <time data-clock>—</time></span></div>
+    <div class="loader__bottom">
+      <span class="loader__count" data-loader-count>000</span>
+    </div>
+  </div>
+
+  <!-- ============ TOP BAR ============
+       Its three cells sit on the three columns of the page below. The page
+       links come from NAV in scripts/site.py. -->
+  <header class="bar" data-nav>
+    <a class="bar__brand" href="#top" aria-label="Prokhorov® — back to top"><span class="logo"><svg class="logo__mark" viewBox="1 0 47 48" aria-hidden="true" focusable="false"><use href="#pk-mark"/></svg><svg class="logo__word" viewBox="54 13 181 22" aria-hidden="true" focusable="false"><use href="#pk-word"/></svg></span></a>
+    <nav class="bar__nav" aria-label="Primary">
+      <a data-roll href="/work/">Work</a>
+      <a data-roll href="/info/">Info</a>
+      <a data-roll href="/contact/">Contact</a>
+    </nav>
+    <p class="bar__time">Bishkek, <time data-clock>—</time></p>
+    <a class="bar__cta" data-roll href="/contact/">Get in Touch</a>
+    <button class="bar__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu" data-menu-toggle><span class="bar__toggle-label" aria-hidden="true"><span>Menu</span><span>Close</span></span><span class="bar__toggle-icon" aria-hidden="true"><i></i><i></i></span></button>
+  </header>
+
+  <!-- ============ MOBILE MENU ============
+       Three dark cards over the portrait: who + quick actions (copy email, ask an
+       AI), the pages in large type with the socials behind "Socials (4)", and a
+       "where and when" line. The page links come from NAV in scripts/site.py. -->
+  <div class="menu" id="menu" data-menu hidden>
+    <picture class="menu__bg"><source type="image/avif" srcset="/assets/img/portrait-500.avif 500w, /assets/img/portrait-1000.avif 1000w" sizes="100vw"><img src="/assets/img/portrait-500.webp" srcset="/assets/img/portrait-500.webp 500w, /assets/img/portrait-1000.webp 1000w" sizes="100vw" width="1000" height="1000" alt="" loading="lazy" decoding="async"></picture>
+    <div class="menu__cards">
+      <section class="mcard" aria-label="About">
+        <div class="mcard__top">
+          <p class="mcard__text">Independent web designer and developer. I design and build websites for founders and teams worldwide.</p>
+          <button class="mpill mpill--light mpill--fixed" type="button" data-copy="contact@helloprokhorov.com" data-copy-fail="Not Copied"><span class="mpill__sizer" aria-hidden="true">Copy Email</span><span data-copy-label>Copy Email</span></button>
         </div>
-        <a class="corner corner-top-right" href="mailto:contact@helloprokhorov.com" aria-label="Contact by email">Contact</a>
-        <div class="corner corner-nav-center">
-          <a href="https://contra.com/helloprokhorov" aria-label="Contra">Contra</a>
+        <button class="mpill" type="button" aria-expanded="false" aria-controls="menu-ai" data-disclose>Ask AI About Me<svg class="mchev mchev--down" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <ul class="mcard__more mlinks" id="menu-ai" hidden><li><a href="https://chatgpt.com/?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank">ChatGPT<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li><li><a href="https://claude.ai/new?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank">Claude<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li><li><a href="https://www.perplexity.ai/search?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank">Perplexity<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li></ul>
+      </section>
+      <nav class="mcard" aria-label="Mobile">
+        <ul class="mbig">
+          <li style="--k: 0"><a href="/work/" data-menu-link>Work<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></li>
+          <li style="--k: 1"><a href="/info/" data-menu-link>Info<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></li>
+          <li style="--k: 2"><a href="/contact/" data-menu-link>Contact<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></li>
+        </ul>
+        <button class="mpill mpill--grey" type="button" aria-expanded="false" aria-controls="menu-socials" data-disclose>Socials (4)<svg class="mchev mchev--down" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <ul class="mcard__more mlinks mlinks--plain" id="menu-socials" hidden><li><a href="https://www.linkedin.com/in/helloprokhorov" rel="noopener" target="_blank" aria-label="LinkedIn (opens in a new tab)">LinkedIn</a></li><li><a href="https://contra.com/helloprokhorov" rel="noopener" target="_blank" aria-label="Contra (opens in a new tab)">Contra</a></li><li><a href="https://x.com/helloprokhorov" rel="noopener" target="_blank" aria-label="X (opens in a new tab)">X</a></li><li><a href="https://www.instagram.com/hello.prokhorov/" rel="noopener" target="_blank" aria-label="Instagram (opens in a new tab)">Instagram</a></li></ul>
+      </nav>
+      <section class="mcard mcard--now" aria-label="Where and When">
+        <p class="mmix"><span class="mmix__line"><span class="mmix__dim">Based in</span> Bishkek</span> <span class="mmix__line"><span class="mmix__dim">working</span> worldwide</span> <span class="mmix__line"><span class="mmix__dim">local time</span> <time data-clock>—</time></span></p>
+      </section>
+    </div>
+  </div>
+
+  <main class="page" id="main">
+
+    <!-- ============ LEFT: who ============ (sticky on desktop)
+         No id="top" here on purpose: "#top" with no such element means the top of
+         the document, while a sticky column always reports itself as on screen. -->
+    <aside class="side side--intro" aria-labelledby="hello">
+      <div class="side__in">
+        <div class="side__top">
+          <!-- Hover (tap on touch) turns "Artem" into a colourful "Hello!", letter by letter -->
+          <h1 class="hello" id="hello" data-words aria-label="Artem Prokhorov"><span class="swap" aria-hidden="true" data-swap><span class="swap__a"><i style="--l: 0">A</i><i style="--l: 1">r</i><i style="--l: 2">t</i><i style="--l: 3">e</i><i style="--l: 4">m</i></span><span class="swap__b" data-nosplit><i style="--l: 0" data-c="H"></i><i style="--l: 1" data-c="e"></i><i style="--l: 2" data-c="l"></i><i style="--l: 3" data-c="l"></i><i style="--l: 4" data-c="o"></i><i style="--l: 5" data-c="!"></i></span></span><br>Prokhorov</h1>
+          <p class="hello__sub">Web Designer &amp; Developer</p>
+          <!-- Phones only: the two things to do from the first screen -->
+          <p class="hero-cta">
+            <a class="social" href="/contact/"><span class="social__name" data-roll>Get in Touch</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a>
+            <a class="social social--down" href="#work"><span class="social__name" data-roll>Selected Work</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 1.5v9M2.5 7l3.5 3.5L9.5 7"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M6 1.5v9M2.5 7l3.5 3.5L9.5 7"/></svg></span></a>
+          </p>
+          <div class="socials-wrap">
+          <p class="side__label"><span>Socials</span><span>(04)</span></p>
+          <ul class="socials" aria-label="Socials">
+            <li><a class="social" href="https://www.linkedin.com/in/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>LinkedIn</span><span class="social__short" aria-hidden="true">LI</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://contra.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>Contra</span><span class="social__short" aria-hidden="true">CO</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://x.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>X</span><span class="social__short" aria-hidden="true">X</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://www.instagram.com/hello.prokhorov/" rel="noopener" target="_blank"><span class="social__name" data-roll>Instagram</span><span class="social__short" aria-hidden="true">IG</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+          </ul>
         </div>
-        <div class="hero-copy">
-          <p>Web &amp; UX/UI Designer<br />Portfolio Updating</p>
-          <h1>
-            <span>PR<em>O</em>KHOROV</span>
-          </h1>
+        </div>
+        <div class="services-wrap">
+          <p class="side__label"><span>Services</span><span>(05)</span></p>
+          <ul class="services" id="services" aria-label="Services">
+          <li><span class="services__no">01</span>Web Design</li>
+          <li><span class="services__no">02</span>Website Development</li>
+          <li><span class="services__no">03</span>Website Motion</li>
+          <li><span class="services__no">04</span>UI/UX Design</li>
+          <li><span class="services__no">05</span>Design Direction</li>
+          </ul>
+          <!-- Ask AI about me: each link opens the assistant with the same question already typed in. -->
+          <div class="ask-wrap">
+            <p class="side__label"><span>Ask AI About Me</span></p>
+            <p class="ask">
+            <a class="social ask__link" href="https://chatgpt.com/?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank"><span class="social__name" data-roll>ChatGPT</span><span class="visually-hidden"> — ask ChatGPT about Artem (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a>
+            <a class="social ask__link" href="https://claude.ai/new?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank"><span class="social__name" data-roll>Claude</span><span class="visually-hidden"> — ask Claude about Artem (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a>
+            <a class="social ask__link" href="https://www.perplexity.ai/search?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank"><span class="social__name" data-roll>Perplexity</span><span class="visually-hidden"> — ask Perplexity about Artem (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a>
+            </p>
+          </div>
         </div>
       </div>
-    </main>
-    <script>
-      const SPOTLIGHT_R = 260;
-      const revealLayer = document.getElementById("revealLayer");
-      const mouse = { x: -999, y: -999 };
-      const smooth = { x: -999, y: -999 };
-      let rafId;
+    </aside>
 
-      function renderSpotlight() {
-        smooth.x += (mouse.x - smooth.x) * 0.1;
-        smooth.y += (mouse.y - smooth.y) * 0.1;
-        revealLayer.style.setProperty("--spotlight-x", `${smooth.x}px`);
-        revealLayer.style.setProperty("--spotlight-y", `${smooth.y}px`);
-        rafId = requestAnimationFrame(renderSpotlight);
-      }
+    <!-- ============ RIGHT: facts and contact ============ (sticky on desktop) -->
+    <aside class="side side--info" aria-label="About Artem">
+      <div class="side__in">
+        <div class="facts">
+          <p class="facts__status"><span class="dot" aria-hidden="true"></span><span>Working Worldwide<span class="facts__where">Bishkek, <time data-clock>—</time></span></span></p>
+          <figure class="facts__portrait">
+            <picture><source type="image/avif" srcset="/assets/img/portrait-500.avif 500w, /assets/img/portrait-1000.avif 1000w" sizes="(min-width: 1200px) 12vw, 40vw"><img src="/assets/img/portrait-500.webp" srcset="/assets/img/portrait-500.webp 500w, /assets/img/portrait-1000.webp 1000w" sizes="(min-width: 1200px) 12vw, 40vw" width="1000" height="1000" alt="Artem Prokhorov" fetchpriority="high" decoding="async"></picture>
+          </figure>
+          <dl class="spec">
+            <div><dt>Role</dt><dd>Web Designer &amp; Developer</dd></div>
+            <div><dt>Based</dt><dd>Bishkek, Kyrgyzstan</dd></div>
+            <div><dt>Coordinates</dt><dd>42.87° N, 74.59° E</dd></div>
+            <div><dt>Languages</dt><dd>English, Russian</dd></div>
+            <div><dt>Since</dt><dd>2022</dd></div>
+          </dl>
+        </div>
+        <div class="reach">
+          <p><span class="reach__mail">contact@helloprokhorov.com</span><br><button class="reach__copy" type="button" data-copy="contact@helloprokhorov.com"><span data-copy-label>Copy Email</span></button></p>
+          <p class="mute">© 2026</p>
+        </div>
+      </div>
+    </aside>
 
-      window.addEventListener("mousemove", (event) => {
-        mouse.x = event.clientX;
-        mouse.y = event.clientY;
-      });
-      renderSpotlight();
+    <!-- ============ MIDDLE: the feed ============ -->
+    <div class="feed">
+      <p class="statement" data-words>I’m the designer and the developer — <span class="mute">I plan the structure and UX, design the pages and build the site. One person, no hand‑offs, start to finish.</span></p>
 
-      window.addEventListener("pagehide", () => {
-        cancelAnimationFrame(rafId);
-      });
-    </script>
-  </body>
+      <div class="feed__body">
+        <!-- WORK -->
+        <section class="block" id="work" aria-labelledby="work-title">
+          <header class="block__head"><h2 id="work-title"><span class="block__no" aria-hidden="true">(01)</span>Selected Work</h2><span class="count">(06)</span></header>
+          <ul class="work">
+            <li class="item">
+              <a class="item__link" href="/work/powermatic/" data-case-link aria-label="Powermatic®, client website, designed and built — view case study">
+                <span class="item__media"><picture><source type="image/avif" srcset="/assets/img/powermatic-tablet-800.avif 800w, /assets/img/powermatic-tablet-1600.avif 1600w, /assets/img/powermatic-tablet-2400.avif 2400w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw"><img src="/assets/img/powermatic-tablet-800.webp" srcset="/assets/img/powermatic-tablet-800.webp 800w, /assets/img/powermatic-tablet-1600.webp 1600w, /assets/img/powermatic-tablet-2400.webp 2400w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw" width="2400" height="1800" alt="Powermatic® website shown on a tablet resting on a rust velvet chair" fetchpriority="high" decoding="async"></picture></span>
+                <span class="item__cap"><span class="item__name">Powermatic<span class="r">®</span></span><span class="item__tags"><span class="item__tag">Design</span><span class="item__tag">Build</span><span class="item__tag">Framer</span></span></span>
+              </a>
+            </li>
+            <li class="item">
+              <a class="item__link" href="/work/visual-hunters/" data-case-link aria-label="Visual Hunters®, concept — view case study">
+                <span class="item__media" style="--pos: 50% 35%"><picture><source type="image/avif" srcset="/assets/img/vh-poster-700.avif 700w, /assets/img/vh-poster-1400.avif 1400w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw"><img src="/assets/img/vh-poster-700.webp" srcset="/assets/img/vh-poster-700.webp 700w, /assets/img/vh-poster-1400.webp 1400w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw" width="1400" height="1750" alt="Visual Hunters® poster: website on a monitor over a portrait with a red background" loading="lazy" decoding="async"></picture></span>
+                <span class="item__cap"><span class="item__name">Visual Hunters<span class="r">®</span></span><span class="item__tags"><span class="item__tag">Typography</span><span class="item__tag">3D</span><span class="item__tag">’26</span></span></span>
+              </a>
+            </li>
+            <li class="item">
+              <a class="item__link" href="/work/contour-office/" data-case-link aria-label="Contour Office©, concept — view case study">
+                <span class="item__media"><picture><source type="image/avif" srcset="/assets/img/contour-laptop-700.avif 700w, /assets/img/contour-laptop-1080.avif 1080w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw"><img src="/assets/img/contour-laptop-700.webp" srcset="/assets/img/contour-laptop-700.webp 700w, /assets/img/contour-laptop-1080.webp 1080w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw" width="1080" height="1080" alt="Contour Office© website on a laptop in a dark room" loading="lazy" decoding="async"></picture></span>
+                <span class="item__cap"><span class="item__name">Contour Office<span class="r">©</span></span><span class="item__tags"><span class="item__tag">Typography</span><span class="item__tag">Website</span><span class="item__tag">’26</span></span></span>
+              </a>
+            </li>
+            <li class="item">
+              <a class="item__link" href="/work/monolith-one/" data-case-link aria-label="Monolith ONE, concept product — view case study">
+                <span class="item__media"><picture><source type="image/avif" srcset="/assets/img/monolith-render-1024.avif 1024w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw"><img src="/assets/img/monolith-render-1024.webp" srcset="/assets/img/monolith-render-1024.webp 1024w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw" width="1024" height="559" alt="Monolith audio unit rendered in dark anodised aluminium with a knurled volume knob" loading="lazy" decoding="async"></picture></span>
+                <span class="item__cap"><span class="item__name">Monolith ONE</span><span class="item__tags"><span class="item__tag">Concept</span><span class="item__tag">Product</span></span></span>
+              </a>
+            </li>
+            <li class="item">
+              <a class="item__link" href="/work/lattice/" data-case-link aria-label="Lattice, infrastructure website — view case study">
+                <span class="item__media" style="--pos: 60% 50%"><picture><source type="image/avif" srcset="/assets/img/lattice-hero-800.avif 800w, /assets/img/lattice-hero-1600.avif 1600w, /assets/img/lattice-hero-1920.avif 1920w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw"><img src="/assets/img/lattice-hero-800.webp" srcset="/assets/img/lattice-hero-800.webp 800w, /assets/img/lattice-hero-1600.webp 1600w, /assets/img/lattice-hero-1920.webp 1920w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw" width="1920" height="1080" alt="Lattice homepage on a laptop inside a server rack" loading="lazy" decoding="async"></picture></span>
+                <span class="item__cap"><span class="item__name">Lattice</span><span class="item__tags"><span class="item__tag">Infrastructure</span><span class="item__tag">Website</span></span></span>
+              </a>
+            </li>
+            <li class="item">
+              <a class="item__link" href="/work/luma/" data-case-link aria-label="Luma, product landing page — view case study">
+                <span class="item__media"><picture><source type="image/avif" srcset="/assets/img/luma-screen-700.avif 700w, /assets/img/luma-screen-1440.avif 1440w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw"><img src="/assets/img/luma-screen-700.webp" srcset="/assets/img/luma-screen-700.webp 700w, /assets/img/luma-screen-1440.webp 1440w" sizes="(min-width: 1200px) 44vw, (min-width: 768px) 60vw, 100vw" width="1440" height="1396" alt="Luma product landing page" loading="lazy" decoding="async"></picture></span>
+                <span class="item__cap"><span class="item__name">Luma</span><span class="item__tags"><span class="item__tag">Product</span><span class="item__tag">Landing Page</span></span></span>
+              </a>
+            </li>
+          </ul>
+          <!-- CONTENT: years unknown for Powermatic, Monolith, Lattice, Luma. -->
+        </section>
+
+        <!-- INFO -->
+        <section class="block" id="about" aria-labelledby="about-title">
+          <header class="block__head"><h2 id="about-title"><span class="block__no" aria-hidden="true">(02)</span>Info</h2></header>
+          <div class="prose">
+            <p class="lede">I work with startups, founders and product teams — <span class="mute">on their websites, from structure to launch, and on interfaces for SaaS and AI products.</span></p>
+            <p>I start with structure and content, then design the site and build it myself — so the design you approve is the site that goes live. For product interfaces, I deliver UI and a design system your developers can build from.</p>
+            <p>I’ve been doing client work for more than four years, independently since 2023. I studied advertising and PR at the Kyrgyz‑Russian Slavic University and work in English and Russian.</p>
+          </div>
+          <!-- appears once /info/ is live -->
+          <p class="more"><a class="more__link" href="/info/"><span data-roll>More About Me</span><span aria-hidden="true">→</span></a></p>
+        </section>
+
+        <section class="block" aria-labelledby="cv-title">
+          <header class="block__head"><h2 id="cv-title"><span class="block__no" aria-hidden="true">(03)</span>Experience</h2><span class="count">(05)</span></header>
+          <!-- EXPERIENCE (the home page and /info/): the current practice first, a step
+               stronger; the roles along the way below it, quieter, newest first. Three
+               columns: when, who and as what, and a note where there is one. Every
+               line is already on the site or in the CV: Kwork 2022, independent since
+               2023, Staffjet's design system 2025, Zeroqode / Playgram.ai 2026.
+               Nothing beyond that; Fiverr has no note for that reason. -->
+          <div class="exp">
+            <div class="exp__now">
+              <p class="exp__when"><span>2023 — Now</span><span class="exp__live"><i class="dot" aria-hidden="true"></i>Current</span></p>
+              <div class="exp__body">
+                <h3 class="exp__name">Prokhorov<span class="r">®</span></h3>
+                <p class="exp__role">Independent <span class="nw">Web Designer &amp; Developer</span></p>
+              </div>
+              <p class="exp__note">My own practice: websites for startups, founders and product teams, designed and built from structure to launch.</p>
+            </div>
+            <p class="exp__label">Along the Way</p>
+            <ol class="rows exp__list">
+              <li><div class="exp__row"><p class="exp__when">2026</p><div class="exp__body"><h3 class="exp__org">Zeroqode / Playgram.ai</h3><p class="exp__role">UI/UX Designer</p></div><p class="exp__note">The product interface and landing pages for Playgram.ai, a collaborative AI workspace, in close work with its developers.</p></div></li>
+              <li><div class="exp__row"><p class="exp__when">2026</p><div class="exp__body"><h3 class="exp__org">Fiverr</h3><p class="exp__role">UX Audits &amp; Interface Design</p></div></div></li>
+              <li><div class="exp__row"><p class="exp__when">2025</p><div class="exp__body"><h3 class="exp__org">Staffjet</h3><p class="exp__role">UI/UX &amp; Design Systems</p></div><p class="exp__note">A design system for Staffjet’s automation platform.</p></div></li>
+              <li><div class="exp__row"><p class="exp__when">2022 — 2025</p><div class="exp__body"><h3 class="exp__org">Kwork</h3><p class="exp__role">UI/UX Designer</p></div><p class="exp__note">Where my client work started.</p></div></li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- PROCESS: one continuous sequence. Desktop: the section holds still while
+             the page scrolls through it; the row of cards slides by and the current
+             one comes forward — its colour fills, its pixel icon wakes up, the list
+             of what the stage includes fills in line by line. The phase line runs.
+             Phone: the cards stack, and the one in the middle of the screen comes
+             forward. (js/main.js, "Process"; icons drawn on a 16 × 16 grid) -->
+        <section class="block process" aria-labelledby="process-title" data-process>
+          <div class="process__pin">
+            <header class="block__head"><h2 id="process-title"><span class="block__no" aria-hidden="true">(04)</span>Process</h2><span class="count">(05)</span></header>
+            <p class="process__meter" aria-hidden="true"><span>Phase</span><span><span class="process__now" data-process-now>01</span> / 05</span><i data-process-line></i></p>
+            <div class="process__view">
+              <ol class="process__track" data-process-track>
+                <li class="process__step is-active">
+                  <span class="process__art"><svg class="process__px" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="px-w" d="M3 2h5v1h-5zM2 3h7v1h-7zM2 4h7v1h-7zM2 5h7v1h-7zM2 6h7v1h-7zM2 7h7v1h-7zM3 8h5v1h-5z"/><path class="px-k" d="M3 1h5v1h-5zM2 2h1v1h-1zM8 2h1v1h-1zM1 3h1v1h-1zM9 3h1v1h-1zM1 4h1v1h-1zM9 4h1v1h-1zM1 5h1v1h-1zM9 5h1v1h-1zM1 6h1v1h-1zM9 6h1v1h-1zM1 7h1v1h-1zM9 7h1v1h-1zM2 8h1v1h-1zM8 8h1v1h-1zM3 9h5v1h-5zM9 9h2v1h-2zM9 10h3v1h-3zM10 11h3v1h-3zM11 12h3v1h-3zM12 13h3v1h-3zM13 14h3v1h-3zM14 15h1v1h-1z"/><path class="px-a" d="M4 3h2v1h-2zM3 4h2v1h-2zM3 5h1v1h-1z"/></svg></span>
+                  <button class="process__tile" type="button" data-process-step><span class="process__no">01</span><span class="process__name">Discover</span></button>
+                  <p class="process__desc">Understanding the business, audience, goals and current website or product.</p>
+                  <ul class="process__list" aria-label="Included in discover"><li style="--i: 0">Business Goals</li><li style="--i: 1">Target Audience</li><li style="--i: 2">Existing Website / Product</li><li style="--i: 3">Competitor Research</li><li style="--i: 4">Project Requirements</li></ul>
+                </li>
+                <li class="process__step">
+                  <span class="process__art"><svg class="process__px" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="px-w" d="M5 3h6v1h-6zM5 4h6v1h-6zM1 11h2v1h-2zM7 11h2v1h-2zM13 11h2v1h-2zM1 12h2v1h-2zM7 12h2v1h-2zM13 12h2v1h-2z"/><path class="px-k" d="M4 2h8v1h-8zM4 3h1v1h-1zM11 3h1v1h-1zM4 4h1v1h-1zM11 4h1v1h-1zM4 5h8v1h-8zM7 6h2v1h-2zM1 7h14v1h-14zM1 8h2v1h-2zM7 8h2v1h-2zM13 8h2v1h-2zM1 9h2v1h-2zM7 9h2v1h-2zM13 9h2v1h-2zM0 10h4v1h-4zM6 10h4v1h-4zM12 10h4v1h-4zM0 11h1v1h-1zM3 11h1v1h-1zM6 11h1v1h-1zM9 11h1v1h-1zM12 11h1v1h-1zM15 11h1v1h-1zM0 12h1v1h-1zM3 12h1v1h-1zM6 12h1v1h-1zM9 12h1v1h-1zM12 12h1v1h-1zM15 12h1v1h-1zM0 13h4v1h-4zM6 13h4v1h-4zM12 13h4v1h-4z"/><path class="px-a" d="M5 3h3v1h-3zM5 4h2v1h-2zM1 11h2v1h-2zM7 11h2v1h-2zM13 11h2v1h-2z"/></svg></span>
+                  <button class="process__tile" type="button" data-process-step><span class="process__no">02</span><span class="process__name">Structure</span></button>
+                  <p class="process__desc">Deciding what goes on which page, in what order, and how people move through it.</p>
+                  <ul class="process__list" aria-label="Included in structure"><li style="--i: 0">Information Architecture</li><li style="--i: 1">User Flows</li><li style="--i: 2">Sitemap</li><li style="--i: 3">Content Structure</li><li style="--i: 4">Page Planning</li></ul>
+                </li>
+                <li class="process__step">
+                  <span class="process__art"><svg class="process__px" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="px-w" d="M1 1h1v1h-1zM3 1h1v1h-1zM5 1h7v1h-7zM1 3h11v1h-11zM1 4h1v1h-1zM9 4h3v1h-3zM1 5h11v1h-11zM1 6h1v1h-1zM6 6h4v1h-4zM1 7h9v1h-9zM1 8h2v1h-2zM7 8h3v1h-3zM11 8h1v1h-1zM1 9h9v1h-9zM11 9h2v1h-2zM11 10h3v1h-3zM11 11h4v1h-4zM11 12h2v1h-2zM11 13h1v1h-1z"/><path class="px-k" d="M0 0h13v1h-13zM0 1h1v1h-1zM2 1h1v1h-1zM4 1h1v1h-1zM12 1h1v1h-1zM0 2h13v1h-13zM0 3h1v1h-1zM12 3h1v1h-1zM0 4h1v1h-1zM2 4h7v1h-7zM12 4h1v1h-1zM0 5h1v1h-1zM12 5h1v1h-1zM0 6h1v1h-1zM2 6h4v1h-4zM10 6h3v1h-3zM0 7h1v1h-1zM10 7h2v1h-2zM0 8h1v1h-1zM3 8h4v1h-4zM10 8h1v1h-1zM12 8h1v1h-1zM0 9h1v1h-1zM10 9h1v1h-1zM13 9h1v1h-1zM0 10h11v1h-11zM14 10h1v1h-1zM10 11h1v1h-1zM15 11h1v1h-1zM10 12h1v1h-1zM13 12h3v1h-3zM10 13h1v1h-1zM12 13h1v1h-1zM10 14h2v1h-2z"/><path class="px-a" d="M15 3h1v1h-1zM14 4h1v1h-1zM14 6h2v1h-2z"/></svg></span>
+                  <button class="process__tile" type="button" data-process-step><span class="process__no">03</span><span class="process__name">Design</span></button>
+                  <p class="process__desc">Setting the visual direction and designing every page for desktop, tablet and mobile.</p>
+                  <ul class="process__list" aria-label="Included in design"><li style="--i: 0">Wireframes</li><li style="--i: 1">Visual Direction</li><li style="--i: 2">UI Design</li><li style="--i: 3">Responsive Layouts</li><li style="--i: 4">Interactive Prototypes</li></ul>
+                </li>
+                <li class="process__step">
+                  <span class="process__art"><svg class="process__px" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="px-w" d="M1 2h1v1h-1zM3 2h1v1h-1zM5 2h10v1h-10zM1 4h14v1h-14zM1 5h4v1h-4zM6 5h2v1h-2zM9 5h1v1h-1zM11 5h4v1h-4zM1 6h3v1h-3zM5 6h3v1h-3zM9 6h2v1h-2zM12 6h3v1h-3zM1 7h2v1h-2zM4 7h3v1h-3zM8 7h4v1h-4zM13 7h2v1h-2zM1 8h3v1h-3zM5 8h2v1h-2zM8 8h3v1h-3zM12 8h3v1h-3zM1 9h4v1h-4zM6 9h1v1h-1zM8 9h2v1h-2zM11 9h4v1h-4zM1 10h14v1h-14zM1 11h2v1h-2zM9 11h6v1h-6zM1 12h4v1h-4zM10 12h5v1h-5zM1 13h14v1h-14z"/><path class="px-k" d="M0 1h16v1h-16zM0 2h1v1h-1zM2 2h1v1h-1zM4 2h1v1h-1zM15 2h1v1h-1zM0 3h16v1h-16zM0 4h1v1h-1zM15 4h1v1h-1zM0 5h1v1h-1zM5 5h1v1h-1zM8 5h1v1h-1zM10 5h1v1h-1zM15 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1zM8 6h1v1h-1zM11 6h1v1h-1zM15 6h1v1h-1zM0 7h1v1h-1zM3 7h1v1h-1zM7 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM0 8h1v1h-1zM4 8h1v1h-1zM7 8h1v1h-1zM11 8h1v1h-1zM15 8h1v1h-1zM0 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM10 9h1v1h-1zM15 9h1v1h-1zM0 10h1v1h-1zM15 10h1v1h-1zM0 11h1v1h-1zM3 11h6v1h-6zM15 11h1v1h-1zM0 12h1v1h-1zM5 12h5v1h-5zM15 12h1v1h-1zM0 13h1v1h-1zM15 13h1v1h-1zM0 14h16v1h-16z"/><path class="px-a" d="M11 11h1v1h-1zM11 12h1v1h-1z"/></svg></span>
+                  <button class="process__tile" type="button" data-process-step><span class="process__no">04</span><span class="process__name">Build</span></button>
+                  <p class="process__desc">Building the design, motion included, with Framer or Webflow where they fit.</p>
+                  <ul class="process__list" aria-label="Included in build"><li style="--i: 0">Front-End Development</li><li style="--i: 1">Responsive Implementation</li><li style="--i: 2">Interactions &amp; Animations</li><li style="--i: 3">CMS</li><li style="--i: 4">Forms &amp; Integrations</li></ul>
+                </li>
+                <li class="process__step">
+                  <span class="process__art"><svg class="process__px" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="px-w" d="M5 1h2v1h-2zM9 1h2v1h-2zM5 2h2v1h-2zM9 2h2v1h-2zM3 3h2v1h-2zM7 3h2v1h-2zM11 3h2v1h-2zM3 4h2v1h-2zM7 4h2v1h-2zM11 4h2v1h-2zM5 5h2v1h-2zM9 5h2v1h-2zM5 6h2v1h-2zM9 6h2v1h-2zM3 7h2v1h-2zM7 7h2v1h-2zM11 7h2v1h-2zM3 8h2v1h-2zM7 8h2v1h-2zM11 8h1v1h-1z"/><path class="px-k" d="M2 0h1v1h-1zM2 1h3v1h-3zM7 1h2v1h-2zM11 1h1v1h-1zM2 2h3v1h-3zM7 2h2v1h-2zM11 2h2v1h-2zM2 3h1v1h-1zM5 3h2v1h-2zM9 3h2v1h-2zM2 4h1v1h-1zM5 4h2v1h-2zM9 4h2v1h-2zM2 5h3v1h-3zM7 5h2v1h-2zM11 5h2v1h-2zM2 6h3v1h-3zM7 6h2v1h-2zM11 6h2v1h-2zM2 7h1v1h-1zM5 7h2v1h-2zM9 7h2v1h-2zM2 8h1v1h-1zM5 8h2v1h-2zM9 8h2v1h-2zM2 9h1v1h-1zM2 10h1v1h-1zM2 11h1v1h-1zM2 12h1v1h-1zM2 13h1v1h-1zM2 14h1v1h-1zM0 15h5v1h-5z"/><path class="px-a" d="M13 2h1v1h-1zM13 3h1v1h-1zM13 6h1v1h-1zM13 7h1v1h-1z"/></svg></span>
+                  <button class="process__tile" type="button" data-process-step><span class="process__no">05</span><span class="process__name">Launch</span></button>
+                  <p class="process__desc">Testing across devices and browsers, fixing what’s left and putting the site live.</p>
+                  <ul class="process__list" aria-label="Included in launch"><li style="--i: 0">Responsive Testing</li><li style="--i: 1">Browser Testing</li><li style="--i: 2">Performance Checks</li><li style="--i: 3">Final Refinements</li><li style="--i: 4">Launch</li></ul>
+                </li>
+              </ol>
+            </div>
+          </div>
+          <div class="process__runway" aria-hidden="true"></div>
+        </section>
+
+        <section class="block" aria-labelledby="clients-title">
+          <header class="block__head"><h2 id="clients-title"><span class="block__no" aria-hidden="true">(05)</span>Clients</h2></header>
+          <p class="names">I’ve designed and built a website for <span class="client"><span class="num" aria-hidden="true">01</span>Powermatic Technologies<span class="r">®</span></span>, a product interface for <span class="client"><span class="num num--fill" aria-hidden="true">02</span>Playgram.ai</span> with <span class="client"><span class="num" aria-hidden="true">03</span>Zeroqode</span> <span class="g" aria-hidden="true">[</span>2026<span class="g" aria-hidden="true">]</span>, a design system <span class="g" aria-hidden="true">¶</span> for <span class="client"><span class="num num--fill" aria-hidden="true">04</span>Staffjet</span>’s automation platform and log‑monitoring UI/UX for <span class="client"><span class="num" aria-hidden="true">05</span>Loglark<span class="r">®</span></span> <span class="g" aria-hidden="true">[</span>2025<span class="g" aria-hidden="true">]</span> — plus work for clients on <span class="nw"><a class="names__link" href="https://contra.com/helloprokhorov" rel="noopener" target="_blank">Contra<span class="visually-hidden"> (opens in a new tab)</span></a> &amp;&nbsp;<a class="names__link" href="https://kwork.ru/user/hello_prokhorov" rel="noopener" target="_blank">Kwork<span class="visually-hidden"> (opens in a new tab)</span></a><sup class="names__sup">+</sup></span></p>
+        </section>
+
+        <!-- REVIEWS: the full texts, as in the review cards in ../Reviews (Instagram posts 2–6).
+             A row of cards that scrolls sideways — swipe, trackpad, drag, or the arrows.
+             The source cards name no reviewer, only "Verified Client Review"; add a name,
+             role and photo (<img class="review__avatar" alt="" …>) only where one is approved. -->
+        <section class="block reviews" aria-labelledby="reviews-title" data-reviews>
+          <header class="block__head">
+            <h2 id="reviews-title"><span class="block__no" aria-hidden="true">(06)</span>Reviews</h2>
+            <div class="reviews__nav">
+              <span class="reviews__count" aria-hidden="true"><span data-reviews-index>01</span> / 05</span>
+              <button class="reviews__btn" type="button" data-reviews-prev aria-label="Previous Review" disabled><span class="arrow arrow--prev" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M1.5 6h9M6.5 2l4 4-4 4"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M1.5 6h9M6.5 2l4 4-4 4"/></svg></span></button>
+              <button class="reviews__btn" type="button" data-reviews-next aria-label="Next Review"><span class="arrow arrow--next" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M1.5 6h9M6.5 2l4 4-4 4"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M1.5 6h9M6.5 2l4 4-4 4"/></svg></span></button>
+            </div>
+          </header>
+          <ul class="reviews__track" data-reviews-track aria-label="Client Reviews" tabindex="0">
+            <li class="review" aria-roledescription="slide" aria-label="1 of 5">
+              <div class="review__by"><span class="review__who"><span class="review__role">Verified Client Review</span></span></div>
+              <blockquote class="review__text"><p>He’s a <mark>true professional</mark>. Finding someone who delivers <mark>clearly, on time, and right the first time</mark> is genuinely rare.</p></blockquote>
+            </li>
+            <li class="review" aria-roledescription="slide" aria-label="2 of 5">
+              <div class="review__by"><span class="review__who"><span class="review__role">Verified Client Review</span></span></div>
+              <blockquote class="review__text"><p><mark>Barely any revisions</mark> needed, and the design was thought through <mark>down to the smallest detail</mark>. He has a <mark>distinct vision and style</mark> that makes his work stand out.</p></blockquote>
+            </li>
+            <li class="review" aria-roledescription="slide" aria-label="3 of 5">
+              <div class="review__by"><span class="review__who"><span class="review__role">Verified Client Review</span></span></div>
+              <blockquote class="review__text"><p>Before I even paid, he’d <mark>already sketched a concept</mark> and sent it over. He suggests ideas, <mark>takes initiative</mark> — but every revision still gets <mark>handled exactly right</mark>.</p></blockquote>
+            </li>
+            <li class="review" aria-roledescription="slide" aria-label="4 of 5">
+              <div class="review__by"><span class="review__who"><span class="review__role">Verified Client Review</span></span></div>
+              <blockquote class="review__text"><p>The <mark>flexibility and speed</mark> made it possible to hit our goals <mark>much earlier than planned</mark> — well beyond what we expected.</p></blockquote>
+            </li>
+            <li class="review" aria-roledescription="slide" aria-label="5 of 5">
+              <div class="review__by"><span class="review__who"><span class="review__role">Verified Client Review</span></span></div>
+              <blockquote class="review__text"><p><mark>Meticulous, creative, always responsive.</mark> If I could rate this out of 10, it’d be <mark>10 with three pluses</mark>.</p></blockquote>
+            </li>
+          </ul>
+        </section>
+
+        <section class="block" aria-labelledby="faq-title">
+          <header class="block__head"><h2 id="faq-title"><span class="block__no" aria-hidden="true">(07)</span>Questions</h2><span class="count">(06)</span></header>
+          <!-- CONTENT: questions a client has before getting in touch, ordered toward the contact
+               block below. Prices and what affects them live in Pricing (/contact/) — not repeated here.
+               Not answered until confirmed: typical timelines, revision rounds, support after launch. -->
+          <div class="faq" data-faq>
+            <details class="faq__item">
+              <summary>Is it just you, or a team?</summary>
+              <div class="faq__answer"><p>Just me. The person you talk to is the person who plans, designs and builds your site — no account managers, and nothing lost between a designer and a developer.</p></div>
+            </details>
+            <details class="faq__item">
+              <summary>Do you build what you design?</summary>
+              <div class="faq__answer"><p>Yes, for websites. I build them myself — this one included — with Framer or Webflow when they fit the project, so the design you approve is the site that goes live. For SaaS and AI products, your engineers build the app: I design the interface and a design system, and work alongside them through handoff.</p></div>
+            </details>
+            <details class="faq__item">
+              <summary>We already have a website. Do we have to start over?</summary>
+              <div class="faq__answer"><p>Not necessarily. If the site mostly works, I can start by reviewing its usability, structure, technical SEO and performance, give you a prioritised list of changes and make them myself — <a href="/work/website-audit/">like this audit</a>. If it needs replacing, the redesign starts from the brand and content you already have. And if you have a finished design, I can simply build it.</p></div>
+            </details>
+            <details class="faq__item">
+              <summary>Can we update the site ourselves after launch?</summary>
+              <div class="faq__answer"><p>Yes. Framer and Webflow both let you edit text and images in the browser, and add blog posts, case studies or other repeating content through the CMS — without touching code or the layout. I set the CMS up around the content you’ll actually change.</p></div>
+            </details>
+            <details class="faq__item">
+              <summary>Do you work remotely?</summary>
+              <div class="faq__answer"><p>Yes, with clients worldwide. I’m based in Bishkek, Kyrgyzstan (UTC+6) and work remotely and async, so the project doesn’t depend on sharing a time zone. I work in English and Russian.</p></div>
+            </details>
+            <details class="faq__item">
+              <summary>How does a project start?</summary>
+              <div class="faq__answer"><p>With a short message: what you’re building, whether there’s a site already, when you’d like to start and a rough budget — <a href="/contact/">the project form</a> asks just that. I come back with questions or a quote. Once we agree the scope, the price is fixed and the work begins with your business, audience and goals.</p></div>
+            </details>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="talk" id="contact" aria-labelledby="contact-title">
+          <h2 class="visually-hidden" id="contact-title">Contact</h2>
+          <a class="marquee" href="/contact/" aria-label="Let’s Talk">
+            <span class="marquee__track" aria-hidden="true">
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+            </span>
+            <span class="marquee__track" aria-hidden="true">
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+              <span>Let’s Talk</span><span class="dot" aria-hidden="true"></span>
+            </span>
+          </a>
+          <p class="talk__lead">Tell me about the site or product, who it’s for and what it needs to do. <span class="mute">It’s <time data-clock>—</time> in Bishkek now (UTC+6).</span></p>
+          <!-- CONTENT: add Contra / Instagram / Telegram URLs once confirmed -->
+        </section>
+
+    <!-- The one site footer, on every page: who made it, the copyright and the privacy
+         policy, the hidden game, back to top. No page links: those are in the bar. -->
+    <footer class="foot">
+      <p><span class="mute">Designed and built by</span> Artem Prokhorov</p>
+      <p class="mute">© 2026 Prokhorov<span class="r">®</span> · <a class="foot__legal" href="/privacy/">Privacy Policy</a></p>
+      <div class="foot__game">
+        <!-- Opens Invader, the hidden 8-bit game (js/game/, loaded on first click) -->
+        <button class="foot__play" type="button" data-game aria-haspopup="dialog" aria-label="Play to Unlock the Secret: Invader, a hidden 8-bit game">
+          <svg class="foot__invader" width="22" height="16" viewBox="0 0 22 16" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true" focusable="false"><path class="foot__frame" d="M4 0h2v1h-2zM16 0h2v1h-2zM4 1h2v1h-2zM16 1h2v1h-2zM6 2h2v1h-2zM14 2h2v1h-2zM6 3h2v1h-2zM14 3h2v1h-2zM4 4h14v1h-14zM4 5h14v1h-14zM2 6h5v1h-5zM9 6h4v1h-4zM15 6h5v1h-5zM2 7h5v1h-5zM9 7h4v1h-4zM15 7h5v1h-5zM0 8h22v1h-22zM0 9h22v1h-22zM0 10h2v1h-2zM4 10h14v1h-14zM20 10h2v1h-2zM0 11h2v1h-2zM4 11h14v1h-14zM20 11h2v1h-2zM0 12h2v1h-2zM4 12h2v1h-2zM16 12h2v1h-2zM20 12h2v1h-2zM0 13h2v1h-2zM4 13h2v1h-2zM16 13h2v1h-2zM20 13h2v1h-2zM6 14h4v1h-4zM12 14h4v1h-4zM6 15h4v1h-4zM12 15h4v1h-4z"/><path class="foot__frame foot__frame--b" d="M4 0h2v1h-2zM16 0h2v1h-2zM4 1h2v1h-2zM16 1h2v1h-2zM0 2h2v1h-2zM6 2h2v1h-2zM14 2h2v1h-2zM20 2h2v1h-2zM0 3h2v1h-2zM6 3h2v1h-2zM14 3h2v1h-2zM20 3h2v1h-2zM0 4h2v1h-2zM4 4h14v1h-14zM20 4h2v1h-2zM0 5h2v1h-2zM4 5h14v1h-14zM20 5h2v1h-2zM0 6h7v1h-7zM9 6h4v1h-4zM15 6h7v1h-7zM0 7h7v1h-7zM9 7h4v1h-4zM15 7h7v1h-7zM0 8h22v1h-22zM0 9h22v1h-22zM2 10h18v1h-18zM2 11h18v1h-18zM4 12h2v1h-2zM16 12h2v1h-2zM4 13h2v1h-2zM16 13h2v1h-2zM2 14h2v1h-2zM18 14h2v1h-2zM2 15h2v1h-2zM18 15h2v1h-2z"/></svg>
+          <span class="foot__play-label" data-roll>Play to Unlock the Secret</span>
+        </button>
+      </div>
+      <a class="foot__top" href="#top" data-roll>Back to Top ↑</a>
+    </footer>
+      </div>
+    </div>
+  </main>
+
+  <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>
+</body>
 </html>

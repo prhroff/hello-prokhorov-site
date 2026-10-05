@@ -1,0 +1,128 @@
+---
+title: Get in Touch — Start a Website Project with Artem Prokhorov
+description: Tell Artem Prokhorov, an independent web designer and developer, about your website — what you need, when you want to start and your budget.
+heading: Get in Touch
+label: Contact
+lead: Tell me what you’re building, where you’re at, and what you need help with.
+status: live
+schema: ContactPage
+class: doc--intake
+back: yes
+script: /js/contact.js
+updated: 2026-10-05
+---
+      <!-- PROJECT INTAKE: seven short questions, then the send. Answers go to
+           FORM_ENDPOINT (scripts/site_config.py); until one is set, nothing can be
+           sent and the page says so (js/contact.js). Field names are the ones the
+           endpoint receives. -->
+      <form class="intake" action="{{form_action}}" method="post" data-intake data-mode="{{form_mode}}">
+        <input type="hidden" name="_subject" value="New project — helloprokhorov.com">
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">01</span>Do you already have a website?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="website" value="I Have a Website" required><span>I Have a Website</span></label>
+            <label class="opt"><input type="radio" name="website" value="Starting from Scratch"><span>Starting from Scratch</span></label>
+            <label class="opt"><input type="radio" name="website" value="Not Sure Yet"><span>Not Sure Yet</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="some">
+          <legend class="q__title"><span class="q__no">02</span><span>What do you need?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span><span class="q__hint">Choose all that apply.</span></span></legend>
+          <div class="q__opts">
+            <!-- the full cycle first: concept and design through to a live site -->
+            <label class="opt"><input type="checkbox" name="needs" value="Design &amp; Development"><span>Design &amp; Development</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="New Website"><span>New Website</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Website Redesign"><span>Website Redesign</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="UI/UX Design"><span>UI/UX Design</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Development Only"><span>Development Only</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Something Else"><span>Something Else</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">03</span>What type of website?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="type" value="SaaS / Tech" required><span>SaaS / Tech</span></label>
+            <label class="opt"><input type="radio" name="type" value="Startup"><span>Startup</span></label>
+            <label class="opt"><input type="radio" name="type" value="Business / Corporate"><span>Business / Corporate</span></label>
+            <label class="opt"><input type="radio" name="type" value="Landing Page"><span>Landing Page</span></label>
+            <label class="opt"><input type="radio" name="type" value="E-Commerce"><span>E‑Commerce</span></label>
+            <label class="opt"><input type="radio" name="type" value="Personal / Portfolio"><span>Personal / Portfolio</span></label>
+            <label class="opt"><input type="radio" name="type" value="Other"><span>Other</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">04</span>When are you ready to start?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="start" value="As Soon as Possible" required><span>As Soon as Possible</span></label>
+            <label class="opt"><input type="radio" name="start" value="Within 2–4 Weeks"><span>Within 2–4 Weeks</span></label>
+            <label class="opt"><input type="radio" name="start" value="Within 1–2 Months"><span>Within 1–2 Months</span></label>
+            <label class="opt"><input type="radio" name="start" value="Just Planning for Now"><span>Just Planning for Now</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">05</span>What’s your project budget?<span class="req" aria-hidden="true">*</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="budget" value="$1,000–2,500" required><span>$1,000–2,500</span></label>
+            <label class="opt"><input type="radio" name="budget" value="$2,500–5,000"><span>$2,500–5,000</span></label>
+            <label class="opt"><input type="radio" name="budget" value="$5,000–10,000"><span>$5,000–10,000</span></label>
+            <label class="opt"><input type="radio" name="budget" value="$10,000+"><span>$10,000+</span></label>
+            <label class="opt"><input type="radio" name="budget" value="Not Sure Yet"><span>Not Sure Yet</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <div class="block q">
+          <p class="q__title"><span class="q__no">06</span><span><label for="f-message">Tell me about the project</label><span class="q__hint" id="f-message-hint">Links are welcome: your current site, the product, references you like.</span></span></p>
+          <textarea class="q__text" id="f-message" name="message" rows="4" aria-describedby="f-message-hint" placeholder="Tell me what you’re building, what you need, and anything else that might be useful." data-grow></textarea>
+        </div>
+
+        <fieldset class="block q q--reach">
+          <legend class="q__title"><span class="q__no">07</span>How can I reach you?</legend>
+          <div class="fields">
+            <p class="field"><label class="field__label" for="f-name">Name<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-name" name="name" type="text" autocomplete="name" required><span class="field__error" data-error></span></p>
+            <p class="field"><label class="field__label" for="f-email">Email<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required><span class="field__error" data-error></span></p>
+            <p class="field field--wide"><label class="field__label" for="f-company">Company / Website <span class="mute">(optional)</span></label><input class="field__input" id="f-company" name="company" type="text" autocomplete="organization"></p>
+          </div>
+        </fieldset>
+
+        <!-- for bots only: people never see or fill it -->
+        <p class="visually-hidden" aria-hidden="true"><label>Leave this empty <input name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label></p>
+
+        <section class="intake-end" aria-labelledby="end-title">
+          <h2 class="intake-end__title" id="end-title">Ready to start?</h2>
+          <p class="intake-end__lead">Send a link, a few lines, or just say hello. <span class="mute">I’ll get back to you as soon as I can.</span></p>
+          <p class="consent">
+            <label class="consent__label"><input type="checkbox" name="privacy" value="Agreed" required><span class="consent__box" aria-hidden="true"></span><span>I agree to the <when live="/privacy/"><a href="/privacy/">Privacy Policy</a></when><when draft="/privacy/">Privacy Policy</when>.<span class="req" aria-hidden="true">*</span></span></label>
+            <span class="field__error" data-error></span>
+          </p>
+          <p class="intake-end__send">
+            <button class="send" type="submit" data-send><span class="send__label" data-send-label>Send Project</span><span class="send__arrow" aria-hidden="true">→</span></button>
+          </p>
+          <p class="intake__msg" role="alert" data-intake-msg></p>
+        </section>
+      </form>
+
+      <!-- after a successful send -->
+      <div class="intake-done" data-intake-done tabindex="-1" hidden>
+        <h2 class="intake-done__title">Thank you.</h2>
+        <p class="intake-done__text">I’ll get back to you shortly.</p>
+        <p class="intake-done__back"><a class="more__link" href="/" data-back-to-site><span aria-hidden="true">←</span><span data-roll>Back to Site</span></a></p>
+      </div>
+
+      <!-- no form service connected yet (FORM_ENDPOINT is empty): nothing was sent, and the page says so -->
+      <div class="intake-done" data-intake-mail tabindex="-1" hidden>
+        <h2 class="intake-done__title">Almost there.</h2>
+        <p class="intake-done__text">This form can’t send yet. Copy your answers and send them to <span data-email>{{email}}</span>. <span class="mute">Nothing is lost — they’re still in the form.</span></p>
+        <p class="intake-done__actions">
+          <button class="send" type="button" data-copy-answers><span class="send__label" data-copy-answers-label>Copy Answers</span></button>
+          <button class="more__link" type="button" data-intake-again><span aria-hidden="true">←</span><span data-roll>Back to the Form</span></button>
+        </p>
+      </div>

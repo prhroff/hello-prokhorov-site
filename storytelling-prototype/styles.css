@@ -1,0 +1,370 @@
+/* ==========================================================================
+   Graffeo — storytelling prototype
+   Self-contained. Nothing here is shared with the main site.
+   ========================================================================== */
+
+/* --- Fonts ---------------------------------------------------------------
+   Local copies of the licensed desktop files. Swap for .woff2 web-licensed
+   builds before this ships anywhere public; family names stay the same. */
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("assets/fonts/PPEditorialNew-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("assets/fonts/PPEditorialNew-Italic.otf") format("opentype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("assets/fonts/PPEditorialNew-Ultralight.otf") format("opentype");
+  font-weight: 200; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("assets/fonts/PPEditorialNew-UltralightItalic.otf") format("opentype");
+  font-weight: 200; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PT Futura";
+  src: url("assets/fonts/FuturaPT-Light.ttf") format("truetype");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PT Futura";
+  src: url("assets/fonts/FuturaPT-Book.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "PT Futura";
+  src: url("assets/fonts/FuturaPT-BookObl.ttf") format("truetype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "PT Futura";
+  src: url("assets/fonts/FuturaPT-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+
+/* --- Tokens ------------------------------------------------------------- */
+:root {
+  --paper: #eee6d9;
+  --ink: #231b16;
+  --ink-soft: #5c4e43;
+  --roast: #2a1e17;
+  --cream: #f2e8d8;
+
+  --serif: "PP Editorial New", "Times New Roman", serif;
+  --sans: "PT Futura", "Futura PT", Futura, "Century Gothic", sans-serif;
+
+  --g: clamp(20px, 6vw, 96px);        /* outer gutter */
+  --story-height: 440vh;               /* total scroll length of the story */
+
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { overflow-x: clip; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+em { font-style: italic; }
+
+/* --- Lead-in & outro (test scaffolding) --------------------------------- */
+.lead,
+.outro {
+  min-height: 72svh;
+  padding: var(--g);
+  display: grid;
+  align-content: space-between;
+  gap: 2rem;
+}
+.lead__meta,
+.outro__credits {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.lead__line,
+.outro__line {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 200;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.lead__hint {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-soft);
+}
+.outro { min-height: 50svh; align-content: end; }
+.outro__credits a { color: inherit; }
+
+/* --- Story -------------------------------------------------------------- */
+.story {
+  position: relative;
+  height: var(--story-height);
+}
+
+.story__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* faint paper grain — tactile, not decorative */
+.story__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* own stacking context: a later slide always sits above an earlier one */
+  pointer-events: none;
+}
+
+/* Every element is placed in stage coordinates (vw / svh) so the inset
+   heading copy inside a frame can be aligned with the one outside it. */
+.slide__frame {
+  position: absolute;
+  left: var(--fx); top: var(--fy);
+  width: var(--fw); height: var(--fh);
+  margin: 0;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--paper), var(--ink) 12%);
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+
+/* Slide 3's dark page. It slides in from the right, under its photograph. */
+.slide__ground {
+  position: absolute;
+  inset: 0;
+  background: var(--roast);
+  will-change: transform;
+}
+
+.slide__img {
+  position: absolute;
+  /* 3% bleed each side so the photo can drift inside its frame */
+  top: 0; left: -3%;
+  width: 106%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--focus, 50% 50%);
+  transform-origin: var(--focus, 50% 50%);
+  will-change: transform;
+}
+
+.slide__heading {
+  position: absolute;
+  left: var(--hx); top: var(--hy);
+  width: var(--hw);
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--hs);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  z-index: 3;
+  will-change: transform, opacity;
+}
+.slide__heading > span { display: block; }
+.slide__heading .indent { padding-left: 1.15em; }
+.slide__heading em { font-weight: 400; }
+
+/* Copy of the heading that lives inside the frame, clipped by it. */
+.slide__heading--inset {
+  left: calc(var(--hx) - var(--fx));
+  top: calc(var(--hy) - var(--fy));
+  color: var(--cream);
+  /* the frame's centre, in this element's coordinates, so script.js can undo the frame's scale */
+  transform-origin: calc(var(--fw) / 2 - var(--hx) + var(--fx)) calc(var(--fh) / 2 - var(--hy) + var(--fy));
+}
+
+.slide__kicker {
+  position: absolute;
+  left: var(--kx); top: var(--ky);
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(16px, 1.25vw, 20px);
+  line-height: 1.2;
+  z-index: 3;
+  will-change: transform, opacity;
+}
+.slide__kicker em { color: var(--ink-soft); margin-right: 0.2em; }
+
+.slide__text {
+  position: absolute;
+  left: var(--tx); top: var(--ty);
+  width: var(--tw);
+  margin: 0;
+  font-size: clamp(17px, 1.35vw, 21px);
+  line-height: 1.45;
+  z-index: 3;
+  text-wrap: pretty;
+  will-change: transform, opacity;
+}
+
+/* --- Slide 01 · North Beach — image offset right, heading crosses its left edge */
+.slide--1 {
+  --fx: 37vw; --fy: 11svh; --fw: 55vw; --fh: 72svh;
+  --focus: 72% 50%;
+  --hs: min(12.5vw, 21svh);
+  --hx: 6vw; --hy: 40svh; --hw: auto;
+  --kx: 6vw; --ky: 11svh;
+  --tx: 6vw; --ty: 68svh; --tw: min(25vw, 360px);
+}
+
+/* --- Slide 02 · Graffeo — image left, heading enters it from the right */
+.slide--2 {
+  --fx: 6vw; --fy: 15svh; --fw: 47vw; --fh: 70svh;
+  --focus: 58% 50%;
+  --hs: min(10vw, 17svh);
+  --hx: 43vw; --hy: 20svh; --hw: auto;
+  --kx: 62vw; --ky: 58svh;
+  --tx: 62vw; --ty: 63svh; --tw: min(26vw, 360px);
+}
+.slide--2 .slide__heading:not(.slide__heading--inset) { z-index: 1; }
+.slide--2 .slide__frame { z-index: 2; }
+
+/* --- Slide 03 · Coffee — immersive, warm, heading low */
+.slide--3 {
+  --fx: 36vw; --fy: 0svh; --fw: 64vw; --fh: 100svh;
+  --focus: 50% 40%;
+  --hs: min(11vw, 19svh);
+  --hx: 6vw; --hy: auto; --hw: auto;
+  --kx: 6vw; --ky: 12svh;
+  --tx: 6vw; --ty: calc(12svh + 2.4em); --tw: min(24vw, 340px);
+}
+.slide--3 { color: var(--cream); }
+.slide--3 .slide__heading { top: auto; bottom: 13svh; }
+.slide--3 .slide__kicker em { color: inherit; opacity: 0.6; }
+/* contrast only where the heading crosses the photograph */
+.slide--3 .slide__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(28deg, rgb(42 30 23 / 0.72) 0%, rgb(42 30 23 / 0.28) 30%, rgb(42 30 23 / 0) 52%);
+}
+
+/* --- Counter ------------------------------------------------------------ */
+.story__count {
+  position: absolute;
+  left: 6vw;
+  bottom: 4svh;
+  margin: 0;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.55;
+  z-index: 4;
+  /* --warm: 0 on paper, 1 once slide 3's dark ground sits behind the counter */
+  color: color-mix(in oklab, var(--ink), var(--cream) calc(var(--warm, 0) * 100%));
+}
+.story__current { transition: opacity 0.4s ease; }
+.story__current.is-changing { opacity: 0; }
+
+/* --- Portrait tablets & phones ------------------------------------------
+   Stacked compositions: image first, heading overlapping its lower edge,
+   copy beneath. Each slide still differs: offset right / left / full bleed. */
+@media (max-width: 760px), (max-aspect-ratio: 5/6) {
+  .slide--1 {
+    --fx: 16vw; --fy: 11svh; --fw: 78vw; --fh: 45svh;
+    --focus: 70% 50%;
+    --hs: min(17vw, 10svh);
+    --hx: 6vw; --hy: 53.5svh; /* only the cap tops cross the busy lower edge */
+    --kx: 16vw; --ky: 6svh;
+    --tx: 6vw; --ty: calc(var(--hy) + var(--hs) * 1.35); --tw: min(80vw, 30em);
+  }
+  .slide--2 {
+    --fx: 6vw; --fy: 11svh; --fw: 76vw; --fh: 45svh;
+    --focus: 58% 50%;
+    --hs: min(14.5vw, 8.4svh);
+    --hx: 22vw; --hy: 47svh;
+    --kx: 6vw; --ky: 6svh;
+    --tx: 22vw; --ty: calc(var(--hy) + var(--hs) * 2.3); --tw: min(70vw, 28em);
+  }
+  .slide--3 {
+    --fx: 0vw; --fy: 0svh; --fw: 100vw; --fh: 62svh;
+    --focus: 50% 34%;
+    --hs: min(14.5vw, 8.4svh);
+    --hx: 6vw;
+    --kx: 6vw; --ky: 70svh;
+    --tx: 6vw; --ty: calc(70svh + 1.8em); --tw: min(82vw, 30em);
+  }
+  .slide--3 .slide__heading { bottom: auto; top: 46svh; }
+  .slide--3 .slide__frame::after {
+    background: linear-gradient(0deg, rgb(42 30 23 / 0.85) 0%, rgb(42 30 23 / 0.35) 22%, rgb(42 30 23 / 0) 45%);
+  }
+  .slide__text { font-size: clamp(16px, 2.5vw, 22px); }
+  .story { --story-height: 330vh; }
+  .story__count { left: auto; right: 6vw; }
+}
+
+/* --- Very short viewports (phones in landscape) --------------------------
+   The sticky stage has no room to breathe here, so the story becomes a
+   simple vertical sequence. script.js sees this and stops animating. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .story { height: auto; }
+  .story__stage {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .story__stage::after,
+  .slide__ground { display: none; }
+  .slide {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 5vw;
+    align-items: end;
+    padding: 8vh var(--g);
+  }
+  .slide__frame,
+  .slide__heading,
+  .slide__kicker,
+  .slide__text {
+    position: relative;
+    left: auto; top: auto; bottom: auto;
+    width: auto;
+  }
+  .slide__frame { grid-column: 1; grid-row: 1 / span 3; aspect-ratio: 4 / 3; height: auto; }
+  .slide__heading, .slide__kicker, .slide__text { grid-column: 2; }
+  .slide__heading { font-size: 12vh; white-space: normal; }
+  .slide__heading--inset { display: none; }
+  .slide__text { margin-top: 1rem; }
+  .slide__kicker { margin-bottom: 1rem; }
+  .slide--3 { background: var(--roast); color: var(--cream); }
+  .slide--3 .slide__heading { order: -1; }
+  .story__count { display: none; }
+}

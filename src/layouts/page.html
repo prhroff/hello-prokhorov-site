@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+{{head}}
+</head>
+<body>
+{{> defs}}
+  <a class="skip" href="#main">Skip to Content</a>
+
+{{> bar}}
+
+{{> menu}}
+{{draft_flag}}
+  <!-- ============ INNER PAGE ============
+       The home page's three columns: what this page is (sticky on desktop),
+       the content, and the way to get in touch. -->
+  <main class="doc{{page_class}}" id="main">
+    <header class="doc__side">
+      <div class="doc__side-in">
+{{crumbs}}
+        <h1 class="doc__title">{{heading}}</h1>
+        <p class="doc__lead">{{lead}}</p>
+{{side_extra}}
+      </div>
+    </header>
+
+    <div class="doc__main">
+{{content}}
+    </div>
+
+{{> aside}}
+
+{{> foot}}
+  </main>
+</body>
+</html>

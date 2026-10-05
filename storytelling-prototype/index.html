@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Graffeo — Storytelling prototype</title>
+  <meta name="robots" content="noindex">
+  <link rel="preload" href="assets/fonts/PPEditorialNew-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/FuturaPT-Book.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Lead-in: only here so the section can be scrolled into, as it would be on the real page -->
+  <header class="lead">
+    <p class="lead__meta">Graffeo — storytelling prototype</p>
+    <p class="lead__line">A short story in <em>three</em> parts.</p>
+    <p class="lead__hint">Scroll</p>
+  </header>
+
+  <section class="story" aria-label="North Beach, Graffeo, Coffee">
+    <div class="story__stage">
+
+      <!-- 01 — North Beach -->
+      <article class="slide slide--1" data-slide="0">
+        <figure class="slide__frame">
+          <img class="slide__img" data-image="northBeach" alt="" decoding="async">
+        </figure>
+        <p class="slide__kicker"><em>i.</em> North Beach</p>
+        <h2 class="slide__heading"><span><em>Benvenuti!</em></span></h2>
+        <p class="slide__text">Welcome to North Beach, the San Francisco neighborhood that Graffeo has called home since 1935.</p>
+      </article>
+
+      <!-- 02 — Graffeo. The heading is drawn twice: ink on paper, cream where it crosses the photograph. -->
+      <article class="slide slide--2" data-slide="1">
+        <h2 class="slide__heading"><span>Open the</span><span class="indent"><em>doors.</em></span></h2>
+        <figure class="slide__frame">
+          <img class="slide__img" data-image="graffeo" alt="" decoding="async">
+          <p class="slide__heading slide__heading--inset" aria-hidden="true"><span>Open the</span><span class="indent"><em>doors.</em></span></p>
+        </figure>
+        <p class="slide__kicker"><em>ii.</em> Graffeo</p>
+        <p class="slide__text">Discover nearly a century of craft and innovation at Graffeo.</p>
+      </article>
+
+      <!-- 03 — Coffee -->
+      <article class="slide slide--3" data-slide="2">
+        <div class="slide__ground" aria-hidden="true"></div>
+        <figure class="slide__frame">
+          <img class="slide__img" data-image="coffee" alt="" decoding="async">
+        </figure>
+        <p class="slide__kicker"><em>iii.</em> Coffee</p>
+        <p class="slide__text">Share the aroma, the ritual, and a cup with the ones you love.</p>
+        <h2 class="slide__heading"><span>Savor the</span><span><em>moment.</em></span></h2>
+      </article>
+
+      <p class="story__count" aria-hidden="true"><span class="story__current">01</span> / 03</p>
+    </div>
+  </section>
+
+  <footer class="outro">
+    <p class="outro__line">End of prototype.</p>
+    <p class="outro__credits">Placeholder photography via Unsplash: <span data-credits></span></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
