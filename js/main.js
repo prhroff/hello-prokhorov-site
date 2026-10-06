@@ -123,8 +123,8 @@ const enterIO = new IntersectionObserver((entries) => {
   }
 }, { rootMargin: '0px 0px -8% 0px' });
 $$('.item, .block, .post, .vzf, .doc__figure').forEach((el) => enterIO.observe(el));
-// case pages: each part's text and pictures, the next case and the footer as they arrive
-$$('.cs-fig, .cs-top, .cs-facts, .case__next, .full ~ .foot').forEach((el) => enterIO.observe(el));
+// case pages: each part's text and pictures as they arrive
+$$('.cs-fig, .cs-top, .cs-facts, .cs-wip__title, .cs-wip__bar').forEach((el) => enterIO.observe(el));
 $$('.services, .socials, .rows, .faq, .reviews__track, .cs-facts').forEach((list) => {
   [...list.children].forEach((el, k) => el.style.setProperty('--k', k));
 });
@@ -198,6 +198,7 @@ $$('[data-reviews]').forEach((root) => {
 
   track.addEventListener('pointerdown', (e) => {
     if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    if (e.target.closest('a')) return;          // a link in a card (the full review) opens, it does not drag
     cancelAnimationFrame(settle);                  // catch the row mid-settle
     settle = 0;
     drag = { x: e.clientX, left: track.scrollLeft, from: Math.round(track.scrollLeft / step()), moved: false, v: 0, lastX: e.clientX, lastT: e.timeStamp };
@@ -243,13 +244,13 @@ $$('[data-reviews]').forEach((root) => {
    [data-roll] links and buttons carry their label twice; on hover the first
    copy rolls up and out while the second rolls in from below. */
 $$('[data-roll]').forEach((el) => {
-  const text = el.textContent.trim();
+  const label = el.innerHTML.trim();            // the label as written, its inline marks included
   const roll = document.createElement('span');
   roll.className = 'roll';
   const a = document.createElement('span');
   const b = document.createElement('span');
-  a.textContent = text;
-  b.textContent = text;
+  a.innerHTML = label;
+  b.innerHTML = label;
   b.setAttribute('aria-hidden', 'true');
   roll.append(a, b);
   el.replaceChildren(roll);
@@ -489,8 +490,8 @@ const onScreen = (el) => {
 
 $$('[data-case-link]').forEach((link) => link.addEventListener('click', (e) => {
   if (reduceMotion || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-  const img = $('.item__media img, [data-next-media] img', link);
-  const r = img && onScreen(img.closest('.item__media, [data-next-media]'));
+  const img = $('.item__media img', link);
+  const r = img && onScreen(img.closest('.item__media'));
   if (!r) return;
   e.preventDefault();
   const layer = document.createElement('div');

@@ -19,17 +19,21 @@ OUT = HERE / "assets" / "img"
 # name: (source path, widths, crop box as fractions (l, t, r, b) or None)
 SOURCES = {
     # Powermatic®
+    "powermatic-stand": ("cases/site/Case Study/Website/Powermatic_Stand.png", [800, 1600, 2400], None),   # cover and card
     "powermatic-tablet": ("cases/site/Case Study/Website/scene_2026-07-20.webp", [800, 1600, 2400], None),
     "powermatic-keys": ("cases/site/Case Study/Website/Powermatic_Cover.webp", [700, 1400], None),
     "powermatic-phone": ("cases/site/Case Study/Website/Powermatic_Phone_Screen.webp", [700, 1400], None),
     # Visual Hunters®
+    "vh-laptop": ("cases/visualhunters/VH_Laptop_Blinds.png", [800, 1600, 2400], None),   # cover and card
     "vh-poster": ("cases/visualhunters/Screen_03.png", [700, 1400], None),
     "vh-display": ("cases/visualhunters/Div.png", [700, 1080], None),
     "vh-shelf": ("Contra Covers/Cover_05.png", [700, 1300], (0.535, 0.0, 1.0, 1.0)),
     # Contour Office®
     "contour-laptop": ("cases/site/contour.png", [700, 1080], None),
     "contour-cover": ("Contra Covers/Cover_03.png", [700, 1300], (0.535, 0.0, 1.0, 1.0)),
-    # Monolith ONE
+    # Renovate
+    "renovate-laptop": ("cases/renovate/Renovate_Laptop.png", [800, 1600, 2400], None),
+    # Monolith ONE (no longer a case: the archive only)
     "monolith-render": ("cases/monolith/2a480fe4-4c3e-4af7-a178-e41ef7078cfd.png", [1024], None),
     "monolith-tower": ("cases/monolith/product-philosophy.png", [800, 1440], None),
     "monolith-detail": ("cases/monolith/monolith.png", [700, 1080], None),
@@ -37,10 +41,14 @@ SOURCES = {
     "lattice-hero": ("hero/hero-section.png", [800, 1600, 1920], None),
     "lattice-plinth": ("cases/site/Image_Lattice_Crop.png", [700, 1350], None),
     # Index-only previews
+    "luma-laptop": ("cases/site/Luma_Laptop_Hands.png", [800, 1600, 2400], None),   # Luma cover and card
     "luma-screen": ("cases/site/Luma_Screen.png", [700, 1440], None),
     "prokhorov-site": ("Contra Covers/Cover_01.png", [700, 1300], (0.535, 0.0, 1.0, 1.0)),
     # People / services
     "portrait": ("Portrait.jpg", [500, 1000], None),
+    "review-levon": ("Reviews/Levon_Terteryan.png", [160, 240], None),   # reviewer photo, Levon T.
+    "review-bethany": ("Reviews/Bethany_R.png", [160, 240], (0.3, 0.025, 0.8, 0.525)),   # reviewer photo, Bethany R.: the face
+    "review-natalia": ("Reviews/Natalia_M.jpg", [160, 240], None),   # reviewer photo, Natalia M.: the whole portrait
     "service-landing": ("Contra Covers/Cover_02.png", [700, 1300], (0.535, 0.0, 1.0, 1.0)),
     "service-framer": ("Contra Covers/Cover_04.png", [700, 1300], (0.535, 0.0, 1.0, 1.0)),
     # Case-study galleries (v7.9)

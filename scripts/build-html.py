@@ -11,7 +11,8 @@ Sources
     src/layouts/page.html     the frame around inner pages and posts
     src/partials/*.html       pieces shared by every page (bar, menu, footer …)
     scripts/site_config.py    the person, the profiles, the navigation
-    Files whose name starts with "_" are never built.
+    Files whose name starts with "_", and everything in a folder whose name does,
+    are never built (src/pages/work/_full/ holds the full case studies, inactive).
 
 Front matter, at the top of each source:
     ---
@@ -65,6 +66,7 @@ Also: <pic name="…" alt="…" sizes="…" [class] [eager]> becomes a responsiv
 <picture> (AVIF + WebP, from assets/img/manifest.json), and ® / © after a word
 become small raised marks (<span class="r">).
 """
+import hashlib
 import json
 import math
 import re
@@ -132,7 +134,7 @@ def collect():
 
     add(SRC / "index.html", "/", "home")
     for f in sorted((SRC / "pages").rglob("*.html")):
-        if not f.name.startswith("_"):
+        if not any(part.startswith("_") for part in f.relative_to(SRC / "pages").parts):
             add(f, "/" + "/".join(f.relative_to(SRC / "pages").with_suffix("").parts) + "/", "page")
     for f in sorted((SRC / "blog").glob("*.html")):
         if not f.name.startswith("_"):
@@ -312,6 +314,13 @@ def schema(p):
     return data.replace("</", "<\\/")
 
 
+def versioned(path):
+    """/css/main.css -> /css/main.css?v=<first 8 of its content's hash>: a changed file gets a new
+    address, so no browser or cache keeps serving the old one."""
+    f = ROOT / path.lstrip("/")
+    return f"{path}?v={hashlib.sha1(f.read_bytes()).hexdigest()[:8]}" if f.is_file() else path
+
+
 def head(p):
     m = p["meta"]
     url = absolute(p["path"])
@@ -355,20 +364,20 @@ def head(p):
         lines.append(f'<link rel="alternate" type="application/rss+xml" title="{e(C.NAME)} — Blog" href="/blog/feed.xml">')
     lines += [
         "",
-        f'<link rel="stylesheet" href="{e(m.get("styles", "/css/main.css"))}">',
+        f'<link rel="stylesheet" href="{e(versioned(m.get("styles", "/css/main.css")))}">',
         # page transitions: before the first frame, so an arriving page starts under the ink
-        '<link rel="stylesheet" href="/css/transitions.css">',
-        '<script src="/js/transitions.js"></script>',
+        f'<link rel="stylesheet" href="{versioned("/css/transitions.css")}">',
+        f'<script src="{versioned("/js/transitions.js")}"></script>',
         # before the first paint: JS is on; a visitor who has seen the preloader this session skips it
         "<script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>",
-        f'<script type="module" src="{e(m.get("script", "/js/main.js"))}"></script>',
+        f'<script type="module" src="{e(versioned(m.get("script", "/js/main.js")))}"></script>',
     ]
     # analytics: the ids for js/consent.js, which loads them only after the visitor accepts
     if any(C.ANALYTICS.values()):
         lines += [
             f'<meta name="pk-analytics" data-ga4="{e(C.ANALYTICS["ga4"])}" data-ym="{e(C.ANALYTICS["metrica"])}">',
-            '<link rel="stylesheet" href="/css/consent.css">',
-            '<script type="module" src="/js/consent.js"></script>',
+            f'<link rel="stylesheet" href="{versioned("/css/consent.css")}">',
+            f'<script type="module" src="{versioned("/js/consent.js")}"></script>',
         ]
     lines += [
         "",
@@ -482,6 +491,17 @@ def work_parts():
     return dict(work_list="\n".join("          " + x for x in out), work_count=f"{len(cases):02d}")
 
 
+def case_end(p):
+    """The close of a case page: the next case (after the last, the first) as a work card,
+    as on the home page and /work/, under the numbered heading the home sections use."""
+    cases = cases_in_order()
+    if not is_case(p) or p not in cases:
+        return dict(next_card="", next_count="")
+    k = (cases.index(p) + 1) % len(cases)
+    card = case_card(cases[k], "(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw", wide=True)
+    return dict(next_card="          " + card, next_count=f"{k + 1:02d} / {len(cases):02d}")
+
+
 def context(p):
     cur = p["path"]
     m = p["meta"]
@@ -505,7 +525,8 @@ def context(p):
         crumbs=crumbs(p) if p["kind"] != "home" else "",
         side_extra=post_meta(p) if p["kind"] == "post" else "",
         draft_flag='  <p class="draft-flag" role="note"><b>Draft</b> · not indexed, not in the menu</p>\n' if not p["live"] else "",
-        **blog_parts(), **work_parts(),
+        **blog_parts(), **work_parts(), **case_end(p),
+        work_lead=t(BY_PATH["/work/"]["meta"].get("lead", "")) if "/work/" in BY_PATH else "",
         page_class=" " + m["class"] if m.get("class") else "",
     )
 

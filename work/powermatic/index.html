@@ -25,14 +25,14 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="preload" href="/assets/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/transitions.css">
-  <script src="/js/transitions.js"></script>
+  <link rel="stylesheet" href="/css/main.css?v=16b610af">
+  <link rel="stylesheet" href="/css/transitions.css?v=12615aa4">
+  <script src="/js/transitions.js?v=6e55fe4c"></script>
   <script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>
-  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/main.js?v=f908b7ae"></script>
   <meta name="pk-analytics" data-ga4="G-544DF591BD" data-ym="111169023">
-  <link rel="stylesheet" href="/css/consent.css">
-  <script type="module" src="/js/consent.js"></script>
+  <link rel="stylesheet" href="/css/consent.css?v=a09f0497">
+  <script type="module" src="/js/consent.js?v=ebb273b9"></script>
 
   <script type="application/ld+json">
   {
@@ -97,7 +97,7 @@
         "@id": "https://helloprokhorov.com/#website"
       },
       "inLanguage": "en",
-      "dateModified": "2026-10-05",
+      "dateModified": "2026-10-07",
       "about": {
         "@id": "https://helloprokhorov.com/#person"
       },
@@ -207,14 +207,14 @@
   </div>
 
   <!-- ============ FULL-WIDTH PAGE ============
-       The site's bar, the page across the full width, the site footer.
+       The site's bar, the page across the full width, then the close below.
        Used by /work/ and by each case study (class: case — the cover, the
        overview, each part as pictures then their text, the next case). -->
   <main class="full case" id="main">
-<!-- Case study: Powermatic®. Text from the CASES table in _backups/legacy/build-cases.py only; see src/pages/work/_template.html. -->
+<!-- Case study, work-in-progress version: cover, overview and an "In Progress" note. The full case study is parked in src/pages/work/_full/powermatic.html (not built). -->
       <article class="cs" aria-labelledby="case-pm-title">
         <figure class="case__cover case__cover--dark" data-case-cover>
-          <picture><source type="image/avif" srcset="/assets/img/powermatic-tablet-800.avif 800w, /assets/img/powermatic-tablet-1600.avif 1600w, /assets/img/powermatic-tablet-2400.avif 2400w" sizes="100vw"><img src="/assets/img/powermatic-tablet-800.webp" srcset="/assets/img/powermatic-tablet-800.webp 800w, /assets/img/powermatic-tablet-1600.webp 1600w, /assets/img/powermatic-tablet-2400.webp 2400w" sizes="100vw" width="2400" height="1800" alt="Powermatic® website on a tablet" fetchpriority="high" decoding="async"></picture>
+          <picture><source type="image/avif" srcset="/assets/img/powermatic-stand-800.avif 800w, /assets/img/powermatic-stand-1600.avif 1600w, /assets/img/powermatic-stand-2400.avif 2400w" sizes="100vw"><img src="/assets/img/powermatic-stand-800.webp" srcset="/assets/img/powermatic-stand-800.webp 800w, /assets/img/powermatic-stand-1600.webp 1600w, /assets/img/powermatic-stand-2400.webp 2400w" sizes="100vw" width="2400" height="1800" alt="Powermatic® website on a tablet on an aluminium stand, a stylus pointing at the screen" fetchpriority="high" decoding="async"></picture>
           <div class="case__over">
             <h1 class="case__title" id="case-pm-title">Powermatic<span class="r">®</span></h1>
             <p class="case__meta"><span>Marketing Website</span><span>Technology Partner</span><span>Framer</span></p>
@@ -231,36 +231,60 @@
             </div>
           </div>
         </section>
-        <section class="cs-part cs-chapter" aria-labelledby="case-pm-s2">
-          <div class="cs-row cs-row--wide" style="--r: 3 / 2"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-macbook-800.avif 800w, /assets/img/pm-macbook-1600.avif 1600w" sizes="100vw"><img src="/assets/img/pm-macbook-800.webp" srcset="/assets/img/pm-macbook-800.webp 800w, /assets/img/pm-macbook-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Powermatic® site on a laptop with the full-screen menu open" loading="lazy" decoding="async"></picture></div><figcaption>Full-Screen Menu</figcaption></figure></div>
-          <div class="cs-row cs-row--pair" style="--r: 4 / 3"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-engagement-800.avif 800w, /assets/img/pm-engagement-1440.avif 1440w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/pm-engagement-800.webp" srcset="/assets/img/pm-engagement-800.webp 800w, /assets/img/pm-engagement-1440.webp 1440w" sizes="(min-width: 768px) 50vw, 100vw" width="1440" height="1115" alt="Powermatic® engagement models page with three pricing options" loading="lazy" decoding="async"></picture></div><figcaption>Engagement Models</figcaption></figure><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-blog-800.avif 800w, /assets/img/pm-blog-1440.avif 1440w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/pm-blog-800.webp" srcset="/assets/img/pm-blog-800.webp 800w, /assets/img/pm-blog-1440.webp 1440w" sizes="(min-width: 768px) 50vw, 100vw" width="1440" height="960" alt="Powermatic® blog listing, “Perspectives on technology”" loading="lazy" decoding="async"></picture></div><figcaption>Blog</figcaption></figure></div>
+        <section class="cs-part cs-wip" aria-labelledby="case-pm-s2">
+          <h2 class="cs-wip__title" id="case-pm-s2"><span class="cs-wip__line"><span>Work in</span></span> <span class="cs-wip__line"><span>Progress<i class="cs-wip__dot" aria-hidden="true"></i></span></span></h2>
+          <div class="cs-wip__bar" aria-hidden="true"></div>
           <div class="cs-top">
-            <h2 class="cs-label" id="case-pm-s2"><span aria-hidden="true">(02)</span>Structure</h2>
-            <div class="cs-text"><p>The main menu covers Home, Services, About Us, Leadership, Careers and Partners. Alongside it sit case studies, a blog, engagement models with pricing, and a contact page.</p></div>
+            <div class="cs-text">
+              <p>The full case study is being written up: the structure, the design decisions and every screen behind them. Until it’s ready, the details above say what the project is.</p>
+              <p><a class="cs-wip__link" href="/contact/"><span data-roll>Ask About This Project</span> <span aria-hidden="true">→</span></a></p>
+            </div>
           </div>
-        </section>
-        <section class="cs-part cs-design" aria-labelledby="case-pm-s3">
-          <div class="cs-top">
-            <h2 class="cs-label" id="case-pm-s3"><span aria-hidden="true">(03)</span>Design</h2>
-          </div>
-          <div class="cs-row cs-row--wide" style="--r: 16 / 10"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-hero-800.avif 800w, /assets/img/pm-hero-1600.avif 1600w" sizes="100vw"><img src="/assets/img/pm-hero-800.webp" srcset="/assets/img/pm-hero-800.webp 800w, /assets/img/pm-hero-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Powermatic® homepage hero with a portrait and the line “Trusted Technology Partner for Growing Businesses”" loading="lazy" decoding="async"></picture></div><figcaption>Homepage Hero</figcaption></figure></div>
-          <div class="cs-row cs-row--pair" style="--r: 4 / 5"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-about-800.avif 800w, /assets/img/pm-about-1440.avif 1440w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/pm-about-800.webp" srcset="/assets/img/pm-about-800.webp 800w, /assets/img/pm-about-1440.webp 1440w" sizes="(min-width: 768px) 50vw, 100vw" width="1440" height="1520" alt="Powermatic® about section with key figures" loading="lazy" decoding="async"></picture></div><figcaption>About, with Key Figures</figcaption></figure><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-cases-800.avif 800w, /assets/img/pm-cases-1440.avif 1440w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/pm-cases-800.webp" srcset="/assets/img/pm-cases-800.webp 800w, /assets/img/pm-cases-1440.webp 1440w" sizes="(min-width: 768px) 50vw, 100vw" width="1440" height="2123" alt="Powermatic® case studies grid on a dark background" loading="lazy" decoding="async"></picture></div><figcaption>Case Studies</figcaption></figure></div>
-          <div class="cs-row cs-row--wide" style="--r: 3 / 2"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-loader-800.avif 800w, /assets/img/pm-loader-1600.avif 1600w" sizes="100vw"><img src="/assets/img/pm-loader-800.webp" srcset="/assets/img/pm-loader-800.webp 800w, /assets/img/pm-loader-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Powermatic® page loader counting on a dark screen" loading="lazy" decoding="async"></picture></div><figcaption>Loader</figcaption></figure></div>
-          <div class="cs-row cs-row--pair" style="--r: 1 / 1"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/powermatic-keys-700.avif 700w, /assets/img/powermatic-keys-1400.avif 1400w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/powermatic-keys-700.webp" srcset="/assets/img/powermatic-keys-700.webp 700w, /assets/img/powermatic-keys-1400.webp 1400w" sizes="(min-width: 768px) 50vw, 100vw" width="1400" height="1400" alt="Powermatic® campaign visual: keys on a red and black diagonal pattern" loading="lazy" decoding="async"></picture></div><figcaption>Campaign Key Visual</figcaption></figure><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-tshirt-800.avif 800w, /assets/img/pm-tshirt-1600.avif 1600w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/pm-tshirt-800.webp" srcset="/assets/img/pm-tshirt-800.webp 800w, /assets/img/pm-tshirt-1600.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="1067" alt="Powermatic® logo on a black T-shirt" loading="lazy" decoding="async"></picture></div><figcaption>Brand on Merchandise</figcaption></figure></div>
-          <div class="cs-row cs-row--wide" style="--r: 3 / 2"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-hardware-800.avif 800w, /assets/img/pm-hardware-1600.avif 1600w" sizes="100vw"><img src="/assets/img/pm-hardware-800.webp" srcset="/assets/img/pm-hardware-800.webp 800w, /assets/img/pm-hardware-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Powermatic® wordmark over dark perforated hardware" loading="lazy" decoding="async"></picture></div><figcaption>Brand Imagery</figcaption></figure></div>
-          <div class="cs-row cs-row--wide" style="--r: 4 / 3"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-ipad-stand-800.avif 800w, /assets/img/pm-ipad-stand-1600.avif 1600w" sizes="100vw"><img src="/assets/img/pm-ipad-stand-800.webp" srcset="/assets/img/pm-ipad-stand-800.webp 800w, /assets/img/pm-ipad-stand-1600.webp 1600w" sizes="100vw" width="1600" height="1200" alt="Powermatic® site on a tablet on a stand in a dark room" loading="lazy" decoding="async"></picture></div><figcaption>On Tablet</figcaption></figure></div>
-          <div class="cs-row cs-row--pair" style="--r: 4 / 5"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-laptop-chair-800.avif 800w, /assets/img/pm-laptop-chair-1600.avif 1600w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/pm-laptop-chair-800.webp" srcset="/assets/img/pm-laptop-chair-800.webp 800w, /assets/img/pm-laptop-chair-1600.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="2000" alt="Powermatic® site on a laptop on a person’s lap" loading="lazy" decoding="async"></picture></div><figcaption>In Use</figcaption></figure><figure class="cs-fig cs-fig--contain"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-phone-pricing-800.avif 800w, /assets/img/pm-phone-pricing-1103.avif 1103w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/pm-phone-pricing-800.webp" srcset="/assets/img/pm-phone-pricing-800.webp 800w, /assets/img/pm-phone-pricing-1103.webp 1103w" sizes="(min-width: 768px) 50vw, 100vw" width="1103" height="2269" alt="Powermatic® engagement models on a phone" loading="lazy" decoding="async"></picture></div><figcaption>On Mobile</figcaption></figure></div>
-          <div class="cs-row cs-row--wide" style="--r: 3 / 2"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/pm-contact-800.avif 800w, /assets/img/pm-contact-1440.avif 1440w" sizes="100vw"><img src="/assets/img/pm-contact-800.webp" srcset="/assets/img/pm-contact-800.webp 800w, /assets/img/pm-contact-1440.webp 1440w" sizes="100vw" width="1440" height="960" alt="Powermatic® contact page with the email address set large" loading="lazy" decoding="async"></picture></div><figcaption>Contact Page</figcaption></figure></div>
         </section>
       </article>
-      <nav class="case__next-wrap" aria-label="Next Case">
-        <a class="case__next" href="/work/visual-hunters/" data-case-link>
-          <span class="case__next-top"><span>Next Case</span><span>02 / 06</span></span>
-          <span class="case__next-title">Visual Hunters<span class="r">®</span></span>
-          <span class="case__next-media" data-next-media><picture><source type="image/avif" srcset="/assets/img/vh-poster-700.avif 700w, /assets/img/vh-poster-1400.avif 1400w" sizes="100vw"><img src="/assets/img/vh-poster-700.webp" srcset="/assets/img/vh-poster-700.webp 700w, /assets/img/vh-poster-1400.webp 1400w" sizes="100vw" width="1400" height="1750" alt="" loading="lazy" decoding="async"></picture></span>
-        </a>
-      </nav>
   </main>
+
+  <!-- The close, on the inner pages' grid as /work/ has it: where this is (left), the next
+       case as a work card (scripts/build-html.py case_end), the way to get in touch and the footer. -->
+  <div class="doc doc--wide doc--work doc--end">
+    <div class="doc__side">
+      <div class="doc__side-in">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/work/">Work</a></li><li aria-current="page">Powermatic<span class="r">®</span></li></ol></nav>
+        <p class="doc__title">Work</p>
+        <p class="doc__lead">Client work and self‑initiated concepts: websites and landing pages.</p>
+        <a class="doc-cta__link doc__all" href="/work/"><span data-roll>All Work</span><span aria-hidden="true"> →</span></a>
+      </div>
+    </div>
+
+    <div class="doc__main">
+      <section class="block" aria-labelledby="next-title">
+        <header class="block__head"><h2 id="next-title"><span class="block__no" aria-hidden="true">(01)</span>Next Case</h2><span class="count">(02 / 06)</span></header>
+        <ul class="work work--all">
+          <li class="item item--wide"><a class="item__link" href="/work/visual-hunters/" data-case-link><span class="item__media" style="--pos: 50% 40%"><picture><source type="image/avif" srcset="/assets/img/vh-laptop-800.avif 800w, /assets/img/vh-laptop-1600.avif 1600w, /assets/img/vh-laptop-2400.avif 2400w" sizes="(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw"><img src="/assets/img/vh-laptop-800.webp" srcset="/assets/img/vh-laptop-800.webp 800w, /assets/img/vh-laptop-1600.webp 1600w, /assets/img/vh-laptop-2400.webp 2400w" sizes="(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw" width="2400" height="1600" alt="Visual Hunters® website on a laptop on a wooden sideboard in front of window blinds" loading="lazy" decoding="async"></picture></span><span class="item__cap"><span class="item__name">Visual Hunters<span class="r">®</span></span><span class="item__tags"><span class="item__tag">Typography</span><span class="item__tag">3D</span><span class="item__tag">’26</span></span></span></a></li>
+        </ul>
+      </section>
+      <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>
+    </div>
+
+    <!-- Right column on every inner page: availability, the email, profiles -->
+    <aside class="doc__aside" aria-label="Get in Touch">
+      <div class="doc__aside-in">
+        <p class="doc__status"><span class="dot" aria-hidden="true"></span><span>Working Worldwide<span class="mute"> · Bishkek, <time data-clock>—</time></span></span></p>
+        <div class="doc__reach">
+          <p class="doc__reach-lead">Tell me about the site or product, who it’s for and what it needs to do.</p>
+          <p><span class="reach__mail">contact@helloprokhorov.com</span><br><button class="reach__copy" type="button" data-copy="contact@helloprokhorov.com"><span data-copy-label>Copy Email</span></button></p>
+        </div>
+        <div class="socials-wrap doc__socials">
+          <p class="side__label"><span>Socials</span><span>(04)</span></p>
+          <ul class="socials" aria-label="Socials">
+            <li><a class="social" href="https://www.linkedin.com/in/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>LinkedIn</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://contra.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>Contra</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://x.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>X</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://www.instagram.com/hello.prokhorov/" rel="noopener" target="_blank"><span class="social__name" data-roll>Instagram</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
 
     <!-- The one site footer, on every page: who made it, the copyright and the privacy
          policy, the hidden game, back to top. No page links: those are in the bar. -->
@@ -276,5 +300,6 @@
       </div>
       <a class="foot__top" href="#top" data-roll>Back to Top ↑</a>
     </footer>
+  </div>
 </body>
 </html>

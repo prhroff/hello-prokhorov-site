@@ -37,7 +37,7 @@
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // the case studies used to open on the home page (/#case-pm): those addresses go to their pages
-  var CASES = { pm: 'powermatic', vh: 'visual-hunters', co: 'contour-office', mo: 'monolith-one', la: 'lattice', lu: 'luma' };
+  var CASES = { pm: 'powermatic', vh: 'visual-hunters', co: 'contour-office', la: 'lattice', lu: 'luma' };
   var old = location.pathname === '/' && /^#case-(\w+)$/.exec(location.hash);
   if (old && CASES[old[1]]) { location.replace('/work/' + CASES[old[1]] + '/'); return; }
 

@@ -25,14 +25,14 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="preload" href="/assets/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/transitions.css">
-  <script src="/js/transitions.js"></script>
+  <link rel="stylesheet" href="/css/main.css?v=16b610af">
+  <link rel="stylesheet" href="/css/transitions.css?v=12615aa4">
+  <script src="/js/transitions.js?v=6e55fe4c"></script>
   <script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>
-  <script type="module" src="/js/main.js"></script>
+  <script type="module" src="/js/main.js?v=f908b7ae"></script>
   <meta name="pk-analytics" data-ga4="G-544DF591BD" data-ym="111169023">
-  <link rel="stylesheet" href="/css/consent.css">
-  <script type="module" src="/js/consent.js"></script>
+  <link rel="stylesheet" href="/css/consent.css?v=a09f0497">
+  <script type="module" src="/js/consent.js?v=ebb273b9"></script>
 
   <script type="application/ld+json">
   {
@@ -97,7 +97,7 @@
         "@id": "https://helloprokhorov.com/#website"
       },
       "inLanguage": "en",
-      "dateModified": "2026-10-05",
+      "dateModified": "2026-10-06",
       "about": {
         "@id": "https://helloprokhorov.com/#person"
       },
@@ -207,11 +207,11 @@
   </div>
 
   <!-- ============ FULL-WIDTH PAGE ============
-       The site's bar, the page across the full width, the site footer.
+       The site's bar, the page across the full width, then the close below.
        Used by /work/ and by each case study (class: case — the cover, the
        overview, each part as pictures then their text, the next case). -->
   <main class="full case" id="main">
-<!-- Case study: Lattice. Text from the CASES table in _backups/legacy/build-cases.py only; see src/pages/work/_template.html. -->
+<!-- Case study, work-in-progress version: cover, overview and an "In Progress" note. The full case study is parked in src/pages/work/_full/lattice.html (not built). -->
       <article class="cs" aria-labelledby="case-la-title">
         <figure class="case__cover case__cover--dark" data-case-cover>
           <picture><source type="image/avif" srcset="/assets/img/lattice-hero-800.avif 800w, /assets/img/lattice-hero-1600.avif 1600w, /assets/img/lattice-hero-1920.avif 1920w" sizes="100vw"><img src="/assets/img/lattice-hero-800.webp" srcset="/assets/img/lattice-hero-800.webp 800w, /assets/img/lattice-hero-1600.webp 1600w, /assets/img/lattice-hero-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="Lattice homepage in a server rack" fetchpriority="high" decoding="async"></picture>
@@ -231,30 +231,60 @@
             </div>
           </div>
         </section>
-        <section class="cs-part cs-chapter" aria-labelledby="case-la-s2">
-          <div class="cs-row cs-row--pair" style="--r: 4 / 5"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/la-safari-800.avif 800w, /assets/img/la-safari-1600.avif 1600w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/la-safari-800.webp" srcset="/assets/img/la-safari-800.webp 800w, /assets/img/la-safari-1600.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="2134" alt="Lattice homepage in a dark browser window" loading="lazy" decoding="async"></picture></div><figcaption>Homepage, Desktop</figcaption></figure><figure class="cs-fig cs-fig--contain"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/la-ipad-800.avif 800w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/la-ipad-800.webp" srcset="/assets/img/la-ipad-800.webp 800w" sizes="(min-width: 768px) 50vw, 100vw" width="800" height="1042" alt="Lattice on a tablet" loading="lazy" decoding="async"></picture></div><figcaption>Tablet</figcaption></figure></div>
+        <section class="cs-part cs-wip" aria-labelledby="case-la-s2">
+          <h2 class="cs-wip__title" id="case-la-s2"><span class="cs-wip__line"><span>Work in</span></span> <span class="cs-wip__line"><span>Progress<i class="cs-wip__dot" aria-hidden="true"></i></span></span></h2>
+          <div class="cs-wip__bar" aria-hidden="true"></div>
           <div class="cs-top">
-            <h2 class="cs-label" id="case-la-s2"><span aria-hidden="true">(02)</span>Structure</h2>
-            <div class="cs-text"><p>Seven pages: home, product, customers, security, pricing, docs and changelog.</p></div>
+            <div class="cs-text">
+              <p>The full case study is being written up: the structure, the design decisions and every screen behind them. Until it’s ready, the details above say what the project is.</p>
+              <p><a class="cs-wip__link" href="/contact/"><span data-roll>Ask About This Project</span> <span aria-hidden="true">→</span></a></p>
+            </div>
           </div>
-        </section>
-        <section class="cs-part cs-design" aria-labelledby="case-la-s3">
-          <div class="cs-top">
-            <h2 class="cs-label" id="case-la-s3"><span aria-hidden="true">(03)</span>Design</h2>
-          </div>
-          <div class="cs-row cs-row--wide" style="--r: 4 / 3"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/la-image-800.avif 800w, /assets/img/la-image-1600.avif 1600w" sizes="100vw"><img src="/assets/img/la-image-800.webp" srcset="/assets/img/la-image-800.webp 800w, /assets/img/la-image-1600.webp 1600w" sizes="100vw" width="1600" height="1200" alt="Lattice homepage on a laptop: “On-prem that operates like the public cloud”" loading="lazy" decoding="async"></picture></div><figcaption>Homepage</figcaption></figure></div>
-          <div class="cs-row cs-row--pair" style="--r: 1 / 1"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/lattice-plinth-700.avif 700w, /assets/img/lattice-plinth-1350.avif 1350w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/lattice-plinth-700.webp" srcset="/assets/img/lattice-plinth-700.webp 700w, /assets/img/lattice-plinth-1350.webp 1350w" sizes="(min-width: 768px) 50vw, 100vw" width="1350" height="1350" alt="Lattice homepage on a laptop resting on a stone plinth" loading="lazy" decoding="async"></picture></div><figcaption>Brand Mood</figcaption></figure><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/la-rack-800.avif 800w, /assets/img/la-rack-1600.avif 1600w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/la-rack-800.webp" srcset="/assets/img/la-rack-800.webp 800w, /assets/img/la-rack-1600.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="1200" alt="Lattice website on a laptop in a server rack" loading="lazy" decoding="async"></picture></div><figcaption>In Context</figcaption></figure></div>
-          <div class="cs-row cs-row--pair" style="--r: 4 / 5"><figure class="cs-fig"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/la-pedestal-800.avif 800w, /assets/img/la-pedestal-1600.avif 1600w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/la-pedestal-800.webp" srcset="/assets/img/la-pedestal-800.webp 800w, /assets/img/la-pedestal-1600.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="1200" alt="Lattice homepage on a laptop on a stone pedestal" loading="lazy" decoding="async"></picture></div><figcaption>Desktop</figcaption></figure><figure class="cs-fig cs-fig--contain"><div class="cs-fig__frame"><picture><source type="image/avif" srcset="/assets/img/la-phone-800.avif 800w, /assets/img/la-phone-864.avif 864w" sizes="(min-width: 768px) 50vw, 100vw"><img src="/assets/img/la-phone-800.webp" srcset="/assets/img/la-phone-800.webp 800w, /assets/img/la-phone-864.webp 864w" sizes="(min-width: 768px) 50vw, 100vw" width="864" height="1798" alt="Lattice homepage on a phone" loading="lazy" decoding="async"></picture></div><figcaption>Mobile</figcaption></figure></div>
         </section>
       </article>
-      <nav class="case__next-wrap" aria-label="Next Case">
-        <a class="case__next" href="/work/luma/" data-case-link>
-          <span class="case__next-top"><span>Next Case</span><span>06 / 06</span></span>
-          <span class="case__next-title">Luma</span>
-          <span class="case__next-media" data-next-media><picture><source type="image/avif" srcset="/assets/img/luma-screen-700.avif 700w, /assets/img/luma-screen-1440.avif 1440w" sizes="100vw"><img src="/assets/img/luma-screen-700.webp" srcset="/assets/img/luma-screen-700.webp 700w, /assets/img/luma-screen-1440.webp 1440w" sizes="100vw" width="1440" height="1396" alt="" loading="lazy" decoding="async"></picture></span>
-        </a>
-      </nav>
   </main>
+
+  <!-- The close, on the inner pages' grid as /work/ has it: where this is (left), the next
+       case as a work card (scripts/build-html.py case_end), the way to get in touch and the footer. -->
+  <div class="doc doc--wide doc--work doc--end">
+    <div class="doc__side">
+      <div class="doc__side-in">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/work/">Work</a></li><li aria-current="page">Lattice</li></ol></nav>
+        <p class="doc__title">Work</p>
+        <p class="doc__lead">Client work and self‑initiated concepts: websites and landing pages.</p>
+        <a class="doc-cta__link doc__all" href="/work/"><span data-roll>All Work</span><span aria-hidden="true"> →</span></a>
+      </div>
+    </div>
+
+    <div class="doc__main">
+      <section class="block" aria-labelledby="next-title">
+        <header class="block__head"><h2 id="next-title"><span class="block__no" aria-hidden="true">(01)</span>Next Case</h2><span class="count">(06 / 06)</span></header>
+        <ul class="work work--all">
+          <li class="item item--wide"><a class="item__link" href="/work/luma/" data-case-link><span class="item__media"><picture><source type="image/avif" srcset="/assets/img/luma-laptop-800.avif 800w, /assets/img/luma-laptop-1600.avif 1600w, /assets/img/luma-laptop-2400.avif 2400w" sizes="(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw"><img src="/assets/img/luma-laptop-800.webp" srcset="/assets/img/luma-laptop-800.webp 800w, /assets/img/luma-laptop-1600.webp 1600w, /assets/img/luma-laptop-2400.webp 2400w" sizes="(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw" width="2400" height="1254" alt="Luma landing page on a laptop passed from one hand to another against a grey backdrop" loading="lazy" decoding="async"></picture></span><span class="item__cap"><span class="item__name">Luma</span><span class="item__tags"><span class="item__tag">Product</span><span class="item__tag">Landing Page</span><span class="item__tag">’26</span></span></span></a></li>
+        </ul>
+      </section>
+      <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>
+    </div>
+
+    <!-- Right column on every inner page: availability, the email, profiles -->
+    <aside class="doc__aside" aria-label="Get in Touch">
+      <div class="doc__aside-in">
+        <p class="doc__status"><span class="dot" aria-hidden="true"></span><span>Working Worldwide<span class="mute"> · Bishkek, <time data-clock>—</time></span></span></p>
+        <div class="doc__reach">
+          <p class="doc__reach-lead">Tell me about the site or product, who it’s for and what it needs to do.</p>
+          <p><span class="reach__mail">contact@helloprokhorov.com</span><br><button class="reach__copy" type="button" data-copy="contact@helloprokhorov.com"><span data-copy-label>Copy Email</span></button></p>
+        </div>
+        <div class="socials-wrap doc__socials">
+          <p class="side__label"><span>Socials</span><span>(04)</span></p>
+          <ul class="socials" aria-label="Socials">
+            <li><a class="social" href="https://www.linkedin.com/in/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>LinkedIn</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://contra.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>Contra</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://x.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>X</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+            <li><a class="social" href="https://www.instagram.com/hello.prokhorov/" rel="noopener" target="_blank"><span class="social__name" data-roll>Instagram</span><span class="visually-hidden"> (opens in a new tab)</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
 
     <!-- The one site footer, on every page: who made it, the copyright and the privacy
          policy, the hidden game, back to top. No page links: those are in the bar. -->
@@ -270,5 +300,6 @@
       </div>
       <a class="foot__top" href="#top" data-roll>Back to Top ↑</a>
     </footer>
+  </div>
 </body>
 </html>
