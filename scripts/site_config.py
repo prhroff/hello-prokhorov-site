@@ -10,13 +10,23 @@ NAME = "Prokhorov®"
 EMAIL = "contact@helloprokhorov.com"
 OG_IMAGE = "/assets/img/og.jpg"          # 1200×630, used when a page sets none
 
-# The project form on /contact/ posts here (any service that accepts a form
-# POST and answers JSON, e.g. https://formspree.io/f/xxxxxxx).
-# FORM_ENDPOINT requires confirmation: no service is chosen yet. Left empty, the
-# form sends nothing: it shows the answers ready to copy into an email, and every
-# build warns. Once it is set: update the Privacy Policy (src/pages/privacy.html,
-# sections 4.3, 6 and 12, then scripts/build-pdf.py), rebuild, and send a real test.
-FORM_ENDPOINT = ""
+# The project form on /contact/ posts to Web3Forms (https://web3forms.com), which
+# emails the answers to the address the access key was created for. The key is
+# public by design (it only lets the form send to that inbox), so it sits in the page.
+# FORM_ACCESS_KEY requires confirmation: left empty, the form sends nothing: it shows
+# the answers ready to copy into an email, and every build warns. The Privacy Policy
+# (src/pages/privacy.html 4.3, 6, 7, then scripts/build-pdf.py) already describes Web3Forms.
+# Once the key is set: rebuild and send a real test.
+FORM_ENDPOINT = "https://api.web3forms.com/submit"
+FORM_ACCESS_KEY = "98180929-16fd-4c8f-bcbd-5881c294cd3b"
+
+# Analytics, loaded only after the visitor accepts (js/consent.js, on the live domain only).
+#   ga4      Google Analytics 4 measurement ID ("G-XXXXXXXXXX"); empty = off
+#   metrica  Yandex Metrica counter number; empty = off. Runs without Session Replay.
+# Search Console and Ahrefs Webmaster Tools are verified by DNS and add nothing to the pages.
+# Both empty: no bar, no "Cookie Settings". Any change here means the Privacy Policy
+# (src/pages/privacy.html 3, 4.5, 6, 7, 8, then scripts/build-pdf.py) is updated with it.
+ANALYTICS = dict(ga4="G-544DF591BD", metrica="111169023")
 
 PERSON = {
     "name": "Artem Prokhorov",

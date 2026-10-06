@@ -17,7 +17,7 @@ _backups/legacy/build-cases.py   legacy, disabled: its CASES table is where the 
 scripts/build-assets.py   source artwork -> AVIF + WebP variants (+ manifest.json)
 css/main.css              tokens, layout, components, motion
 js/main.js                interactions (works on every page)
-js/contact.js             Get in touch (/contact/): the project form; set FORM_ENDPOINT in site_config.py
+js/contact.js             Get in touch (/contact/): the project form; set FORM_ACCESS_KEY in site_config.py
 js/transitions.js, css/transitions.css   page-to-page transitions, loaded in every page's <head>
 js/game/, css/game.css    Invader, the 8-bit game behind the footer invader; loaded on first click
 js/archive/, css/archive.css   The Archive (/archive/), the dark endless image stream the game unlocks;
@@ -46,7 +46,7 @@ out draft pages, `/blog/` while no post is live, and every HTML comment. It runs
 
 Production is the `main` branch (GitHub Pages, custom domain helloprokhorov.com). Going live means
 replacing `main`'s contents with `dist/`, nothing more; `dist/` itself is never committed here.
-Before that: `FORM_ENDPOINT` in `scripts/site_config.py` (and the Privacy Policy to match), and
+Before that: `FORM_ACCESS_KEY` (Web3Forms) in `scripts/site_config.py`, and
 **Enforce HTTPS** in the repository's Pages settings.
 
 ## Publishing a page or a post
@@ -61,6 +61,6 @@ The build prints every page with its status and warns about a missing descriptio
 To add an image: add a row to `SOURCES` in `build-assets.py`, run it, then use
 `<pic name="my-image" alt="…" sizes="(min-width: 900px) 40vw, 92vw">` (add `eager` for above-the-fold images).
 
-The project form on /contact/ posts to `FORM_ENDPOINT` in `scripts/site_config.py` (any form service that accepts a POST and answers JSON, e.g. Formspree). While it is empty, sending opens the visitor's email app with their answers filled in.
+The project form on /contact/ posts to Web3Forms (`FORM_ENDPOINT` + `FORM_ACCESS_KEY` in `scripts/site_config.py`), which emails the answers to the inbox the key was created for. While the key is empty, nothing is sent: the page shows the answers ready to copy into an email.
 
 Missing content is marked visibly: `<p class="todo" data-todo>` in pages, `<!-- CONTENT: … -->` in the source.

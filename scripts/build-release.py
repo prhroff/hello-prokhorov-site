@@ -88,8 +88,8 @@ def check():
     files = [p for p in DIST.rglob("*") if p.is_file()]
     size = sum(p.stat().st_size for p in files) / 1024 / 1024
     print(f"\ndist/: {len(files)} files, {size:.1f} MB — {', '.join(sorted(p.name + ('/' if p.is_dir() else '') for p in DIST.iterdir()))}")
-    if not C.FORM_ENDPOINT:
-        print("  ! FORM_ENDPOINT requires confirmation: the contact form cannot send yet")
+    if not C.FORM_ACCESS_KEY:
+        print("  ! FORM_ACCESS_KEY requires confirmation: the contact form cannot send yet")
     if problems:
         print("\n".join("  ✗ " + p for p in problems))
         sys.exit(1)

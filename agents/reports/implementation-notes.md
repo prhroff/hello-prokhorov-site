@@ -71,7 +71,7 @@ Backup of v7.12 sources: `_backups/new-test-v7-20261002-prepages/`.
 - Every case page: cover, title and intro, a project-data table (Client, Year, Role, Industry, Platform, Scope, Timeline), then six chapters — Challenge, Research & Strategy, Brand Direction, UX Structure, Visual Language, Final Experience — each with text and image rows (wide or pair), and a results row in Final Experience. Next project at the end.
 - Generated from one table: `scripts/build-cases.py` (edit CASES, run it, then build-html.py).
 - 39 new real images from ../cases (Powermatic 14, Visual Hunters 6, Contour 2, Monolith 8, Lattice 6, Luma 3), added to build-assets.py; 59 images across the cases. Device screenshots are shown whole (contain), never cropped.
-- Real text: the audit (from cases/visualhunters/case-study-nda.md) and Monolith ONE (from cases/monolith/Monolith ONE.md) are written through; Powermatic's page list is taken from its own menu screen.
+- Real text: Monolith ONE (from cases/monolith/Monolith ONE.md) is written through; Powermatic's page list is taken from its own menu screen.
 - CONTENT: everything unknown is a visible placeholder marked `data-todo` — grey writing prompts ("Placeholder" + what to write), hatched image frames naming the missing image, and "—" in data/results. 102 in total.
 
 # v7.8 — simpler phone layout (2026-10-02)
@@ -422,10 +422,8 @@ Everything else is content motion (line and image reveals) or micro motion (link
 | Powermatic description | the Powermatic site copy visible in the mockups |
 | Monolith spec | `cases/monolith/Monolith ONE.md` |
 | Lattice line | `cases/site/*.html` |
-| Website audit | `cases/visualhunters/case-study-nda.md` |
 
 ## Open content issues
-- **Website audit:** the NDA case study describes Artem's own Webflow site (the Mōno template cleanup in `design.md`). It is presented as "client under NDA", as the source document frames it. Confirm or reword before launch.
 - Years are unknown for Powermatic, Monolith, Lattice and Luma, so they are shown as "—".
 - There are no visuals or write-ups for Playgram.ai, Staffjet or Loglark. They are listed without links.
 - There are no full case-study texts (challenge / approach / outcome). The dialogs are galleries plus a summary.

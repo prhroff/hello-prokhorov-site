@@ -28,7 +28,7 @@ Front matter, at the top of each source:
     card: lattice-hero              (cases: the picture on the /work/ card, as on the home page)
     card_alt: What it shows         (cases: that picture's alt text)
     card_pos: 60% 50%               (cases: which part of that picture the crops keep)
-    card_tags: Webflow / Under NDA  (cases without a picture: the card shows these tags and card_text instead)
+    card_tags: Framer / Concept  (cases without a picture: the card shows these tags and card_text instead)
     card_text: A short line         (cases without a picture: see card_tags)
     kind: Client website            (cases: the descriptor in the card's caption, after its dot)
     year: ’26                       (cases: the caption's last slot, as on the home cards — a year, a platform or nothing)
@@ -362,6 +362,15 @@ def head(p):
         # before the first paint: JS is on; a visitor who has seen the preloader this session skips it
         "<script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>",
         f'<script type="module" src="{e(m.get("script", "/js/main.js"))}"></script>',
+    ]
+    # analytics: the ids for js/consent.js, which loads them only after the visitor accepts
+    if any(C.ANALYTICS.values()):
+        lines += [
+            f'<meta name="pk-analytics" data-ga4="{e(C.ANALYTICS["ga4"])}" data-ym="{e(C.ANALYTICS["metrica"])}">',
+            '<link rel="stylesheet" href="/css/consent.css">',
+            '<script type="module" src="/js/consent.js"></script>',
+        ]
+    lines += [
         "",
         '<script type="application/ld+json">',
         schema(p),
@@ -483,9 +492,10 @@ def context(p):
         brand_label=f"{C.NAME} — back to top" if cur == "/" else f"{C.NAME} — home",
         # "Get in Touch" never hands off to a mail app: the form page, or (on it) the form itself
         cta_href=cta,
-        # the project form posts to FORM_ENDPOINT; until one is set it cannot send (js/contact.js says so)
+        # the project form posts to Web3Forms; until the access key is set it cannot send (js/contact.js says so)
         form_action=C.FORM_ENDPOINT,
-        form_mode="post" if C.FORM_ENDPOINT else "none",
+        form_key=C.FORM_ACCESS_KEY,
+        form_mode="post" if C.FORM_ENDPOINT and C.FORM_ACCESS_KEY else "none",
         nav_bar=nav_bar(cur), nav_menu=nav_menu(cur),
         # the one footer: in the home feed it is a plain row, on inner pages it also takes the page grid's foot cell
         foot_class="foot" if p["kind"] == "home" else "doc__foot foot",
@@ -664,8 +674,8 @@ def main():
     LEDGER.write_text(json.dumps(sorted(written), indent=1))
 
     print(f"{'release' if RELEASE else 'preview'} build: {len(PAGES)} pages, {len(POSTS)} live posts")
-    if not C.FORM_ENDPOINT:
-        print("  ! FORM_ENDPOINT requires confirmation: the project form on /contact/ cannot send (scripts/site_config.py)")
+    if not C.FORM_ACCESS_KEY:
+        print("  ! FORM_ACCESS_KEY requires confirmation: the project form on /contact/ cannot send (scripts/site_config.py)")
     for path, state, warn in rows:
         print(f"  {path:<40} {state}" + ("".join(f"\n      ! {w}" for w in warn) if warn else ""))
     for title, paths in titles.items():

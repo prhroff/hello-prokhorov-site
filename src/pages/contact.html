@@ -12,11 +12,13 @@ script: /js/contact.js
 updated: 2026-10-05
 ---
       <!-- PROJECT INTAKE: seven short questions, then the send. Answers go to
-           FORM_ENDPOINT (scripts/site_config.py); until one is set, nothing can be
-           sent and the page says so (js/contact.js). Field names are the ones the
-           endpoint receives. -->
+           Web3Forms (FORM_ENDPOINT + FORM_ACCESS_KEY, scripts/site_config.py); until
+           the key is set, nothing can be sent and the page says so (js/contact.js).
+           Field names are the ones the email shows; Web3Forms replies to "email". -->
       <form class="intake" action="{{form_action}}" method="post" data-intake data-mode="{{form_mode}}">
-        <input type="hidden" name="_subject" value="New project — helloprokhorov.com">
+        <input type="hidden" name="access_key" value="{{form_key}}">
+        <input type="hidden" name="subject" value="New project — helloprokhorov.com">
+        <input type="hidden" name="from_name" value="helloprokhorov.com">
 
         <fieldset class="block q" data-q="one">
           <legend class="q__title"><span class="q__no">01</span>Do you already have a website?<span class="req" aria-hidden="true">*</span></legend>
@@ -94,7 +96,7 @@ updated: 2026-10-05
         </fieldset>
 
         <!-- for bots only: people never see or fill it -->
-        <p class="visually-hidden" aria-hidden="true"><label>Leave this empty <input name="_gotcha" type="text" tabindex="-1" autocomplete="off"></label></p>
+        <p class="visually-hidden" aria-hidden="true"><label>Leave this empty <input name="botcheck" type="text" tabindex="-1" autocomplete="off"></label></p>
 
         <section class="intake-end" aria-labelledby="end-title">
           <h2 class="intake-end__title" id="end-title">Ready to start?</h2>
@@ -117,7 +119,7 @@ updated: 2026-10-05
         <p class="intake-done__back"><a class="more__link" href="/" data-back-to-site><span aria-hidden="true">←</span><span data-roll>Back to Site</span></a></p>
       </div>
 
-      <!-- no form service connected yet (FORM_ENDPOINT is empty): nothing was sent, and the page says so -->
+      <!-- no form service connected yet (FORM_ACCESS_KEY is empty): nothing was sent, and the page says so -->
       <div class="intake-done" data-intake-mail tabindex="-1" hidden>
         <h2 class="intake-done__title">Almost there.</h2>
         <p class="intake-done__text">This form can’t send yet. Copy your answers and send them to <span data-email>{{email}}</span>. <span class="mute">Nothing is lost — they’re still in the form.</span></p>

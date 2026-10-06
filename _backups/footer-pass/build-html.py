@@ -28,7 +28,7 @@ Front matter, at the top of each source:
     card: lattice-hero              (cases: the picture on the /work/ card, as on the home page)
     card_alt: What it shows         (cases: that picture's alt text)
     card_pos: 60% 50%               (cases: which part of that picture the crops keep)
-    card_tags: Webflow / Under NDA  (cases without a picture: the card shows these tags and card_text instead)
+    card_tags: Framer / Concept  (cases without a picture: the card shows these tags and card_text instead)
     card_text: A short line         (cases without a picture: see card_tags)
     kind: Client website            (cases: the descriptor in the card's caption, after its dot)
     year: ’26                       (cases: the caption's last slot, as on the home cards — a year, a platform or nothing)

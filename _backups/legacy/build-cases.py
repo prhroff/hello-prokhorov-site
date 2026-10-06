@@ -5,8 +5,8 @@ raise SystemExit("build-cases.py is legacy and disabled: it would overwrite src/
 
 # Generates the seven case dialogs in src/index.html from one data table.
 # Edit the CASES table, then: python scripts/build-cases.py && python scripts/build-html.py
-# Real facts come from the existing site copy, cases/monolith/Monolith ONE.md and
-# cases/visualhunters/case-study-nda.md. Everything unknown is a visible
+# Real facts come from the existing site copy and cases/monolith/Monolith ONE.md.
+# Everything unknown is a visible
 # placeholder (TODO) that says what belongs there — nothing is invented.
 import re, html
 
@@ -157,20 +157,6 @@ CASES = [
     ('row', 'pair', '9 / 16', [IMG('lu-stories', 'Luma AI website design, vertical presentation', 'Presentation'), PH('Mobile screens')])],
   ]),
 
- dict(id='au', title='Website audit', cover=None, dark=False,
-  intro='A full audit of a Webflow portfolio site launched on a purchased template — UX, technical SEO and front‑end performance — followed by a prioritised plan and implementation.',
-  meta={'Client': 'Confidential (NDA) — a remote UI/UX studio', 'Year': '2026', 'Role': 'UX/UI designer and Webflow consultant', 'Industry': 'Design studio', 'Platform': 'Webflow', 'Scope': 'Audit, roadmap, implementation'},
-  sections=[
-   [('p', 'The site looked finished, but its foundations were still those of an unconfigured template: leftover branding and structured data from the template author, a dead primary navigation link, a mobile menu that didn’t open reliably, blocking scripts ahead of first paint, and 55 images without defined dimensions.'),
-    ('row', 'pair', '4 / 3', [PH('Before — homepage (anonymised)'), PH('Before — performance report')])],
-   [('p', 'Five core pages, two content systems (portfolio and blog), utility pages and the global layers — navigation, footer, metadata, structured data, media and analytics — each reviewed through three lenses: how it feels (UX), how it is found (SEO) and how fast it reaches the screen (performance). The plan was ordered by impact, so the highest-leverage changes came first.')],
-   [('p', 'Every trace of the template author’s identity was replaced, so visitors and search engines meet one business with one voice and one way to get in touch. Page summaries and project descriptions were aligned to position the studio as a long-term design partner.')],
-   [('p', 'The dead navigation link was fixed, placeholder and duplicate pages removed, and the mobile menu repaired — a lean set of pages that is easier to navigate and easier for search engines to understand.'),
-    ('row', 'pair', '4 / 3', [PH('Navigation, before and after'), PH('Mobile menu fix')])],
-   [('p', 'Non-critical scripts and analytics deferred so visible content paints first; the hero image prioritised and converted to a modern format; image dimensions defined to stop layout shift; early connections to third-party services.')],
-   [('p', 'Metadata, crawl rules and structured data rebuilt around one clear identity, and the site moved from publishable to indexing-ready. Projected gains, from the audit:'),
-    METRICS(('~400 ms', 'faster largest contentful paint (expected)'), ('30–50%', 'lighter lead image (expected)'), ('~300 ms', 'saved at the start of each load (expected)'))],
-  ]),
 ]
 
 ORDER = [c['id'] for c in CASES]

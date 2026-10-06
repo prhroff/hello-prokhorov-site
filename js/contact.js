@@ -5,9 +5,9 @@
      an email and the privacy box. Nothing is checked while the visitor is
      still answering; on send, the first thing missing is brought into view
      with a short note, and the note clears as soon as it is answered.
-   · Sending: data-mode="post" posts the answers to the form's action (the
-     FORM_ENDPOINT in scripts/site_config.py) and shows "Thank you." only when
-     the service confirms. data-mode="none" (no service yet) sends nothing and
+   · Sending: data-mode="post" posts the answers to the form's action (Web3Forms,
+     FORM_ENDPOINT + FORM_ACCESS_KEY in scripts/site_config.py) and shows
+     "Thank you." only when the service answers { success: true }. data-mode="none" (no service yet) sends nothing and
      says so, with the answers ready to copy — it never claims a sent message,
      and it never hands off to a mail app.
    · Without JavaScript the form still submits natively to the same action. */
@@ -164,7 +164,7 @@ if (form) {
       missing.focus({ preventScroll: true });
       return;
     }
-    if (form.elements._gotcha?.value) return;      // a bot filled the hidden field
+    if (form.elements.botcheck?.value) return;     // a bot filled the hidden field
 
     const a = answers();
     if (form.dataset.mode !== 'post') { swapTo(mailDone); return; }
@@ -174,7 +174,8 @@ if (form) {
     data.set('needs', a.needs);                    // one readable line instead of repeated fields
     try {
       const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-      if (!res.ok) throw new Error(String(res.status));
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) throw new Error(json.message || String(res.status));
       swapTo(done);
     } catch {
       busy(false);
