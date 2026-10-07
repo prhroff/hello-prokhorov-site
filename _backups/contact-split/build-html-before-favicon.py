@@ -369,9 +369,6 @@ def head(p):
     lines += [
         '<meta name="twitter:card" content="summary_large_image">',
         "",
-        # 192×192 on white, a multiple of 48 as Google asks for its results; listed first so browser tabs keep
-        # the transparent SVG / 32px icons below. /favicon.ico (48, 32, 16, from assets/img/favicon.ico) sits at the root
-        '<link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">',
         '<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">',
         '<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">',
         '<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">',

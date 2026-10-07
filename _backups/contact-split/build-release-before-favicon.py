@@ -27,7 +27,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import site_config as C  # noqa: E402
 
 # what the live site is made of (blog/ is included only when the release build writes it)
-FILES = ["index.html", "404.html", "sitemap.xml", "robots.txt", "llms.txt", "favicon.ico"]
+FILES = ["index.html", "404.html", "sitemap.xml", "robots.txt", "llms.txt"]
 DIRS = ["archive", "blog", "contact", "get-in-touch", "info", "privacy", "work", "assets", "css", "js"]
 # never part of the copy the release is built in
 SKIP = {".git", "dist", "_backups", "__pycache__", "node_modules", ".claude"}
