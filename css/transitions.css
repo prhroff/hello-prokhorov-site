@@ -1,0 +1,23 @@
+/* Page transitions (js/transitions.js): one black sheet (the site's ink)
+   rises from the bottom over the page; the next page starts under it, and it
+   carries on out through the top. The logotype stays still, in white, in the
+   middle of the screen. Shared by every page, the portfolio and the Archive. */
+.pt-sheets { position: fixed; inset: 0; z-index: 2147483647; overflow: hidden; pointer-events: auto; }
+.pt-sheet { position: absolute; inset: 0; overflow: hidden; transform: translateY(100%); will-change: transform; }
+/* the logo layer covers the sheet and is moved against it: the logo itself never moves */
+.pt-sheet__logo { position: absolute; inset: 0; display: grid; place-items: center; will-change: transform; }
+/* the logo is inline SVG (js/transitions.js): painted with the sheet, nothing to load */
+.pt-sheet__logo svg { display: block; width: clamp(150px, 15vw, 240px); height: auto; aspect-ratio: 235 / 48; fill: currentColor; }
+
+/* A case growing out of a project picture (js/main.js) crosses to its page in
+   a view transition: the old page's last frame (the picture, grown into the
+   cover's place) is held over the new page, untouched, until the cover is
+   decoded; js/transitions.js then ends it at once. Every other navigation
+   skips it (pageswap). The hold below is only its longest possible length. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+::view-transition-group(root) { animation: none; }
+::view-transition-old(root) { animation: none; }
+::view-transition-new(root) { animation: pt-held 3s step-end both; }
+@keyframes pt-held { from, to { opacity: 0; } }
