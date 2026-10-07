@@ -1,4 +1,4 @@
-/* Get in touch (/contact/): the project intake. Everything the site does
+/* Get in touch (/get-in-touch/): the project intake. Everything the site does
    (menu, clock, label rolls …) comes from main.js; this adds the form.
 
    · Questions 01–05 ask for one answer each (02: at least one), plus a name,
@@ -42,6 +42,9 @@ document.addEventListener('click', (e) => {
 
 if (form) {
   form.noValidate = true;            // the checks below replace the browser's bubbles
+  // a required radio group or checkbox counts as invalid until it is answered, and screen readers
+  // announce it as "invalid" from the start; the checks below cover them (their labels say "required")
+  $$('input[type=radio][required], input[type=checkbox][required]', form).forEach((i) => i.removeAttribute('required'));
   $$('.q__opts', form).forEach((list) => [...list.children].forEach((el, k) => el.style.setProperty('--k', k)));
 
   /* ---------- Checks ---------- */

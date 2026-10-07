@@ -10,7 +10,7 @@ NAME = "Prokhorov®"
 EMAIL = "contact@helloprokhorov.com"
 OG_IMAGE = "/assets/img/og.jpg"          # 1200×630, used when a page sets none
 
-# The project form on /contact/ posts to Web3Forms (https://web3forms.com), which
+# The project form on /get-in-touch/ posts to Web3Forms (https://web3forms.com), which
 # emails the answers to the address the access key was created for. The key is
 # public by design (it only lets the form send to that inbox), so it sits in the page.
 # FORM_ACCESS_KEY requires confirmation: left empty, the form sends nothing: it shows
@@ -35,7 +35,7 @@ PERSON = {
     "image": "/assets/img/portrait-1000.webp",
     "locality": "Bishkek",
     "country": "KG",
-    "knowsAbout": ["Web design", "Website development", "Front-end development", "Web animation", "Interaction design", "UI/UX design", "Art direction", "Design systems", "UX audits", "Framer", "Webflow"],
+    "knowsAbout": ["Web design", "Website development", "Front-end development", "Web animation", "Interaction design", "UI/UX design", "Art direction", "Design systems", "UX audits", "Framer"],
     "knowsLanguage": ["en", "ru"],
 }
 

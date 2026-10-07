@@ -93,10 +93,13 @@ if (!loader) html.classList.add('is-loaded');                  // inner page: sh
 else if (!reduceMotion && !html.classList.contains('is-seen')) runLoader();
 else {
   loader.remove();
-  // arriving through a page transition: the entrance starts as the last colour sheet lifts
+  // coming back (through a page transition, or a reload in the same visit): a quicker, lighter
+  // entrance (CSS .is-return) that starts while the sheet is lifting, so the page is never
+  // uncovered empty. The top of the screen, where the words are, is uncovered last: hence the beat.
+  if (!reduceMotion) html.classList.add('is-return');
   Promise.all([
     Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 900))]),
-    window.pkRevealed,
+    (window.pkLifting || window.pkRevealed).then(() => new Promise((r) => setTimeout(r, 200))),
   ]).then(reveal);
 }
 
@@ -477,12 +480,15 @@ phone.addEventListener('change', (e) => { if (!e.matches && menuOpen) setMenu(fa
 /* ---------- Case pages ----------
    Each case is its own page (/work/<slug>/). A case grows out of whatever
    opened it: the project picture (a work card, or the next case at the foot
-   of a case) becomes the window a full-screen copy of it expands through,
-   then the case page loads onto its full-bleed cover, which settles while the
-   title rises. Without a picture on screen, the usual page transition plays. */
+   of a case) becomes the window a copy of it expands through, into exactly
+   the box, crop and scale of the case's cover (under the bar), with the
+   cover's shade. The copy is the very file the cover will ask for (sizes
+   100vw), loaded while it grows, so the case page finds it cached; the last
+   frame is held across the load (js/transitions.js, a view transition) until
+   the cover is decoded, then the cover settles while the title rises.
+   Without a picture on screen, the usual page transition plays. */
 const EASE_IO = 'cubic-bezier(0.76, 0, 0.24, 1)';
 const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
-const insetFrom = (r) => `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`;
 const onScreen = (el) => {
   const r = el && el.getBoundingClientRect();
   return r && r.width > 0 && r.bottom > 0 && r.top < innerHeight ? r : null;
@@ -494,24 +500,60 @@ $$('[data-case-link]').forEach((link) => link.addEventListener('click', (e) => {
   const r = img && onScreen(img.closest('.item__media'));
   if (!r) return;
   e.preventDefault();
-  const layer = document.createElement('div');
-  layer.className = 'case-grow';
+  const el = (tag, cls) => { const n = document.createElement(tag); n.className = cls; return n; };
+  const layer = el('div', 'case-grow');                 // everything under the bar
   layer.setAttribute('aria-hidden', 'true');
-  const copy = new Image();
-  copy.alt = '';
-  copy.src = img.currentSrc || img.src;
-  copy.style.objectPosition = getComputedStyle(img).objectPosition;
-  layer.append(copy);
+  const veil = el('div', 'case-grow__veil');             // the page around the cover clears (phones: the cover is 72svh)
+  const pic = el('div', 'case-grow__pic');               // the picture's box: from the card's to the cover's
+  const frame = el('div', 'case-grow__img');             // the picture in it, scaled as on the card, then as the cover starts
+  // the picture as it is on screen: there at once
+  const low = new Image();
+  low.alt = '';
+  low.src = img.currentSrc || img.src;
+  // the same picture as the cover will ask for it: on top once decoded
+  const hi = img.closest('picture').cloneNode(true);
+  $$('source, img', hi).forEach((n) => { n.sizes = '100vw'; });
+  const hiImg = $('img', hi);
+  hiImg.loading = 'eager';
+  hiImg.fetchPriority = 'high';
+  hiImg.removeAttribute('alt');
+  hi.style.opacity = 0;
+  const shade = el('div', 'case-grow__shade');           // as .case__cover--dark::after (all covers are dark for now)
+  frame.append(low, hi);
+  pic.append(frame, shade);
+  layer.append(veil, pic);
   document.body.append(layer);
-  copy.animate([{ scale: 1.25 }, { scale: 1.1 }], { duration: 1100, easing: EASE_OUT, fill: 'both' });
-  layer.animate([{ clipPath: insetFrom(r) }, { clipPath: 'inset(0px 0px 0px 0px)' }], { duration: 1100, easing: EASE_IO, fill: 'both' })
-    .onfinish = () => {
-      try { sessionStorage.setItem('pk-grow', '1'); } catch (err) { /* the case page simply shows */ }
-      location.href = link.href;
-    };
+
+  // the first frame is the card exactly: its box, crop and hover scale
+  const box = layer.getBoundingClientRect();
+  const end = pic.getBoundingClientRect();               // where the cover will be
+  const cs = getComputedStyle(img);
+  const T = { duration: 1100, easing: EASE_IO, fill: 'both' };
+  if (end.bottom < box.bottom - 1) veil.animate([{ opacity: 0 }, { opacity: 1 }], T);
+  shade.animate([{ opacity: 0 }, { opacity: 1 }], T);
+  frame.animate([{ scale: cs.scale === 'none' ? 1 : cs.scale }, { scale: 1.1 }], T);
+  [low, hiImg].forEach((n) => n.animate([{ objectPosition: cs.objectPosition }, { objectPosition: '50% 50%' }], T));
+  const grown = pic.animate([
+    { top: `${r.top - box.top}px`, left: `${r.left - box.left}px`, width: `${r.width}px`, height: `${r.height}px` },
+    { top: '0px', left: '0px', width: `${end.width}px`, height: `${end.height}px` },
+  ], T).finished;
+  const sharp = hiImg.decode().then(
+    () => hi.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 250, fill: 'forwards' }).finished,
+    () => {},                                              // not loaded: the low copy carries it
+  );
+  // go once it has grown and the cover's file is in (or a moment past, at most)
+  Promise.all([grown, Promise.race([sharp, new Promise((ok) => setTimeout(ok, 1600))])]).then(() => {
+    try { sessionStorage.setItem('pk-grow', '1'); } catch (err) { /* the case page simply shows */ }
+    window.pkGrowing = true;                               // keep the view transition (js/transitions.js)
+    location.href = link.href;
+  });
 }));
 // back to the page the case grew out of (history cache): the picture is back in its place
-addEventListener('pageshow', (e) => { if (e.persisted) $$('.case-grow').forEach((el) => el.remove()); });
+addEventListener('pageshow', (e) => {
+  if (!e.persisted) return;
+  window.pkGrowing = false;
+  $$('.case-grow').forEach((el) => el.remove());
+});
 
 // on a case page: the cover settles, then the title and its line of facts rise
 const caseCover = $('main.case [data-case-cover]');
@@ -525,7 +567,7 @@ if (caseCover && !reduceMotion) {
       { duration: 1100, delay: (grown ? 150 : 250) + i * 110, easing: EASE_OUT, fill: 'backwards' },
     ));
   };
-  if (grown) play(); else window.pkRevealed.then(play);
+  window.pkRevealed.then(play);                           // grown: once the held frame gives way to the page
 }
 
 /* ---------- Smooth scroll ----------
@@ -624,11 +666,14 @@ if (finePointer && !reduceMotion) {
 /* ---------- Cursor ----------
    Mouse and trackpad only: over a project the pointer becomes a small white
    disc that says "View", over the reviews a dark one that says "Drag" (it
-   gives a little while held). It follows with a little lag; nothing follows the
+   gives a little while held); over a review's source link the dark disc becomes
+   a white pill that says "Check confirmation". It follows with a little lag; nothing follows the
    pointer anywhere else. */
 if (finePointer && !reduceMotion && $('[data-cursor]')) {
   const cursor = $('[data-cursor]');
-  const label = $('span', cursor);
+  const disc = $('span', cursor);
+  disc.innerHTML = '<i class="cursor__text"></i><i class="cursor__check">Check confirmation</i>';
+  const label = $('.cursor__text', disc);
   const kinds = [['.item__link', 'View'], ['[data-reviews-track]', 'Drag']];
   const targets = kinds.flatMap(([sel, text]) => $$(sel).map((el) => { el.dataset.cursorLabel = text; return el; }));
   const pos = { x: innerWidth / 2, y: innerHeight / 2 };
@@ -658,12 +703,17 @@ if (finePointer && !reduceMotion && $('[data-cursor]')) {
       cursor.classList.toggle('is-dark', !t.matches('.item__link'));   // white page behind the reviews: a dark disc
       show(true);
     });
-    t.addEventListener('pointerleave', () => { show(false); cursor.classList.remove('is-pressed'); });
+    t.addEventListener('pointerleave', () => { show(false); cursor.classList.remove('is-pressed', 'is-check'); });
     // the case page covers the project: the disc goes with it
     if (t.matches('.item__link')) t.addEventListener('click', () => show(false));
     else t.addEventListener('pointerdown', (e) => { if (e.button === 0) cursor.classList.add('is-pressed'); });
   });
   addEventListener('pointerup', () => cursor.classList.remove('is-pressed'));
+  // a review's source link: "Drag" gives way to "Check confirmation", in a white pill
+  $$('[data-reviews-track] .review__more').forEach((a) => {
+    a.addEventListener('pointerenter', () => cursor.classList.add('is-check'));
+    a.addEventListener('pointerleave', () => cursor.classList.remove('is-check'));
+  });
   // a project can scroll out from under a still pointer, and back
   addEventListener('scroll', () => {
     if (document.querySelector('dialog[open]')) return;

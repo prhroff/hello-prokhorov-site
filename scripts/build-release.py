@@ -28,9 +28,20 @@ import site_config as C  # noqa: E402
 
 # what the live site is made of (blog/ is included only when the release build writes it)
 FILES = ["index.html", "404.html", "sitemap.xml", "robots.txt", "llms.txt"]
-DIRS = ["archive", "blog", "contact", "info", "privacy", "work", "assets", "css", "js"]
+DIRS = ["archive", "blog", "contact", "get-in-touch", "info", "privacy", "work", "assets", "css", "js"]
 # never part of the copy the release is built in
 SKIP = {".git", "dist", "_backups", "__pycache__", "node_modules", ".claude"}
+
+# what must never be published: private keys and service tokens (the form's access key and the
+# analytics ids are public by design and match none of these), and paths or hosts of this machine
+TEXT = {".html", ".css", ".js", ".json", ".txt", ".xml", ".svg"}
+LEAK = re.compile("|".join([
+    r"(?P<private_key>-----BEGIN [A-Z ]*PRIVATE KEY)",
+    r"(?P<token>\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_\w{30,}|sk-[A-Za-z0-9_-]{20,}|sk_live_\w+|xox[bpas]-[\w-]+|AKIA[0-9A-Z]{16}|AIza[\w-]{35}|lin_api_\w+)\b)",
+    r"(?P<jwt>\beyJ[\w-]{10,}\.eyJ[\w-]{10,}\.[\w-]+)",
+    r"(?P<local_path>\b[A-Z]:[\\/](?:Users|Prokhorov)|AppData[\\/]|/Users/[a-z])",
+    r"(?P<dev_host>\blocalhost:\d|127\.0\.0\.1)",
+]))
 
 REF = re.compile(r'''(?:href|src|content)="(/[^"]*)"|srcset="([^"]+)"|url\(\s*['"]?(/[^'")]+)''')
 
@@ -64,6 +75,13 @@ def check():
     problems = [f"not part of the site: {x}" for x in extra]
     problems += [f"development file: {p.relative_to(DIST).as_posix()}" for p in DIST.rglob("*")
                  if p.suffix in (".md", ".py") or p.name.startswith("_")]
+    problems += [f"hidden file or source map: {p.relative_to(DIST).as_posix()}" for p in DIST.rglob("*")
+                 if (p.name.startswith(".") and p.name != ".nojekyll") or p.suffix == ".map"]
+    for p in DIST.rglob("*"):
+        if p.is_file() and p.suffix in TEXT:
+            hit = LEAK.search(p.read_text(encoding="utf-8", errors="replace"))
+            if hit:   # the kind of match only, never the value
+                problems.append(f"possible secret or local path in {p.relative_to(DIST).as_posix()} ({hit.lastgroup})")
     problems += [f"draft page: {p.relative_to(DIST).as_posix()}" for p in DIST.rglob("*.html")
                  if 'class="draft-flag"' in p.read_text(encoding="utf-8")]
     problems += [f"HTML comment left in: {p.relative_to(DIST).as_posix()}" for p in DIST.rglob("*.html")

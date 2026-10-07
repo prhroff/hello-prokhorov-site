@@ -25,8 +25,6 @@ Relevant areas may include:
 
 * Framer Development
 
-* Webflow Development
-
 * UX Audits
 
 * Design Systems
@@ -109,9 +107,9 @@ Use this hierarchy when making copy decisions:
 
 ### Supporting
 
-**Framer / Webflow / UX Audits / Design Systems / Digital Products**
+**Framer / UX Audits / Design Systems / Digital Products**
 
-Tools such as Framer and Webflow should support the positioning rather than become the positioning itself.
+Tools such as Framer should support the positioning rather than become the positioning itself.
 
 Do not make the website feel like:
 
@@ -119,7 +117,7 @@ Do not make the website feel like:
 
 or:
 
-“I'm a Webflow developer.”
+“I'm a no-code developer.”
 
 The stronger idea is:
 
@@ -270,8 +268,6 @@ Examples:
 
 * Framer Development
 
-* Webflow Development
-
 * UX Audits
 
 * Design Systems
@@ -369,8 +365,6 @@ Use natural terms such as:
 * UI/UX Design
 
 * Framer
-
-* Webflow
 
 * Design & Development
 

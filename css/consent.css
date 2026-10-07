@@ -25,6 +25,8 @@
 }
 .menu-open .consent-bar { display: none; }
 @keyframes consent-in { from { opacity: 0; translate: 0 16px; } }
+/* a case grown out of a picture (js/main.js): the card was on screen all along, it just stays */
+.pt-grow .consent-bar { animation: none; }
 @media (prefers-reduced-motion: reduce) { .consent-bar { animation: none; } }
 
 /* "Cookie Settings" in the footer: a button that reads like the Privacy Policy link beside it */

@@ -49,6 +49,7 @@ SOURCES = {
     "review-levon": ("Reviews/Levon_Terteryan.png", [160, 240], None),   # reviewer photo, Levon T.
     "review-bethany": ("Reviews/Bethany_R.png", [160, 240], (0.3, 0.025, 0.8, 0.525)),   # reviewer photo, Bethany R.: the face
     "review-natalia": ("Reviews/Natalia_M.jpg", [160, 240], None),   # reviewer photo, Natalia M.: the whole portrait
+    "review-kirill": ("Reviews/Kirill_S.jpg", [160, 240], None),   # reviewer photo, Kirill S. (200×200: the 240 step stops at 200)
     "service-landing": ("Contra Covers/Cover_02.png", [700, 1300], (0.535, 0.0, 1.0, 1.0)),
     "service-framer": ("Contra Covers/Cover_04.png", [700, 1300], (0.535, 0.0, 1.0, 1.0)),
     # Case-study galleries (v7.9)

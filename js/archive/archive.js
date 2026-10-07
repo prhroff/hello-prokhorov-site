@@ -124,9 +124,10 @@ async function start() {
     a.draggable = false;
     a.dataset.k = cell.k;
     a._i = i; a._j = j; a._b = b;
-    a.setAttribute('aria-label', it.alt);
     a.style.cssText = `left:${b.x.toFixed(1)}px;top:${b.y.toFixed(1)}px;width:${b.w.toFixed(1)}px;--ih:${b.ih.toFixed(1)}px;--r:${cell.r.toFixed(2)}deg`;
     const caption = [it.title, it.category].filter(Boolean).join(' - ');
+    // the name starts with the caption as it shows on hover, then what the image is
+    a.setAttribute('aria-label', caption ? `${caption}: ${it.alt}` : it.alt);
     const sizes = `${Math.ceil(b.w)}px`;
     const sources = it.sources.map((s) => `<source type="${s.type}" srcset="${s.srcset}" sizes="${sizes}">`).join('');
     a.innerHTML = `<span class="ar-card__sel" aria-hidden="true"></span>`

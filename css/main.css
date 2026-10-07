@@ -504,7 +504,7 @@ button.row:hover .row__a::after { translate: 4px 0; }
 @keyframes px-blink { 50% { opacity: 0; } }
 
 .process__tile { display: flex; flex-direction: column; align-items: flex-start; margin-top: 22px; text-align: left; }
-.process__no { font-size: var(--t-state); line-height: 1; letter-spacing: -0.04em; color: var(--mute); font-variant-numeric: tabular-nums; }
+.process__no { font-size: var(--t-state); line-height: 1; letter-spacing: -0.04em; color: color-mix(in srgb, var(--mute), var(--fg) 30%); font-variant-numeric: tabular-nums; }   /* --mute alone is under 4.5:1 on the tinted cards */
 .process__name { margin-top: 8px; font-size: clamp(28px, 2.4vw, 42px); line-height: 1; letter-spacing: -0.05em; }
 .process__desc { margin-top: 14px; font-size: var(--t-head); line-height: 1.3; letter-spacing: -0.03em; text-wrap: pretty; }
 /* what the stage includes: square pixel bullets; on the current card the
@@ -623,6 +623,7 @@ button.row:hover .row__a::after { translate: 4px 0; }
   display: grid; grid-auto-flow: column; grid-auto-columns: min(82%, calc(var(--t-quote) * 21 + var(--rp) * 2)); gap: 12px;
   margin: 6px calc(var(--in) * -1) 0; padding: 0 var(--in) 4px;
   overflow-x: auto; overscroll-behavior-x: contain;
+  position: relative;                          /* clips the cards' visually-hidden text too: without it, before main.js (or without JS) it widened the phone page to ~2600px */
   scroll-snap-type: x mandatory; scroll-padding-inline: var(--in);
   scrollbar-width: none;
 }
@@ -662,6 +663,10 @@ img.review__avatar { object-fit: cover; }
 .review__who { display: grid; gap: 2px; min-width: 0; font-size: var(--t-head); line-height: 1.2; letter-spacing: -0.03em; }
 .review__name { color: var(--fg); }
 .review__role { color: var(--mute); }
+/* an anonymous review: the label in the role's grey */
+.review__name--anon { color: var(--mute); }
+/* the verified seal, at the start of the line under the quote */
+.review__badge { width: 1.05em; height: 1.05em; margin-right: 0.4em; vertical-align: -0.17em; fill: var(--fg); }
 /* the quote, in its own marks: key phrases in the dark text colour, the rest dimmed */
 .review__text { margin-top: auto; padding-top: clamp(48px, 5vw, 88px); font-size: var(--t-quote); line-height: 1.2; letter-spacing: -0.035em; text-wrap: pretty; color: var(--mute); }
 .review__text p::before { content: "“"; }
@@ -850,6 +855,15 @@ img.review__avatar { object-fit: cover; }
 }
 .motion-ok .bar { transition-delay: 0s; }
 .motion-ok.is-loaded :is(.bar, .socials-wrap, .hello__sub, .services-wrap, .side--info .side__in > *, .feed__body) { opacity: 1; }
+/* coming back to the home page (js/main.js): the same entrance, quicker and lighter, with the
+   word-by-word wait capped, and the rest settling in together with the words */
+.motion-ok.is-return:not(.is-loaded) [data-words] .w { filter: blur(6px); translate: 0 0.08em; }
+.motion-ok.is-return [data-words] .w {
+  transition-duration: 0.6s;
+  transition-delay: calc(var(--d, 0s) + min(var(--i) * 16ms, 0.32s));
+}
+.motion-ok.is-return .statement { --d: 0.06s; }
+.motion-ok.is-return :is(.socials-wrap, .hello__sub, .services-wrap, .side--info .side__in > *, .feed__body) { transition-duration: 0.7s; transition-delay: 0.12s; }
 
 .motion-ok .item__media img { opacity: 0; scale: 1.08; transition: opacity 1s var(--ease), scale 1.6s var(--ease); }
 .motion-ok .item.is-in .item__media img { opacity: 1; scale: 1; }
@@ -976,7 +990,8 @@ img.review__avatar { object-fit: cover; }
 }
 
 /* ---------- Cursor ----------
-   A white disc with "View" over projects, "Drag" over the reviews (most project images are dark). Scales in from the pointer. */
+   A white disc with "View" over projects, "Drag" over the reviews (most project images are dark). Scales in from the pointer.
+   Over a review's source link the disc becomes a white pill that says "Check confirmation" (.is-check). */
 .cursor {
   position: fixed; left: 0; top: 0; z-index: 60;
   pointer-events: none;
@@ -984,17 +999,25 @@ img.review__avatar { object-fit: cover; }
 }
 .cursor span {
   display: grid; place-items: center;
-  width: 76px; height: 76px; border-radius: 50%;
+  width: 76px; height: 76px; border-radius: 999px;
   background: var(--bg); color: var(--fg);
   box-shadow: 0 0 0 1px rgb(18 18 18 / 0.08);
   font-size: 14px; letter-spacing: -0.02em;
   scale: 0;
-  transition: scale 0.45s var(--ease);
+  transition: scale 0.45s var(--ease), width 0.45s var(--ease), height 0.45s var(--ease), background-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
+.cursor span { grid-template-columns: minmax(0, 1fr); }
+.cursor span > * { grid-area: 1 / 1; justify-self: center; }
+.cursor__text, .cursor__check { font-style: normal; white-space: nowrap; transition: opacity 0.25s var(--ease); }
+.cursor__check { opacity: 0; }
+.cursor.is-check span { width: 162px; height: 40px; }
+.cursor.is-check.is-dark span { background: var(--bg); color: var(--fg); box-shadow: 0 0 0 1px rgb(18 18 18 / 0.08), 0 6px 18px rgb(18 18 18 / 0.1); }
+.cursor.is-check .cursor__text { opacity: 0; }
+.cursor.is-check .cursor__check { opacity: 1; }
 .cursor.is-on span { scale: 1; }
 .cursor.is-on.is-pressed span { scale: 0.82; }
 .cursor.is-dark span { background: var(--fg); color: var(--bg); box-shadow: none; }
-html.has-cursor :is(.item__link, .reviews__track, .reviews__track.is-dragging) { cursor: none; }
+html.has-cursor :is(.item__link, .reviews__track, .reviews__track.is-dragging, .reviews__track a) { cursor: none; }
 html:not(.has-cursor) .cursor { display: none; }
 
 /* ---------- Preloader ----------
@@ -1023,9 +1046,19 @@ html.is-loading { overflow: hidden; }
 /* ---------- Case pages ---------- */
 /* full-width pages (src/layouts/full.html): /work/ and one page per case, under the site's bar */
 .full { padding-top: var(--bar); }
-/* the project picture a case grows out of (js/main.js), on its way to full screen */
-.case-grow { position: fixed; inset: 0; z-index: 2147483646; overflow: hidden; background: var(--soft); pointer-events: none; }
-.case-grow img { width: 100%; height: 100%; object-fit: cover; }
+/* the project picture a case grows out of (js/main.js): its box goes from the
+   card's to the case's cover (under the bar, as .case__cover), the crop and
+   scale to the cover's, and the cover's shade comes up */
+.case-grow { position: fixed; top: var(--bar); left: 0; right: 0; bottom: 0; z-index: 70; overflow: hidden; pointer-events: none; }
+.case-grow__veil { position: absolute; inset: 0; background: var(--bg); opacity: 0; }
+.case-grow__pic { position: absolute; top: 0; left: 0; width: 100%; height: calc(100svh - var(--bar)); overflow: hidden; }
+.case-grow__img, .case-grow__img picture, .case-grow__img img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.case-grow__img img { object-fit: cover; }
+.case-grow__shade {
+  position: absolute; inset: 45% 0 0;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.7), rgb(0 0 0 / 0.34) 45%, rgb(0 0 0 / 0));
+}
+@media (max-width: 767px) { .case-grow__pic { height: 72svh; } }
 .case__cover { height: calc(100svh - var(--bar)); overflow: hidden; background: var(--soft); }
 .case__cover picture, .case__cover img { width: 100%; height: 100%; }
 .case__cover img { object-fit: cover; }
@@ -1282,6 +1315,10 @@ html.is-loading { overflow: hidden; }
 .doc-cta__title { font-size: var(--t-talk); line-height: 0.95; letter-spacing: -0.055em; }
 .doc-cta__link { display: inline-flex; gap: 0.4em; margin-top: 18px; padding: 2px 10px; border: 1px solid var(--fg); border-radius: 999px; line-height: 1.3; transition: background-color 0.3s var(--ease); }
 @media (hover: hover) { .doc-cta__link:hover { background: var(--soft); } }
+/* Contact: the way to the project form, under its few lines */
+.contact-form .doc-cta__link { margin-top: 24px; }
+/* the page already lists the email and the profiles: the right column keeps only where and when */
+.doc--contact :is(.doc__reach, .doc__socials) { display: none; }
 
 /* links between the home page and the inner pages (shown once those are live) */
 .more { margin-top: 14px; }
@@ -1316,7 +1353,7 @@ a.row:hover .row__c::after { translate: 4px 0; }
 .motion-ok .back__link:hover .roll > span:first-child { translate: 0 -105%; }
 .motion-ok .back__link:hover .roll > span + span { translate: 0 0; }
 
-/* ---------- Get in touch: the project intake (/contact/) ----------
+/* ---------- Get in touch: the project intake (/get-in-touch/) ----------
    Seven questions on one system: a hairline, a small number, the question,
    then its answers — every question with the same type, the same gaps and
    the same answer height. Answers are the bar's rounded buttons, larger:

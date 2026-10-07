@@ -41,16 +41,52 @@
   var old = location.pathname === '/' && /^#case-(\w+)$/.exec(location.hash);
   if (old && CASES[old[1]]) { location.replace('/work/' + CASES[old[1]] + '/'); return; }
 
-  var revealed;
+  var revealed, lifting;
   window.pkRevealed = new Promise(function (r) { revealed = r; });
+  // the moment the ink starts to lift (or, without it, the reveal itself): the home page's
+  // entrance starts here, so the words come into focus as they are uncovered
+  window.pkLifting = new Promise(function (r) { lifting = r; });
+  window.pkRevealed.then(function () { lifting(); });
+
+  // the view transition (css/transitions.css) is only for a case growing out of a picture;
+  // every other way out of a page has the sheet, or nothing
+  // (a skipped transition rejects its promises: nothing to report)
+  function skip(vt) { vt.ready.catch(function () {}); vt.finished.catch(function () {}); vt.skipTransition(); }
+  addEventListener('pageswap', function (e) { if (e.viewTransition && !window.pkGrowing) skip(e.viewTransition); });
 
   // a case that grew out of a project picture (js/main.js): it arrives already open, without the sheet
+  var grow = false;
   try {
     if (sessionStorage.getItem('pk-grow') === '1') {
       sessionStorage.removeItem('pk-grow');
       html.classList.add('pt-grow');
+      grow = true;
     }
   } catch (e) { /* storage blocked */ }
+
+  // the grown picture's last frame stays on screen (the old page's snapshot) while this page
+  // loads under it, until the cover's own picture is decoded; then it gives way at once —
+  // the two are the same picture in the same place, so nothing moves. Without view
+  // transitions (or one already skipped) the page simply shows.
+  addEventListener('pagereveal', function (e) {
+    var vt = e.viewTransition;
+    if (!grow) { if (vt) skip(vt); return; }    // the sheet (below) reveals those
+    if (!vt) { revealed(); return; }
+    var gone = false;
+    var go = function () { if (gone) return; gone = true; revealed(); skip(vt); };
+    // decoded, and painted for two frames under the held one (an async image can miss its first)
+    var painted = function () { requestAnimationFrame(function () { requestAnimationFrame(go); }); };
+    var ready = function () {
+      var img = document.querySelector('[data-case-cover] img');
+      if (!img || !img.decode) { go(); return; }
+      img.decoding = 'sync';
+      img.decode().then(painted, go);
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready); else ready();
+    setTimeout(go, 2500);                           // never hold longer than this
+    vt.finished.then(go, go);
+  }, { once: true });
+  var viewHeld = grow && 'onpagereveal' in window;      // pagereveal resolves pkRevealed
 
   // came here from another page of the site: no preloader (the transition was the way in)
   try {
@@ -95,6 +131,7 @@
       revealed();
     };
     slide(cover.firstChild, '0', '-100%', { duration: EXIT, easing: EASE, fill: 'forwards' }).onfinish = done;
+    lifting();
     setTimeout(done, EXIT + 400);
   }
 
@@ -112,7 +149,7 @@
     var held = new Promise(function (r) { setTimeout(r, HOLD); });
     var parsed = new Promise(function (r) { document.addEventListener('DOMContentLoaded', r); });
     Promise.all([held, parsed]).then(function () { requestAnimationFrame(reveal); });
-  } else {
+  } else if (!viewHeld) {
     revealed();
   }
 
