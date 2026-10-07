@@ -1178,7 +1178,6 @@ html.is-loading { overflow: hidden; }
 .motion-ok .cs-wip__line > span { translate: 0 105%; transition: translate 1.4s var(--ease); }
 .motion-ok .cs-wip__line + .cs-wip__line > span { transition-delay: 0.12s; }
 .motion-ok .cs-wip__title.is-in .cs-wip__line > span { translate: none; }
-.motion-ok .cs-wip__dot { animation: case-breathe 3.6s ease-in-out infinite; }
 .motion-ok .cs-wip__bar::after { translate: -100% 0; }
 .motion-ok .cs-wip__bar.is-in::after { animation: wip-run 2.8s var(--ease) infinite; }
 @keyframes wip-run { from { translate: -100% 0; } to { translate: 560% 0; } }
