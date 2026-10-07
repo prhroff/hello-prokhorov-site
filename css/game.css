@@ -1,0 +1,110 @@
+/* Invader — the footer's hidden arcade game (js/game/). Loaded only when the
+   game first opens; every rule is scoped to .arcade or to html.arcade-open. */
+
+html.arcade-open { overflow: hidden; }
+
+.arcade {
+  position: fixed; inset: 0; z-index: 1000;
+  overflow: hidden;
+  /* transparent while the screen dissolves in over the page, then solid */
+  background: transparent;
+  touch-action: none; overscroll-behavior: contain;
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: default;
+}
+.arcade.is-on { background: #0a0a0a; }
+.arcade:focus { outline: none; }
+/* the mouse steers the plane during a run: the pointer gets out of the way */
+.arcade.is-playing { cursor: none; }
+
+.arcade__screen {
+  position: absolute; left: 0; top: 0; display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.arcade__controls {
+  position: absolute; z-index: 1;
+  top: var(--arena-top, 0px); right: var(--arena-right, 0px);
+  display: flex;
+}
+/* the buttons arrive with the screen, not ahead of it */
+.arcade:not(.is-on) .arcade__controls { visibility: hidden; }
+.arcade__btn {
+  display: grid; place-items: center;
+  width: max(40px, calc(var(--icon, 2px) * 7 + 18px)); height: max(40px, calc(var(--icon, 2px) * 7 + 18px));
+  color: #757575; cursor: pointer;
+}
+.arcade__btn[hidden] { display: none; }
+.arcade__btn:hover, .arcade__btn:focus-visible { color: #f2f2f2; }
+.arcade__btn:focus-visible { outline: var(--icon, 2px) solid #f2f2f2; outline-offset: calc(var(--icon, 2px) * -2); }
+.arcade__btn svg { width: calc(var(--icon, 2px) * 7); height: calc(var(--icon, 2px) * 7); }
+@media (pointer: coarse) {
+  .arcade__btn { min-width: 44px; min-height: 44px; }
+}
+
+.arcade__live {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------- The secret: reward screen, Pilot License, "View secret" ----------
+   Sizes are in game pixels (--px), so the SVG lettering, the 1-pixel rules
+   and the spacing sit on the game's own grid. */
+.arcade__panel {
+  position: absolute; z-index: 1;
+  left: var(--arena-left, 0px); top: var(--arena-top, 0px);
+  width: var(--arena-w, 100%); height: var(--arena-h, 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(var(--px, 2px) * 14) calc(var(--px, 2px) * 6) calc(var(--px, 2px) * 6);
+}
+.arcade__panel[hidden], .arcade__panel [hidden] { display: none; }
+/* the first moments: shown, not yet pressable */
+.arcade__panel:not(.is-armed) .arcade__action { pointer-events: none; }
+.arcade__controls { z-index: 2; }
+
+.arcade__reward, .arcade__licensebox { display: flex; flex-direction: column; align-items: center; }
+.arcade__text { display: block; width: calc(var(--w) * var(--px, 2px)); height: calc(var(--h) * var(--px, 2px)); }
+.arcade__text svg { display: block; width: 100%; height: 100%; }
+.arcade__vh {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.arcade__score { margin: 0 0 calc(var(--px, 2px) * 7); color: #757575; }
+.arcade__title { margin: 0 0 calc(var(--px, 2px) * 5); color: #f2f2f2; font: inherit; }
+.arcade__found { margin: 0 0 calc(var(--px, 2px) * 12); color: #08f32e; }
+
+.arcade__actions { display: flex; flex-direction: column; align-items: stretch; gap: calc(var(--px, 2px) * 3); }
+.arcade__actions--row { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+.arcade__action {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: calc(var(--px, 2px) * 4) calc(var(--px, 2px) * 6);
+  color: #f2f2f2; background: none;
+  border: var(--px, 2px) solid currentColor; border-radius: 0;
+  text-decoration: none; cursor: pointer;
+}
+/* the current choice inverts, like a cabinet menu (focus from any input) */
+.arcade__action:hover, .arcade__action:focus { background: #f2f2f2; color: #121212; border-color: #f2f2f2; outline: none; }
+.arcade__action:focus-visible { outline: var(--px, 2px) solid #f2f2f2; outline-offset: var(--px, 2px); }
+.arcade__action--light { border-color: transparent; color: #757575; }
+.arcade__action--light:hover, .arcade__action--light:focus { background: none; color: #f2f2f2; border-color: transparent; }
+.arcade__reward .arcade__action--light { margin-top: calc(var(--px, 2px) * 3); }
+
+.arcade__card {
+  display: block; margin-bottom: calc(var(--px, 2px) * 6);
+  width: calc(var(--k, 1) * 132 * var(--px, 2px)); height: calc(var(--k, 1) * 88 * var(--px, 2px));
+  image-rendering: pixelated; image-rendering: crisp-edges;
+}
+
+.arcade__secret {
+  position: absolute; z-index: 2;
+  left: var(--arena-left, 0px); top: var(--arena-top, 0px);
+  display: flex; align-items: center;
+  min-height: 44px; padding: 0 calc(var(--px, 2px) * 4);
+  color: #757575; cursor: pointer;
+}
+.arcade__secret[hidden] { display: none; }
+.arcade__secret:hover, .arcade__secret:focus-visible { color: #f2f2f2; }
+.arcade__secret:focus-visible { outline: var(--px, 2px) solid #f2f2f2; outline-offset: calc(var(--px, 2px) * -1); }
+.arcade:not(.is-on) :is(.arcade__panel, .arcade__secret) { visibility: hidden; }

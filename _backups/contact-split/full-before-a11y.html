@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+{{head}}
+</head>
+<body>
+{{> defs}}
+  <a class="skip" href="#main">Skip to Content</a>
+
+{{> bar}}
+
+{{> menu}}
+{{draft_flag}}
+  <!-- ============ FULL-WIDTH PAGE ============
+       The site's bar, the page across the full width, then the close below.
+       Used by /work/ and by each case study (class: case — the cover, the
+       overview, each part as pictures then their text, the next case). -->
+  <main class="full{{page_class}}" id="main">
+{{content}}
+  </main>
+
+  <!-- The close, on the inner pages' grid as /work/ has it: where this is (left), the next
+       case as a work card (scripts/build-html.py case_end), the way to get in touch and the footer. -->
+  <div class="doc doc--wide doc--work doc--end">
+    <div class="doc__side">
+      <div class="doc__side-in">
+{{crumbs}}
+        <p class="doc__title">Work</p>
+        <p class="doc__lead">{{work_lead}}</p>
+        <a class="doc-cta__link doc__all" href="/work/"><span data-roll>All Work</span><span aria-hidden="true"> →</span></a>
+      </div>
+    </div>
+
+    <div class="doc__main">
+      <section class="block" aria-labelledby="next-title">
+        <header class="block__head"><h2 id="next-title"><span class="block__no" aria-hidden="true">(01)</span>Next Case</h2><span class="count">({{next_count}})</span></header>
+        <ul class="work work--all">
+{{next_card}}
+        </ul>
+      </section>
+      <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>
+    </div>
+
+{{> aside}}
+
+{{> foot}}
+  </div>
+</body>
+</html>

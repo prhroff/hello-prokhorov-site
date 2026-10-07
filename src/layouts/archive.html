@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+{{head}}
+</head>
+<body class="ar">
+{{> defs}}
+  <a class="ar-skip" href="#collection">Skip to the Collection</a>
+
+  <!-- ============ THE ARCHIVE ============
+       The site's bar and type, on the dark (css/archive.css, js/archive/):
+       no menu or footer, only a quiet way back to the site at all times.
+       Below the bar, one canvas of pinned-up cards that moves in every
+       direction and never ends; the title stays in the middle above it. -->
+  <header class="ar-bar">
+    <a class="ar-bar__brand" href="/" aria-label="Artem Prokhorov — home"><span class="logo"><svg class="logo__mark" viewBox="1 0 47 48" aria-hidden="true" focusable="false"><use href="#pk-mark"/></svg><svg class="logo__word" viewBox="54 13 181 22" aria-hidden="true" focusable="false"><use href="#pk-word"/></svg></span></a>
+    <a class="ar-bar__back" href="/" data-back-to-site>Back to Site</a>
+  </header>
+
+  <main class="ar-main" id="main">
+    <header class="ar-hero">
+      <h1 class="ar-hero__title">{{heading}}</h1>
+      <p class="ar-hero__lead">{{lead}}</p>
+    </header>
+{{content}}
+  </main>
+
+  <p class="ar-hint" aria-hidden="true"><span class="ar-hint__fine">Drag or Scroll to Explore</span><span class="ar-hint__touch">Drag to Explore</span></p>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# secrets and local settings
+.env
+.env.*
+.mcp.json
+.claude/
+*.pem
+*.key
+.vscode/
+.idea/
+*.log
+# Python and system leftovers
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+desktop.ini
+node_modules/
+# the production package, made by scripts/build-release.py
+dist/

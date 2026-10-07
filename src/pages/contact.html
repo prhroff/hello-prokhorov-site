@@ -1,0 +1,41 @@
+---
+# "Contact": every way to reach me in one place. The project form has its own page (/get-in-touch/), linked from here.
+title: Contact Artem Prokhorov — Email, Profiles and Project Form
+description: How to reach Artem Prokhorov, an independent web designer and developer in Bishkek: email, LinkedIn, Contra, X and Instagram, or the project form.
+heading: Contact
+label: Contact
+lead: Email, profiles, or the project form — whichever suits you.
+status: live
+schema: ContactPage
+class: doc--contact
+updated: 2026-10-07
+---
+      <!-- CONTENT: only what the site already says — the email, the profiles (scripts/site_config.py
+           PROFILES), Bishkek and UTC+6, English and Russian. Telegram is still unconfirmed. -->
+      <p class="doc__intro doc__intro--mail"><a class="doc__mail" href="mailto:{{email}}">{{email}}</a></p>
+      <p class="doc__copy"><button class="reach__copy" type="button" data-copy="{{email}}"><span data-copy-label>Copy Email</span></button></p>
+
+      <section class="block" aria-labelledby="form-title">
+        <header class="block__head"><h2 id="form-title"><span class="block__no" aria-hidden="true">(01)</span>Start a Project</h2></header>
+        <div class="prose">
+          <p>Have a website in mind? The project form asks seven short questions — what you need, what kind of site, when you’d like to start and a rough budget — so I can reply with questions or a quote.</p>
+        </div>
+        <p class="contact-form"><a class="doc-cta__link" href="/get-in-touch/"><span data-roll>Fill Out the Project Form</span><span aria-hidden="true"> →</span></a></p>
+      </section>
+
+      <section class="block" aria-labelledby="profiles-title">
+        <header class="block__head"><h2 id="profiles-title"><span class="block__no" aria-hidden="true">(02)</span>Profiles</h2><span class="count">({{profile_count_2}})</span></header>
+        <ul class="rows">
+{{profile_rows}}
+        </ul>
+      </section>
+
+      <section class="block" aria-labelledby="where-title">
+        <header class="block__head"><h2 id="where-title"><span class="block__no" aria-hidden="true">(03)</span>Where and When</h2></header>
+        <ul class="rows">
+          <li><p class="row"><span class="row__a">Based In</span><span class="row__b">Bishkek, Kyrgyzstan</span><span class="row__c">UTC+6</span></p></li>
+          <li><p class="row"><span class="row__a">Local Time</span><span class="row__b"><time data-clock>—</time></span><span class="row__c"></span></p></li>
+          <li><p class="row"><span class="row__a">Working</span><span class="row__b">Remotely, worldwide</span><span class="row__c"></span></p></li>
+          <li><p class="row"><span class="row__a">Languages</span><span class="row__b">English, Russian</span><span class="row__c"></span></p></li>
+        </ul>
+      </section>
