@@ -1,0 +1,154 @@
+---
+# Services: the full width as the case pages have it (src/layouts/services.html), each service a
+# scene of its own that arrives as you scroll, with a lot of air around it; then the close
+# every inner page has — where this is, the prices' small print and Let's Talk, the contact
+# column and the footer. Prices: PRICING in scripts/site_config.py ({{price_text_0}} … ).
+title: Services — Web Design, Development and UI/UX Design
+description: Web design, website development, motion, UI/UX design and design direction by Artem Prokhorov — what each includes, starting prices and timelines.
+heading: Services
+label: Services
+lead: From a single landing page to a complete website — planned, designed and built by one person.
+status: live
+schema: WebPage
+updated: 2026-10-08
+layout: services
+class: sw
+---
+    <!-- CONTENT: as /services/ (names, lines and prices approved; "Includes" restate the site).
+         TO CONFIRM (Artem): every Timeline is a placeholder. -->
+    <!-- the first screen: the title with a ring of square pictures from the work around it,
+         turning slowly; drag it sideways, it sways with the pointer (js/main.js "Orbit").
+         The pictures are only the ring's source: the script lays them out as curved cards. -->
+    <header class="sw-hero" data-hero>
+      <div class="orbit" data-orbit>
+        <div class="orbit__scene">
+          <h1 class="sw-hero__title">{{heading}}</h1>
+          <div class="orbit__ring" aria-hidden="true" data-orbit-ring>
+          <pic name="powermatic-keys" alt="" sizes="220px" class="orbit__src">
+          <pic name="vh-display" alt="" sizes="220px" class="orbit__src">
+          <pic name="contour-laptop" alt="" sizes="220px" class="orbit__src">
+          <pic name="lattice-plinth" alt="" sizes="220px" class="orbit__src">
+          <pic name="luma-screen" alt="" sizes="220px" class="orbit__src">
+          <pic name="renovate-laptop" alt="" sizes="220px" class="orbit__src">
+          <pic name="powermatic-phone" alt="" sizes="220px" class="orbit__src">
+          <pic name="vh-logo" alt="" sizes="220px" class="orbit__src">
+          <pic name="la-image" alt="" sizes="220px" class="orbit__src">
+          <pic name="lu-display" alt="" sizes="220px" class="orbit__src">
+          <pic name="pm-tshirt" alt="" sizes="220px" class="orbit__src">
+          <pic name="co-hero" alt="" sizes="220px" class="orbit__src">
+          </div>
+        </div>
+      </div>
+      <p class="sw-hero__lead">{{lead}}</p>
+      <p class="sw-hint" aria-hidden="true">Drag or Scroll</p>
+    </header>
+
+    <p class="sw-intro" data-light>Six ways to work together. <span class="mute">Every project gets a fixed price once we agree the scope — the figures below are where each one starts.</span></p>
+
+    <!-- two rows of the services' names drifting in opposite directions as you scroll (decorative) -->
+    <div class="sw-ticker" aria-hidden="true">
+      <p class="sw-ticker__row"><span>Web Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Development</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Motion</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Design Direction</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Web Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Development</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Motion</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Design Direction</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Web Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Development</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Motion</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Design Direction</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg></p>
+      <p class="sw-ticker__row sw-ticker__row--back"><span>Design Direction</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Motion</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Development</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Web Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Design Direction</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Motion</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Development</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Web Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Design Direction</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Motion</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Website Development</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Web Design</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg></p>
+    </div>
+
+    <ol class="sw-list">
+      <li class="sw-svc" aria-labelledby="sw-1">
+        <p class="sw-svc__no" aria-hidden="true">(01)</p>
+        <h2 class="sw-svc__title" id="sw-1"><span class="sw-svc__word">Design &amp; Development</span></h2>
+        <p class="sw-svc__lead">A complete website, from structure and visual direction through development and launch — one person throughout.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/powermatic/" tabindex="-1" aria-hidden="true"><pic name="powermatic-stand" alt="" sizes="(min-width: 768px) 40vw, 100vw" eager></a><figcaption><a href="/work/powermatic/">Powermatic®</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Structure and content hierarchy</li>
+              <li>Visual design for desktop and mobile</li>
+              <li>Build in code or in Framer</li>
+              <li>A CMS for the content you’ll change</li>
+              <li>Testing and launch</li>
+              <li><span class="sw-svc__k">Price:</span> {{price_text_0}}</li>
+              <li><span class="sw-svc__k">Timeline:</span> 4–6 weeks</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-2">
+        <p class="sw-svc__no" aria-hidden="true">(02)</p>
+        <h2 class="sw-svc__title" id="sw-2"><span class="sw-svc__word">Web Design</span></h2>
+        <p class="sw-svc__lead">Structure, UX and visual design for a website or landing page, ready to build.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/contour-office/" tabindex="-1" aria-hidden="true"><pic name="co-hero" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/contour-office/">Contour Office©</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Goals, audience and site structure</li>
+              <li>User flows and content hierarchy</li>
+              <li>Visual design for desktop and mobile</li>
+              <li>Layouts ready for development</li>
+              <li><span class="sw-svc__k">Price:</span> {{price_text_1}}</li>
+              <li><span class="sw-svc__k">Timeline:</span> 2–3 weeks</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-3">
+        <p class="sw-svc__no" aria-hidden="true">(03)</p>
+        <h2 class="sw-svc__title" id="sw-3"><span class="sw-svc__word">Website Development</span></h2>
+        <p class="sw-svc__lead">Your approved design built as a responsive, tested website, ready to launch.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/renovate/" tabindex="-1" aria-hidden="true"><pic name="renovate-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/renovate/">Renovate</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Responsive build that matches the layouts</li>
+              <li>In code, or in Framer with a CMS</li>
+              <li>Performance and technical SEO</li>
+              <li>Testing across browsers and devices</li>
+              <li>Launch on your domain</li>
+              <li><span class="sw-svc__k">Price:</span> {{price_text_2}}</li>
+              <li><span class="sw-svc__k">Timeline:</span> 2–4 weeks</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-4">
+        <p class="sw-svc__no" aria-hidden="true">(04)</p>
+        <h2 class="sw-svc__title" id="sw-4"><span class="sw-svc__word">Website Motion</span></h2>
+        <p class="sw-svc__lead">Transitions, scroll motion and hover states for a website or interface.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/luma/" tabindex="-1" aria-hidden="true"><pic name="luma-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/luma/">Luma</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Page transitions</li>
+              <li>Scroll motion</li>
+              <li>Hover and focus states</li>
+              <li>Respects reduced‑motion settings</li>
+              <li><span class="sw-svc__k">Price:</span> {{price_text_3}}</li>
+              <li><span class="sw-svc__k">Timeline:</span> 1–2 weeks</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-5">
+        <p class="sw-svc__no" aria-hidden="true">(05)</p>
+        <h2 class="sw-svc__title" id="sw-5"><span class="sw-svc__word">UI/UX Design</span></h2>
+        <p class="sw-svc__lead">User flows, wireframes and interface design for a digital product.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/lattice/" tabindex="-1" aria-hidden="true"><pic name="lattice-hero" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/lattice/">Lattice</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>User flows and wireframes</li>
+              <li>Interface design</li>
+              <li>A design system where the product needs one</li>
+              <li>Handoff and work alongside your developers</li>
+              <li><span class="sw-svc__k">Price:</span> {{price_text_4}}</li>
+              <li><span class="sw-svc__k">Timeline:</span> 3–6 weeks</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-6">
+        <p class="sw-svc__no" aria-hidden="true">(06)</p>
+        <h2 class="sw-svc__title" id="sw-6"><span class="sw-svc__word">Design Direction</span></h2>
+        <p class="sw-svc__lead">A visual direction: typography, colour, layout and interaction principles.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/visual-hunters/" tabindex="-1" aria-hidden="true"><pic name="vh-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/visual-hunters/">Visual Hunters®</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Typography and colour</li>
+              <li>Layout principles</li>
+              <li>Interaction principles</li>
+              <li>Key screens that set the direction</li>
+              <li><span class="sw-svc__k">Price:</span> {{price_text_5}}</li>
+              <li><span class="sw-svc__k">Timeline:</span> 1–2 weeks</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+

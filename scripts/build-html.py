@@ -24,7 +24,7 @@ Front matter, at the top of each source:
     status: draft | live            (default draft)
     schema: WebPage | ProfilePage | ContactPage | CollectionPage
     date: 2026-10-02                (posts: first published)
-    category: UX                    (posts: one short topic, on the card and beside the post)
+    topic: ux-product               (posts: one of TOPICS in site_config.py: the label, colour and /blog/ filter)
     image: pm-macbook               (posts: a picture from assets/img/manifest.json, for the card and the post)
     card: lattice-hero              (cases: the picture on the /work/ card, as on the home page)
     card_alt: What it shows         (cases: that picture's alt text)
@@ -129,6 +129,8 @@ def collect():
         meta, body = front(read(src))
         meta.setdefault("heading", meta.get("title", ""))
         meta.setdefault("label", meta["heading"])
+        if kind == "post" and meta.get("topic") in TOPIC:
+            meta["category"] = TOPIC[meta["topic"]]["label"]
         pages.append(dict(src=src, path=meta.get("path") or path, kind=kind, meta=meta, body=body,
                           live=meta.get("status", "draft") == "live"))
 
@@ -145,6 +147,15 @@ def collect():
     if not any(p["kind"] == "post" for p in pages):
         pages = [p for p in pages if p["path"] != "/blog/"]
     return pages
+
+
+TOPIC = {t["slug"]: t for t in C.TOPICS}
+
+
+def topic_style(m):
+    """The topic's colours as custom properties, for the tag (and the filter chip)."""
+    t = TOPIC.get(m.get("topic"))
+    return f' style="--t-card: {t["card"]}; --t-back: {t["back"]}"' if t else ""
 
 
 PAGES = collect()
@@ -225,8 +236,16 @@ def socials():
 
 
 def price(amount):
-    """990 -> "from $990"; None -> the quoted-per-project label (for /llms.txt)."""
+    """990 -> "from $990"; None -> the quoted-per-project label (/llms.txt, /services/)."""
     return C.PRICING["quoted"] if amount is None else f"from ${amount:,}"
+
+
+def service_prices():
+    """/services/: {{price_text_0}} the lead (Design & Development), then {{price_text_1}} … one per
+    service in PRICING order ("From $990" / "Quoted per project"), and the two lines under them."""
+    amounts = [C.PRICING["lead"][2]] + [a for _, _, a in C.PRICING["services"]]
+    out = {f"price_text_{i}": t(price(a)[0].upper() + price(a)[1:]) for i, a in enumerate(amounts)}
+    return dict(out, price_factors=t(C.PRICING["factors"]), price_note=t(C.PRICING["note"]))
 
 
 def profile_rows():
@@ -419,7 +438,7 @@ def reading_minutes(body):
 def post_meta(p):
     m = p["meta"]
     author = '<a href="/info/">Artem Prokhorov</a>' if "/info/" in LIVE else "Artem Prokhorov"
-    bits = [f"<span>{t(m['category'])}</span>"] if m.get("category") else []
+    bits = [f'<span class="topic"{topic_style(m)}>{t(m["category"])}</span>'] if m.get("category") else []
     bits.append(f"<span>By {author}</span>")
     if m.get("date"):
         bits.append(f'<span><time datetime="{m["date"]}">{fmt_date(m["date"])}</time></span>')
@@ -437,7 +456,7 @@ def post_card(q, feature=False):
     sizes = ("(min-width: 1200px) 68vw, (min-width: 768px) 60vw, 100vw" if feature
              else "(min-width: 1200px) 32vw, (min-width: 768px) 28vw, 34vw")
     media = f'<div class="post__media"{pos}><pic name="{m["image"]}" alt="" sizes="{sizes}"></div>' if m.get("image") else ""
-    bits = [f'<span class="post__cat">{t(m["category"])}</span>'] if m.get("category") else []
+    bits = [f'<span class="post__cat topic"{topic_style(m)}>{t(m["category"])}</span>'] if m.get("category") else []
     if m.get("date"):
         bits.append(f'<time datetime="{m["date"]}">{fmt_date(m["date"])}</time>')
     if feature:
@@ -445,7 +464,8 @@ def post_card(q, feature=False):
     if not q["live"]:
         bits.append('<span class="post__draft">Draft</span>')
     level = "h3"
-    return (f'<article class="post{" post--feature" if feature else ""}">{media}<div class="post__body">'
+    topic = f' data-topic="{e(m["topic"])}"' if m.get("topic") in TOPIC else ""
+    return (f'<article class="post{" post--feature" if feature else ""}"{topic}>{media}<div class="post__body">'
             f'<p class="post__meta">{"".join(bits)}</p>'
             f'<div class="post__text"><{level} class="post__title"><a class="post__link" href="{q["path"]}">'
             f'<span class="post__line">{t(m["heading"])}</span></a></{level}>'
@@ -457,12 +477,28 @@ def blog_parts():
     """/blog/: the featured post, large, and the list of the others."""
     if not LISTED:
         return dict(post_feature='<p class="doc-empty">No posts yet — the first ones are on the way.</p>',
-                    post_list="", post_count="00")
+                    post_list="", post_count="00", post_filter="")
     feature = next((q for q in LISTED if q["meta"].get("featured") == "yes"), LISTED[0])
     rest = [q for q in LISTED if q is not feature]
     items = "".join(f'<li style="--k: {k}">{post_card(q)}</li>' for k, q in enumerate(rest))
     return dict(post_feature=post_card(feature, True), post_list=f'<ol class="posts">{items}</ol>' if rest else "",
-                post_count=f"{len(rest):02d}")
+                post_count=f"{len(rest):02d}", post_filter=topic_filter())
+
+
+def topic_filter():
+    """The topics above the posts, as one line of large words ("All, Web Design, …"); each shows
+    its posts only (js/main.js, [data-topics]). Only the topics that have posts; hidden until the
+    script runs, so without it every post simply shows."""
+    counts = {s: sum(q["meta"].get("topic") == s for q in LISTED) for s in TOPIC}
+    used = [x for x in C.TOPICS if counts[x["slug"]]]
+    if len(used) < 2:
+        return ""
+    word = lambda slug, label, n: (f'<li><button class="topics__btn" type="button" data-topic="{slug}" '
+                                   f'aria-pressed="{"true" if not slug else "false"}"><span class="topics__label">{t(label)}</span>'
+                                   f'<span class="topics__tail"><span class="topics__n">({n:02d})</span></span></button></li>')
+    words = word("", "All", len(LISTED)) + "".join(word(x["slug"], x["label"], counts[x["slug"]]) for x in used)
+    return (f'<nav class="topics" aria-label="Topics" data-topics hidden><ul>{words}</ul>'
+            f'<p class="visually-hidden" aria-live="polite" data-topics-status></p></nav>')
 
 
 def cases_in_order():
@@ -544,7 +580,7 @@ def context(p):
         crumbs=crumbs(p) if p["kind"] != "home" else "",
         side_extra=post_meta(p) if p["kind"] == "post" else "",
         draft_flag='  <p class="draft-flag" role="note"><b>Draft</b> · not indexed, not in the menu</p>\n' if not p["live"] else "",
-        **blog_parts(), **work_parts(), **case_end(p),
+        **blog_parts(), **work_parts(), **case_end(p), **service_prices(),
         work_lead=t(BY_PATH["/work/"]["meta"].get("lead", "")) if "/work/" in BY_PATH else "",
         page_class=" " + m["class"] if m.get("class") else "",
     )
@@ -646,7 +682,7 @@ def llms():
     lines += [f"- {n}: {price(a)}. {l}" for n, l, a in P["services"]]
     lines += ["", f"{P['factors']} {P['note']}", ""]
     lines += ["## Pages", ""]
-    for path in ("/", "/work/", "/info/", "/contact/", "/get-in-touch/", "/blog/"):
+    for path in ("/", "/work/", "/services/", "/info/", "/contact/", "/get-in-touch/", "/blog/"):
         q = BY_PATH.get(path)
         if q and path in LINKABLE and not noindex(q):
             label = "Home" if path == "/" else q["meta"].get("label", q["meta"]["heading"])
@@ -675,6 +711,8 @@ def checks(p, html):
         warn.append(f"description is {d} characters (aim for ~140–160)")
     if p["kind"] == "post" and not m.get("date"):
         warn.append("post without a date")
+    if p["kind"] == "post" and m.get("topic") not in TOPIC:
+        warn.append(f"topic {m.get('topic')!r} is not one of TOPICS in site_config.py")
     return warn
 
 

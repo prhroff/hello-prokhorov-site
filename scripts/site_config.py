@@ -48,7 +48,7 @@ SERVICES = [
     ("Design Direction", "Visual direction for websites and products: typography, colour, layout and interaction principles that keep them consistent."),
 ]
 
-# Pricing: used by /llms.txt only (the contact page no longer shows it), written to be lifted as it is into
+# Pricing: used by /llms.txt and /services/ (src/pages/services.html), written to be lifted as it is into
 # Contra, proposals, PDFs and email (nothing in it refers to the site). A price is the lowest a
 # project starts at, in USD; None means it is quoted per project. The prices are the live Contra
 # services: Design & Development ("Custom Website Design & Framer Development", $990) and
@@ -70,6 +70,19 @@ PRICING = dict(
     next="Tell me what you need, and I’ll come back with a quote.",
 )
 
+# Blog topics, in filter order. A post names one with `topic: <slug>`; the topic gives the label
+# on its card and beside the post, the filter on /blog/ and the colours of its cover
+# (scripts/build-blog-covers.py). Soft colours on purpose: the card under the title (card), the
+# card tilted behind it (back), the title on it (ink); `card` is also the tag's fill on the site,
+# `back` its dot. Keep the list short: a topic earns its place with two or more posts.
+TOPICS = [
+    dict(slug="web-design", label="Web Design", card="#bccdf0", back="#5f78a8", ink="#141f38"),
+    dict(slug="development", label="Development", card="#c3dcc3", back="#5d8462", ink="#152a19"),
+    dict(slug="ux-product", label="UX & Product", card="#d6ccef", back="#7a6ca8", ink="#221b3a"),
+    dict(slug="process", label="Process", card="#f1d5b9", back="#a87d55", ink="#33210f"),
+    dict(slug="ai", label="AI Tools", card="#ece2ac", back="#978945", ink="#2d2810"),
+]
+
 # Confirmed profiles: they also feed the Person's sameAs.
 PROFILES = [
     ("LinkedIn", "LI", "https://www.linkedin.com/in/helloprokhorov"),
@@ -87,6 +100,7 @@ PROFILES = [
 NAV = [
     dict(label="Work", page="/work/", anchor="work"),
     dict(label="Info", page="/info/", anchor="about"),
+    dict(label="Services", page="/services/", anchor=None),
     dict(label="Contact", page="/contact/", anchor="contact"),
     dict(label="Blog", page="/blog/", anchor=None),
 ]

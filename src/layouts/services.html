@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+{{head}}
+</head>
+<body>
+{{> defs}}
+  <a class="skip" href="#main">Skip to Content</a>
+
+{{> bar}}
+
+{{> menu}}
+{{draft_flag}}
+  <!-- ============ SERVICES, FULL WIDTH ============
+       As the case pages (src/layouts/full.html): the page across the full width —
+       the title in the middle of the first screen, then each service as a scene of
+       its own (css/main.css "Services, full width", js/main.js) — then the close on
+       the inner pages' grid: where this is, the prices' small print and Let's Talk,
+       the way to get in touch and the footer. -->
+  <main class="full{{page_class}}" id="main">
+{{content}}
+  </main>
+
+  <div class="doc doc--wide doc--end">
+    <nav class="doc__side" aria-label="Services">
+      <div class="doc__side-in">
+{{crumbs}}
+        <p class="doc__title">{{heading}}</p>
+        <p class="doc__lead">{{lead}}</p>
+      </div>
+    </nav>
+
+    <div class="doc__main">
+      <section class="block" aria-labelledby="price-title">
+        <header class="block__head"><h2 id="price-title"><span class="block__no" aria-hidden="true">(07)</span>About the Prices</h2></header>
+        <div class="prose">
+          <p>{{price_factors}}</p>
+          <p>{{price_note}}</p>
+        </div>
+      </section>
+      <section class="block doc-cta" aria-labelledby="cta-title">
+        <h2 class="doc-cta__title" id="cta-title">Let’s Talk</h2>
+        <a class="doc-cta__link" href="{{cta_href}}"><span data-roll>Get a Quote</span><span aria-hidden="true"> →</span></a>
+      </section>
+    </div>
+
+{{> aside}}
+
+{{> foot}}
+  </div>
+</body>
+</html>

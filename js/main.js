@@ -125,12 +125,255 @@ const enterIO = new IntersectionObserver((entries) => {
     enterIO.unobserve(e.target);
   }
 }, { rootMargin: '0px 0px -8% 0px' });
-$$('.item, .block, .post, .vzf, .doc__figure').forEach((el) => enterIO.observe(el));
+$$('.item, .block, .post, .vzf, .doc__figure, .sw-svc').forEach((el) => enterIO.observe(el));
 // case pages: each part's text and pictures as they arrive
 $$('.cs-fig, .cs-top, .cs-facts, .cs-wip__title, .cs-wip__bar').forEach((el) => enterIO.observe(el));
 $$('.services, .socials, .rows, .faq, .reviews__track, .cs-facts').forEach((list) => {
   [...list.children].forEach((el, k) => el.style.setProperty('--k', k));
 });
+
+/* ---------- Services, full width (/services/) ----------
+   The names letter by letter and the lines under them word by word; the statement ([data-light]) lit word by word as it crosses
+   the screen (--t); the first screen scrolled away (--h); each scene's way through the
+   screen (--p), which draws the hairline into its name, moves its picture a little
+   slower than the page and turns it from grey to colour. The text stays one label for
+   assistive tech; the pieces are hidden from it. */
+const swPage = $('.sw');
+if (swPage) {
+  // letters are kept together in their word (.wk), so a name wraps between words only
+  const split = (el, unit) => {
+    const text = el.textContent.replace(/\s+/g, ' ').trim();
+    const words = text.split(' ');
+    const piece = (cls, i, content) => {
+      const s = document.createElement('span');
+      s.className = cls;
+      s.setAttribute('aria-hidden', 'true');
+      if (i !== null) s.style.setProperty('--i', i);
+      s.append(...content);
+      return s;
+    };
+    let n = 0;
+    el.setAttribute('aria-label', text);
+    el.replaceChildren(...words.flatMap((word, w) => {
+      const s = unit === 'ch'
+        ? piece('wk', null, [...word].map((c) => piece('ch', n++, [c])))
+        : piece('wd', w, [word]);
+      n++;   // the space
+      return w < words.length - 1 ? [s, ' '] : [s];
+    }));
+  };
+  $$('.sw-svc__word', swPage).forEach((el) => split(el, 'ch'));
+  $$('.sw-svc__lead', swPage).forEach((el) => split(el, 'wd'));
+  $$('.sw-svc__list', swPage).forEach((list) => [...list.children].forEach((li, k) => li.style.setProperty('--k', k)));
+
+  // the statement keeps its two tones: the words of each, numbered across the whole line
+  const light = $('[data-light]', swPage);
+  if (light) {
+    let n = 0;
+    light.setAttribute('aria-label', light.textContent.replace(/\s+/g, ' ').trim());
+    [...light.childNodes].forEach((node) => {
+      const words = node.textContent.trim().split(/\s+/).filter(Boolean).flatMap((w) => {
+        const s = document.createElement('span');
+        s.className = 'wd';
+        s.setAttribute('aria-hidden', 'true');
+        s.style.setProperty('--i', n++);
+        s.textContent = w;
+        return [s, ' '];
+      });
+      if (node.nodeType === 3) node.replaceWith(...words);
+      else { node.replaceChildren(...words); node.setAttribute('aria-hidden', 'true'); }
+    });
+    light.style.setProperty('--n', n);
+  }
+
+  if (!reduceMotion) {
+    const hero = $('[data-hero]', swPage);
+    const scenes = $$('.sw-svc, .sw-ticker', swPage);
+    let queued = false;
+    const frame = () => {
+      queued = false;
+      const vh = innerHeight;
+      if (hero) hero.style.setProperty('--h', clamp(scrollY / hero.offsetHeight).toFixed(4));
+      // the statement lights up between its top at 85% of the screen and at 35%
+      if (light) light.style.setProperty('--t', clamp((vh * 0.85 - light.getBoundingClientRect().top) / (vh * 0.5)).toFixed(4));
+      for (const s of scenes) {
+        const r = s.getBoundingClientRect();
+        if (r.bottom < -vh || r.top > vh * 2) continue;
+        s.style.setProperty('--p', clamp((vh - r.top) / (vh + r.height)).toFixed(4));
+      }
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    frame();
+  }
+}
+
+/* ---------- Orbit (/services/) ----------
+   A ring of square pictures from the work around the title, after the Orbit Carousel
+   (orbitcarousel.framer.media): the ring leans and is seen a little from above; each
+   card is a few upright strips set along the ring, so it bends with it; the cards
+   behind fade back. It turns slowly on its own, follows a sideways drag and glides on
+   after it, and sways with the pointer like a boat. The cards arrive one after another.
+   It runs only while it is on screen; with reduced motion it is laid out and still. */
+const orbit = $('[data-orbit]');
+if (orbit) {
+  const ring = $('[data-orbit-ring]', orbit);
+  const sources = $$('.orbit__src img', ring);
+  const STRIPS = finePointer ? 5 : 3;   // strips per card: more bend, more elements
+  const LEAN_Z = -12;                   // the ring's lean, degrees
+  const leanX = () => (phone.matches ? -22 : -11);   // seen from a little above (more on a phone, so the cards in front pass under the word)
+  const SPIN = 5;                       // idle turn, degrees per second
+  const DRAG = 0.14;                    // degrees per px dragged
+  const ROCK_X = 2.5, ROCK_SHIFT = 10;  // sway with the pointer anywhere: degrees, px
+  const HOVER_X = 6, HOVER_SHIFT = 24;  // …and more over the ring itself
+  const SCRUB = 0.05;                   // degrees the ring turns per px the pointer moves across it
+  const INTRO = 1100;                   // ms the ring takes to swing into place
+  const easeOut = (x) => 1 - (1 - x) ** 3;
+  const FADE = 0.7;                     // how far the cards behind wash out
+
+  let cards = [];      // { strips: [el], at: degrees on the ring, born: ms }
+  let radius = 0;
+  const st = { angle: 0, target: 0, glide: 0, tilt: 0, shift: 0, px: 0, py: 0, over: 0, overTo: 0, swing: reduceMotion ? 1 : 0 };
+  let start = performance.now();
+
+  // the cards: as many as fit around the ring, the pictures repeated in order
+  function layout() {
+    const w = orbit.clientWidth;
+    radius = phone.matches ? Math.max(170, w * 0.5) : Math.min(620, Math.max(260, w * 0.4));
+    const size = Math.round(Math.min(200, Math.max(76, radius * 0.33)));
+    const count = Math.max(10, Math.floor((2 * Math.PI * radius) / (size * 1.28)));
+    const step = 360 / count;
+    const stripW = size / STRIPS;
+    const bend = (size / radius) * (180 / Math.PI);   // the arc one card spans, degrees
+    ring.querySelectorAll('.orbit__card').forEach((c) => c.remove());
+    const born = cards.length ? -Infinity : performance.now();   // a relayout (a new width) does not arrive again
+    cards = Array.from({ length: count }, (_, i) => {
+      const img = sources[i % sources.length];
+      const card = document.createElement('div');
+      card.className = 'orbit__card';
+      card.style.transform = `rotateY(${i * step}deg)`;
+      const strips = Array.from({ length: STRIPS }, (_, k) => {
+        const s = document.createElement('div');
+        s.className = 'orbit__strip';
+        s.style.cssText = `width:${stripW + 1.5}px;height:${size}px;`
+          + `margin:${-size / 2}px 0 0 ${-stripW / 2}px;`
+          + `background-size:${size}px ${size}px;background-position:${-k * stripW}px 0;`
+          + `transform:rotateY(${((k + 0.5) / STRIPS - 0.5) * bend}deg) translateZ(${radius}px)`;
+        card.append(s);
+        return s;
+      });
+      const paint = () => { const src = img.currentSrc || img.src; strips.forEach((s) => { s.style.backgroundImage = `url("${src}")`; }); };
+      if (img.complete && img.naturalWidth) paint(); else img.addEventListener('load', paint, { once: true });
+      ring.append(card);
+      return { strips, at: i * step, born: born + 120 + i * 32, last: -1, intro: -1 };
+    });
+  }
+
+  // arriving, the ring swings in from a quarter turn back and settles to its size
+  function place() {
+    const e = easeOut(st.swing);
+    ring.style.transform = `translateX(${st.shift}px) rotateZ(${LEAN_Z}deg) rotateX(${leanX() + st.tilt}deg) `
+      + `rotateY(${st.angle - (1 - e) * 70}deg) scale(${0.86 + 0.14 * e})`;
+  }
+  // the cards behind wash out towards the page (a filter, not opacity: the strips overlap
+  // a hair, and see-through strips would show their seams); each card also fades in on
+  // its turn the first time
+  function shade(now) {
+    for (const c of cards) {
+      const a = ((c.at + st.angle) * Math.PI) / 180;
+      const back = Math.round(FADE * Math.max(0, -Math.cos(a)) * 100) / 100;
+      const intro = reduceMotion ? 1 : Math.round(easeOut(clamp((now - c.born) / 480)) * 100) / 100;
+      if (back !== c.last) {
+        c.last = back;
+        const f = back ? `saturate(${1 - back}) brightness(${1 + back * 0.55}) contrast(${1 - back * 0.45})` : '';
+        c.strips.forEach((s) => { s.style.filter = f; });
+      }
+      if (intro !== c.intro) {
+        c.intro = intro;
+        c.strips.forEach((s) => { s.style.opacity = intro; });   // set, never cleared: the stylesheet starts them at 0
+      }
+    }
+  }
+
+  layout();
+  place();
+  shade(reduceMotion ? Infinity : performance.now());
+
+  let fitW = innerWidth;
+  addEventListener('resize', () => { if (innerWidth !== fitW) { fitW = innerWidth; layout(); place(); shade(Infinity); } });
+
+  if (!reduceMotion) {
+    // turning, following the drag, gliding on, swaying with the pointer
+    let raf = null, last = 0;
+    function tick(now) {
+      const dt = Math.min(0.05, last ? (now - last) / 1000 : 0);
+      last = now;
+      st.target += SPIN * dt;
+      if (st.glide) {
+        st.target += st.glide * dt;
+        st.glide *= Math.exp(-1.6 * dt);
+        if (Math.abs(st.glide) < 0.5) st.glide = 0;
+      }
+      st.angle += (st.target - st.angle) * (1 - Math.exp(-7 * dt));
+      const clock = performance.now();
+      st.swing = clamp((clock - start) / INTRO);
+      st.over += (st.overTo - st.over) * (1 - Math.exp(-4 * dt));
+      const k = 1 - Math.exp(-3 * dt);
+      st.tilt += (st.py * (ROCK_X + (HOVER_X - ROCK_X) * st.over) - st.tilt) * k;
+      st.shift += (-st.px * (ROCK_SHIFT + (HOVER_SHIFT - ROCK_SHIFT) * st.over) - st.shift) * k;
+      place();
+      shade(clock);
+      raf = requestAnimationFrame(tick);
+    }
+    new IntersectionObserver((entries) => {
+      const on = entries.some((e) => e.isIntersecting);
+      if (on && raf === null) { last = 0; raf = requestAnimationFrame(tick); }
+      if (!on && raf !== null) { cancelAnimationFrame(raf); raf = null; }
+    }).observe(orbit);
+
+    let id = null, x = 0, t = 0, v = 0;
+    orbit.addEventListener('pointerdown', (e) => {
+      if (id !== null || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      id = e.pointerId; x = e.clientX; t = performance.now(); v = 0; st.glide = 0;
+      orbit.setPointerCapture?.(id);
+      orbit.classList.add('is-dragging');
+    });
+    orbit.addEventListener('pointermove', (e) => {
+      if (e.pointerId !== id) return;
+      const dx = e.clientX - x;
+      const now = performance.now();
+      x = e.clientX;
+      v = v * 0.8 + (dx / Math.max(1, now - t)) * 1000 * 0.2;
+      t = now;
+      st.target += dx * DRAG;
+    });
+    const release = (e) => {
+      if (e.pointerId !== id) return;
+      id = null;
+      st.glide = clamp(v * DRAG, -720, 720);
+      orbit.classList.remove('is-dragging');
+    };
+    orbit.addEventListener('pointerup', release);
+    orbit.addEventListener('pointercancel', release);
+    if (finePointer) {
+      // the pointer anywhere sways the ring a little; over the ring it sways it more, and
+      // moving across it turns it along
+      let hx = null;
+      addEventListener('pointermove', (e) => {
+        st.px = (e.clientX / innerWidth) * 2 - 1;
+        st.py = (e.clientY / innerHeight) * 2 - 1;
+      }, { passive: true });
+      orbit.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { st.overTo = 1; hx = e.clientX; } });
+      orbit.addEventListener('pointerleave', () => { st.overTo = 0; hx = null; });
+      orbit.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        if (hx !== null && id === null) st.target += (e.clientX - hx) * SCRUB;   // while dragging, the drag turns it
+        hx = e.clientX;
+      });
+    }
+  }
+}
 
 /* ---------- Reviews ----------
    A native sideways scroller with snap points, so swipe, trackpad and keyboard
@@ -392,6 +635,78 @@ faqItems.forEach((item) => {
     animateFaq(item, opening);
   });
 });
+
+/* ---------- Blog topics ----------
+   /blog/: the topic words show one topic at a time (the featured post and the list alike); the
+   choice is kept in ?topic= so a filtered list can be shared. Changing topic, the posts on
+   screen fade and sink, then the chosen ones rise in one after another; with reduced motion
+   the list simply changes. Without this script the words stay hidden and every post shows. */
+const topicBar = $('[data-topics]');
+if (topicBar) {
+  const words = $$('button[data-topic]', topicBar);
+  const status = $('[data-topics-status]', topicBar);
+  const sections = $$('.blog-feature, .blog-list');
+  const boxOf = (post) => post.closest('li') || post;
+  const shown = (el) => !el.closest('[data-topic-hidden]');
+  let current = null;
+  let turn = 0;
+
+  function apply(word) {
+    const slug = word.dataset.topic;
+    $$('article.post[data-topic]').forEach((post) => {
+      boxOf(post).toggleAttribute('data-topic-hidden', Boolean(slug) && post.dataset.topic !== slug);
+    });
+    // a section with nothing left to show goes too, heading and all
+    sections.forEach((s) => s.toggleAttribute('data-topic-hidden', !$$('article.post', s).some((p) => !boxOf(p).hasAttribute('data-topic-hidden'))));
+    const count = $('.blog-list .count');
+    if (count) count.textContent = `(${String($$('.blog-list .posts > li:not([data-topic-hidden])').length).padStart(2, '0')})`;
+  }
+
+  async function showTopic(slug, byUser) {
+    const word = words.find((w) => w.dataset.topic === slug) || words[0];
+    if (word === current) return;
+    current = word;
+    const mine = ++turn;
+    words.forEach((w) => w.setAttribute('aria-pressed', String(w === word)));
+    if (byUser) {
+      const url = new URL(location.href);
+      if (word.dataset.topic) url.searchParams.set('topic', word.dataset.topic); else url.searchParams.delete('topic');
+      history.replaceState(history.state, '', url);
+    }
+
+    if (!byUser || reduceMotion) {
+      apply(word);
+    } else {
+      const leaving = sections.filter(shown);
+      await Promise.all(leaving.map((s) => s.animate(
+        [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }],
+        { duration: 260, easing: 'cubic-bezier(0.64, 0, 0.78, 0)', fill: 'forwards' },
+      ).finished.catch(() => {})));
+      if (mine !== turn) return;                      // a newer choice took over
+      apply(word);
+      leaving.forEach((s) => s.getAnimations().forEach((a) => a.cancel()));
+      sections.filter(shown).forEach((s) => {
+        s.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 420, easing: 'ease-out' });
+        $$('article.post', s).filter((p) => !boxOf(p).hasAttribute('data-topic-hidden')).forEach((p, k) => {
+          p.animate(
+            [{ opacity: 0, transform: 'translateY(28px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 900, delay: 70 * k, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'backwards' },
+          );
+        });
+      });
+    }
+
+    if (byUser) {
+      const n = $$('article.post').filter((p) => !boxOf(p).hasAttribute('data-topic-hidden')).length;
+      const label = $('.topics__label', word).textContent;
+      status.textContent = `${n} ${n === 1 ? 'article' : 'articles'}${word.dataset.topic ? ` on ${label}` : ''}`;
+    }
+  }
+
+  words.forEach((w) => w.addEventListener('click', () => showTopic(w.dataset.topic, true)));
+  topicBar.hidden = false;
+  showTopic(new URLSearchParams(location.search).get('topic') || '', false);
+}
 
 /* ---------- Mobile menu ---------- */
 const menu = $('[data-menu]');
