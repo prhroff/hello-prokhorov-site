@@ -594,5 +594,75 @@
       1600,
       2400
     ]
+  },
+  "blog-structure-before-style": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-where-ai-helps-in-my-workflow": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-how-i-price-fixed-scope-projects": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-what-a-ux-audit-actually-finds": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-fewer-screens-clearer-product": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-the-homepage-brief-i-send-startups": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-design-and-build-in-one-pair-of-hands": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
   }
 }
