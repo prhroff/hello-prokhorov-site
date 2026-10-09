@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="{{lang}}" class="no-js">
 <head>
 {{head}}
 </head>
 <body>
 {{> defs}}
-  <a class="skip" href="#main">Skip to Content</a>
+  <a class="skip" href="#main">{{t.skip}}</a>
 
 {{> bar}}
 
@@ -22,7 +22,7 @@
   </main>
 
   <div class="doc doc--wide doc--end">
-    <nav class="doc__side" aria-label="Services">
+    <nav class="doc__side" aria-label="{{t.services}}">
       <div class="doc__side-in">
 {{crumbs}}
         <p class="doc__title">{{heading}}</p>
@@ -32,15 +32,15 @@
 
     <div class="doc__main">
       <section class="block" aria-labelledby="price-title">
-        <header class="block__head"><h2 id="price-title"><span class="block__no" aria-hidden="true">(07)</span>About the Prices</h2></header>
+        <header class="block__head"><h2 id="price-title"><span class="block__no" aria-hidden="true">(07)</span>{{t.about_prices}}</h2></header>
         <div class="prose">
           <p>{{price_factors}}</p>
           <p>{{price_note}}</p>
         </div>
       </section>
       <section class="block doc-cta" aria-labelledby="cta-title">
-        <h2 class="doc-cta__title" id="cta-title">Let’s Talk</h2>
-        <a class="doc-cta__link" href="{{cta_href}}"><span data-roll>Get a Quote</span><span aria-hidden="true"> →</span></a>
+        <h2 class="doc-cta__title" id="cta-title">{{t.lets_talk}}</h2>
+        <a class="doc-cta__link" href="{{cta_href}}"><span data-roll>{{t.get_quote}}</span><span aria-hidden="true"> →</span></a>
       </section>
     </div>
 

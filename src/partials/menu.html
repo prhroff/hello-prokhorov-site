@@ -5,23 +5,24 @@
   <div class="menu" id="menu" data-menu hidden>
     <pic name="portrait" alt="" sizes="100vw" class="menu__bg">
     <div class="menu__cards">
-      <section class="mcard" aria-label="About">
+      <section class="mcard" aria-label="{{t.menu_about_label}}">
         <div class="mcard__top">
-          <p class="mcard__text">Independent web designer and developer. I design and build websites for founders and teams worldwide.</p>
-          <button class="mpill mpill--light mpill--fixed" type="button" data-copy="contact@helloprokhorov.com" data-copy-fail="Not Copied"><span class="mpill__sizer" aria-hidden="true">Copy Email</span><span data-copy-label>Copy Email</span></button>
+          <p class="mcard__text">{{t.menu_about}}</p>
+          <button class="mpill mpill--light mpill--fixed" type="button" data-copy="{{email}}" data-copy-fail="{{t.not_copied}}"><span class="mpill__sizer" aria-hidden="true">{{t.copy_email}}</span><span data-copy-label>{{t.copy_email}}</span></button>
         </div>
-        <button class="mpill" type="button" aria-expanded="false" aria-controls="menu-ai" data-disclose>Ask AI About Me<svg class="mchev mchev--down" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
-        <ul class="mcard__more mlinks" id="menu-ai" hidden><li><a href="https://chatgpt.com/?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank">ChatGPT<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li><li><a href="https://claude.ai/new?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank">Claude<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li><li><a href="https://www.perplexity.ai/search?q=Tell%20me%20about%20Artem%20Prokhorov%2C%20the%20independent%20web%20designer%20and%20developer%20behind%20helloprokhorov.com.%20What%20does%20he%20design%20and%20build%2C%20what%20has%20he%20worked%20on%2C%20and%20how%20can%20I%20work%20with%20him%3F" rel="noopener" target="_blank">Perplexity<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li></ul>
+        <button class="mpill" type="button" aria-expanded="false" aria-controls="menu-ai" data-disclose>{{t.ask_ai}}<svg class="mchev mchev--down" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <ul class="mcard__more mlinks" id="menu-ai" hidden><li><a href="https://chatgpt.com/?q={{ai_q}}" rel="noopener" target="_blank">ChatGPT<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li><li><a href="https://claude.ai/new?q={{ai_q}}" rel="noopener" target="_blank">Claude<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li><li><a href="https://www.perplexity.ai/search?q={{ai_q}}" rel="noopener" target="_blank">Perplexity<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 9 9 3M4 3h5v5"/></svg></a></li></ul>
       </section>
-      <nav class="mcard" aria-label="Mobile">
+      <nav class="mcard" aria-label="{{t.menu_mobile_label}}">
         <ul class="mbig">
 {{nav_menu}}
         </ul>
-        <button class="mpill mpill--grey" type="button" aria-expanded="false" aria-controls="menu-socials" data-disclose>Socials ({{profile_count}})<svg class="mchev mchev--down" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
+        <button class="mpill mpill--grey" type="button" aria-expanded="false" aria-controls="menu-socials" data-disclose>{{t.socials}} ({{profile_count}})<svg class="mchev mchev--down" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></button>
         <ul class="mcard__more mlinks mlinks--plain" id="menu-socials" hidden>{{menu_socials}}</ul>
       </nav>
-      <section class="mcard mcard--now" aria-label="Where and When">
-        <p class="mmix"><span class="mmix__line"><span class="mmix__dim">Based in</span> Bishkek</span> <span class="mmix__line"><span class="mmix__dim">working</span> worldwide</span> <span class="mmix__line"><span class="mmix__dim">local time</span> <time data-clock>—</time></span></p>
+      <section class="mcard mcard--now" aria-label="{{t.menu_now_label}}">
+        <p class="mmix"><span class="mmix__line"><span class="mmix__dim">{{t.now_based}}</span> {{t.now_city}}</span> <span class="mmix__line"><span class="mmix__dim">{{t.now_working}}</span> {{t.now_world}}</span> <span class="mmix__line"><span class="mmix__dim">{{t.now_time}}</span> <time data-clock>—</time></span></p>
+        <p class="mlang" role="group" aria-label="{{lang_switch_label}}">{{lang_pill}}</p>
       </section>
     </div>
   </div>

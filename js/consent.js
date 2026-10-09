@@ -10,6 +10,8 @@
      the choice, but sends nothing.
    · Yandex Metrica runs without Session Replay (webvisor: false). */
 
+import { L } from './i18n.js';
+
 const meta = document.querySelector('meta[name="pk-analytics"]');
 const GA4 = meta?.dataset.ga4 || '';
 const YM = Number(meta?.dataset.ym) || 0;
@@ -58,14 +60,16 @@ function clearCookies() {
 let bar = null;
 function ask() {
   if (bar) { bar.querySelector('button').focus(); return; }
+  // the policy in the page's language, as the footer links it
+  const privacy = document.querySelector('.foot__legal')?.getAttribute('href') || '/privacy/';
   bar = document.createElement('section');
   bar.className = 'consent-bar';
-  bar.setAttribute('aria-label', 'Cookie consent');
+  bar.setAttribute('aria-label', L('Cookie consent'));
   bar.innerHTML = `
-    <p class="consent-bar__text">May I use analytics cookies (Google Analytics and Yandex Metrica) to see how the site is used? Nothing is loaded unless you agree. <a href="/privacy/#analytics">Privacy Policy</a></p>
+    <p class="consent-bar__text">${L('May I use analytics cookies (Google Analytics and Yandex Metrica) to see how the site is used? Nothing is loaded unless you agree.')} <a href="${privacy}#analytics">${L('Privacy Policy')}</a></p>
     <p class="consent-bar__actions">
-      <button class="consent-bar__btn consent-bar__btn--yes" type="button" data-choice="granted">Accept</button>
-      <button class="consent-bar__btn" type="button" data-choice="denied">Decline</button>
+      <button class="consent-bar__btn consent-bar__btn--yes" type="button" data-choice="granted">${L('Accept')}</button>
+      <button class="consent-bar__btn" type="button" data-choice="denied">${L('Decline')}</button>
     </p>`;
   bar.addEventListener('click', (e) => {
     const choice = e.target.closest('[data-choice]')?.dataset.choice;

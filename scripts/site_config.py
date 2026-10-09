@@ -31,7 +31,7 @@ ANALYTICS = dict(ga4="G-544DF591BD", metrica="111169023")
 
 PERSON = {
     "name": "Artem Prokhorov",
-    "alternateName": "Prokhorov®",
+    "alternateName": ["Prokhorov®", "Артём Прохоров", "Artyom Prokhorov"],
     "jobTitle": "Independent Web Designer & Developer",
     "image": "/assets/img/portrait-1000.webp",
     "locality": "Bishkek",
@@ -71,6 +71,26 @@ PRICING = dict(
     next="Tell me what you need, and I’ll come back with a quote.",
 )
 
+# The same, on the Russian pages (/ru/services/): the texts only, the amounts stay those of PRICING
+# (USD). Draft translation, for Artem to edit.
+PRICING_RU = dict(
+    title="Цены",
+    intro="Стартовые цены — чтобы ещё до разговора было понятно, в каком диапазоне проект.",
+    lead=("Дизайн и разработка", "Сайт целиком: от структуры и визуального направления до разработки и запуска. Всё делает один человек.", 990),
+    services=[
+        ("Веб-дизайн", "Структура, UX и визуальный дизайн сайта или лендинга, готовые к разработке.", 490),
+        ("Разработка сайта", "Ваш утверждённый дизайн, собранный в адаптивный и проверенный сайт, готовый к запуску.", None),
+        ("Анимация для сайта", "Переходы, анимация при скролле и состояния при наведении для сайта или интерфейса.", None),
+        ("UI/UX-дизайн", "Пользовательские сценарии, прототипы и дизайн интерфейса цифрового продукта.", None),
+        ("Визуальное направление", "Визуальное направление: типографика, цвет, сетка и принципы взаимодействия.", None),
+    ],
+    quoted="Цена по проекту",
+    factors="Цена зависит от объёма и количества страниц, сложности сайта, того, сколько нужно UX-работы, и визуального направления. Важны также анимация, требования к разработке, материалы, которые у вас уже есть, и сроки.",
+    note="«От» — это нижняя граница, а не смета: когда согласуем объём, вы получите фиксированную цену.",
+    next="Расскажите, что нужно, — и я вернусь с оценкой.",
+    **{"from": "от ${amount}", "thousands": " "},
+)
+
 # Blog topics, in filter order. A post names one with `topic: <slug>`; the topic gives the label
 # on its card and beside the post, the filter on /blog/ and the colours of its cover
 # (scripts/build-blog-covers.py). Soft colours on purpose: the card under the title (card), the
@@ -98,10 +118,11 @@ PROFILES = [
 # The link goes to the page once that page is live; until then to the home
 # section; with neither, the item stays out of the menu. The item is marked
 # current only by the address: its page, or a page under it (/work/<slug>/).
+#   ru      the label on the Russian pages (/ru/…); the page is its /ru/ version once that is live
 NAV = [
-    dict(label="Work", page="/work/", anchor="work"),
-    dict(label="Info", page="/info/", anchor="about"),
-    dict(label="Services", page="/services/", anchor=None),
-    dict(label="Contact", page="/contact/", anchor="contact"),
-    dict(label="Blog", page="/blog/", anchor=None),
+    dict(label="Work", page="/work/", anchor="work", ru="Работы"),
+    dict(label="Info", page="/info/", anchor="about", ru="Обо мне"),
+    dict(label="Services", page="/services/", anchor=None, ru="Услуги"),
+    dict(label="Contact", page="/contact/", anchor="contact", ru="Контакты"),
+    dict(label="Blog", page="/blog/", anchor=None, ru="Блог"),
 ]

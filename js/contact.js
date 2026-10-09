@@ -13,6 +13,7 @@
    · Without JavaScript the form still submits natively to the same action. */
 
 import './main.js';
+import { L } from './i18n.js';
 
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
@@ -75,19 +76,19 @@ if (form) {
     () => {
       const el = form.elements.name;
       const ok = el.value.trim().length > 0;
-      setError(el.closest('.field'), ok ? '' : 'Your name, please.', [el]);
+      setError(el.closest('.field'), ok ? '' : L('Your name, please.'), [el]);
       return ok ? null : el;
     },
     () => {
       const el = form.elements.email;
       const v = el.value.trim();
       const ok = EMAIL.test(v);
-      setError(el.closest('.field'), ok ? '' : v ? 'That email doesn’t look right.' : 'An email to reply to.', [el]);
+      setError(el.closest('.field'), ok ? '' : v ? L('That email doesn’t look right.') : L('An email to reply to.'), [el]);
       return ok ? null : el;
     },
     () => {
       const el = form.elements.privacy;
-      setError(el.closest('.consent'), el.checked ? '' : 'Please agree to continue.', [el]);
+      setError(el.closest('.consent'), el.checked ? '' : L('Please agree to continue.'), [el]);
       return el.checked ? null : el;
     },
   ];
@@ -126,7 +127,7 @@ if (form) {
   function busy(on) {
     send.disabled = on;
     send.classList.toggle('is-busy', on);
-    sendLabel.textContent = on ? 'Sending' : 'Send Project';
+    sendLabel.textContent = on ? L('Sending') : L('Send Project');
   }
 
   // the form leaves, the answer arrives in its place
@@ -149,9 +150,9 @@ if (form) {
 
   function brief(a) {
     const lines = [
-      `Website: ${a.website}`, `Needs: ${a.needs}`, `Type: ${a.type}`,
-      `Start: ${a.start}`, `Budget: ${a.budget}`, '',
-      a.message || '(no project notes)', '',
+      `${L('Website')}: ${a.website}`, `${L('Needs')}: ${a.needs}`, `${L('Type')}: ${a.type}`,
+      `${L('Start')}: ${a.start}`, `${L('Budget')}: ${a.budget}`, '',
+      a.message || L('(no project notes)'), '',
       `${a.name} · ${a.email}${a.company ? ` · ${a.company}` : ''}`,
     ];
     return lines.join('\n');
@@ -182,7 +183,7 @@ if (form) {
       swapTo(done);
     } catch {
       busy(false);
-      msg.textContent = `That didn’t go through. Your answers are still here — try again, or write to ${$('[data-email]', mailDone).textContent}.`;
+      msg.textContent = L('That didn’t go through. Your answers are still here — try again, or write to {email}.', { email: $('[data-email]', mailDone).textContent });
     }
   });
 
@@ -194,11 +195,11 @@ if (form) {
     clearTimeout(copyTimer);
     try {
       await navigator.clipboard.writeText(brief(answers()));
-      copyLabel.textContent = 'Copied';
+      copyLabel.textContent = L('Copied');
     } catch {
-      copyLabel.textContent = 'Not Copied';
+      copyLabel.textContent = L('Not Copied');
     }
-    copyTimer = setTimeout(() => { copyLabel.textContent = 'Copy Answers'; }, 2200);
+    copyTimer = setTimeout(() => { copyLabel.textContent = L('Copy Answers'); }, 2200);
   });
 
   // back to the answers, as they were

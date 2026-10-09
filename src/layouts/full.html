@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="{{lang}}" class="no-js">
 <head>
 {{head}}
 </head>
 <body>
 {{> defs}}
-  <a class="skip" href="#main">Skip to Content</a>
+  <a class="skip" href="#main">{{t.skip}}</a>
 
 {{> bar}}
 
@@ -22,23 +22,23 @@
   <!-- The close, on the inner pages' grid as /work/ has it: where this is (left), the next
        case as a work card (scripts/build-html.py case_end), the way to get in touch and the footer. -->
   <div class="doc doc--wide doc--work doc--end">
-    <nav class="doc__side" aria-label="Work">
+    <nav class="doc__side" aria-label="{{t.work}}">
       <div class="doc__side-in">
 {{crumbs}}
-        <p class="doc__title">Work</p>
+        <p class="doc__title">{{t.work}}</p>
         <p class="doc__lead">{{work_lead}}</p>
-        <a class="doc-cta__link doc__all" href="/work/"><span data-roll>All Work</span><span aria-hidden="true"> →</span></a>
+        <a class="doc-cta__link doc__all" href="{{work_href}}"><span data-roll>{{t.all_work}}</span><span aria-hidden="true"> →</span></a>
       </div>
     </nav>
 
     <div class="doc__main">
       <section class="block" aria-labelledby="next-title">
-        <header class="block__head"><h2 id="next-title"><span class="block__no" aria-hidden="true">(01)</span>Next Case</h2><span class="count">({{next_count}})</span></header>
+        <header class="block__head"><h2 id="next-title"><span class="block__no" aria-hidden="true">(01)</span>{{t.next_case}}</h2><span class="count">({{next_count}})</span></header>
         <ul class="work work--all">
 {{next_card}}
         </ul>
       </section>
-      <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>
+      <div class="cursor" aria-hidden="true" data-cursor><span>{{t.view}}</span></div>
     </div>
 
 {{> aside}}

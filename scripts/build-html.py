@@ -80,6 +80,7 @@ from datetime import date, datetime, timezone
 from email.utils import format_datetime
 from html import escape
 from pathlib import Path
+from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import site_config as C  # noqa: E402
@@ -97,6 +98,7 @@ TEXT = re.compile(r">([^<]+)<")
 MARK = re.compile(r"(?<=\w)([®©])")
 PARTIAL = re.compile(r"\{\{>\s*([\w-]+)\s*\}\}")
 VAR = re.compile(r"\{\{\s*(\w+)\s*\}\}")
+TR = re.compile(r"\{\{t\.(\w+)\}\}")
 COMMENT = re.compile(r"[ \t]*<!--.*?-->[ \t]*\n?", re.S)
 WHEN = re.compile(r'<when (live|draft|built|unbuilt)="([^"]+)">(.*?)</when>', re.S)
 TAGS = re.compile(r"<[^>]+>")
@@ -130,19 +132,24 @@ def front(text):
 def collect():
     pages = []
 
-    def add(src, path, kind):
+    def add(src, path, kind, lang="en"):
         meta, body = front(read(src))
         meta.setdefault("heading", meta.get("title", ""))
         meta.setdefault("label", meta["heading"])
         if kind == "post" and meta.get("topic") in TOPIC:
             meta["category"] = TOPIC[meta["topic"]]["label"]
-        pages.append(dict(src=src, path=meta.get("path") or path, kind=kind, meta=meta, body=body,
+        pages.append(dict(src=src, path=meta.get("path") or path, kind=kind, meta=meta, body=body, lang=lang,
                           live=meta.get("status", "draft") == "live"))
 
-    add(SRC / "index.html", "/", "home")
-    for f in sorted((SRC / "pages").rglob("*.html")):
-        if not any(part.startswith("_") for part in f.relative_to(SRC / "pages").parts):
-            add(f, "/" + "/".join(f.relative_to(SRC / "pages").with_suffix("").parts) + "/", "page")
+    # each language: its home page and its inner pages, the English ones at the root, the others
+    # under /<lang>/ from src/<lang>/ (index.html, pages/), which has only the pages translated so far
+    for lang in LANGS:
+        root, base = (SRC, "/") if lang == "en" else (SRC / lang, f"/{lang}/")
+        if (root / "index.html").exists():
+            add(root / "index.html", base, "home", lang)
+        for f in sorted((root / "pages").rglob("*.html")) if (root / "pages").is_dir() else []:
+            if not any(part.startswith("_") for part in f.relative_to(root / "pages").parts):
+                add(f, base + "/".join(f.relative_to(root / "pages").with_suffix("").parts) + "/", "page", lang)
     for f in sorted((SRC / "blog").glob("*.html")):
         if not f.name.startswith("_"):
             add(f, f"/blog/{f.stem}/", "post")
@@ -155,6 +162,21 @@ def collect():
 
 
 TOPIC = {t["slug"]: t for t in C.TOPICS}
+
+# The languages: English at the root, the first and the default; Russian under /ru/. A page exists
+# in Russian only once src/ru/ has it; until then the Russian pages link to the English one.
+LANGS = ("en", "ru")
+LOCALE = {"en": "en_US", "ru": "ru_RU"}
+I18N = {lang: json.loads((SRC / "i18n" / f"{lang}.json").read_text(encoding="utf-8")) for lang in LANGS}
+
+
+def tr(lang, key):
+    """An interface string (src/i18n/<lang>.json); missing in a language, the English one."""
+    return I18N[lang].get(key, I18N["en"][key])
+
+
+def home_of(lang):
+    return "/" if lang == "en" else f"/{lang}/"
 
 
 def topic_style(m):
@@ -173,6 +195,27 @@ LISTED = sorted((p for p in PAGES if p["kind"] == "post" and (p["live"] or not R
                 key=lambda p: p["meta"].get("date", ""), reverse=True)
 # pages the site may link to: the live ones, except /blog/ until a post is live (no menu item to an empty list)
 LINKABLE = LIVE - ({"/blog/"} if not POSTS else set())
+
+
+def versions(p):
+    """{lang: page} for every language this build has the page in, itself included."""
+    rest = p["path"][len(home_of(p["lang"])) - 1:]          # "/ru/info/" -> "/info/"
+    found = {lang: BY_PATH.get(home_of(lang)[:-1] + rest) for lang in LANGS}
+    return {lang: q for lang, q in found.items() if q}
+
+
+def alternates(p):
+    """The versions search engines are told about (hreflang): only indexable ones, and only in pairs."""
+    if noindex(p):
+        return {}
+    found = {lang: q for lang, q in versions(p).items() if not noindex(q)}
+    return found if len(found) > 1 else {}
+
+
+def localized(path, lang):
+    """A site path in `lang` when this build links to that version, otherwise as it is (English)."""
+    own = home_of(lang)[:-1] + path
+    return own if lang != "en" and own in LINKABLE else path
 
 
 def is_case(p):
@@ -200,79 +243,106 @@ def out_file(path):
 
 # ---------- navigation ----------
 
-def nav(cur):
-    """(label, href, is_current) for each menu item shown on page `cur`. The current
+def nav(cur, lang="en"):
+    """(label, href, is_current, hreflang) for each menu item shown on page `cur`. The current
     item comes from the address alone (a case study, /work/<slug>/, is part of Work);
-    nothing on the page lights it up while scrolling."""
+    nothing on the page lights it up while scrolling. On a translated page an item goes to its
+    page in that language, or to the English one (marked hreflang) until it is translated."""
+    home = home_of(lang)
     items = []
     for item in C.NAV:
-        if item["page"] in LINKABLE:
-            href = item["page"]
+        own = home[:-1] + item["page"]
+        if own in LINKABLE:
+            href, other = own, None
+        elif item["page"] in LINKABLE:
+            href, other = item["page"], "en" if lang != "en" else None
         elif item["anchor"]:
-            href = ("#" if cur == "/" else "/#") + item["anchor"]
+            href, other = ("#" if cur == home else home + "#") + item["anchor"], None
         else:
             continue
-        current = cur != "/" and cur.startswith(item["page"])
-        items.append((item["label"], href, current))
+        current = cur != home and (cur.startswith(own) or cur.startswith(item["page"]))
+        items.append((item.get(lang, item["label"]), href, current, other))
     return items
 
 
-def nav_bar(cur):
+def nav_bar(cur, lang="en"):
     out = []
-    for label, href, current in nav(cur):
-        attrs = ' aria-current="page"' if current else ""
+    for label, href, current, other in nav(cur, lang):
+        attrs = (' aria-current="page"' if current else "") + (f' hreflang="{other}"' if other else "")
         out.append(f'      <a data-roll href="{e(href)}"{attrs}>{t(label)}</a>')
     return "\n".join(out)
 
 
-def nav_menu(cur):
+def nav_menu(cur, lang="en"):
     out = []
-    for k, (label, href, current) in enumerate(nav(cur)):
-        attrs = ' aria-current="page"' if current else ""
+    for k, (label, href, current, other) in enumerate(nav(cur, lang)):
+        attrs = (' aria-current="page"' if current else "") + (f' hreflang="{other}"' if other else "")
         out.append(f'          <li style="--k: {k}"><a href="{e(href)}" data-menu-link{attrs}>{t(label)}{CHEV}</a></li>')
     return "\n".join(out)
 
 
-def socials():
+def lang_switch(p, cls="lang__link"):
+    """The other languages, as short links (EN / RU) to this page in that language; where it is not
+    translated yet, to that language's home page. Never automatic: the visitor chooses."""
+    links = []
+    for lang in LANGS:
+        if lang == p["lang"]:
+            continue
+        q = versions(p).get(lang)
+        href = q["path"] if q and (q["live"] or not RELEASE) else home_of(lang)
+        links.append(f'<a class="{cls}" href="{e(href)}" hreflang="{lang}" lang="{lang}" '
+                     f'aria-label="{e(tr(lang, "lang_name"))}" data-lang="{lang}">{t(tr(lang, "lang_short"))}</a>')
+    return "".join(links)
+
+
+def socials(lang="en"):
     return "\n".join(
         f'            <li><a class="social" href="{e(url)}" rel="noopener" target="_blank"><span class="social__name" data-roll>{t(name)}</span>'
-        f'<span class="visually-hidden"> (opens in a new tab)</span>{ARROW}</a></li>'
+        f'<span class="visually-hidden">{t(tr(lang, "new_tab"))}</span>{ARROW}</a></li>'
         for name, _, url in C.PROFILES)
 
 
-def price(amount):
+def pricing(lang="en"):
+    """PRICING in `lang`: the Russian texts (PRICING_RU) over the English ones, the amounts shared."""
+    return C.PRICING if lang == "en" else {**C.PRICING, **getattr(C, f"PRICING_{lang.upper()}", {})}
+
+
+def price(amount, lang="en"):
     """990 -> "from $990"; None -> the quoted-per-project label (/llms.txt, /services/)."""
-    return C.PRICING["quoted"] if amount is None else f"from ${amount:,}"
+    P = pricing(lang)
+    return P["quoted"] if amount is None else P.get("from", "from ${amount}").format(amount=f"{amount:,}".replace(",", P.get("thousands", ",")))
 
 
-def service_prices():
+def service_prices(lang="en"):
     """/services/: {{price_text_0}} the lead (Design & Development), then {{price_text_1}} … one per
     service in PRICING order ("From $990" / "Quoted per project"), and the two lines under them."""
-    amounts = [C.PRICING["lead"][2]] + [a for _, _, a in C.PRICING["services"]]
-    out = {f"price_text_{i}": t(price(a)[0].upper() + price(a)[1:]) for i, a in enumerate(amounts)}
-    return dict(out, price_factors=t(C.PRICING["factors"]), price_note=t(C.PRICING["note"]))
+    P = pricing(lang)
+    amounts = [P["lead"][2]] + [a for _, _, a in P["services"]]
+    out = {f"price_text_{i}": t(price(a, lang)[0].upper() + price(a, lang)[1:]) for i, a in enumerate(amounts)}
+    return dict(out, price_factors=t(P["factors"]), price_note=t(P["note"]))
 
 
-def profile_rows():
+def profile_rows(lang="en"):
     """The profiles as ruled rows (/contact/): the name, the address without its scheme, the arrow."""
     return "\n".join(
         f'          <li><a class="row" href="{e(url)}" rel="noopener" target="_blank"><span class="row__a">{t(name)}</span>'
         f'<span class="row__b">{t(url.split("://", 1)[-1].removeprefix("www.").rstrip("/"))}</span>'
-        f'<span class="row__c">Open<span class="visually-hidden"> (opens in a new tab)</span></span></a></li>'
+        f'<span class="row__c">{t(tr(lang, "open"))}<span class="visually-hidden">{t(tr(lang, "new_tab"))}</span></span></a></li>'
         for name, _, url in C.PROFILES)
 
 
-def menu_socials():
-    return "".join(f'<li><a href="{e(url)}" rel="noopener" target="_blank" aria-label="{e(name)} (opens in a new tab)">{t(name)}</a></li>'
+def menu_socials(lang="en"):
+    return "".join(f'<li><a href="{e(url)}" rel="noopener" target="_blank" aria-label="{e(name + tr(lang, "new_tab"))}">{t(name)}</a></li>'
                    for name, _, url in C.PROFILES)
 
 
 def chain(p):
-    """Home → parents → this page, as (label, path)."""
-    steps = [("Home", "/")]
-    parts = [s for s in p["path"].strip("/").split("/") if s]
+    """Home → parents → this page, as (label, path), within the page's language."""
+    home = home_of(p["lang"])
+    steps = [(tr(p["lang"], "home"), home)]
+    parts = [s for s in p["path"][len(home):].strip("/").split("/") if s]
     for i in range(1, len(parts)):
-        parent = "/" + "/".join(parts[:i]) + "/"
+        parent = home + "/".join(parts[:i]) + "/"
         if parent in BY_PATH:
             steps.append((BY_PATH[parent]["meta"]["label"], parent))
     steps.append((p["meta"]["label"], p["path"]))
@@ -280,26 +350,28 @@ def chain(p):
 
 
 def crumbs(p):
+    lang = p["lang"]
     if p["meta"].get("back") == "yes":
         # the browser's back when the visitor came from the site (js/contact.js), so the page returns where it was
-        return ('        <p class="back"><a class="back__link" href="/" data-back-to-site>'
-                '<span aria-hidden="true">←</span><span data-roll>Back to Site</span></a></p>')
+        return (f'        <p class="back"><a class="back__link" href="{home_of(lang)}" data-back-to-site>'
+                f'<span aria-hidden="true">←</span><span data-roll>{t(tr(lang, "back_to_site"))}</span></a></p>')
     steps = chain(p)
     li = [f'<li><a href="{e(path)}">{t(label)}</a></li>' for label, path in steps[:-1]]
     li.append(f'<li aria-current="page">{t(steps[-1][0])}</li>')
-    return f'        <nav class="crumbs" aria-label="Breadcrumb"><ol>{"".join(li)}</ol></nav>'
+    return f'        <nav class="crumbs" aria-label="{e(tr(lang, "breadcrumb"))}"><ol>{"".join(li)}</ol></nav>'
 
 
 # ---------- head, structured data ----------
 
 def full_title(p):
     title = p["meta"].get("title", "")
-    return title if "Prokhorov" in title else f"{title} — {C.NAME}"
+    return title if "Prokhorov" in title or "Прохоров" in title else f"{title} — {C.NAME}"
 
 
 def schema(p):
     m, url = p["meta"], absolute(p["path"])
     person_id, site_id, page_id = C.URL + "/#person", C.URL + "/#website", url + "#webpage"
+    lang = p["lang"]
     person = {
         "@type": "Person", "@id": person_id, "name": C.PERSON["name"], "alternateName": C.PERSON["alternateName"],
         "jobTitle": C.PERSON["jobTitle"], "url": C.URL + "/", "email": "mailto:" + C.EMAIL,
@@ -310,10 +382,15 @@ def schema(p):
     }
     if "/info/" in LIVE:
         person["mainEntityOfPage"] = C.URL + "/info/"
-    website = {"@type": "WebSite", "@id": site_id, "url": C.URL + "/", "name": C.NAME, "inLanguage": "en", "publisher": {"@id": person_id}}
+    built = [x for x in LANGS if any(q["lang"] == x and q["live"] for q in PAGES)]
+    website = {"@type": "WebSite", "@id": site_id, "url": C.URL + "/", "name": C.NAME,
+               "inLanguage": built if len(built) > 1 else "en", "publisher": {"@id": person_id}}
     kind = m.get("schema", "WebPage")
     page = {"@type": kind, "@id": page_id, "url": url, "name": full_title(p), "description": m.get("description", ""),
-            "isPartOf": {"@id": site_id}, "inLanguage": "en", "dateModified": modified(p)}
+            "isPartOf": {"@id": site_id}, "inLanguage": lang, "dateModified": modified(p)}
+    other = [q for x, q in versions(p).items() if x != lang and q["live"]]
+    if other:
+        page["workTranslation" if lang == "en" else "translationOfWork"] = [{"@id": absolute(q["path"]) + "#webpage"} for q in other]
     graph = [website, person, page]
     if kind == "ProfilePage":
         page["mainEntity"] = {"@id": person_id}
@@ -338,7 +415,7 @@ def schema(p):
         amount = dict([(P["lead"][0], P["lead"][2])] + [(n, a) for n, _, a in P["services"]]).get(m["service"])
         svc = {"@type": "Service", "@id": url + "#service", "name": m["service"], "serviceType": m["service"],
                "description": m.get("description", ""), "url": url, "provider": {"@id": person_id},
-               "areaServed": "Worldwide", "availableLanguage": ["en", "ru"]}
+               "areaServed": "Worldwide", "availableLanguage": ["en", "ru"], "inLanguage": lang}
         if amount is not None:
             svc["offers"] = {"@type": "Offer", "priceCurrency": "USD", "priceSpecification": {
                 "@type": "PriceSpecification", "minPrice": amount, "priceCurrency": "USD"}}
@@ -385,12 +462,20 @@ def head(p):
     ]
     # a page kept out of search gets noindex and no canonical (the two would contradict each other)
     lines.append('<meta name="robots" content="noindex">' if noindex(p) else f'<link rel="canonical" href="{url}">')
+    # the same page in the other languages, for search engines; English is the default
+    alt = alternates(p)
+    lines += [f'<link rel="alternate" hreflang="{lang}" href="{absolute(q["path"])}">' for lang, q in alt.items()]
+    if alt:
+        lines.append(f'<link rel="alternate" hreflang="x-default" href="{absolute(alt.get("en", p)["path"])}">')
     lines += [
         f'<meta name="theme-color" content="{e(m.get("theme", "#ffffff"))}">',
         "",
         f'<meta property="og:type" content="{og_type}">',
         f'<meta property="og:site_name" content="{e(C.NAME)}">',
-        '<meta property="og:locale" content="en_US">',
+        f'<meta property="og:locale" content="{LOCALE[p["lang"]]}">',
+    ]
+    lines += [f'<meta property="og:locale:alternate" content="{LOCALE[lang]}">' for lang in alt if lang != p["lang"]]
+    lines += [
         f'<meta property="og:url" content="{url}">',
         f'<meta property="og:title" content="{e(title)}">',
         f'<meta property="og:description" content="{e(m.get("og_description", desc))}">',
@@ -417,6 +502,8 @@ def head(p):
         '<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">',
         '<link rel="preload" href="/assets/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>',
     ]
+    if p["lang"] == "ru":
+        lines.append('<link rel="preload" href="/assets/fonts/inter-opsz-cyrillic.woff2" as="font" type="font/woff2" crossorigin>')
     if HAS_FEED:
         lines.append(f'<link rel="alternate" type="application/rss+xml" title="{e(C.NAME)} — Blog" href="/blog/feed.xml">')
     lines += [
@@ -530,7 +617,7 @@ def cases_in_order():
     return cases
 
 
-def case_card(q, sizes, wide=False, eager=False):
+def case_card(q, sizes, wide=False, eager=False, lang="en"):
     """One case as the home page's work card, linking to the case. All it says comes from the
     case page's own front matter."""
     m = q["meta"]
@@ -546,10 +633,11 @@ def case_card(q, sizes, wide=False, eager=False):
     names = [x.strip() for x in (m.get("tags") or f'{m.get("kind", "")}/{m.get("year", "")}').split("/") if x.strip()]
     tags = [t(x) for x in names]
     if m.get("progress") == "yes":
-        tags.append('<span class="case__status"><i class="dot"></i>In Progress</span>')
+        tags.append(f'<span class="case__status"><i class="dot"></i>{t(tr(lang, "in_progress"))}</span>')
     # spaced (the flex layout ignores the spaces) so the link's text reads "Powermatic® Design Build ’26", not run together
     tags = " ".join(f'<span class="item__tag">{x}</span>' for x in tags)
-    return (f'<li class="item{" item--wide" if wide else ""}"><a class="item__link" href="{q["path"]}" data-case-link>{media}'
+    other = f' hreflang="{q["lang"]}"' if q["lang"] != lang else ""
+    return (f'<li class="item{" item--wide" if wide else ""}"><a class="item__link" href="{q["path"]}"{other} data-case-link>{media}'
             f'<span class="item__cap"><span class="item__name">{t(m["heading"])}</span> '
             f'<span class="item__tags">{tags}</span></span></a></li>')
 
@@ -587,38 +675,51 @@ def related_parts(p):
         wide = k == 0 and len(cases) % 2 == 1
         sizes = ("(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw" if wide
                  else "(min-width: 1200px) 35vw, (min-width: 768px) 31vw, 100vw")
-        out.append(case_card(q, sizes, wide))
+        out.append(case_card(q, sizes, wide, lang=p["lang"]))
     return dict(related_cards="\n".join("          " + x for x in out), related_count=f"{len(cases):02d}")
 
 
 def context(p):
     cur = p["path"]
     m = p["meta"]
-    form = "/get-in-touch/"
+    lang = p["lang"]
+    home = home_of(lang)
+    form = localized("/get-in-touch/", lang)
     cta = "#main" if cur == form else form if form in LIVE else "mailto:" + C.EMAIL
     return dict(
-        head=head(p), email=C.EMAIL, year=YEAR,
-        brand_href="#top" if cur == "/" else "/",
-        brand_label=f"{C.NAME} — back to top" if cur == "/" else f"{C.NAME} — home",
+        head=head(p), email=C.EMAIL, year=YEAR, lang=lang,
+        brand_href="#top" if cur == home else home,
+        brand_label=f"{C.NAME} — {tr(lang, 'brand_top')}" if cur == home else f"{C.NAME} — {tr(lang, 'brand_home')}",
+        lang_switch=lang_switch(p), lang_pill=lang_switch(p, "mpill"), lang_switch_label=e(tr(lang, "lang_switch")),
+        privacy_href=localized("/privacy/", lang), work_href=localized("/work/", lang),
+        ai_q=quote(tr(lang, "ai_prompt"), safe=""),
         # "Get in Touch" never hands off to a mail app: the form page, or (on it) the form itself
         cta_href=cta,
         # the project form posts to Web3Forms; until the access key is set it cannot send (js/contact.js says so)
         form_action=C.FORM_ENDPOINT,
         form_key=C.FORM_ACCESS_KEY,
         form_mode="post" if C.FORM_ENDPOINT and C.FORM_ACCESS_KEY else "none",
-        nav_bar=nav_bar(cur), nav_menu=nav_menu(cur),
+        nav_bar=nav_bar(cur, lang), nav_menu=nav_menu(cur, lang),
         # the one footer: in the home feed it is a plain row, on inner pages it also takes the page grid's foot cell
         foot_class="foot" if p["kind"] == "home" else "doc__foot foot",
-        socials=socials(), menu_socials=menu_socials(), profile_rows=profile_rows(),
+        socials=socials(lang), menu_socials=menu_socials(lang), profile_rows=profile_rows(lang),
         profile_count=len(C.PROFILES), profile_count_2=f"{len(C.PROFILES):02d}",
         heading=t(m["heading"]), lead=t(m.get("lead", "")),
         crumbs=crumbs(p) if p["kind"] != "home" else "",
         side_extra=post_meta(p) if p["kind"] == "post" else "",
-        draft_flag='  <p class="draft-flag" role="note"><b>Draft</b> · not indexed, not in the menu</p>\n' if not p["live"] else "",
-        **blog_parts(), **work_parts(), **case_end(p), **related_parts(p), **service_prices(),
-        work_lead=t(BY_PATH["/work/"]["meta"].get("lead", "")) if "/work/" in BY_PATH else "",
+        draft_flag=f'  <p class="draft-flag" role="note">{tr(lang, "draft_flag")}</p>\n' if not p["live"] else "",
+        **blog_parts(), **work_parts(), **case_end(p), **related_parts(p), **service_prices(lang),
+        work_lead=t(BY_PATH[localized("/work/", lang)]["meta"].get("lead", "")) if "/work/" in BY_PATH else "",
         page_class=" " + m["class"] if m.get("class") else "",
     )
+
+
+def partial(name, lang):
+    """src/partials/<name>.html, or its translation in src/<lang>/partials/ where there is one
+    (for pieces that are mostly text, such as the experience list; the interface strings in the
+    shared ones come from src/i18n/ instead)."""
+    own = SRC / lang / "partials" / f"{name}.html"
+    return own if lang != "en" and own.exists() else SRC / "partials" / f"{name}.html"
 
 
 def expand(text, ctx):
@@ -630,7 +731,8 @@ def expand(text, ctx):
             keep = (path in LINKABLE) == (kind == "live")
         return inner if keep else ""
     text = WHEN.sub(when, text)
-    text = PARTIAL.sub(lambda k: expand(read(SRC / "partials" / f"{k.group(1)}.html").rstrip("\n"), ctx), text)
+    text = PARTIAL.sub(lambda k: expand(read(partial(k.group(1), ctx["lang"])).rstrip("\n"), ctx), text)
+    text = TR.sub(lambda k: tr(ctx["lang"], k.group(1)), text)
 
     def var(k):
         if k.group(1) not in ctx:
@@ -667,6 +769,19 @@ def small_marks(html):
     return head_ + sep + TEXT.sub(wrap, body)
 
 
+SHORT = re.compile(r"(?<![\w\u00a0-])([а-яёА-ЯЁ]{1,2}|без|для|над|под|при|про|из-за|из-под)\s+(?=\S)")
+DASH = re.compile(r"\s+(—)")
+
+
+def typograph(html):
+    """Russian text: a short word (a preposition, a conjunction) is kept with the word after it,
+    and a dash with the word before it, so no line starts with "—" or ends with "в". Visible
+    body text only, as small_marks."""
+    head_, sep, body = html.partition("<body>")
+    fix = lambda m: ">" + DASH.sub("\u00a0\\1", SHORT.sub("\\1\u00a0", m.group(1))) + "<"
+    return head_ + sep + TEXT.sub(fix, body)
+
+
 def render(p):
     ctx = context(p)
     if p["kind"] == "home":
@@ -683,6 +798,8 @@ def render(p):
             ctx["content"] = body.rstrip()
         doc = read(SRC / "layouts" / f"{p['meta'].get('layout', 'page')}.html")
     out = small_marks(PIC.sub(picture, expand(doc, ctx)))
+    if p["lang"] == "ru":
+        out = typograph(out)
     if RELEASE:
         out = COMMENT.sub("", out)
     rel = p["src"].relative_to(ROOT).as_posix()
@@ -693,9 +810,18 @@ def render(p):
 # ---------- site files ----------
 
 def sitemap():
-    urls = "".join(f"  <url><loc>{absolute(p['path'])}</loc><lastmod>{modified(p)}</lastmod></url>\n"
-                   for p in sorted(PAGES, key=lambda p: p["path"]) if not noindex(p) and not p["path"].endswith(".html"))
-    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n'
+    """Every indexable page; a page that has versions in other languages lists them all (itself
+    too) and the English one as x-default, as Google asks for hreflang in a sitemap."""
+    def entry(p):
+        alt = alternates(p)
+        links = "".join(f'<xhtml:link rel="alternate" hreflang="{lang}" href="{absolute(q["path"])}"/>' for lang, q in alt.items())
+        if alt:
+            links += f'<xhtml:link rel="alternate" hreflang="x-default" href="{absolute(alt.get("en", p)["path"])}"/>'
+        return f"  <url><loc>{absolute(p['path'])}</loc><lastmod>{modified(p)}</lastmod>{links}</url>\n"
+    shown = sorted((p for p in PAGES if not noindex(p) and not p["path"].endswith(".html")), key=lambda p: p["path"])
+    urls = "".join(entry(p) for p in shown)
+    xhtml = ' xmlns:xhtml="http://www.w3.org/1999/xhtml"' if any(alternates(p) for p in shown) else ""
+    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"{xhtml}>\n{urls}</urlset>\n'
 
 
 def feed():

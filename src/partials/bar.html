@@ -3,10 +3,10 @@
        links come from NAV in scripts/site.py. -->
   <header class="bar" data-nav>
     <a class="bar__brand" href="{{brand_href}}" aria-label="{{brand_label}}"><span class="logo"><svg class="logo__mark" viewBox="1 0 47 48" aria-hidden="true" focusable="false"><use href="#pk-mark"/></svg><svg class="logo__word" viewBox="54 13 181 22" aria-hidden="true" focusable="false"><use href="#pk-word"/></svg></span></a>
-    <nav class="bar__nav" aria-label="Primary">
+    <nav class="bar__nav" aria-label="{{t.nav_primary}}">
 {{nav_bar}}
     </nav>
-    <p class="bar__time">Bishkek, <time data-clock>—</time></p>
-    <a class="bar__cta" data-roll href="{{cta_href}}">Get in Touch</a>
-    <button class="bar__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menu" data-menu-toggle><span class="bar__toggle-label" aria-hidden="true"><span>Menu</span><span>Close</span></span><span class="bar__toggle-icon" aria-hidden="true"><i></i><i></i></span></button>
+    <p class="bar__time">{{t.bishkek}}, <time data-clock>—</time></p>
+    <a class="bar__cta" data-roll href="{{cta_href}}">{{t.get_in_touch}}</a>
+    <button class="bar__toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="{{t.menu}}" data-menu-toggle><span class="bar__toggle-label" aria-hidden="true"><span>{{t.menu}}</span><span>{{t.close}}</span></span><span class="bar__toggle-icon" aria-hidden="true"><i></i><i></i></span></button>
   </header>

@@ -8,6 +8,14 @@
   src: url("../assets/fonts/inter-opsz.woff2") format("woff2");
   font-weight: 100 900; font-style: normal; font-display: swap;
 }
+/* Cyrillic, for /ru/: the same Inter build (4.001, opsz + wght) as its own file, which a browser
+   fetches only when a page has Russian letters on it, so the English pages never load it */
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/inter-opsz-cyrillic.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
 @font-face { font-family: "Inter Fallback"; src: local("Arial"); size-adjust: 107%; ascent-override: 90%; }
 
 /* ---------- Tokens ---------- */
@@ -194,6 +202,8 @@ a, button { transition: color 0.3s var(--ease); }
 .mcard__text { font-size: 15px; line-height: 1.4; letter-spacing: -0.015em; padding-top: 2px; }
 .mcard__top + .mpill { margin-top: 16px; }
 .mcard--now { padding-block: 18px 20px; }
+/* the other language (EN / RU), a pill at the card's top right, beside where and when */
+.mcard--now { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 
 .mpill {
   display: inline-flex; align-items: center; gap: 6px; flex: none;
@@ -272,6 +282,7 @@ html.menu-open { overflow: hidden; }
 .swap__b i:nth-child(4) { color: #0091ff; }
 .swap__b i:nth-child(5) { color: #00b37e; }
 .swap__b i:nth-child(6) { color: #ffb800; }
+.swap__b i:nth-child(7) { color: #ff4d00; }   /* "Привет!" has a seventh: the colours start over */
 .swap:hover .swap__a i, .swap.is-on .swap__a i { translate: 0 -110%; }
 .swap:hover .swap__b i, .swap.is-on .swap__b i { translate: 0 0; }
 .motion-ok .swap i { transition: translate 0.7s var(--ease) calc(var(--l) * 40ms); }
@@ -567,6 +578,8 @@ button.row:hover .row__a::after { translate: 4px 0; }
 /* the narrowest phones: a long name may wrap rather than push the page sideways */
 @media (max-width: 359px) { .client { white-space: normal; } }
 .names .nw { white-space: nowrap; }
+/* Russian words run longer: justified, they leave holes unless they may break (the browser's Russian hyphenation) */
+.names:lang(ru) { hyphens: auto; }
 /* Two-digit number in a pill, like ⑭ in a type specimen: the pill is exactly as tall
    as the capitals around it (baseline to cap height), with semibold figures ~0.6
    of that height. --k is the figures' size relative to the text.
@@ -1495,6 +1508,9 @@ fieldset.q { margin: 0; border: 0; min-width: 0; }
 .doc__foot { align-items: baseline; padding-top: 40px; }
 /* the Privacy Policy link, beside the copyright in its grey; darker on hover, as the game button */
 .foot__legal:hover, .foot__legal:focus-visible { color: var(--fg); }
+/* the other language (EN / RU), after the legal links in the same grey */
+.lang__link { color: var(--mute); transition: color 0.3s var(--ease); }
+.lang__link:hover, .lang__link:focus-visible { color: var(--fg); }
 
 /* /privacy/: the dates, then the PDF, quieter than the text */
 .legal__dates { color: var(--mute); font-size: var(--t-base); }
