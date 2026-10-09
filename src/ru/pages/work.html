@@ -1,0 +1,20 @@
+---
+title: Работы — кейсы и концепты сайтов
+description: Избранные работы Артёма Прохорова: сайт для клиента, который он придумал и собрал, лендинги и концепты сайтов.
+heading: Работы
+label: Работы
+lead: Проекты для клиентов и собственные концепты: сайты и лендинги. Сами кейсы пока на английском.
+status: live
+schema: CollectionPage
+class: doc--wide doc--work
+updated: 2026-10-10
+---
+      <!-- Как /work/: те же карточки из шапок кейсов (src/pages/work/*.html; русские теги и
+           alt — их поля tags_ru и card_alt_ru). Сами кейсы пока на английском. -->
+      <section class="block" aria-labelledby="work-title">
+        <header class="block__head"><h2 id="work-title"><span class="block__no" aria-hidden="true">(01)</span>Избранное</h2><span class="count">({{work_count}})</span></header>
+        <ul class="work work--all">
+{{work_list}}
+        </ul>
+      </section>
+      <div class="cursor" aria-hidden="true" data-cursor><span>{{t.view}}</span></div>

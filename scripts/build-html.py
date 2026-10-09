@@ -621,16 +621,20 @@ def case_card(q, sizes, wide=False, eager=False, lang="en"):
     """One case as the home page's work card, linking to the case. All it says comes from the
     case page's own front matter."""
     m = q["meta"]
+    # a case not yet translated, on a page in another language: the card's words in that
+    # language where its front matter has them ("tags_ru", "card_alt_ru"), the case stays as it is
+    def own(key):
+        return m.get(f"{key}_{lang}") or m.get(key, "") if lang != q["lang"] else m.get(key, "")
     pos = f' style="--pos: {e(m["card_pos"])}"' if m.get("card_pos") else ""
     if m.get("card"):
-        media = (f'<span class="item__media"{pos}><pic name="{m["card"]}" alt="{e(m.get("card_alt", ""))}" '
+        media = (f'<span class="item__media"{pos}><pic name="{m["card"]}" alt="{e(own("card_alt"))}" '
                  f'sizes="{sizes}"{" eager" if eager else ""}></span>')
     else:
         tags = "".join(f'<span class="tag">{t(x.strip())}</span>' for x in m.get("card_tags", "").split("/") if x.strip())
         media = f'<span class="item__media item__media--text"><span class="tags">{tags}</span><span>{t(m.get("card_text", ""))}</span></span>'
     # the tags, one per line down the right edge (front matter "tags", split at "/";
     # without it, the kind and the year)
-    names = [x.strip() for x in (m.get("tags") or f'{m.get("kind", "")}/{m.get("year", "")}').split("/") if x.strip()]
+    names = [x.strip() for x in (own("tags") or f'{m.get("kind", "")}/{m.get("year", "")}').split("/") if x.strip()]
     tags = [t(x) for x in names]
     if m.get("progress") == "yes":
         tags.append(f'<span class="case__status"><i class="dot"></i>{t(tr(lang, "in_progress"))}</span>')
@@ -642,7 +646,7 @@ def case_card(q, sizes, wide=False, eager=False, lang="en"):
             f'<span class="item__tags">{tags}</span></span></a></li>')
 
 
-def work_parts():
+def work_parts(lang="en"):
     """/work/: every case, in order. Every third card, from the first, takes the full width; the others go in pairs."""
     cases = cases_in_order()
     out = []
@@ -650,7 +654,7 @@ def work_parts():
         wide = k % 3 == 0
         sizes = ("(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw" if wide
                  else "(min-width: 1200px) 35vw, (min-width: 768px) 31vw, 100vw")
-        out.append(case_card(q, sizes, wide, eager=k == 0))
+        out.append(case_card(q, sizes, wide, eager=k == 0, lang=lang))
     return dict(work_list="\n".join("          " + x for x in out), work_count=f"{len(cases):02d}")
 
 
@@ -661,7 +665,7 @@ def case_end(p):
     if not is_case(p) or p not in cases:
         return dict(next_card="", next_count="")
     k = (cases.index(p) + 1) % len(cases)
-    card = case_card(cases[k], "(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw", wide=True)
+    card = case_card(cases[k], "(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw", wide=True, lang=p["lang"])
     return dict(next_card="          " + card, next_count=f"{k + 1:02d} / {len(cases):02d}")
 
 
@@ -708,7 +712,7 @@ def context(p):
         crumbs=crumbs(p) if p["kind"] != "home" else "",
         side_extra=post_meta(p) if p["kind"] == "post" else "",
         draft_flag=f'  <p class="draft-flag" role="note">{tr(lang, "draft_flag")}</p>\n' if not p["live"] else "",
-        **blog_parts(), **work_parts(), **case_end(p), **related_parts(p), **service_prices(lang),
+        **blog_parts(), **work_parts(lang), **case_end(p), **related_parts(p), **service_prices(lang),
         work_lead=t(BY_PATH[localized("/work/", lang)]["meta"].get("lead", "")) if "/work/" in BY_PATH else "",
         page_class=" " + m["class"] if m.get("class") else "",
     )
