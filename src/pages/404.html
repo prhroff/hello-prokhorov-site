@@ -8,6 +8,8 @@ lead: The page may have moved, or the link was mistyped.
 status: live
 noindex: yes
 ---
+      <!-- GitHub Pages serves this page for every missing address; one under /ru/ goes to the Russian one -->
+      <script>if (location.pathname.startsWith('/ru/')) location.replace('/ru/404.html');</script>
       <p class="doc__intro">Nothing here. <span class="mute">Try one of these instead.</span></p>
       <section class="block" aria-labelledby="go-title">
         <header class="block__head"><h2 id="go-title"><span class="block__no" aria-hidden="true">(01)</span>Pages</h2></header>

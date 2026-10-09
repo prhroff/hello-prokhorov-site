@@ -1,0 +1,154 @@
+---
+# «Услуги»: как /services/ (src/layouts/services.html), тексты по-русски. Цены — PRICING_RU в
+# scripts/site_config.py ({{price_text_0}} … ). Кейсы пока на английском.
+title: Услуги — веб-дизайн, разработка сайтов и UI/UX-дизайн
+description: Веб-дизайн, разработка сайтов, моушн, UI/UX-дизайн и арт-дирекшн от Артёма Прохорова: что входит, цены и сроки.
+heading: Услуги
+label: Услуги
+lead: От одного лендинга до большого сайта. Продумывает, рисует и собирает один человек.
+status: live
+schema: WebPage
+updated: 2026-10-10
+layout: services
+class: sw
+---
+    <!-- CONTENT: как /services/. Сроки — заглушки, как и на английской (TO CONFIRM).
+         Страницы отдельных услуг пока только на английском. -->
+    <!-- the first screen: the title with a ring of square pictures from the work around it,
+         turning slowly; drag it sideways, it sways with the pointer (js/main.js "Orbit").
+         The pictures are only the ring's source: the script lays them out as curved cards. -->
+    <header class="sw-hero" data-hero>
+      <div class="orbit" data-orbit>
+        <div class="orbit__scene">
+          <h1 class="sw-hero__title">{{heading}}</h1>
+          <div class="orbit__ring" aria-hidden="true" data-orbit-ring>
+          <pic name="powermatic-keys" alt="" sizes="220px" class="orbit__src">
+          <pic name="vh-display" alt="" sizes="220px" class="orbit__src">
+          <pic name="contour-laptop" alt="" sizes="220px" class="orbit__src">
+          <pic name="lattice-plinth" alt="" sizes="220px" class="orbit__src">
+          <pic name="luma-screen" alt="" sizes="220px" class="orbit__src">
+          <pic name="renovate-laptop" alt="" sizes="220px" class="orbit__src">
+          <pic name="powermatic-phone" alt="" sizes="220px" class="orbit__src">
+          <pic name="vh-logo" alt="" sizes="220px" class="orbit__src">
+          <pic name="la-image" alt="" sizes="220px" class="orbit__src">
+          <pic name="lu-display" alt="" sizes="220px" class="orbit__src">
+          <pic name="pm-tshirt" alt="" sizes="220px" class="orbit__src">
+          <pic name="co-hero" alt="" sizes="220px" class="orbit__src">
+          </div>
+        </div>
+      </div>
+      <p class="sw-hero__lead">{{lead}}</p>
+      <p class="sw-hint" aria-hidden="true">Тяните или листайте</p>
+    </header>
+
+    <p class="sw-intro" data-light>Шесть форматов работы. <span class="mute">Цену фиксируем, когда договоримся об объёме. Ниже — суммы, с которых всё начинается.</span></p>
+
+    <!-- two rows of the services' names drifting in opposite directions as you scroll (decorative) -->
+    <div class="sw-ticker" aria-hidden="true">
+      <p class="sw-ticker__row"><span>Веб-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Разработка сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Моушн для сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Арт-дирекшн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Веб-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Разработка сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Моушн для сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Арт-дирекшн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Веб-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Разработка сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Моушн для сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Арт-дирекшн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg></p>
+      <p class="sw-ticker__row sw-ticker__row--back"><span>Арт-дирекшн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Моушн для сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Разработка сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Веб-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Арт-дирекшн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Моушн для сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Разработка сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Веб-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Арт-дирекшн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>UI/UX-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Моушн для сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Разработка сайтов</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg><span>Веб-дизайн</span><svg class="sw-ticker__star" viewBox="1 0 47 48" focusable="false"><use href="#pk-mark"/></svg></p>
+    </div>
+
+    <ol class="sw-list">
+      <li class="sw-svc" aria-labelledby="sw-1">
+        <p class="sw-svc__no" aria-hidden="true">(01)</p>
+        <h2 class="sw-svc__title" id="sw-1"><when built="/services/design-development/"><a class="sw-svc__link" href="/services/design-development/"></when><span class="sw-svc__word">Дизайн и разработка</span><when built="/services/design-development/"></a></when></h2>
+        <p class="sw-svc__lead">Сайт целиком: от структуры и арт-дирекшна до разработки и запуска. И всё это один человек.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/powermatic/" tabindex="-1" aria-hidden="true"><pic name="powermatic-stand" alt="" sizes="(min-width: 768px) 40vw, 100vw" eager></a><figcaption><a href="/work/powermatic/">Powermatic®</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Структура и порядок контента</li>
+              <li>Дизайн под десктоп и мобильные</li>
+              <li>Сборка в коде или во Framer</li>
+              <li>Админка для всего, что будете менять</li>
+              <li>Тесты и запуск</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_text_0}}</li>
+              <li><span class="sw-svc__k">Сроки:</span> 4–6 недель</li>
+          </ul>
+          <when built="/services/design-development/"><p class="sw-svc__more"><a href="/services/design-development/"><span data-roll>Подробнее о дизайне и разработке</span><span aria-hidden="true">→</span></a></p></when>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-2">
+        <p class="sw-svc__no" aria-hidden="true">(02)</p>
+        <h2 class="sw-svc__title" id="sw-2"><when built="/services/web-design/"><a class="sw-svc__link" href="/services/web-design/"></when><span class="sw-svc__word">Веб-дизайн</span><when built="/services/web-design/"></a></when></h2>
+        <p class="sw-svc__lead">Структура, UX и дизайн сайта или лендинга — сразу готовые к разработке.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/contour-office/" tabindex="-1" aria-hidden="true"><pic name="co-hero" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/contour-office/">Contour Office©</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Цели, аудитория и структура сайта</li>
+              <li>Сценарии и порядок контента</li>
+              <li>Дизайн под десктоп и мобильные</li>
+              <li>Макеты, готовые к разработке</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_text_1}}</li>
+              <li><span class="sw-svc__k">Сроки:</span> 2–3 недели</li>
+          </ul>
+          <when built="/services/web-design/"><p class="sw-svc__more"><a href="/services/web-design/"><span data-roll>Подробнее о веб-дизайне</span><span aria-hidden="true">→</span></a></p></when>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-3">
+        <p class="sw-svc__no" aria-hidden="true">(03)</p>
+        <h2 class="sw-svc__title" id="sw-3"><span class="sw-svc__word">Разработка сайтов</span></h2>
+        <p class="sw-svc__lead">Собираю ваш утверждённый дизайн в адаптивный сайт, проверяю и запускаю.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/renovate/" tabindex="-1" aria-hidden="true"><pic name="renovate-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/renovate/">Renovate</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Адаптивная вёрстка один в один с макетами</li>
+              <li>В коде или во Framer с админкой</li>
+              <li>Скорость и техническое SEO</li>
+              <li>Проверка в разных браузерах и на устройствах</li>
+              <li>Запуск на вашем домене</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_text_2}}</li>
+              <li><span class="sw-svc__k">Сроки:</span> 2–4 недели</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-4">
+        <p class="sw-svc__no" aria-hidden="true">(04)</p>
+        <h2 class="sw-svc__title" id="sw-4"><span class="sw-svc__word">Моушн для сайтов</span></h2>
+        <p class="sw-svc__lead">Переходы, анимация на скролле и ховеры для сайта или интерфейса.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/luma/" tabindex="-1" aria-hidden="true"><pic name="luma-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/luma/">Luma</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Переходы между страницами</li>
+              <li>Анимация на скролле</li>
+              <li>Ховеры и состояния фокуса</li>
+              <li>Без анимации для тех, кто отключил её в системе</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_text_3}}</li>
+              <li><span class="sw-svc__k">Сроки:</span> 1–2 недели</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-5">
+        <p class="sw-svc__no" aria-hidden="true">(05)</p>
+        <h2 class="sw-svc__title" id="sw-5"><span class="sw-svc__word">UI/UX-дизайн</span></h2>
+        <p class="sw-svc__lead">Сценарии, вайрфреймы и интерфейс цифрового продукта.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/lattice/" tabindex="-1" aria-hidden="true"><pic name="lattice-hero" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/lattice/">Lattice</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Сценарии и вайрфреймы</li>
+              <li>Дизайн интерфейса</li>
+              <li>Дизайн-система, если она нужна продукту</li>
+              <li>Передача в разработку и работа с вашими разработчиками</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_text_4}}</li>
+              <li><span class="sw-svc__k">Сроки:</span> 3–6 недель</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-6">
+        <p class="sw-svc__no" aria-hidden="true">(06)</p>
+        <h2 class="sw-svc__title" id="sw-6"><span class="sw-svc__word">Арт-дирекшн</span></h2>
+        <p class="sw-svc__lead">Визуальное направление: типографика, цвет, сетка и правила взаимодействия.</p>
+        <div class="sw-svc__row">
+          <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/visual-hunters/" tabindex="-1" aria-hidden="true"><pic name="vh-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/visual-hunters/">Visual Hunters®</a></figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Типографика и цвет</li>
+              <li>Принципы сетки</li>
+              <li>Принципы взаимодействия</li>
+              <li>Ключевые экраны, которые задают стиль</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_text_5}}</li>
+              <li><span class="sw-svc__k">Сроки:</span> 1–2 недели</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+

@@ -12,6 +12,8 @@ const RU = {
   'Drag': 'Тяните',
   'Check confirmation': 'Проверить отзыв',
   // contact.js
+  'Choose one.': 'Выберите вариант.',
+  'Choose at least one.': 'Выберите хотя бы один.',
   'Your name, please.': 'Как к вам обращаться?',
   'That email doesn’t look right.': 'Кажется, в почте опечатка.',
   'An email to reply to.': 'Куда вам ответить?',

@@ -1,0 +1,129 @@
+---
+# Бриф: сюда ведут все кнопки «Написать мне». Остальные способы связи — на /ru/contact/.
+title: Бриф на сайт — Артём Прохоров
+description: Расскажите Артёму Прохорову, дизайнеру и разработчику сайтов, о вашем сайте: что нужно, когда стартовать и какой бюджет.
+heading: Написать мне
+label: Бриф
+lead: Расскажите, что делаете, на каком вы этапе и с чем нужна помощь.
+status: live
+schema: ContactPage
+class: doc--intake
+back: yes
+script: /js/contact.js
+updated: 2026-10-10
+---
+      <!-- БРИФ: как на /get-in-touch/, те же имена полей. Ответы приходят на почту по-русски;
+           тема письма помечена (RU), чтобы было видно, с какой версии сайта заявка. -->
+      <form class="intake" action="{{form_action}}" method="post" data-intake data-mode="{{form_mode}}">
+        <input type="hidden" name="access_key" value="{{form_key}}">
+        <input type="hidden" name="subject" value="Новый проект (RU) — helloprokhorov.com">
+        <input type="hidden" name="from_name" value="helloprokhorov.com">
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">01</span>Сайт у вас уже есть?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="website" value="Есть" required><span>Есть</span></label>
+            <label class="opt"><input type="radio" name="website" value="Делаем с нуля"><span>Делаем с нуля</span></label>
+            <label class="opt"><input type="radio" name="website" value="Пока не знаю"><span>Пока не знаю</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="some">
+          <legend class="q__title"><span class="q__no">02</span><span>Что нужно?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span><span class="q__hint">Можно выбрать несколько.</span></span></legend>
+          <div class="q__opts">
+            <!-- полный цикл первым: от идеи и дизайна до готового сайта -->
+            <label class="opt"><input type="checkbox" name="needs" value="Дизайн и разработка"><span>Дизайн и разработка</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Новый сайт"><span>Новый сайт</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Редизайн"><span>Редизайн</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="UI/UX-дизайн"><span>UI/UX-дизайн</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Только разработка"><span>Только разработка</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Другое"><span>Другое</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">03</span>Какой сайт?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="type" value="SaaS / IT" required><span>SaaS / IT</span></label>
+            <label class="opt"><input type="radio" name="type" value="Стартап"><span>Стартап</span></label>
+            <label class="opt"><input type="radio" name="type" value="Сайт компании"><span>Сайт компании</span></label>
+            <label class="opt"><input type="radio" name="type" value="Лендинг"><span>Лендинг</span></label>
+            <label class="opt"><input type="radio" name="type" value="Интернет-магазин"><span>Интернет-магазин</span></label>
+            <label class="opt"><input type="radio" name="type" value="Личный сайт / портфолио"><span>Личный сайт / портфолио</span></label>
+            <label class="opt"><input type="radio" name="type" value="Другое"><span>Другое</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">04</span>Когда стартуем?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="start" value="Как можно скорее" required><span>Как можно скорее</span></label>
+            <label class="opt"><input type="radio" name="start" value="Через 2–4 недели"><span>Через 2–4 недели</span></label>
+            <label class="opt"><input type="radio" name="start" value="Через 1–2 месяца"><span>Через 1–2 месяца</span></label>
+            <label class="opt"><input type="radio" name="start" value="Пока только планирую"><span>Пока только планирую</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <fieldset class="block q" data-q="one">
+          <legend class="q__title"><span class="q__no">05</span>Какой бюджет?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="budget" value="$1 000–2 500" required><span>$1 000–2 500</span></label>
+            <label class="opt"><input type="radio" name="budget" value="$2 500–5 000"><span>$2 500–5 000</span></label>
+            <label class="opt"><input type="radio" name="budget" value="$5 000–10 000"><span>$5 000–10 000</span></label>
+            <label class="opt"><input type="radio" name="budget" value="$10 000+"><span>$10 000+</span></label>
+            <label class="opt"><input type="radio" name="budget" value="Пока не знаю"><span>Пока не знаю</span></label>
+          </div>
+          <p class="q__error" data-error></p>
+        </fieldset>
+
+        <div class="block q">
+          <p class="q__title"><span class="q__no">06</span><span><label for="f-message">Расскажите о проекте</label><span class="q__hint" id="f-message-hint">Ссылки тоже присылайте: на текущий сайт, на продукт, на референсы, которые нравятся.</span></span></p>
+          <textarea class="q__text" id="f-message" name="message" rows="4" maxlength="10000" aria-describedby="f-message-hint" placeholder="Что делаете, что нужно и всё, что может пригодиться." data-grow></textarea>
+        </div>
+
+        <fieldset class="block q q--reach">
+          <legend class="q__title"><span class="q__no">07</span>Как вам ответить?</legend>
+          <div class="fields">
+            <p class="field"><label class="field__label" for="f-name">Имя<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-name" name="name" type="text" maxlength="120" autocomplete="name" required><span class="field__error" data-error></span></p>
+            <p class="field"><label class="field__label" for="f-email">Почта<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-email" name="email" type="email" maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" required><span class="field__error" data-error></span></p>
+            <p class="field field--wide"><label class="field__label" for="f-company">Компания или сайт <span class="mute">(если хотите)</span></label><input class="field__input" id="f-company" name="company" type="text" maxlength="200" autocomplete="organization"></p>
+          </div>
+        </fieldset>
+
+        <!-- только для ботов: люди это поле не видят -->
+        <p class="visually-hidden" aria-hidden="true"><label>Не заполняйте <input name="botcheck" type="text" tabindex="-1" autocomplete="off"></label></p>
+
+        <section class="intake-end" aria-labelledby="end-title">
+          <h2 class="intake-end__title" id="end-title">Ну что, начнём?</h2>
+          <p class="intake-end__lead">Хватит ссылки, пары строк или просто «привет». <span class="mute">Отвечу, как только смогу.</span></p>
+          <p class="consent">
+            <label class="consent__label"><input type="checkbox" name="privacy" value="Принято" required><span class="consent__box" aria-hidden="true"></span><span>Принимаю <when live="/ru/privacy/"><a href="/ru/privacy/">политику конфиденциальности</a></when><when draft="/ru/privacy/">политику конфиденциальности</when>.<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></span></label>
+            <span class="field__error" data-error></span>
+          </p>
+          <p class="intake-end__send">
+            <button class="send" type="submit" data-send><span class="send__label" data-send-label>Отправить</span><span class="send__arrow" aria-hidden="true">→</span></button>
+          </p>
+          <p class="intake__msg" role="alert" data-intake-msg></p>
+        </section>
+      </form>
+
+      <!-- после успешной отправки -->
+      <div class="intake-done" data-intake-done tabindex="-1" hidden>
+        <h2 class="intake-done__title">Спасибо!</h2>
+        <p class="intake-done__text">Получил. Скоро отвечу.</p>
+        <p class="intake-done__back"><a class="more__link" href="/ru/" data-back-to-site><span aria-hidden="true">←</span><span data-roll>{{t.back_to_site}}</span></a></p>
+      </div>
+
+      <!-- сервис формы ещё не подключён (FORM_ACCESS_KEY пуст): ничего не ушло, и страница так и говорит -->
+      <div class="intake-done" data-intake-mail tabindex="-1" hidden>
+        <h2 class="intake-done__title">Почти готово.</h2>
+        <p class="intake-done__text">Форма пока не умеет отправлять. Скопируйте ответы и пришлите их на <span data-email>{{email}}</span>. <span class="mute">Ничего не пропало, всё осталось в форме.</span></p>
+        <p class="intake-done__actions">
+          <button class="send" type="button" data-copy-answers><span class="send__label" data-copy-answers-label>Скопировать ответы</span></button>
+          <button class="more__link" type="button" data-intake-again><span aria-hidden="true">←</span><span data-roll>Назад к форме</span></button>
+        </p>
+      </div>

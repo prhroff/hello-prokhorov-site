@@ -70,7 +70,7 @@ if (form) {
     ...groups.map((q) => () => {
       const inputs = $$('input', q);
       const ok = inputs.some((i) => i.checked);
-      setError(q, ok ? '' : q.dataset.q === 'some' ? 'Choose at least one.' : 'Choose one.', inputs);
+      setError(q, ok ? '' : q.dataset.q === 'some' ? L('Choose at least one.') : L('Choose one.'), inputs);
       return ok ? null : inputs[0];
     }),
     () => {

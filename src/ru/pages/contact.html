@@ -1,0 +1,40 @@
+---
+# «Контакты»: как со мной связаться, всё в одном месте. У брифа своя страница (/ru/get-in-touch/), отсюда на неё ссылка.
+title: Контакты — Артём Прохоров, дизайнер и разработчик сайтов
+description: Как связаться с Артёмом Прохоровым, дизайнером и разработчиком сайтов из Бишкека: почта, LinkedIn, Contra, X, Instagram или бриф проекта.
+heading: Контакты
+label: Контакты
+lead: Почта, профили или бриф — как вам удобнее.
+status: live
+schema: ContactPage
+class: doc--contact
+updated: 2026-10-10
+---
+      <!-- CONTENT: как на /contact/. Telegram добавить, когда Артём пришлёт ссылку. -->
+      <p class="doc__intro doc__intro--mail"><a class="doc__mail" href="mailto:{{email}}">{{email}}</a></p>
+      <p class="doc__copy"><button class="reach__copy" type="button" data-copy="{{email}}"><span data-copy-label>{{t.copy_email}}</span></button></p>
+
+      <section class="block" aria-labelledby="form-title">
+        <header class="block__head"><h2 id="form-title"><span class="block__no" aria-hidden="true">(01)</span>Начать проект</h2></header>
+        <div class="prose">
+          <p>Задумали сайт? В брифе семь коротких вопросов: что нужно, какой сайт, когда стартуем и примерный бюджет. Прочитаю и вернусь с вопросами или с оценкой.</p>
+        </div>
+        <p class="contact-form"><a class="doc-cta__link" href="/ru/get-in-touch/"><span data-roll>Заполнить бриф</span><span aria-hidden="true"> →</span></a></p>
+      </section>
+
+      <section class="block" aria-labelledby="profiles-title">
+        <header class="block__head"><h2 id="profiles-title"><span class="block__no" aria-hidden="true">(02)</span>Профили</h2><span class="count">({{profile_count_2}})</span></header>
+        <ul class="rows">
+{{profile_rows}}
+        </ul>
+      </section>
+
+      <section class="block" aria-labelledby="where-title">
+        <header class="block__head"><h2 id="where-title"><span class="block__no" aria-hidden="true">(03)</span>Где и когда</h2></header>
+        <ul class="rows">
+          <li><p class="row"><span class="row__a">Живу</span><span class="row__b">Бишкек, Кыргызстан</span><span class="row__c">UTC+6</span></p></li>
+          <li><p class="row"><span class="row__a">У меня сейчас</span><span class="row__b"><time data-clock>—</time></span><span class="row__c"></span></p></li>
+          <li><p class="row"><span class="row__a">Работаю</span><span class="row__b">Удалённо, с клиентами из разных стран</span><span class="row__c"></span></p></li>
+          <li><p class="row"><span class="row__a">Языки</span><span class="row__b">Русский, английский</span><span class="row__c"></span></p></li>
+        </ul>
+      </section>
