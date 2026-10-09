@@ -690,7 +690,7 @@ def context(p):
         head=head(p), email=C.EMAIL, year=YEAR, lang=lang,
         brand_href="#top" if cur == home else home,
         brand_label=f"{C.NAME} — {tr(lang, 'brand_top')}" if cur == home else f"{C.NAME} — {tr(lang, 'brand_home')}",
-        lang_switch=lang_switch(p), lang_pill=lang_switch(p, "mpill"), lang_switch_label=e(tr(lang, "lang_switch")),
+        lang_switch=lang_switch(p), lang_pill=lang_switch(p, "mpill"), lang_bar=lang_switch(p, "bar__lang-link"), lang_switch_label=e(tr(lang, "lang_switch")),
         privacy_href=localized("/privacy/", lang), work_href=localized("/work/", lang),
         ai_q=quote(tr(lang, "ai_prompt"), safe=""),
         # "Get in Touch" never hands off to a mail app: the form page, or (on it) the form itself
