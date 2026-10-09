@@ -590,8 +590,9 @@ button.row:hover .row__a::after { translate: 4px 0; }
 /* the narrowest phones: a long name may wrap rather than push the page sideways */
 @media (max-width: 359px) { .client { white-space: normal; } }
 .names .nw { white-space: nowrap; }
-/* Russian words run longer: justified, they leave holes unless they may break (the browser's Russian hyphenation) */
-.names:lang(ru) { hyphens: auto; }
+/* Russian words run longer and the client pills never break: justified, the lines open wide holes
+   even with hyphenation (checked in Edge), so the Russian text sets ragged-right */
+.names:lang(ru) { text-align: left; }
 /* Two-digit number in a pill, like ⑭ in a type specimen: the pill is exactly as tall
    as the capitals around it (baseline to cap height), with semibold figures ~0.6
    of that height. --k is the figures' size relative to the text.

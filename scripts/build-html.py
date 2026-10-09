@@ -769,7 +769,7 @@ def small_marks(html):
     return head_ + sep + TEXT.sub(wrap, body)
 
 
-SHORT = re.compile(r"(?<![\w\u00a0-])([а-яёА-ЯЁ]{1,2}|без|для|над|под|при|про|из-за|из-под)\s+(?=\S)")
+SHORT = re.compile(r"(?<![\w\u00a0-])([а-яёА-ЯЁ]{1,2}|без|для|над|под|при|про|из-за|из-под)(?:\s+(?=\S)| +$)")   # "+$": the next word is in the next tag (a link, a pill)
 DASH = re.compile(r"\s+(—)")
 
 
