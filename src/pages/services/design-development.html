@@ -1,0 +1,104 @@
+---
+# One service on a page of its own (/services/<slug>/): what it is and who it is for, what is
+# included, how it goes, the price and timeline, the work that shows it, the questions, the quote.
+# The inner pages' grid, with the room /work/ has for its cards. The price: PRICING in
+# scripts/site_config.py; the Service data from `service`, the cards from `related`.
+title: Custom Website Design and Development, in Framer or Code
+description: A complete website designed and built by one person — structure, visual design, development in Framer or code, a CMS, testing and launch. From $990.
+heading: Design & Development
+label: Design & Development
+lead: A complete website, from structure and visual direction through development and launch — one person throughout.
+status: draft
+service: Design & Development
+related: powermatic
+updated: 2026-10-08
+class: doc--wide doc--work
+---
+      <!-- CONTENT: every line restates the site (home: Services, Process, FAQ; /services/; /info/).
+           TO CONFIRM (Artem): the timeline (as on /services/, a placeholder); which cases to show
+           beside Powermatic (the one website designed and built for a client). -->
+      <p class="doc__intro svc-intro">I plan, design and build your website myself — <span class="mute">from the first structure to launch, in code or in Framer, so the design you approve is the site that goes live.</span></p>
+
+      <section class="block" aria-labelledby="for-title">
+        <header class="block__head"><h2 id="for-title"><span class="block__no" aria-hidden="true">(01)</span>Who It’s For</h2></header>
+        <div class="prose">
+          <p>Startups, founders and companies who need a new website, or one that replaces what they have, and would rather work with one person than coordinate a designer and a developer.</p>
+          <p>You talk directly to the person doing the work — no account managers, and nothing lost between a design and its build.</p>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="inc-title">
+        <header class="block__head"><h2 id="inc-title"><span class="block__no" aria-hidden="true">(02)</span>What’s Included</h2><span class="count">(06)</span></header>
+        <ul class="services info-do" aria-labelledby="inc-title">
+          <li><span class="services__no">01</span>Structure and content hierarchy<span class="info-do__desc">What goes on which page, in what order, and how people move through it.</span></li>
+          <li><span class="services__no">02</span>Visual design for desktop and mobile<span class="info-do__desc">The visual direction, then every page designed for desktop, tablet and mobile.</span></li>
+          <li><span class="services__no">03</span>Build in code or in Framer<span class="info-do__desc">Whichever fits the project: Framer when you want to edit the site yourselves, code when it needs more.</span></li>
+          <li><span class="services__no">04</span>Motion<span class="info-do__desc">Transitions, scroll motion and hover states, built with the site and respecting reduced‑motion settings.</span></li>
+          <li><span class="services__no">05</span>A CMS for the content you’ll change<span class="info-do__desc">Blog posts, case studies or other repeating content, edited in the browser without touching the layout.</span></li>
+          <li><span class="services__no">06</span>Testing and launch<span class="info-do__desc">Across browsers and devices, with performance and technical SEO checked, then live on your domain.</span></li>
+        </ul>
+      </section>
+
+      <!-- the home page's Process, as a plain list -->
+      <section class="block" aria-labelledby="how-title">
+        <header class="block__head"><h2 id="how-title"><span class="block__no" aria-hidden="true">(03)</span>How It Goes</h2><span class="count">(05)</span></header>
+        <ol class="services info-do" aria-labelledby="how-title">
+          <li><span class="services__no">01</span>Discover<span class="info-do__desc">Understanding the business, audience, goals and current website.</span></li>
+          <li><span class="services__no">02</span>Structure<span class="info-do__desc">Deciding what goes on which page, in what order, and how people move through it.</span></li>
+          <li><span class="services__no">03</span>Design<span class="info-do__desc">Setting the visual direction and designing every page for desktop, tablet and mobile.</span></li>
+          <li><span class="services__no">04</span>Build<span class="info-do__desc">Building the design, motion included, in code or in Framer, whichever fits.</span></li>
+          <li><span class="services__no">05</span>Launch<span class="info-do__desc">Testing across devices and browsers, fixing what’s left and putting the site live.</span></li>
+        </ol>
+      </section>
+
+      <section class="block" aria-labelledby="price-title">
+        <header class="block__head"><h2 id="price-title"><span class="block__no" aria-hidden="true">(04)</span>Price and Timeline</h2></header>
+        <ul class="services info-do">
+          <li><span class="services__no">—</span>Price<span class="info-do__desc">{{price_text_0}}</span></li>
+          <li><span class="services__no">—</span>Timeline<span class="info-do__desc">4–6 weeks</span></li>
+        </ul>
+        <div class="prose">
+          <p>{{price_factors}}</p>
+          <p>{{price_note}}</p>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="work-title">
+        <header class="block__head"><h2 id="work-title"><span class="block__no" aria-hidden="true">(05)</span>Selected Work</h2><span class="count">({{related_count}})</span></header>
+        <ul class="work work--all">
+{{related_cards}}
+        </ul>
+      </section>
+
+      <section class="block" aria-labelledby="faq-title">
+        <header class="block__head"><h2 id="faq-title"><span class="block__no" aria-hidden="true">(06)</span>Questions</h2><span class="count">(05)</span></header>
+        <!-- not answered until confirmed: revision rounds, support after launch, payment terms -->
+        <div class="faq" data-faq>
+          <details class="faq__item">
+            <summary>Framer or code — which will my site be built in?</summary>
+            <div class="faq__answer"><p>Whichever fits the project. When you want to edit the site yourselves, I build it in Framer: you change text and images in the browser and add content through its CMS. When the site needs more than Framer gives, I build it in code, as I built this one.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>Can we update the site ourselves after launch?</summary>
+            <div class="faq__answer"><p>Yes. In Framer you change text and images in the browser and add blog posts, case studies or other repeating content through its CMS — without touching code or the layout. I set the CMS up around the content you’ll actually change.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>We already have a website. Do we have to start over?</summary>
+            <div class="faq__answer"><p>Not necessarily. If the site mostly works, I can start by reviewing its usability, structure, technical SEO and performance, give you a prioritised list of changes and make them myself. If it needs replacing, the redesign starts from the brand and content you already have.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>We only need the design, or only the build.</summary>
+            <div class="faq__answer"><p>That works too. <when built="/services/web-design/"><a href="/services/web-design/">Web Design</a></when><when unbuilt="/services/web-design/">Web Design</when> gives you layouts ready to build, and Website Development builds a design you already have.</p></div>
+          </details>
+          <details class="faq__item">
+            <summary>How does a project start?</summary>
+            <div class="faq__answer"><p>With a short message: what you’re building, whether there’s a site already, when you’d like to start and a rough budget — <a href="{{cta_href}}">the project form</a> asks just that. I come back with questions or a quote. Once we agree the scope, the price is fixed.</p></div>
+          </details>
+        </div>
+      </section>
+
+      <section class="block doc-cta" aria-labelledby="cta-title">
+        <h2 class="doc-cta__title" id="cta-title">Let’s Talk</h2>
+        <a class="doc-cta__link" href="{{cta_href}}"><span data-roll>Get a Quote</span><span aria-hidden="true"> →</span></a>
+      </section>
+      <div class="cursor" aria-hidden="true" data-cursor><span>View</span></div>

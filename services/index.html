@@ -20,6 +20,7 @@
   <meta property="og:image" content="https://helloprokhorov.com/assets/img/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Powermatic® website on a tablet lying on a rust-red velvet armchair">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
@@ -28,7 +29,7 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="preload" href="/assets/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="/css/main.css?v=49ac989e">
+  <link rel="stylesheet" href="/css/main.css?v=3cd8f014">
   <link rel="stylesheet" href="/css/transitions.css?v=a0e449f1">
   <script src="/js/transitions.js?v=5c1cae6d"></script>
   <script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>
@@ -195,7 +196,8 @@
        the way to get in touch and the footer. -->
   <main class="full sw" id="main">
     <!-- CONTENT: as /services/ (names, lines and prices approved; "Includes" restate the site).
-         TO CONFIRM (Artem): every Timeline is a placeholder. -->
+         TO CONFIRM (Artem): every Timeline is a placeholder.
+         A service with a page of its own (src/pages/services/<slug>.html) links to it (in preview at once, on the site once it is live). -->
     <!-- the first screen: the title with a ring of square pictures from the work around it,
          turning slowly; drag it sideways, it sways with the pointer (js/main.js "Orbit").
          The pictures are only the ring's source: the script lays them out as curved cards. -->
@@ -234,7 +236,7 @@
     <ol class="sw-list">
       <li class="sw-svc" aria-labelledby="sw-1">
         <p class="sw-svc__no" aria-hidden="true">(01)</p>
-        <h2 class="sw-svc__title" id="sw-1"><span class="sw-svc__word">Design &amp; Development</span></h2>
+        <h2 class="sw-svc__title" id="sw-1"><a class="sw-svc__link" href="/services/design-development/"><span class="sw-svc__word">Design &amp; Development</span></a></h2>
         <p class="sw-svc__lead">A complete website, from structure and visual direction through development and launch — one person throughout.</p>
         <div class="sw-svc__row">
           <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/powermatic/" tabindex="-1" aria-hidden="true"><picture><source type="image/avif" srcset="/assets/img/powermatic-stand-800.avif 800w, /assets/img/powermatic-stand-1600.avif 1600w, /assets/img/powermatic-stand-2400.avif 2400w" sizes="(min-width: 768px) 40vw, 100vw"><img src="/assets/img/powermatic-stand-800.webp" srcset="/assets/img/powermatic-stand-800.webp 800w, /assets/img/powermatic-stand-1600.webp 1600w, /assets/img/powermatic-stand-2400.webp 2400w" sizes="(min-width: 768px) 40vw, 100vw" width="2400" height="1800" alt="" fetchpriority="high" decoding="async"></picture></a><figcaption><a href="/work/powermatic/">Powermatic<span class="r">®</span></a></figcaption></figure>
@@ -247,11 +249,12 @@
               <li><span class="sw-svc__k">Price:</span> From $990</li>
               <li><span class="sw-svc__k">Timeline:</span> 4–6 weeks</li>
           </ul>
+          <p class="sw-svc__more"><a href="/services/design-development/"><span data-roll>More on Design &amp; Development</span><span aria-hidden="true">→</span></a></p>
         </div>
       </li>
       <li class="sw-svc" aria-labelledby="sw-2">
         <p class="sw-svc__no" aria-hidden="true">(02)</p>
-        <h2 class="sw-svc__title" id="sw-2"><span class="sw-svc__word">Web Design</span></h2>
+        <h2 class="sw-svc__title" id="sw-2"><a class="sw-svc__link" href="/services/web-design/"><span class="sw-svc__word">Web Design</span></a></h2>
         <p class="sw-svc__lead">Structure, UX and visual design for a website or landing page, ready to build.</p>
         <div class="sw-svc__row">
           <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/contour-office/" tabindex="-1" aria-hidden="true"><picture><source type="image/avif" srcset="/assets/img/co-hero-800.avif 800w, /assets/img/co-hero-1440.avif 1440w" sizes="(min-width: 768px) 40vw, 100vw"><img src="/assets/img/co-hero-800.webp" srcset="/assets/img/co-hero-800.webp 800w, /assets/img/co-hero-1440.webp 1440w" sizes="(min-width: 768px) 40vw, 100vw" width="1440" height="960" alt="" loading="lazy" decoding="async"></picture></a><figcaption><a href="/work/contour-office/">Contour Office<span class="r">©</span></a></figcaption></figure>
@@ -263,6 +266,7 @@
               <li><span class="sw-svc__k">Price:</span> From $490</li>
               <li><span class="sw-svc__k">Timeline:</span> 2–3 weeks</li>
           </ul>
+          <p class="sw-svc__more"><a href="/services/web-design/"><span data-roll>More on Web Design</span><span aria-hidden="true">→</span></a></p>
         </div>
       </li>
       <li class="sw-svc" aria-labelledby="sw-3">

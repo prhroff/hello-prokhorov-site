@@ -15,7 +15,8 @@ layout: services
 class: sw
 ---
     <!-- CONTENT: as /services/ (names, lines and prices approved; "Includes" restate the site).
-         TO CONFIRM (Artem): every Timeline is a placeholder. -->
+         TO CONFIRM (Artem): every Timeline is a placeholder.
+         A service with a page of its own (src/pages/services/<slug>.html) links to it (in preview at once, on the site once it is live). -->
     <!-- the first screen: the title with a ring of square pictures from the work around it,
          turning slowly; drag it sideways, it sways with the pointer (js/main.js "Orbit").
          The pictures are only the ring's source: the script lays them out as curved cards. -->
@@ -54,7 +55,7 @@ class: sw
     <ol class="sw-list">
       <li class="sw-svc" aria-labelledby="sw-1">
         <p class="sw-svc__no" aria-hidden="true">(01)</p>
-        <h2 class="sw-svc__title" id="sw-1"><span class="sw-svc__word">Design &amp; Development</span></h2>
+        <h2 class="sw-svc__title" id="sw-1"><when built="/services/design-development/"><a class="sw-svc__link" href="/services/design-development/"></when><span class="sw-svc__word">Design &amp; Development</span><when built="/services/design-development/"></a></when></h2>
         <p class="sw-svc__lead">A complete website, from structure and visual direction through development and launch — one person throughout.</p>
         <div class="sw-svc__row">
           <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/powermatic/" tabindex="-1" aria-hidden="true"><pic name="powermatic-stand" alt="" sizes="(min-width: 768px) 40vw, 100vw" eager></a><figcaption><a href="/work/powermatic/">Powermatic®</a></figcaption></figure>
@@ -67,11 +68,12 @@ class: sw
               <li><span class="sw-svc__k">Price:</span> {{price_text_0}}</li>
               <li><span class="sw-svc__k">Timeline:</span> 4–6 weeks</li>
           </ul>
+          <when built="/services/design-development/"><p class="sw-svc__more"><a href="/services/design-development/"><span data-roll>More on Design &amp; Development</span><span aria-hidden="true">→</span></a></p></when>
         </div>
       </li>
       <li class="sw-svc" aria-labelledby="sw-2">
         <p class="sw-svc__no" aria-hidden="true">(02)</p>
-        <h2 class="sw-svc__title" id="sw-2"><span class="sw-svc__word">Web Design</span></h2>
+        <h2 class="sw-svc__title" id="sw-2"><when built="/services/web-design/"><a class="sw-svc__link" href="/services/web-design/"></when><span class="sw-svc__word">Web Design</span><when built="/services/web-design/"></a></when></h2>
         <p class="sw-svc__lead">Structure, UX and visual design for a website or landing page, ready to build.</p>
         <div class="sw-svc__row">
           <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/work/contour-office/" tabindex="-1" aria-hidden="true"><pic name="co-hero" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/work/contour-office/">Contour Office©</a></figcaption></figure>
@@ -83,6 +85,7 @@ class: sw
               <li><span class="sw-svc__k">Price:</span> {{price_text_1}}</li>
               <li><span class="sw-svc__k">Timeline:</span> 2–3 weeks</li>
           </ul>
+          <when built="/services/web-design/"><p class="sw-svc__more"><a href="/services/web-design/"><span data-roll>More on Web Design</span><span aria-hidden="true">→</span></a></p></when>
         </div>
       </li>
       <li class="sw-svc" aria-labelledby="sw-3">

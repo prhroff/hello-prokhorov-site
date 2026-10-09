@@ -39,6 +39,7 @@ Front matter, at the top of each source:
     featured: yes                   (posts: the one shown large at the top of /blog/; otherwise the newest)
     updated: 2026-10-02             (last real change; feeds the sitemap)
     og_image: /assets/img/og.jpg    (1200×630; defaults to the site card)
+    og_image_alt: What it shows     (optional; otherwise image_alt, then card_alt)
     noindex: yes                    (keep a live page out of search)
     order: 2                        (position in its parent's list, e.g. cases on /work/)
     class: doc--contact             (an extra class on <main>, for page-specific styles)
@@ -47,6 +48,8 @@ Front matter, at the top of each source:
     script: /js/archive/archive.js  (instead of /js/main.js)
     theme: #0b0b0b                  (the browser UI colour, default #ffffff)
     back: yes                       (a "Back to Site" link instead of the breadcrumbs)
+    service: Web Design             (a service page, /services/<slug>/: the name in PRICING, for its Service data)
+    related: powermatic / renovate  (cases shown as work cards, {{related_cards}}; by their file name)
     ---
 
 The logic
@@ -57,7 +60,9 @@ The logic
     until then to the matching section of the home page, and are left out if
     there is neither.
   * <when live="/info/">…</when> keeps its content only once that page is
-    live; <when draft="/info/">…</when> only until then.
+    live; <when draft="/info/">…</when> only until then. <when built="/services/web-design/">…</when>
+    keeps it whenever this build has that page: a draft too in preview, only once live in a release;
+    <when unbuilt="…">…</when> the other times.
   * The blog index stays noindex until at least one post is live; the feed is
     written only then, and a release build leaves /blog/ out entirely until then.
   * sitemap.xml lists exactly the pages that may be indexed.
@@ -93,7 +98,7 @@ MARK = re.compile(r"(?<=\w)([®©])")
 PARTIAL = re.compile(r"\{\{>\s*([\w-]+)\s*\}\}")
 VAR = re.compile(r"\{\{\s*(\w+)\s*\}\}")
 COMMENT = re.compile(r"[ \t]*<!--.*?-->[ \t]*\n?", re.S)
-WHEN = re.compile(r'<when (live|draft)="([^"]+)">(.*?)</when>', re.S)
+WHEN = re.compile(r'<when (live|draft|built|unbuilt)="([^"]+)">(.*?)</when>', re.S)
 TAGS = re.compile(r"<[^>]+>")
 
 CHEV = '<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg>'
@@ -328,6 +333,17 @@ def schema(p):
             work["genre"] = m["kind"]
         graph.append(work)
         page["mainEntity"] = {"@id": url + "#work"}
+    if m.get("service"):
+        P = C.PRICING
+        amount = dict([(P["lead"][0], P["lead"][2])] + [(n, a) for n, _, a in P["services"]]).get(m["service"])
+        svc = {"@type": "Service", "@id": url + "#service", "name": m["service"], "serviceType": m["service"],
+               "description": m.get("description", ""), "url": url, "provider": {"@id": person_id},
+               "areaServed": "Worldwide", "availableLanguage": ["en", "ru"]}
+        if amount is not None:
+            svc["offers"] = {"@type": "Offer", "priceCurrency": "USD", "priceSpecification": {
+                "@type": "PriceSpecification", "minPrice": amount, "priceCurrency": "USD"}}
+        graph.append(svc)
+        page["mainEntity"] = {"@id": url + "#service"}
     if p["path"] == "/work/":
         page["hasPart"] = [{"@id": absolute(q["path"]) + "#work"} for q in cases_in_order() if q["live"]]
     if p["path"] == "/blog/":
@@ -382,6 +398,11 @@ def head(p):
     ]
     if image == C.OG_IMAGE or image.startswith("/assets/img/og/"):     # both made at 1200 × 630
         lines += ['<meta property="og:image:width" content="1200">', '<meta property="og:image:height" content="630">']
+    # a case's preview is a crop of its card, a post's is its cover: both already say what they show
+    alt = (C.OG_IMAGE_ALT if image == C.OG_IMAGE
+           else m.get("og_image_alt") or m.get("image_alt") or m.get("card_alt"))
+    if alt:
+        lines.append(f'<meta property="og:image:alt" content="{e(alt)}">')
     if p["kind"] == "post":
         lines += [f'<meta property="article:published_time" content="{m.get("date", modified(p))}">',
                   f'<meta property="article:modified_time" content="{modified(p)}">']
@@ -556,6 +577,20 @@ def case_end(p):
     return dict(next_card="          " + card, next_count=f"{k + 1:02d} / {len(cases):02d}")
 
 
+def related_parts(p):
+    """A page's `related` cases as the /work/ cards, in the order given; with an odd number the
+    first takes the full width, the others go in pairs. Only cases this build publishes."""
+    names = [x.strip() for x in p["meta"].get("related", "").split("/") if x.strip()]
+    cases = [BY_PATH[f"/work/{n}/"] for n in names if f"/work/{n}/" in BY_PATH and (BY_PATH[f"/work/{n}/"]["live"] or not RELEASE)]
+    out = []
+    for k, q in enumerate(cases):
+        wide = k == 0 and len(cases) % 2 == 1
+        sizes = ("(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw" if wide
+                 else "(min-width: 1200px) 35vw, (min-width: 768px) 31vw, 100vw")
+        out.append(case_card(q, sizes, wide))
+    return dict(related_cards="\n".join("          " + x for x in out), related_count=f"{len(cases):02d}")
+
+
 def context(p):
     cur = p["path"]
     m = p["meta"]
@@ -580,14 +615,21 @@ def context(p):
         crumbs=crumbs(p) if p["kind"] != "home" else "",
         side_extra=post_meta(p) if p["kind"] == "post" else "",
         draft_flag='  <p class="draft-flag" role="note"><b>Draft</b> · not indexed, not in the menu</p>\n' if not p["live"] else "",
-        **blog_parts(), **work_parts(), **case_end(p), **service_prices(),
+        **blog_parts(), **work_parts(), **case_end(p), **related_parts(p), **service_prices(),
         work_lead=t(BY_PATH["/work/"]["meta"].get("lead", "")) if "/work/" in BY_PATH else "",
         page_class=" " + m["class"] if m.get("class") else "",
     )
 
 
 def expand(text, ctx):
-    text = WHEN.sub(lambda w: w.group(3) if (w.group(2) in LINKABLE) == (w.group(1) == "live") else "", text)
+    def when(w):
+        kind, path, inner = w.groups()
+        if kind in ("built", "unbuilt"):
+            keep = (path in BY_PATH) == (kind == "built")
+        else:
+            keep = (path in LINKABLE) == (kind == "live")
+        return inner if keep else ""
+    text = WHEN.sub(when, text)
     text = PARTIAL.sub(lambda k: expand(read(SRC / "partials" / f"{k.group(1)}.html").rstrip("\n"), ctx), text)
 
     def var(k):
