@@ -167,19 +167,29 @@ a, button { transition: color 0.3s var(--ease); }
   .bar__end { margin-right: 0; }
   /* the pill as drawn, a 44px-tall target around it */
   .bar__lang { display: flex; align-items: center; height: 44px; }
+  /* a filled pill, as tall as the language pill beside it; the button around it stays a 44px-tall target */
   .bar__toggle {
+    position: relative; isolation: isolate;
     display: flex; align-items: center; gap: 6px;
-    height: 44px; padding-left: 12px; margin-right: calc(var(--pad) - 7px);
+    height: 44px; padding: 0 10px; margin: 0 var(--pad) 0 6px;
+    color: var(--bg);
+  }
+  .bar__toggle::before {
+    content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: 50%;
+    height: calc(1.3em + 6px); translate: 0 -50%;
+    border-radius: 999px; background: var(--fg);
   }
   /* "Menu" rolls up to "Close" while the icon turns from + to x */
-  .bar__toggle-label { display: inline-grid; overflow: hidden; line-height: 1.3; }
+  /* the pill fits the word showing: the other one is taken out of the flow */
+  .bar__toggle-label { position: relative; display: inline-grid; overflow: hidden; line-height: 1.3; }
   .bar__toggle-label > span { grid-area: 1 / 1; transition: translate 0.55s var(--ease); }
-  .bar__toggle-label > span + span { translate: 0 110%; }
-  .bar__toggle[aria-expanded="true"] .bar__toggle-label > span:first-child { translate: 0 -110%; }
+  .bar__toggle-label > span + span { position: absolute; left: 0; translate: 0 110%; }
+  .bar__toggle[aria-expanded="true"] .bar__toggle-label > span:first-child { position: absolute; left: 0; translate: 0 -110%; }
+  .bar__toggle[aria-expanded="true"] .bar__toggle-label > span + span { position: static; }
   .bar__toggle[aria-expanded="true"] .bar__toggle-label > span + span { translate: 0 0; }
-  .bar__toggle-icon { position: relative; display: grid; place-items: center; width: 28px; height: 28px; }
+  .bar__toggle-icon { position: relative; display: grid; place-items: center; width: 14px; height: 14px; }
   .bar__toggle-icon i {
-    position: absolute; width: 14px; height: 1.5px; background: var(--fg);
+    position: absolute; width: 14px; height: 1.5px; background: currentColor;
     transition: rotate 0.55s var(--ease);
   }
   .bar__toggle-icon i:last-child { rotate: 90deg; }
