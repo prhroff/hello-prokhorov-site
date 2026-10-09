@@ -484,7 +484,7 @@ def head(p):
     if image == C.OG_IMAGE or image.startswith("/assets/img/og/"):     # both made at 1200 × 630
         lines += ['<meta property="og:image:width" content="1200">', '<meta property="og:image:height" content="630">']
     # a case's preview is a crop of its card, a post's is its cover: both already say what they show
-    alt = (C.OG_IMAGE_ALT if image == C.OG_IMAGE
+    alt = (I18N[p["lang"]].get("og_image_alt", C.OG_IMAGE_ALT) if image == C.OG_IMAGE
            else m.get("og_image_alt") or m.get("image_alt") or m.get("card_alt"))
     if alt:
         lines.append(f'<meta property="og:image:alt" content="{e(alt)}">')

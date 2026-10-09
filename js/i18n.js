@@ -26,9 +26,9 @@ const RU = {
   'Website': 'Сайт', 'Needs': 'Задачи', 'Type': 'Тип', 'Start': 'Старт', 'Budget': 'Бюджет',
   '(no project notes)': '(без комментария к проекту)',
   // consent.js
-  'Cookie consent': 'Согласие на cookie',
+  'Cookie consent': 'Согласие на куки',
   'May I use analytics cookies (Google Analytics and Yandex Metrica) to see how the site is used? Nothing is loaded unless you agree.':
-    'Можно включу аналитику (Google Analytics и Яндекс Метрику), чтобы видеть, как люди пользуются сайтом? Пока не разрешите, ничего не грузится.',
+    'Можно включу аналитику (Гугл Аналитику и Яндекс Метрику), чтобы видеть, как люди пользуются сайтом? Пока не разрешите, ничего не грузится.',
   'Privacy Policy': 'Политика конфиденциальности',
   'Accept': 'Разрешить',
   'Decline': 'Не надо',
