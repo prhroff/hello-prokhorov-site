@@ -219,7 +219,8 @@ def localized(path, lang):
 
 
 def is_case(p):
-    return p["kind"] == "page" and p["path"].startswith("/work/") and p["path"] != "/work/"
+    rest = p["path"][len(home_of(p["lang"])) - 1:]
+    return p["kind"] == "page" and rest.startswith("/work/") and rest != "/work/"
 
 
 def noindex(p):
@@ -403,7 +404,8 @@ def schema(p):
                       "mainEntityOfPage": {"@id": page_id}, "inLanguage": "en"})
     if is_case(p):
         work = {"@type": "CreativeWork", "@id": url + "#work", "name": m["heading"], "description": m.get("description", ""),
-                "url": url, "creator": {"@id": person_id}, "inLanguage": "en", "isPartOf": {"@id": absolute("/work/") + "#webpage"}}
+                "url": url, "creator": {"@id": person_id}, "inLanguage": lang,
+                "isPartOf": {"@id": absolute(localized("/work/", lang)) + "#webpage"}}
         if m.get("og_image"):
             work["image"] = C.URL + m["og_image"]
         if m.get("kind"):
@@ -421,8 +423,8 @@ def schema(p):
                 "@type": "PriceSpecification", "minPrice": amount, "priceCurrency": "USD"}}
         graph.append(svc)
         page["mainEntity"] = {"@id": url + "#service"}
-    if p["path"] == "/work/":
-        page["hasPart"] = [{"@id": absolute(q["path"]) + "#work"} for q in cases_in_order() if q["live"]]
+    if p["path"] == home_of(lang)[:-1] + "/work/":
+        page["hasPart"] = [{"@id": absolute(q["path"]) + "#work"} for q in cases_in_order(lang) if q["live"]]
     if p["path"] == "/blog/":
         page["mainEntity"] = {"@type": "Blog", "@id": url + "#blog", "name": f"{C.NAME} Blog",
                               "blogPost": [{"@id": absolute(q["path"]) + "#article"} for q in POSTS]}
@@ -609,12 +611,19 @@ def topic_filter():
             f'<p class="visually-hidden" aria-live="polite" data-topics-status></p></nav>')
 
 
-def cases_in_order():
-    """Every case page (src/pages/work/*.html) that this build publishes, in its /work/ order."""
+def case_in(q, lang):
+    """Case `q` in `lang` where this build has it (src/<lang>/pages/work/), otherwise as it is."""
+    own = BY_PATH.get(home_of(lang)[:-1] + q["path"])
+    return own if lang != "en" and own and (own["live"] or not RELEASE) else q
+
+
+def cases_in_order(lang="en"):
+    """Every case page (src/pages/work/*.html) that this build publishes, in its /work/ order; on a
+    page in another language, each in that language where it is translated."""
     cases = [q for q in PAGES if q["kind"] == "page" and q["path"].startswith("/work/") and q["path"] != "/work/"
              and (q["live"] or not RELEASE)]
     cases.sort(key=lambda q: (int(q["meta"].get("order", 999)), q["path"]))
-    return cases
+    return [case_in(q, lang) for q in cases]
 
 
 def case_card(q, sizes, wide=False, eager=False, lang="en"):
@@ -648,7 +657,7 @@ def case_card(q, sizes, wide=False, eager=False, lang="en"):
 
 def work_parts(lang="en"):
     """/work/: every case, in order. Every third card, from the first, takes the full width; the others go in pairs."""
-    cases = cases_in_order()
+    cases = cases_in_order(lang)
     out = []
     for k, q in enumerate(cases):
         wide = k % 3 == 0
@@ -661,7 +670,7 @@ def work_parts(lang="en"):
 def case_end(p):
     """The close of a case page: the next case (after the last, the first) as a work card,
     as on the home page and /work/, under the numbered heading the home sections use."""
-    cases = cases_in_order()
+    cases = cases_in_order(p["lang"])
     if not is_case(p) or p not in cases:
         return dict(next_card="", next_count="")
     k = (cases.index(p) + 1) % len(cases)
@@ -673,7 +682,8 @@ def related_parts(p):
     """A page's `related` cases as the /work/ cards, in the order given; with an odd number the
     first takes the full width, the others go in pairs. Only cases this build publishes."""
     names = [x.strip() for x in p["meta"].get("related", "").split("/") if x.strip()]
-    cases = [BY_PATH[f"/work/{n}/"] for n in names if f"/work/{n}/" in BY_PATH and (BY_PATH[f"/work/{n}/"]["live"] or not RELEASE)]
+    cases = [case_in(BY_PATH[f"/work/{n}/"], p["lang"]) for n in names
+             if f"/work/{n}/" in BY_PATH and (BY_PATH[f"/work/{n}/"]["live"] or not RELEASE)]
     out = []
     for k, q in enumerate(cases):
         wide = k == 0 and len(cases) % 2 == 1
