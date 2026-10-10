@@ -112,6 +112,9 @@ PROFILES = [
     ("Instagram", "IG", "https://www.instagram.com/hello.prokhorov/"),
     ("Telegram", "TG", "https://t.me/hello_prokhorov"),
 ]
+# Shown first on the pages in that language (the rest keep their order): Telegram is the main
+# channel for Russian-speaking clients.
+PROFILES_FIRST = dict(ru=["Telegram"])
 
 # Top bar and phone menu, in order.
 #   page    the page this item stands for

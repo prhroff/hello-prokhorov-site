@@ -296,11 +296,17 @@ def lang_switch(p, cls="lang__link"):
     return "".join(links)
 
 
+def profiles(lang="en"):
+    """PROFILES in the order for `lang`: the ones PROFILES_FIRST names for it lead."""
+    first = C.PROFILES_FIRST.get(lang, [])
+    return sorted(C.PROFILES, key=lambda p: first.index(p[0]) if p[0] in first else len(first))
+
+
 def socials(lang="en"):
     return "\n".join(
         f'            <li><a class="social" href="{e(url)}" rel="noopener" target="_blank"><span class="social__name" data-roll>{t(name)}</span>'
         f'<span class="visually-hidden">{t(tr(lang, "new_tab"))}</span>{ARROW}</a></li>'
-        for name, _, url in C.PROFILES)
+        for name, _, url in profiles(lang))
 
 
 def pricing(lang="en"):
@@ -329,12 +335,12 @@ def profile_rows(lang="en"):
         f'          <li><a class="row" href="{e(url)}" rel="noopener" target="_blank"><span class="row__a">{t(name)}</span>'
         f'<span class="row__b">{t(url.split("://", 1)[-1].removeprefix("www.").rstrip("/"))}</span>'
         f'<span class="row__c">{t(tr(lang, "open"))}<span class="visually-hidden">{t(tr(lang, "new_tab"))}</span></span></a></li>'
-        for name, _, url in C.PROFILES)
+        for name, _, url in profiles(lang))
 
 
 def menu_socials(lang="en"):
     return "".join(f'<li><a href="{e(url)}" rel="noopener" target="_blank" aria-label="{e(name + tr(lang, "new_tab"))}">{t(name)}</a></li>'
-                   for name, _, url in C.PROFILES)
+                   for name, _, url in profiles(lang))
 
 
 def chain(p):
