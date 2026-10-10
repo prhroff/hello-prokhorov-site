@@ -104,6 +104,74 @@ TOPICS = [
     dict(slug="ai", label="AI Tools", card="#ece2ac", back="#978945", ink="#2d2810"),
 ]
 
+# The project Index (/work/, under the cases): one row per project, newest first. DRAFT (10 Oct):
+# for Artem to confirm. Sources: the case pages, the CV, the home page's Clients line and the Kwork
+# reviews (kwork.ru/user/hello_prokhorov, years counted back from "N years ago" on 10 Oct 2026, so
+# ±1). Small fixes (Canva templates, card adaptives, finishing touches) are left out; one client's
+# orders are one row. Clients without a public name are named by what the project was.
+#   year    the year it was done ("2023–24" for a span)
+#   name    {lang: name}; a brand stays as it is
+#   sector  {lang: what the client does}
+#   work    {lang: what Artem did}
+#   type    for the filter: site | product | concept
+#   case    the case page, where there is one
+#   via     where the work came from: client | contra | kwork | staff | concept
+PROJECTS = [
+    dict(year="2026", name=dict(en="Powermatic Technologies®"), sector=dict(en="Technology partner", ru="Технологический партнёр"),
+         work=dict(en="Design & Development", ru="Дизайн и разработка"), type="site", case="/work/powermatic/", via="client"),
+    dict(year="2026", name=dict(en="Playgram.ai"), sector=dict(en="AI workspace, Zeroqode", ru="ИИ-платформа, Zeroqode"),
+         work=dict(en="Product UI, landing pages", ru="Интерфейс продукта, лендинги"), type="product", via="staff"),
+    dict(year="2026", name=dict(en="Renovate"), sector=dict(en="Business consulting", ru="Консалтинг"),
+         work=dict(en="Web Design", ru="Веб-дизайн"), type="site", case="/work/renovate/", via="client"),
+    dict(year="2026", name=dict(en="Visual Hunters®"), sector=dict(en="Design studio", ru="Дизайн-студия"),
+         work=dict(en="Typography & 3D", ru="Типографика и 3D"), type="concept", case="/work/visual-hunters/", via="concept"),
+    dict(year="2026", name=dict(en="Contour Office©"), sector=dict(en="Accounting firms", ru="Бухгалтерские фирмы"),
+         work=dict(en="Web Design", ru="Веб-дизайн"), type="concept", case="/work/contour-office/", via="concept"),
+    dict(year="2026", name=dict(en="Lattice"), sector=dict(en="Infrastructure software", ru="Инфраструктурный софт"),
+         work=dict(en="Multi-page website", ru="Многостраничный сайт"), type="concept", case="/work/lattice/", via="concept"),
+    dict(year="2026", name=dict(en="Luma"), sector=dict(en="Sales product", ru="Продукт для продаж"),
+         work=dict(en="Landing page", ru="Лендинг"), type="concept", case="/work/luma/", via="concept"),
+    dict(year="2025", name=dict(en="Staffjet"), sector=dict(en="Automation platform", ru="Платформа автоматизации"),
+         work=dict(en="Design system", ru="Дизайн-система"), type="product", via="contra"),
+    dict(year="2025", name=dict(en="Loglark®"), sector=dict(en="Log monitoring", ru="Мониторинг логов"),
+         work=dict(en="Product UI", ru="Интерфейс сервиса"), type="product", via="client"),
+    dict(year="2025", name=dict(en="Company website", ru="Сайт компании"), sector=dict(en="Services", ru="Услуги"),
+         work=dict(en="Visual design", ru="Визуальные элементы"), type="site", via="kwork"),
+    dict(year="2024", name=dict(en="Web service", ru="Веб-сервис"), sector=dict(en="Marketing", ru="Маркетинг"),
+         work=dict(en="Brand identity, UI", ru="Фирменный стиль, интерфейс"), type="product", via="kwork"),
+    dict(year="2024", name=dict(en="Online store", ru="Интернет-магазин"), sector=dict(en="E-commerce", ru="E-commerce"),
+         work=dict(en="UX/UI design", ru="UX/UI-дизайн"), type="site", via="kwork"),
+    dict(year="2024", name=dict(en="Clinic website", ru="Сайт клиники"), sector=dict(en="Healthcare", ru="Медицина"),
+         work=dict(en="UX/UI design", ru="UX/UI-дизайн"), type="site", via="kwork"),
+    dict(year="2024", name=dict(en="Platform audit", ru="Аудит платформы"), sector=dict(en="Web platform", ru="Веб-платформа"),
+         work=dict(en="UX/UI audit", ru="UX/UI-аудит"), type="product", via="kwork"),
+    dict(year="2024", name=dict(en="Platform prototypes", ru="Прототипы платформы"), sector=dict(en="Web platform", ru="Веб-платформа"),
+         work=dict(en="Prototypes", ru="Прототипы"), type="product", via="kwork"),
+    dict(year="2023–24", name=dict(en="Mobile app", ru="Мобильное приложение"), sector=dict(en="Mobile", ru="Мобильное"),
+         work=dict(en="App screens", ru="Экраны приложения"), type="product", via="kwork"),
+    dict(year="2023", name=dict(en="Website prototype", ru="Прототип сайта"), sector=dict(en="Website", ru="Сайт"),
+         work=dict(en="Prototype, then Figma design", ru="Прототип, затем дизайн в Figma"), type="site", via="kwork"),
+    dict(year="2023", name=dict(en="Corporate website", ru="Корпоративный сайт"), sector=dict(en="Company", ru="Компания"),
+         work=dict(en="UX/UI design", ru="UX/UI-дизайн"), type="site", via="kwork"),
+    dict(year="2023", name=dict(en="Website, mobile version", ru="Сайт, мобильная версия"), sector=dict(en="Website", ru="Сайт"),
+         work=dict(en="Mobile design, new sections", ru="Мобильная версия, новые блоки"), type="site", via="kwork"),
+    dict(year="2023", name=dict(en="Website from a concept", ru="Сайт с концепта"), sector=dict(en="Website", ru="Сайт"),
+         work=dict(en="UX/UI design", ru="UX/UI-дизайн"), type="site", via="kwork"),
+    dict(year="2022", name=dict(en="Admin panel & UI kit", ru="Админка и UI-кит"), sector=dict(en="Web service", ru="Веб-сервис"),
+         work=dict(en="UX/UI, UI kit", ru="UX/UI, UI-кит"), type="product", via="kwork"),
+    dict(year="2022", name=dict(en="S2 Project"), sector=dict(en="Website", ru="Сайт"),
+         work=dict(en="Website design", ru="Дизайн сайта"), type="site", via="kwork"),
+    dict(year="2022", name=dict(en="Euro Kovrolin", ru="Евро Ковролин"), sector=dict(en="Flooring retail", ru="Продажа покрытий"),
+         work=dict(en="Prototype, redesign", ru="Прототип, редизайн"), type="site", via="kwork"),
+    dict(year="2022", name=dict(en="Beauty salon website", ru="Сайт салона красоты"), sector=dict(en="Beauty", ru="Красота"),
+         work=dict(en="UX/UI design", ru="UX/UI-дизайн"), type="site", via="kwork"),
+    dict(year="2022", name=dict(en="Online store", ru="Интернет-магазин"), sector=dict(en="E-commerce, Minsk", ru="E-commerce, Минск"),
+         work=dict(en="UX/UI design", ru="UX/UI-дизайн"), type="site", via="kwork"),
+]
+
+# While True, the Index is built in previews only: a release build leaves it out.
+PROJECTS_DRAFT = True
+
 # Confirmed profiles: they also feed the Person's sameAs.
 PROFILES = [
     ("LinkedIn", "LI", "https://www.linkedin.com/in/helloprokhorov"),

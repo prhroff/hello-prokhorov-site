@@ -670,7 +670,41 @@ def work_parts(lang="en"):
         sizes = ("(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw" if wide
                  else "(min-width: 1200px) 35vw, (min-width: 768px) 31vw, 100vw")
         out.append(case_card(q, sizes, wide, eager=k == 0, lang=lang))
-    return dict(work_list="\n".join("          " + x for x in out), work_count=f"{len(cases):02d}")
+    return dict(work_list="\n".join("          " + x for x in out), work_count=f"{len(cases):02d}", **project_index(lang))
+
+
+def project_index(lang="en"):
+    """/work/'s Index: one row per project (PROJECTS), newest first. A case links to its page
+    (in `lang` where translated) and gets the arrow; the rest are plain rows. The year shows
+    where it changes (kept in the others for screen readers and the phone layout). Left out of
+    a release build while PROJECTS_DRAFT is set."""
+    if RELEASE and C.PROJECTS_DRAFT:
+        return dict(project_index="", project_count="")
+    L = lambda d: d.get(lang, d["en"])
+    rows, last = [], None
+    for p in C.PROJECTS:
+        same = " idx__year--same" if p["year"] == last else ""
+        last = p["year"]
+        tag = f' <span class="idx__tag">{t(tr(lang, "index_concept"))}</span>' if p["via"] == "concept" else ""
+        cells = (f'<span class="idx__year{same}">{t(p["year"])}</span>'
+                 f'<span class="idx__name">{t(L(p["name"]))}{tag}</span>'
+                 f'<span class="idx__meta"><span class="idx__what">{t(L(p["work"]))}</span>'
+                 f'<span class="idx__sector">{t(L(p["sector"]))}</span></span>')
+        case = p.get("case") and BY_PATH.get(p["case"])
+        if case and (case["live"] or not RELEASE):
+            href = localized(p["case"], lang)
+            rows.append(f'<li><a class="row idx__row" href="{e(href)}" data-case-link data-source="{p["via"]}">{cells}<span class="row__c"></span></a></li>')
+        else:
+            rows.append(f'<li><div class="idx__row" data-source="{p["via"]}">{cells}</div></li>')
+    heads = "".join(f"<span>{t(tr(lang, k))}</span>" for k in ("index_year", "index_project", "index_sector", "index_work"))
+    html = f"""      <section class="block idx-block" id="index" aria-labelledby="index-title">
+        <header class="block__head"><h2 id="index-title"><span class="block__no" aria-hidden="true">(02)</span>{t(tr(lang, "index_title"))}</h2><span class="count">({len(rows):02d})</span></header>
+        <div class="idx__head" aria-hidden="true">{heads}</div>
+        <ul class="idx">
+{chr(10).join("          " + r for r in rows)}
+        </ul>
+      </section>"""
+    return dict(project_index=html, project_count=f"{len(rows):02d}")
 
 
 def case_end(p):

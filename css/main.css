@@ -456,6 +456,8 @@ button.row:hover .row__a::after { translate: 4px 0; }
 .exp .nw { white-space: nowrap; }
 .exp__note { color: var(--mute); max-width: 26em; padding-top: 0.15em; }
 .exp__now .exp__note { padding-top: 0.45em; }
+/* a link in a note (Staffjet's letter): the FAQ's, dark with a hairline under it */
+.exp__note a { color: var(--fg); background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; }
 .exp__label { padding-bottom: 10px; font-size: 13px; color: var(--mute); }
 /* narrower columns: the note goes under the role */
 @media (max-width: 1199px) {
@@ -1370,6 +1372,60 @@ a.row .row__c { white-space: nowrap; }
 a.row .row__c::after { content: "→"; display: inline-block; margin-left: 0.5em; color: var(--fg); transition: translate 0.4s var(--ease); }
 a.row:hover .row__c::after { translate: 4px 0; }
 @media (hover: hover) { .motion-ok a.row:hover .row__b { color: var(--fg); } }
+
+/* Index (/work/, under the cases; agents/reports/index-visual-direction.md and
+   index-motion-direction.md): one row per project. Its columns line up with the case grid
+   above: the year on the first card's edge, the sector on the second's. The year shows where
+   it changes, so the left column groups the rows without headings. A case row is a link with
+   the arrow; the others stay still. The list comes in whole, never row by row. */
+.idx-block { padding-top: clamp(24px, 4svh, 48px); }
+.idx li { border-top: 1px solid var(--line); }
+.idx li:last-child { border-bottom: 1px solid var(--line); }
+.idx__head, .idx__row {
+  display: grid; column-gap: 20px; align-items: baseline;
+  grid-template-columns: 5.5rem calc(50% - 10px - 5.5rem - 20px) minmax(0, 1fr) minmax(0, 1fr) 1.25em;
+}
+.idx__head { padding-bottom: 10px; font-size: 13px; color: var(--mute); letter-spacing: 0; }
+.idx__row { row-gap: 2px; padding-block: 12px 14px; }
+.idx__meta { display: contents; }
+.idx__sector { grid-column: 3; grid-row: 1; }
+.idx__what { grid-column: 4; grid-row: 1; }
+.idx__year { color: var(--mute); font-variant-numeric: tabular-nums; }
+.idx__year--same { color: transparent; }
+.idx__name { min-width: 0; font-size: var(--t-head); line-height: 1.2; letter-spacing: -0.035em; }
+.idx__tag { margin-left: 0.5em; font-size: var(--t-base); letter-spacing: 0; color: var(--mute); }
+.idx__sector, .idx__what { color: var(--mute); }
+a.idx__row .row__c { justify-self: end; }
+a.idx__row:focus-visible { outline-offset: 4px; border-radius: 2px; }
+a.idx__row :is(.idx__sector, .idx__what) { transition: color 0.3s var(--ease); }
+@media (hover: hover) { a.idx__row:hover :is(.idx__sector, .idx__what) { color: var(--fg); } }
+a.idx__row:is(:focus-visible, :active) :is(.idx__sector, .idx__what) { color: var(--fg); }
+@media (min-width: 768px) and (max-width: 1199px) {
+  .idx__head, .idx__row { grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 0.8fr) 1em; }
+  .idx__head span:nth-child(3) { display: none; }
+  .idx__row { align-items: start; }
+  .idx__sector { grid-column: 2; grid-row: 2; }
+  .idx__what { grid-column: 3; grid-row: 1 / span 2; }
+  a.idx__row .row__c { grid-column: 4; grid-row: 1; }
+}
+@media (max-width: 767px) {
+  .idx__head { display: none; }
+  .idx__row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; padding-block: 12px; }
+  .idx__name { grid-column: 1; grid-row: 1; font-size: 17px; }
+  .idx__year, .idx__year--same { grid-column: 2; grid-row: 1; color: var(--mute); }
+  .idx__meta { display: block; grid-column: 1 / -1; grid-row: 2; color: var(--mute); }
+  .idx__sector::before { content: "\00a0· "; }
+  a.idx__row .row__c { position: absolute; right: 0; visibility: hidden; }
+  a.idx__row { position: relative; }
+  a.idx__row .idx__year::after { content: " →"; color: var(--fg); }
+}
+/* coming in: all hairlines at once, then all the text — no per-row delay */
+.motion-ok .idx > * { border-color: transparent; background: linear-gradient(var(--line), var(--line)) no-repeat 0 0 / 0% 1px; transition: background-size 1.2s var(--ease); }
+.motion-ok .idx > :last-child { background-image: linear-gradient(var(--line), var(--line)), linear-gradient(var(--line), var(--line)); background-position: 0 0, 0 100%; background-size: 0% 1px, 0% 1px; }
+.motion-ok .is-in .idx > * { background-size: 100% 1px; }
+.motion-ok .is-in .idx > :last-child { background-size: 100% 1px, 100% 1px; }
+.motion-ok :is(.idx, .idx__head) { opacity: 0; translate: 0 8px; transition: opacity 0.9s var(--ease) 0.15s, translate 0.9s var(--ease) 0.15s; }
+.motion-ok .is-in :is(.idx, .idx__head) { opacity: 1; translate: 0 0; }
 
 /* placeholders: what is still to be written, visible on purpose */
 .todo { font-size: var(--t-base); line-height: 1.45; color: var(--mute); border-left: 2px solid var(--line); padding-left: 14px; max-width: 36em; }
