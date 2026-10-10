@@ -112,6 +112,34 @@ PROFILES = [
     ("Instagram", "IG", "https://www.instagram.com/hello.prokhorov/"),
     ("Telegram", "TG", "https://t.me/hello_prokhorov"),
 ]
+# Profiles that are only for search engines: they join PROFILES in the Person's sameAs (one
+# person, the same everywhere) but are not shown on the pages.
+SAME_AS_EXTRA = [
+    "https://www.behance.net/helloprokhorov",
+    "https://kwork.ru/user/hello_prokhorov",
+    "https://github.com/prhroff",
+]
+
+# The brand Artem works under, for search engines only: the pages already name it (the footer's
+# "© Prokhorov®", /info/), the structured data says it is his. Its own profiles are his.
+BRAND = dict(name="Prokhorov", alternateName=["Prokhorov®", "helloprokhorov"], logo="/assets/favicon-192.png")
+
+# Addresses of the previous (Webflow) site that have a page here now. A release writes a page at
+# each old address that forwards at once to the new one (GitHub Pages has no server redirects;
+# search engines read an instant refresh with a canonical as a permanent move). The old ones with
+# no counterpart (/blog, /post/*, /project/bold-moves, one-step, monolith) are left to 404: that
+# is the right answer for a page that is gone.
+REDIRECTS = {
+    "/about": "/info/",
+    "/privacy-policy": "/privacy/",
+    "/project/powermatic": "/work/powermatic/",
+    "/project/lattice": "/work/lattice/",
+    "/project/luma": "/work/luma/",
+    "/project/renovate": "/work/renovate/",
+    "/project/visual-hunters": "/work/visual-hunters/",
+    "/project/contour-office": "/work/contour-office/",
+}
+
 # Shown first on the pages in that language (the rest keep their order): Telegram is the main
 # channel for Russian-speaking clients.
 PROFILES_FIRST = dict(ru=["Telegram"])

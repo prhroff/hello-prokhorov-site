@@ -385,8 +385,12 @@ def schema(p):
         "image": C.URL + C.PERSON["image"],
         "address": {"@type": "PostalAddress", "addressLocality": C.PERSON["locality"], "addressCountry": C.PERSON["country"]},
         "knowsAbout": C.PERSON["knowsAbout"], "knowsLanguage": C.PERSON["knowsLanguage"],
-        "sameAs": [u for _, _, u in C.PROFILES],
+        "sameAs": [u for _, _, u in C.PROFILES] + C.SAME_AS_EXTRA,
+        "brand": {"@id": C.URL + "/#brand"},
     }
+    brand = {"@type": "Organization", "@id": C.URL + "/#brand", "name": C.BRAND["name"],
+             "alternateName": C.BRAND["alternateName"], "url": C.URL + "/", "logo": C.URL + C.BRAND["logo"],
+             "founder": {"@id": person_id}, "email": "mailto:" + C.EMAIL}
     if "/info/" in LIVE:
         person["mainEntityOfPage"] = C.URL + "/info/"
     built = [x for x in LANGS if any(q["lang"] == x and q["live"] for q in PAGES)]
@@ -398,7 +402,7 @@ def schema(p):
     other = [q for x, q in versions(p).items() if x != lang and q["live"]]
     if other:
         page["workTranslation" if lang == "en" else "translationOfWork"] = [{"@id": absolute(q["path"]) + "#webpage"} for q in other]
-    graph = [website, person, page]
+    graph = [website, person, brand, page]
     if kind == "ProfilePage":
         page["mainEntity"] = {"@id": person_id}
     else:

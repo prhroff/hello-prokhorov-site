@@ -64,13 +64,38 @@ def main():
         for name in DIRS:
             if (work / name).is_dir():
                 shutil.copytree(work / name, DIST / name, ignore=shutil.ignore_patterns("__pycache__", "*.py", "*.md"))
+    redirects()
     (DIST / "CNAME").write_text(urlparse(C.URL).hostname + "\n", encoding="utf-8")
     (DIST / ".nojekyll").write_text("", encoding="utf-8")
     check()
 
 
+def redirects():
+    """A page at each old address (REDIRECTS) that forwards at once to its new one: /about is
+    served from about.html, so the move takes one step."""
+    for old, new in C.REDIRECTS.items():
+        to = C.URL + new
+        page = DIST / (old.strip("/") + ".html")
+        page.parent.mkdir(parents=True, exist_ok=True)
+        page.write_text(f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Moved to {to}</title>
+<link rel="canonical" href="{to}">
+<meta http-equiv="refresh" content="0; url={new}">
+</head>
+<body><p>This page has moved: <a href="{new}">{to}</a></p></body>
+</html>
+""", encoding="utf-8")
+
+
+def redirect_names():
+    return {old.strip("/").split("/")[0] + ("" if "/" in old.strip("/") else ".html") for old in C.REDIRECTS}
+
+
 def check():
-    allowed = set(FILES) | set(DIRS) | {"CNAME", ".nojekyll"}
+    allowed = set(FILES) | set(DIRS) | {"CNAME", ".nojekyll"} | redirect_names()
     extra = sorted(p.name for p in DIST.iterdir() if p.name not in allowed)
     problems = [f"not part of the site: {x}" for x in extra]
     problems += [f"development file: {p.relative_to(DIST).as_posix()}" for p in DIST.rglob("*")
