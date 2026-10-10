@@ -62,7 +62,8 @@ The logic
   * <when live="/info/">…</when> keeps its content only once that page is
     live; <when draft="/info/">…</when> only until then. <when built="/services/web-design/">…</when>
     keeps it whenever this build has that page: a draft too in preview, only once live in a release;
-    <when unbuilt="…">…</when> the other times.
+    <when unbuilt="…">…</when> the other times. <when feature="index">…</when> keeps it while
+    that feature is on in this build (FEATURES), <when nofeature="index">…</when> while it is off.
   * The blog index stays noindex until at least one post is live; the feed is
     written only then, and a release build leaves /blog/ out entirely until then.
   * sitemap.xml lists exactly the pages that may be indexed.
@@ -100,7 +101,7 @@ PARTIAL = re.compile(r"\{\{>\s*([\w-]+)\s*\}\}")
 VAR = re.compile(r"\{\{\s*(\w+)\s*\}\}")
 TR = re.compile(r"\{\{t\.(\w+)\}\}")
 COMMENT = re.compile(r"[ \t]*<!--.*?-->[ \t]*\n?", re.S)
-WHEN = re.compile(r'<when (live|draft|built|unbuilt)="([^"]+)">(.*?)</when>', re.S)
+WHEN = re.compile(r'<when (live|draft|built|unbuilt|feature|nofeature)="([^"]+)">(.*?)</when>', re.S)
 TAGS = re.compile(r"<[^>]+>")
 
 CHEV = '<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg>'
@@ -195,6 +196,9 @@ LISTED = sorted((p for p in PAGES if p["kind"] == "post" and (p["live"] or not R
                 key=lambda p: p["meta"].get("date", ""), reverse=True)
 # pages the site may link to: the live ones, except /blog/ until a post is live (no menu item to an empty list)
 LINKABLE = LIVE - ({"/blog/"} if not POSTS else set())
+# The project Index takes the Experience block's place (home, /info/); a release keeps Experience
+# while PROJECTS_DRAFT is set.
+FEATURES = set() if RELEASE and C.PROJECTS_DRAFT else {"index"}
 
 
 def versions(p):
@@ -674,11 +678,11 @@ def work_parts(lang="en"):
 
 
 def project_index(lang="en"):
-    """/work/'s Index: one row per project (PROJECTS), newest first. A case links to its page
+    """The Index (home and /info/, in Experience's place): one row per project (PROJECTS), newest first. A case links to its page
     (in `lang` where translated) and gets the arrow; the rest are plain rows. The year shows
-    where it changes (kept in the others for screen readers and the phone layout). Left out of
-    a release build while PROJECTS_DRAFT is set."""
-    if RELEASE and C.PROJECTS_DRAFT:
+    where it changes (kept in the others for screen readers and the phone layout). The list
+    only: the page gives it a section and a number (<when feature="index">)."""
+    if "index" not in FEATURES:
         return dict(project_index="", project_count="")
     L = lambda d: d.get(lang, d["en"])
     rows, last = [], None
@@ -697,13 +701,10 @@ def project_index(lang="en"):
         else:
             rows.append(f'<li><div class="idx__row" data-source="{p["via"]}">{cells}</div></li>')
     heads = "".join(f"<span>{t(tr(lang, k))}</span>" for k in ("index_year", "index_project", "index_sector", "index_work"))
-    html = f"""      <section class="block idx-block" id="index" aria-labelledby="index-title">
-        <header class="block__head"><h2 id="index-title"><span class="block__no" aria-hidden="true">(02)</span>{t(tr(lang, "index_title"))}</h2><span class="count">({len(rows):02d})</span></header>
-        <div class="idx__head" aria-hidden="true">{heads}</div>
-        <ul class="idx">
-{chr(10).join("          " + r for r in rows)}
-        </ul>
-      </section>"""
+    html = f"""<div class="idx__head" aria-hidden="true">{heads}</div>
+<ul class="idx">
+{chr(10).join("  " + r for r in rows)}
+</ul>"""
     return dict(project_index=html, project_count=f"{len(rows):02d}")
 
 
@@ -781,6 +782,8 @@ def expand(text, ctx):
         kind, path, inner = w.groups()
         if kind in ("built", "unbuilt"):
             keep = (path in BY_PATH) == (kind == "built")
+        elif kind in ("feature", "nofeature"):
+            keep = (path in FEATURES) == (kind == "feature")
         else:
             keep = (path in LINKABLE) == (kind == "live")
         return inner if keep else ""

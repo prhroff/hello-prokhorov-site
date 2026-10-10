@@ -1373,12 +1373,13 @@ a.row .row__c::after { content: "→"; display: inline-block; margin-left: 0.5em
 a.row:hover .row__c::after { translate: 4px 0; }
 @media (hover: hover) { .motion-ok a.row:hover .row__b { color: var(--fg); } }
 
-/* Index (/work/, under the cases; agents/reports/index-visual-direction.md and
-   index-motion-direction.md): one row per project. Its columns line up with the case grid
-   above: the year on the first card's edge, the sector on the second's. The year shows where
-   it changes, so the left column groups the rows without headings. A case row is a link with
-   the arrow; the others stay still. The list comes in whole, never row by row. */
-.idx-block { padding-top: clamp(24px, 4svh, 48px); }
+/* Index (home and /info/, in Experience's place; agents/reports/index-visual-direction.md and
+   index-motion-direction.md): one row per project. The year sits on the first column's edge,
+   the sector at the half, as the case cards split. The year shows where it changes, so the
+   left column groups the rows without headings. A case row is a link with the arrow; the
+   others stay still. The list comes in whole, never row by row. */
+/* the columns follow the block's own width: the home feed is narrower than /info/ */
+.idx-block { container-type: inline-size; }
 .idx li { border-top: 1px solid var(--line); }
 .idx li:last-child { border-bottom: 1px solid var(--line); }
 .idx__head, .idx__row {
@@ -1400,7 +1401,7 @@ a.idx__row:focus-visible { outline-offset: 4px; border-radius: 2px; }
 a.idx__row :is(.idx__sector, .idx__what) { transition: color 0.3s var(--ease); }
 @media (hover: hover) { a.idx__row:hover :is(.idx__sector, .idx__what) { color: var(--fg); } }
 a.idx__row:is(:focus-visible, :active) :is(.idx__sector, .idx__what) { color: var(--fg); }
-@media (min-width: 768px) and (max-width: 1199px) {
+@container (min-width: 560px) and (max-width: 859px) {
   .idx__head, .idx__row { grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 0.8fr) 1em; }
   .idx__head span:nth-child(3) { display: none; }
   .idx__row { align-items: start; }
@@ -1408,7 +1409,7 @@ a.idx__row:is(:focus-visible, :active) :is(.idx__sector, .idx__what) { color: va
   .idx__what { grid-column: 3; grid-row: 1 / span 2; }
   a.idx__row .row__c { grid-column: 4; grid-row: 1; }
 }
-@media (max-width: 767px) {
+@container (max-width: 559px) {
   .idx__head { display: none; }
   .idx__row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; padding-block: 12px; }
   .idx__name { grid-column: 1; grid-row: 1; font-size: 17px; }

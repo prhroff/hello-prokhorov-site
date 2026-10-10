@@ -149,10 +149,14 @@ updated: 2026-10-09
           <when live="/ru/info/"><p class="more"><a class="more__link" href="/ru/info/"><span data-roll>Ещё обо мне</span><span aria-hidden="true">→</span></a></p></when>
         </section>
 
-        <section class="block" aria-labelledby="cv-title">
+        <when feature="index"><section class="block idx-block" id="index" aria-labelledby="index-title">
+          <header class="block__head"><h2 id="index-title"><span class="block__no" aria-hidden="true">(03)</span>{{t.index_title}}</h2><span class="count">({{project_count}})</span></header>
+{{project_index}}
+        </section></when>
+        <when nofeature="index"><section class="block" aria-labelledby="cv-title">
           <header class="block__head"><h2 id="cv-title"><span class="block__no" aria-hidden="true">(03)</span>Опыт</h2><span class="count">(05)</span></header>
 {{> experience}}
-        </section>
+        </section></when>
 
         <!-- PROCESS: one continuous sequence. Desktop: the section holds still while
              the page scrolls through it; the row of cards slides by and the current

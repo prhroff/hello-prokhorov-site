@@ -31,10 +31,14 @@ updated: 2026-10-05
         </div>
       </section>
 
-      <section class="block" aria-labelledby="cv-title">
+      <when feature="index"><section class="block idx-block" id="index" aria-labelledby="index-title">
+        <header class="block__head"><h2 id="index-title"><span class="block__no" aria-hidden="true">(02)</span>{{t.index_title}}</h2><span class="count">({{project_count}})</span></header>
+{{project_index}}
+      </section></when>
+      <when nofeature="index"><section class="block" aria-labelledby="cv-title">
         <header class="block__head"><h2 id="cv-title"><span class="block__no" aria-hidden="true">(02)</span>Experience</h2><span class="count">(05)</span></header>
 {{> experience}}
-      </section>
+      </section></when>
 
       <!-- the home page's services list: the kinds of work -->
       <section class="block" aria-labelledby="do-title">
