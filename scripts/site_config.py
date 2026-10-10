@@ -127,7 +127,7 @@ PROJECTS = [
     dict(year="2026", name=dict(en="Nix Studio"), sector=dict(en="Interior design", ru="Дизайн интерьеров"),
          work=dict(en="Website", ru="Сайт"), type="site", via="client"),
     dict(year="2026", name=dict(en="Renovate"), sector=dict(en="Business consulting", ru="Консалтинг"),
-         work=dict(en="Web Design", ru="Веб-дизайн"), type="site", case="/work/renovate/", via="client"),
+         work=dict(en="Web design", ru="Веб-дизайн"), type="site", case="/work/renovate/", via="client"),
     dict(year="2026", name=dict(en="Powermatic Technologies®"), sector=dict(en="Technology partner", ru="Технологический партнёр"),
          work=dict(en="Design & Development", ru="Дизайн и разработка"), type="site", case="/work/powermatic/", via="client"),
     # Contra case (verified), Jul 2026: the corporate gifting page for graffeo.com
@@ -135,7 +135,7 @@ PROJECTS = [
          work=dict(en="Gifting landing page", ru="Лендинг для подарков"), type="site", via="client"),
     # Contra, 25 Jul 2026, from the accounting firms study (concept? to confirm)
     dict(year="2026", name=dict(en="Harrison & Cole"), sector=dict(en="Accounting firm", ru="Бухгалтерская фирма"),
-         work=dict(en="Website concept", ru="Концепт сайта"), type="concept", via="concept"),
+         work=dict(en="Website", ru="Сайт"), type="concept", via="concept"),
     # Contra, 11 Jul 2026: "Web Design, Animation, Concept"
     dict(year="2026", name=dict(en="Hidden Studio"), sector=dict(en="Design studio", ru="Дизайн-студия"),
          work=dict(en="Web design & animation", ru="Веб-дизайн и анимация"), type="concept", via="concept"),
@@ -150,14 +150,14 @@ PROJECTS = [
     dict(year="2026", name=dict(en="Visual Hunters®"), sector=dict(en="Design studio", ru="Дизайн-студия"),
          work=dict(en="Typography & 3D", ru="Типографика и 3D"), type="concept", case="/work/visual-hunters/", via="concept"),
     dict(year="2026", name=dict(en="Contour Office©"), sector=dict(en="Accounting firms", ru="Бухгалтерские фирмы"),
-         work=dict(en="Web Design", ru="Веб-дизайн"), type="concept", case="/work/contour-office/", via="concept"),
+         work=dict(en="Web design", ru="Веб-дизайн"), type="concept", case="/work/contour-office/", via="concept"),
     dict(year="2026", name=dict(en="Lattice"), sector=dict(en="Infrastructure software", ru="Инфраструктурный софт"),
          work=dict(en="Multi-page website", ru="Многостраничный сайт"), type="concept", case="/work/lattice/", via="concept"),
     dict(year="2026", name=dict(en="Playgram.ai"), sector=dict(en="AI workspace, Zeroqode", ru="ИИ-платформа, Zeroqode"),
          work=dict(en="Product UI, landing pages", ru="Интерфейс и лендинги"), type="product", via="staff"),
     # Contra, 22 May 2026: "Case Fragment" (sector to confirm)
     dict(year="2026", name=dict(en="Monolith"), sector=dict(en="", ru=""),
-         work=dict(en="Website concept", ru="Концепт сайта"), type="concept", via="concept"),
+         work=dict(en="Website", ru="Сайт"), type="concept", via="concept"),
     # Contra, 22 May 2026: "UI Design Concept"
     dict(year="2026", name=dict(en="Specter Studio®"), sector=dict(en="Design practice", ru="Дизайн-практика"),
          work=dict(en="UI design", ru="UI-дизайн"), type="concept", via="concept"),

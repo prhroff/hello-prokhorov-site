@@ -678,36 +678,30 @@ def work_parts(lang="en"):
 
 
 def project_index(lang="en"):
-    """The Index (home and /info/, in Experience's place): one dense line per project (PROJECTS),
-    newest first, numbered from the top. A case row links to its case (in `lang` where
-    translated); under the pointer it turns into a solid bar and its card picture shows beside
-    it, in place, never following the pointer. The other rows stay still. The list only: the
-    page gives it a section and a number (<when feature="index">)."""
+    """The Index (home and /info/, in Experience's place): a programme-like list, one line per
+    project (PROJECTS), newest first: the year, the name large, what was done as a raised note,
+    and a small picture where the project has a case card. Nothing in it links or reacts to the
+    pointer; the cases have their own cards. The list only: the page gives it a section and a
+    number (<when feature="index">)."""
     if "index" not in FEATURES:
         return dict(project_index="", project_count="")
     L = lambda d: d.get(lang, d["en"])
+
+    def note(p):
+        w = L(p["work"])
+        if p["via"] != "concept":
+            return w
+        # "Concept, web design"; an acronym keeps its capitals ("Concept, UI design")
+        w = w[0].lower() + w[1:] if len(w) > 1 and w[1].islower() else w
+        return f'{tr(lang, "index_concept")}, {w}'
     rows = []
-    for k, p in enumerate(C.PROJECTS, 1):
-        tag = f'<span class="idx__tag">{t(tr(lang, "index_concept"))}</span>' if p["via"] == "concept" else ""
-        cells = (f'<span class="idx__no">No.{k:02d}</span>'
-                 f'<span class="idx__name"><span>{t(L(p["name"]))}</span>{tag}</span>'
-                 f'<span class="idx__sector">{t(L(p["sector"]))}</span>'
-                 f'<span class="idx__what">{t(L(p["work"]))}</span>'
-                 f'<span class="idx__year">{t(p["year"])}</span>')
+    for p in C.PROJECTS:
         case = p.get("case") and BY_PATH.get(p["case"])
-        if case and (case["live"] or not RELEASE):
-            href = localized(p["case"], lang)
-            card = case["meta"].get("card")
-            peek = (f'<span class="idx__peek" aria-hidden="true"><pic name="{card}" alt="" sizes="280px"></span>'
-                    if card else "")
-            rows.append(f'<li><a class="idx__row" href="{e(href)}" data-case-link data-source="{p["via"]}">{cells}'
-                        f'<span class="idx__go" aria-hidden="true">↗</span>{peek}</a></li>')
-        else:
-            rows.append(f'<li><div class="idx__row" data-source="{p["via"]}">{cells}<span class="idx__go"></span></div></li>')
-    heads = "".join(f'<span class="idx__h-{k}">{t(tr(lang, "index_" + k))}</span>'
-                    for k in ("no", "project", "sector", "work", "year"))
-    html = f"""<div class="idx__head idx__row" aria-hidden="true">{heads}<span></span></div>
-<ul class="idx">
+        card = case and case["meta"].get("card")
+        thumb = f'<span class="idx__thumb" aria-hidden="true"><pic name="{card}" alt="" sizes="96px"></span>' if card else ""
+        rows.append(f'<li class="idx__row" data-source="{p["via"]}"><span class="idx__year">{t(p["year"])}</span>'
+                    f'<span class="idx__name">{t(L(p["name"]))}<sup class="idx__note">({t(note(p))})</sup>{thumb}</span></li>')
+    html = f"""<ul class="idx">
 {chr(10).join("  " + r for r in rows)}
 </ul>"""
     return dict(project_index=html, project_count=f"{len(rows):02d}")
