@@ -1377,35 +1377,51 @@ a.row:hover .row__c::after { translate: 4px 0; }
    project between dark rules: the year, the name large, what was done as a raised note in
    brackets, and a small picture where there is a case card. Nothing links or reacts to the
    pointer. The type scales with the block's own width (the home feed is narrower than /info/).
-   The list comes in whole, never row by row. */
+   The list comes in whole, never row by row. Typographic details:
+   agents/reports/index-typography.md and index-typography-critique.md. */
 .idx-block { container-type: inline-size; }
-.idx { border-bottom: 1.5px solid var(--fg); }
+.idx {
+  /* --fs is the line's size, whole pixels so the rows keep one rhythm; --n the note's;
+     0.7275 is Inter's cap height: the note's capitals hang from the name's */
+  --fs: clamp(17px, 3.8cqi, 30px); --fs: round(clamp(17px, 3.8cqi, 30px), 1px);
+  --n: max(10px, calc(var(--fs) * 0.38));
+  --lift: calc((var(--n) - var(--fs)) * 0.7275);
+  position: relative; border-bottom: 1px solid var(--fg);
+}
 .idx__row {
-  display: grid; grid-template-columns: 4.4em minmax(0, 1fr); column-gap: 0.6em; align-items: baseline;
-  padding: 0.3em 0 0.1em; border-top: 1.5px solid var(--fg);
-  font-size: clamp(17px, 3.6cqi, 30px); line-height: 1.15; letter-spacing: -0.02em;
+  position: relative; display: grid; grid-template-columns: 4em minmax(0, 1fr); column-gap: 0.5em; align-items: baseline;
+  padding: 0.2em 0; border-top: 1px solid var(--fg);
+  font-size: var(--fs); line-height: 1.15; letter-spacing: -0.03em;
 }
-.idx__year { font-variant-numeric: tabular-nums; }
-.idx__name { min-width: 0; }
+.idx__year { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; white-space: nowrap; }
+.idx__name { min-width: 0; text-wrap: pretty; }
 .idx__note {
-  margin-left: 0.15em; font-size: max(10px, 0.36em); line-height: 0; letter-spacing: 0;
-  vertical-align: 0; position: relative; top: -1.15em; white-space: nowrap;
+  margin-left: 0.25em; font-size: var(--n); line-height: 0; letter-spacing: 0;
+  vertical-align: 0; position: relative; top: var(--lift); white-space: nowrap;
 }
-.idx__thumb { display: inline-block; vertical-align: -0.12em; margin-left: 0.5em; width: 1.9em; height: 1.05em; overflow: hidden; }
+/* ® / © on the note's line, at its size: one raised tier, not two */
+.idx__name .r { font-size: var(--n); vertical-align: 0; position: relative; top: var(--lift); margin-left: 0.1em; }
+.idx__name .r + .idx__note { margin-left: 0.2em; }
+/* the picture stands on the baseline and reaches the cap height */
+.idx__thumb { display: inline-block; vertical-align: 0; margin-left: 0.45em; width: 1.3em; height: 0.7275em; overflow: hidden; }
 .idx__thumb :is(picture, img) { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* narrow: the note goes under the name, the pictures stay out */
+/* narrow: the note goes under the name in grey, the pictures stay out; nothing under 13px */
 @container (max-width: 459px) {
-  .idx__row { grid-template-columns: 3.4em minmax(0, 1fr); padding-bottom: 0.25em; }
-  .idx__year { font-size: 0.72em; }
-  .idx__note { display: block; position: static; margin: 0.15em 0 0; font-size: 11px; line-height: 1.3; white-space: normal; }
+  .idx { --fs: 20px; }
+  .idx__row { grid-template-columns: 3.3em minmax(0, 1fr); padding: 0.3em 0 0.35em; }
+  .idx__year { font-size: 13px; letter-spacing: 0; }
+  .idx__note { display: block; position: static; margin: 0.2em 0 0; font-size: 13px; line-height: 1.3; letter-spacing: 0; white-space: normal; color: var(--mute); }
+  .idx__name .r { font-size: 0.5em; vertical-align: 0.82em; position: static; margin-left: 0.04em; }
+  .idx__name .r + .idx__note { margin-left: 0; }
   .idx__thumb { display: none; }
 }
-/* coming in: the rules draw across all at once, then the whole list shows — no per-row delay */
+/* coming in: the rules draw across all at once (crisp 1px lines), then the whole list shows — no per-row delay */
 .motion-ok .idx { border-bottom-color: transparent; }
-.motion-ok .idx__row { border-top-color: transparent; background: linear-gradient(var(--fg), var(--fg)) no-repeat 0 0 / 0% 1.5px; transition: background-size 1.2s var(--ease); }
-.motion-ok .idx__row:last-child { background-image: linear-gradient(var(--fg), var(--fg)), linear-gradient(var(--fg), var(--fg)); background-position: 0 0, 0 100%; background-size: 0% 1.5px, 0% 1.5px; }
-.motion-ok .is-in .idx__row { background-size: 100% 1.5px; }
-.motion-ok .is-in .idx__row:last-child { background-size: 100% 1.5px, 100% 1.5px; }
+.motion-ok .idx__row { border-top-color: transparent; }
+.motion-ok .idx__row::before, .motion-ok .idx::after { content: ""; position: absolute; left: 0; height: 1px; width: 0; background: var(--fg); transition: width 1.2s var(--ease); }
+.motion-ok .idx__row::before { top: -1px; }
+.motion-ok .idx::after { bottom: -1px; }
+.motion-ok .is-in .idx__row::before, .motion-ok .is-in .idx::after { width: 100%; }
 .motion-ok .idx__row > * { opacity: 0; transition: opacity 0.9s var(--ease) 0.25s; }
 .motion-ok .is-in .idx__row > * { opacity: 1; }
 
