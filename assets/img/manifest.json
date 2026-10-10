@@ -1,14 +1,4 @@
 {
-  "powermatic-stand": {
-    "w": 2880,
-    "h": 2160,
-    "ratio": 0.75,
-    "widths": [
-      800,
-      1600,
-      2400
-    ]
-  },
   "powermatic-tablet": {
     "w": 6000,
     "h": 4500,
@@ -35,16 +25,6 @@
     "widths": [
       700,
       1400
-    ]
-  },
-  "vh-laptop": {
-    "w": 6000,
-    "h": 4000,
-    "ratio": 0.6667,
-    "widths": [
-      800,
-      1600,
-      2400
     ]
   },
   "vh-poster": {
@@ -92,16 +72,6 @@
       1300
     ]
   },
-  "renovate-laptop": {
-    "w": 2880,
-    "h": 2160,
-    "ratio": 0.75,
-    "widths": [
-      800,
-      1600,
-      2400
-    ]
-  },
   "monolith-render": {
     "w": 1024,
     "h": 559,
@@ -147,16 +117,6 @@
       1350
     ]
   },
-  "luma-laptop": {
-    "w": 2400,
-    "h": 1254,
-    "ratio": 0.5225,
-    "widths": [
-      800,
-      1600,
-      2400
-    ]
-  },
   "luma-screen": {
     "w": 1440,
     "h": 1396,
@@ -184,42 +144,6 @@
       1000
     ]
   },
-  "review-levon": {
-    "w": 800,
-    "h": 800,
-    "ratio": 1.0,
-    "widths": [
-      160,
-      240
-    ]
-  },
-  "review-bethany": {
-    "w": 400,
-    "h": 400,
-    "ratio": 1.0,
-    "widths": [
-      160,
-      240
-    ]
-  },
-  "review-natalia": {
-    "w": 640,
-    "h": 640,
-    "ratio": 1.0,
-    "widths": [
-      160,
-      240
-    ]
-  },
-  "review-kirill": {
-    "w": 200,
-    "h": 200,
-    "ratio": 1.0,
-    "widths": [
-      160,
-      200
-    ]
-  },
   "service-landing": {
     "w": 1339,
     "h": 2160,
@@ -236,6 +160,14 @@
     "widths": [
       700,
       1300
+    ]
+  },
+  "og": {
+    "w": 6000,
+    "h": 3150,
+    "ratio": 0.525,
+    "widths": [
+      1200
     ]
   },
   "pm-hero": {
@@ -468,7 +400,6 @@
     "h": 1376,
     "ratio": 1.7917,
     "widths": [
-      768,
       768
     ]
   },
@@ -540,7 +471,6 @@
     "h": 1042,
     "ratio": 1.3025,
     "widths": [
-      800,
       800
     ]
   },
@@ -589,12 +519,150 @@
       1600
     ]
   },
-  "og": {
-    "w": 6000,
-    "h": 3150,
-    "ratio": 0.525,
+  "powermatic-stand": {
+    "w": 2880,
+    "h": 2160,
+    "ratio": 0.75,
     "widths": [
-      1200
+      800,
+      1600,
+      2400
+    ]
+  },
+  "renovate-laptop": {
+    "w": 2880,
+    "h": 2160,
+    "ratio": 0.75,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "review-levon": {
+    "w": 800,
+    "h": 800,
+    "ratio": 1.0,
+    "widths": [
+      160,
+      240
+    ]
+  },
+  "review-bethany": {
+    "w": 400,
+    "h": 400,
+    "ratio": 1.0,
+    "widths": [
+      160,
+      240
+    ]
+  },
+  "review-natalia": {
+    "w": 640,
+    "h": 640,
+    "ratio": 1.0,
+    "widths": [
+      160,
+      240
+    ]
+  },
+  "review-kirill": {
+    "w": 200,
+    "h": 200,
+    "ratio": 1.0,
+    "widths": [
+      160,
+      200
+    ]
+  },
+  "vh-laptop": {
+    "w": 6000,
+    "h": 4000,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "luma-laptop": {
+    "w": 2400,
+    "h": 1254,
+    "ratio": 0.5225,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-structure-before-style": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-where-ai-helps-in-my-workflow": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-how-i-price-fixed-scope-projects": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-what-a-ux-audit-actually-finds": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-fewer-screens-clearer-product": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-the-homepage-brief-i-send-startups": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ]
+  },
+  "blog-design-and-build-in-one-pair-of-hands": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
     ]
   }
 }
