@@ -30,7 +30,7 @@ const RU = {
   // consent.js
   'Cookie consent': 'Согласие на куки',
   'May I use analytics cookies (Google Analytics and Yandex Metrica) to see how the site is used? Nothing is loaded unless you agree.':
-    'Можно включу аналитику (Гугл Аналитику и Яндекс Метрику), чтобы видеть, как люди пользуются сайтом? Пока не разрешите, ничего не грузится.',
+    'Можно я включу аналитику (Гугл Аналитику и Яндекс Метрику), чтобы видеть, как люди пользуются сайтом? Пока не разрешите, ничего не грузится.',
   'Privacy Policy': 'Политика конфиденциальности',
   'Accept': 'Разрешить',
   'Decline': 'Не надо',
