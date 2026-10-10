@@ -62,8 +62,7 @@ The logic
   * <when live="/info/">…</when> keeps its content only once that page is
     live; <when draft="/info/">…</when> only until then. <when built="/services/web-design/">…</when>
     keeps it whenever this build has that page: a draft too in preview, only once live in a release;
-    <when unbuilt="…">…</when> the other times. <when feature="index">…</when> keeps it while
-    that feature is on in this build (FEATURES), <when nofeature="index">…</when> while it is off.
+    <when unbuilt="…">…</when> the other times.
   * The blog index stays noindex until at least one post is live; the feed is
     written only then, and a release build leaves /blog/ out entirely until then.
   * sitemap.xml lists exactly the pages that may be indexed.
@@ -101,7 +100,7 @@ PARTIAL = re.compile(r"\{\{>\s*([\w-]+)\s*\}\}")
 VAR = re.compile(r"\{\{\s*(\w+)\s*\}\}")
 TR = re.compile(r"\{\{t\.(\w+)\}\}")
 COMMENT = re.compile(r"[ \t]*<!--.*?-->[ \t]*\n?", re.S)
-WHEN = re.compile(r'<when (live|draft|built|unbuilt|feature|nofeature)="([^"]+)">(.*?)</when>', re.S)
+WHEN = re.compile(r'<when (live|draft|built|unbuilt)="([^"]+)">(.*?)</when>', re.S)
 TAGS = re.compile(r"<[^>]+>")
 
 CHEV = '<svg class="mchev" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg>'
@@ -196,9 +195,6 @@ LISTED = sorted((p for p in PAGES if p["kind"] == "post" and (p["live"] or not R
                 key=lambda p: p["meta"].get("date", ""), reverse=True)
 # pages the site may link to: the live ones, except /blog/ until a post is live (no menu item to an empty list)
 LINKABLE = LIVE - ({"/blog/"} if not POSTS else set())
-# The project Index takes the Experience block's place (home, /info/); a release keeps Experience
-# while PROJECTS_DRAFT is set.
-FEATURES = set() if RELEASE and C.PROJECTS_DRAFT else {"index"}
 
 
 def versions(p):
@@ -674,37 +670,7 @@ def work_parts(lang="en"):
         sizes = ("(min-width: 1200px) 70vw, (min-width: 768px) 62vw, 100vw" if wide
                  else "(min-width: 1200px) 35vw, (min-width: 768px) 31vw, 100vw")
         out.append(case_card(q, sizes, wide, eager=k == 0, lang=lang))
-    return dict(work_list="\n".join("          " + x for x in out), work_count=f"{len(cases):02d}", **project_index(lang))
-
-
-def project_index(lang="en"):
-    """The Index (home and /info/, in Experience's place): a programme-like list, one line per
-    project (PROJECTS), newest first: the year, the name large, what was done as a raised note,
-    and a small picture where the project has a case card. Nothing in it links or reacts to the
-    pointer; the cases have their own cards. The list only: the page gives it a section and a
-    number (<when feature="index">)."""
-    if "index" not in FEATURES:
-        return dict(project_index="", project_count="")
-    L = lambda d: d.get(lang, d["en"])
-
-    def note(p):
-        w = L(p["work"])
-        if p["via"] != "concept":
-            return w
-        # "Concept, web design"; an acronym keeps its capitals ("Concept, UI design")
-        w = w[0].lower() + w[1:] if len(w) > 1 and w[1].islower() else w
-        return f'{tr(lang, "index_concept")}, {w}'
-    rows = []
-    for p in C.PROJECTS:
-        case = p.get("case") and BY_PATH.get(p["case"])
-        card = case and case["meta"].get("card")
-        thumb = f'<span class="idx__thumb" aria-hidden="true"><pic name="{card}" alt="" sizes="96px"></span>' if card else ""
-        rows.append(f'<li class="idx__row" data-source="{p["via"]}"><span class="idx__year">{t(p["year"])}</span>'
-                    f'<span class="idx__name">{t(L(p["name"]))}<sup class="idx__note">({t(note(p))})</sup>{thumb}</span></li>')
-    html = f"""<ul class="idx">
-{chr(10).join("  " + r for r in rows)}
-</ul>"""
-    return dict(project_index=html, project_count=f"{len(rows):02d}")
+    return dict(work_list="\n".join("          " + x for x in out), work_count=f"{len(cases):02d}")
 
 
 def case_end(p):
@@ -770,7 +736,7 @@ def context(p):
 
 def partial(name, lang):
     """src/partials/<name>.html, or its translation in src/<lang>/partials/ where there is one
-    (for pieces that are mostly text, such as the experience list; the interface strings in the
+    (for pieces that are mostly text; the interface strings in the
     shared ones come from src/i18n/ instead)."""
     own = SRC / lang / "partials" / f"{name}.html"
     return own if lang != "en" and own.exists() else SRC / "partials" / f"{name}.html"
@@ -781,8 +747,6 @@ def expand(text, ctx):
         kind, path, inner = w.groups()
         if kind in ("built", "unbuilt"):
             keep = (path in BY_PATH) == (kind == "built")
-        elif kind in ("feature", "nofeature"):
-            keep = (path in FEATURES) == (kind == "feature")
         else:
             keep = (path in LINKABLE) == (kind == "live")
         return inner if keep else ""
