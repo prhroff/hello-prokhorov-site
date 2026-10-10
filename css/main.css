@@ -709,6 +709,8 @@ img.review__avatar { object-fit: cover; }
 .review__text p::before { content: "“"; }
 .review__text p::after { content: "”"; }
 .review__text mark { background: none; color: var(--fg); }
+/* a translated review: a quiet line right under the quote */
+.review__note { margin-top: 12px; font-size: 13px; letter-spacing: 0; color: var(--mute); }
 [data-todo] { color: var(--mute); }
 
 /* Cards slide in one after another as the section arrives. The contents move,
