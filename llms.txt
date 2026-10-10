@@ -34,7 +34,7 @@ The price depends on scope and number of pages, how complex the site is, how muc
 - [Work](https://helloprokhorov.com/work/): Selected work by Artem Prokhorov: a client website I designed and built, landing pages and website concepts.
 - [Services](https://helloprokhorov.com/services/): Web design, website development, motion, UI/UX design and design direction by Artem Prokhorov — what each includes, starting prices and timelines.
 - [Info](https://helloprokhorov.com/info/): Artem Prokhorov is an independent web designer and developer in Bishkek, designing and building websites for founders, startups and companies worldwide.
-- [Contact](https://helloprokhorov.com/contact/): How to reach Artem Prokhorov, an independent web designer and developer in Bishkek: email, LinkedIn, Contra, X and Instagram, or the project form.
+- [Contact](https://helloprokhorov.com/contact/): How to reach Artem Prokhorov, an independent web designer and developer in Bishkek: email, Telegram, LinkedIn, Contra, X and Instagram, or the project form.
 - [Get in Touch](https://helloprokhorov.com/get-in-touch/): Tell Artem Prokhorov, an independent web designer and developer, about your website — what you need, when you want to start and your budget.
 
 ## Case studies
@@ -46,9 +46,27 @@ The price depends on scope and number of pages, how complex the site is, how muc
 - [Lattice](https://helloprokhorov.com/work/lattice/): A multi‑page website concept for an infrastructure control plane — “on‑prem that operates like the public cloud”, for teams that run their own hardware.
 - [Luma](https://helloprokhorov.com/work/luma/): A landing page concept for Luma, a product that scans incoming interactions from different sources and orders them by their estimated conversion potential.
 
+## Russian version
+
+The site in Russian: the same pages and case studies, for Russian-speaking clients.
+
+- [Главная](https://helloprokhorov.com/ru/): Придумываю, рисую и сам собираю сайты для стартапов, основателей и продуктовых команд. Плюс интерфейсы для сервисов и ИИ-продуктов.
+- [Работы](https://helloprokhorov.com/ru/work/): Избранные работы Артёма Прохорова: сайт для клиента, который он придумал и собрал, лендинги и концепты сайтов.
+- [Услуги](https://helloprokhorov.com/ru/services/): Веб-дизайн, разработка сайтов, моушн, UI/UX-дизайн и арт-дирекшн от Артёма Прохорова: что входит, цены и сроки.
+- [Обо мне](https://helloprokhorov.com/ru/info/): Артём Прохоров — дизайнер и разработчик сайтов из Бишкека. Работает на себя: придумывает и собирает сайты для основателей, стартапов и компаний из разных стран.
+- [Контакты](https://helloprokhorov.com/ru/contact/): Как связаться с Артёмом Прохоровым, дизайнером и разработчиком сайтов из Бишкека: почта, Telegram, LinkedIn, Contra, X, Instagram или бриф проекта.
+- [Бриф](https://helloprokhorov.com/ru/get-in-touch/): Расскажите Артёму Прохорову, дизайнеру и разработчику сайтов, о вашем сайте: что нужно, когда стартовать и какой бюджет.
+- [Powermatic®](https://helloprokhorov.com/ru/work/powermatic/): Маркетинговый сайт для Powermatic Technologies®, партнёра по стратегии, дизайну и разработке для растущих компаний. Придуман и собран от начала до конца.
+- [Visual Hunters®](https://helloprokhorov.com/ru/work/visual-hunters/): Концепт сайта, в котором я пробую смелую типографику и 3D. Личный эксперимент с визуальным стилем и системой сетки.
+- [Contour Office©](https://helloprokhorov.com/ru/work/contour-office/): Типографический концепт сайта для бухгалтерских и аудиторских фирм: сдержанность и структура, сетка, пропорции и дизайн-манифест как визуальный язык.
+- [Renovate](https://helloprokhorov.com/ru/work/renovate/): Сайт для Renovate, консалтинга по трансформации бизнеса без лишнего: точные, продуманные решения, которые дают измеримый результат.
+- [Lattice](https://helloprokhorov.com/ru/work/lattice/): Концепт многостраничного сайта для управляющего слоя инфраструктуры — «он-прем, который работает как публичное облако», для команд со своим железом.
+- [Luma](https://helloprokhorov.com/ru/work/luma/): Концепт лендинга для Luma — продукта, который собирает входящие обращения из разных источников и сортирует их по вероятности конверсии.
+
 ## Profiles
 
 - LinkedIn: https://www.linkedin.com/in/helloprokhorov
 - Contra: https://contra.com/helloprokhorov
 - X: https://x.com/helloprokhorov
 - Instagram: https://www.instagram.com/hello.prokhorov/
+- Telegram: https://t.me/hello_prokhorov

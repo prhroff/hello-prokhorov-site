@@ -1,6 +1,8 @@
 /* Prokhorov® — interaction layer (v7). No dependencies.
    Everything here is progressive: the page is complete without it. */
 
+import { L } from './i18n.js';
+
 const html = document.documentElement;
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const phone = matchMedia('(max-width: 767px)');
@@ -598,7 +600,7 @@ $$('[data-copy]').forEach((btn) => {
     clearTimeout(timer);
     try {
       await navigator.clipboard.writeText(btn.dataset.copy);
-      rollLabel(label, 'Copied!');
+      rollLabel(label, L('Copied!'));
       burst(label);
     } catch {
       rollLabel(label, btn.dataset.copyFail || btn.dataset.copy);
@@ -987,9 +989,9 @@ if (finePointer && !reduceMotion) {
 if (finePointer && !reduceMotion && $('[data-cursor]')) {
   const cursor = $('[data-cursor]');
   const disc = $('span', cursor);
-  disc.innerHTML = '<i class="cursor__text"></i><i class="cursor__check">Check confirmation</i>';
+  disc.innerHTML = `<i class="cursor__text"></i><i class="cursor__check">${L('Check confirmation')}</i>`;
   const label = $('.cursor__text', disc);
-  const kinds = [['.item__link', 'View'], ['[data-reviews-track]', 'Drag']];
+  const kinds = [['.item__link', L('View')], ['[data-reviews-track]', L('Drag')]];
   const targets = kinds.flatMap(([sel, text]) => $$(sel).map((el) => { el.dataset.cursorLabel = text; return el; }));
   const pos = { x: innerWidth / 2, y: innerHeight / 2 };
   const cur = { ...pos };

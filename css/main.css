@@ -8,6 +8,16 @@
   src: url("../assets/fonts/inter-opsz.woff2") format("woff2");
   font-weight: 100 900; font-style: normal; font-display: swap;
 }
+/* Cyrillic, for /ru/: the same Inter build (4.001, opsz + wght) as its own file, which a browser
+   fetches only when a page has Russian letters on it, so the English pages never load it */
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/inter-opsz-cyrillic.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* Arial sized to Inter while the font loads. Checked for Latin and Cyrillic alike (rendered width
+   within 0.3% of Inter on /, /info/, /ru/, /ru/info/), so one rule serves both languages */
 @font-face { font-family: "Inter Fallback"; src: local("Arial"); size-adjust: 107%; ascent-override: 90%; }
 
 /* ---------- Tokens ---------- */
@@ -130,8 +140,17 @@ a, button { transition: color 0.3s var(--ease); }
   .bar__nav a:not([aria-current="true"]):hover { background: var(--soft); }
 }
 .bar__time { color: var(--mute); padding-left: var(--pad); display: none; }
+.bar__end { justify-self: end; margin-right: var(--pad); display: flex; align-items: center; gap: 6px; }
+/* the other language (EN / RU): an outlined pill, as the page links and the button beside it */
+.bar__lang-link {
+  display: block; padding: 2px 10px; border: 1px solid var(--fg); border-radius: 999px;
+  line-height: 1.3; color: var(--fg);
+  transition: background-color 0.3s var(--ease);
+}
+@media (hover: hover) {
+  .bar__lang-link:hover { background: var(--soft); }
+}
 .bar__cta {
-  justify-self: end; margin-right: var(--pad);
   padding: 2px 10px; border: 1px solid var(--fg); border-radius: 999px; line-height: 1.3;
   transition: background-color 0.3s var(--ease);
 }
@@ -145,21 +164,34 @@ a, button { transition: color 0.3s var(--ease); }
   .bar__time { display: block; }
 }
 @media (max-width: 767px) {
-  .bar { grid-template-columns: 1fr auto; }
+  .bar { grid-template-columns: 1fr auto auto; }
   .bar__nav, .bar__cta, .bar__time { display: none; }
+  .bar__end { margin-right: 0; }
+  /* the pill as drawn, a 44px-tall target around it */
+  .bar__lang { display: flex; align-items: center; height: 44px; }
+  /* a filled pill, as tall as the language pill beside it; the button around it stays a 44px-tall target */
   .bar__toggle {
+    position: relative; isolation: isolate;
     display: flex; align-items: center; gap: 6px;
-    height: 44px; padding-left: 12px; margin-right: calc(var(--pad) - 7px);
+    height: 44px; padding: 0 10px; margin: 0 var(--pad) 0 6px;
+    color: var(--bg);
+  }
+  .bar__toggle::before {
+    content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: 50%;
+    height: calc(1.3em + 6px); translate: 0 -50%;
+    border-radius: 999px; background: var(--fg);
   }
   /* "Menu" rolls up to "Close" while the icon turns from + to x */
-  .bar__toggle-label { display: inline-grid; overflow: hidden; line-height: 1.3; }
+  /* the pill fits the word showing: the other one is taken out of the flow */
+  .bar__toggle-label { position: relative; display: inline-grid; overflow: hidden; line-height: 1.3; }
   .bar__toggle-label > span { grid-area: 1 / 1; transition: translate 0.55s var(--ease); }
-  .bar__toggle-label > span + span { translate: 0 110%; }
-  .bar__toggle[aria-expanded="true"] .bar__toggle-label > span:first-child { translate: 0 -110%; }
+  .bar__toggle-label > span + span { position: absolute; left: 0; translate: 0 110%; }
+  .bar__toggle[aria-expanded="true"] .bar__toggle-label > span:first-child { position: absolute; left: 0; translate: 0 -110%; }
+  .bar__toggle[aria-expanded="true"] .bar__toggle-label > span + span { position: static; }
   .bar__toggle[aria-expanded="true"] .bar__toggle-label > span + span { translate: 0 0; }
-  .bar__toggle-icon { position: relative; display: grid; place-items: center; width: 28px; height: 28px; }
+  .bar__toggle-icon { position: relative; display: grid; place-items: center; width: 14px; height: 14px; }
   .bar__toggle-icon i {
-    position: absolute; width: 14px; height: 1.5px; background: var(--fg);
+    position: absolute; width: 14px; height: 1.5px; background: currentColor;
     transition: rotate 0.55s var(--ease);
   }
   .bar__toggle-icon i:last-child { rotate: 90deg; }
@@ -194,6 +226,8 @@ a, button { transition: color 0.3s var(--ease); }
 .mcard__text { font-size: 15px; line-height: 1.4; letter-spacing: -0.015em; padding-top: 2px; }
 .mcard__top + .mpill { margin-top: 16px; }
 .mcard--now { padding-block: 18px 20px; }
+/* the other language (EN / RU), a pill at the card's top right, beside where and when */
+.mcard--now { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
 
 .mpill {
   display: inline-flex; align-items: center; gap: 6px; flex: none;
@@ -272,6 +306,7 @@ html.menu-open { overflow: hidden; }
 .swap__b i:nth-child(4) { color: #0091ff; }
 .swap__b i:nth-child(5) { color: #00b37e; }
 .swap__b i:nth-child(6) { color: #ffb800; }
+.swap__b i:nth-child(7) { color: #ff4d00; }   /* "Привет!" has a seventh: the colours start over */
 .swap:hover .swap__a i, .swap.is-on .swap__a i { translate: 0 -110%; }
 .swap:hover .swap__b i, .swap.is-on .swap__b i { translate: 0 0; }
 .motion-ok .swap i { transition: translate 0.7s var(--ease) calc(var(--l) * 40ms); }
@@ -567,6 +602,9 @@ button.row:hover .row__a::after { translate: 4px 0; }
 /* the narrowest phones: a long name may wrap rather than push the page sideways */
 @media (max-width: 359px) { .client { white-space: normal; } }
 .names .nw { white-space: nowrap; }
+/* Russian words run longer and the client pills never break: justified, the lines open wide holes
+   even with hyphenation (checked in Edge), so the Russian text sets ragged-right */
+.names:lang(ru) { text-align: left; }
 /* Two-digit number in a pill, like ⑭ in a type specimen: the pill is exactly as tall
    as the capitals around it (baseline to cap height), with semibold figures ~0.6
    of that height. --k is the figures' size relative to the text.
@@ -673,6 +711,8 @@ img.review__avatar { object-fit: cover; }
 .review__text p::before { content: "“"; }
 .review__text p::after { content: "”"; }
 .review__text mark { background: none; color: var(--fg); }
+/* a translated review: a quiet line right under the quote */
+.review__note { margin-top: 12px; font-size: 13px; letter-spacing: 0; color: var(--mute); }
 [data-todo] { color: var(--mute); }
 
 /* Cards slide in one after another as the section arrives. The contents move,
@@ -748,7 +788,7 @@ img.review__avatar { object-fit: cover; }
 /* ---------- Tablet: two columns, facts above the feed ---------- */
 @media (min-width: 768px) and (max-width: 1199px) {
   .bar { grid-template-columns: 36fr 64fr; }
-  .bar__cta { position: absolute; right: 0; }
+  .bar__end { position: absolute; right: 0; }
   .page {
     grid-template-columns: 36fr 64fr;
     grid-template-areas: "intro info" "intro feed";
@@ -1495,6 +1535,9 @@ fieldset.q { margin: 0; border: 0; min-width: 0; }
 .doc__foot { align-items: baseline; padding-top: 40px; }
 /* the Privacy Policy link, beside the copyright in its grey; darker on hover, as the game button */
 .foot__legal:hover, .foot__legal:focus-visible { color: var(--fg); }
+/* the other language (EN / RU), after the legal links in the same grey */
+.lang__link { color: var(--mute); transition: color 0.3s var(--ease); }
+.lang__link:hover, .lang__link:focus-visible { color: var(--fg); }
 
 /* /privacy/: the dates, then the PDF, quieter than the text */
 .legal__dates { color: var(--mute); font-size: var(--t-base); }
