@@ -879,6 +879,16 @@ def llms():
     for q in cases_in_order():
         if q["live"]:
             lines.append(f"- [{q['meta']['heading']}]({absolute(q['path'])}): {q['meta'].get('description', '')}")
+    # the Russian version: the same pages under /ru/ and the translated cases, where this build
+    # publishes them and lets them be indexed
+    ru = [BY_PATH.get("/ru" + path) for path in ("/", "/work/", "/services/", "/info/", "/contact/", "/get-in-touch/")]
+    ru += [q for q in cases_in_order("ru") if q["lang"] == "ru"]
+    ru = [q for q in ru if q and q["path"] in LINKABLE and not noindex(q)]
+    if ru:
+        lines += ["", "## Russian version", "", "The site in Russian: the same pages and case studies, for Russian-speaking clients.", ""]
+        for q in ru:
+            label = "Главная" if q["path"] == "/ru/" else q["meta"].get("label", q["meta"]["heading"])
+            lines.append(f"- [{label}]({absolute(q['path'])}): {q['meta'].get('description', '')}")
     lines += ["", "## Profiles", ""] + [f"- {name}: {url}" for name, _, url in C.PROFILES]
     return "\n".join(lines) + "\n"
 

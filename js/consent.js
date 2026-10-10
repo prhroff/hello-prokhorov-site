@@ -8,7 +8,9 @@
      scripts are gone too.
    · The scripts run only on the live domain: a preview shows the bar and keeps
      the choice, but sends nothing.
-   · Yandex Metrica runs without Session Replay (webvisor: false). */
+   · Yandex Metrica runs without Session Replay (webvisor: false).
+   · Both get the page's language (<html lang>, "en" | "ru"): GA4 as the content group,
+     Metrica as a visit parameter, so the English and Russian pages can be told apart. */
 
 import { L } from './i18n.js';
 
@@ -17,6 +19,7 @@ const GA4 = meta?.dataset.ga4 || '';
 const YM = Number(meta?.dataset.ym) || 0;
 const LIVE = location.hostname === 'helloprokhorov.com';
 const KEY = 'pk-consent';
+const LANG = document.documentElement.lang || 'en';
 
 const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
 const save = (v) => { try { localStorage.setItem(KEY, v); } catch { /* storage blocked: ask again next time */ } };
@@ -29,13 +32,13 @@ function load() {
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag() { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
-    window.gtag('config', GA4);
+    window.gtag('config', GA4, { content_group: LANG });
     add(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA4)}`);
   }
   if (YM) {
     window.ym = window.ym || function ym() { (window.ym.a = window.ym.a || []).push(arguments); };
     window.ym.l = Date.now();
-    window.ym(YM, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: false });
+    window.ym(YM, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: false, params: { lang: LANG } });
     add(`https://mc.yandex.ru/metrika/tag.js?id=${YM}`);
   }
 }

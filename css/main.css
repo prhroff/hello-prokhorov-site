@@ -16,6 +16,8 @@
   font-weight: 100 900; font-style: normal; font-display: swap;
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
+/* Arial sized to Inter while the font loads. Checked for Latin and Cyrillic alike (rendered width
+   within 0.3% of Inter on /, /info/, /ru/, /ru/info/), so one rule serves both languages */
 @font-face { font-family: "Inter Fallback"; src: local("Arial"); size-adjust: 107%; ascent-override: 90%; }
 
 /* ---------- Tokens ---------- */

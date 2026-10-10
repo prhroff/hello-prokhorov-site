@@ -4,7 +4,7 @@
 
 1. Copies the project to a temporary folder and runs build-html.py --release there, so the
    release build (which deletes the draft pages it finds) never touches this working copy.
-2. Copies only the website into dist/: the pages, sitemap.xml, robots.txt, llms.txt, assets/,
+2. Copies only the website into dist/: the pages (the Russian ones under ru/), sitemap.xml, robots.txt, llms.txt, assets/,
    css/ and js/, plus CNAME (the custom domain) and .nojekyll (GitHub Pages serves the files
    as they are, without Jekyll). Sources, scripts, notes, prototypes and backups stay out.
 3. Checks the result: nothing outside the allowlist, and every local link, image, script and
@@ -28,7 +28,7 @@ import site_config as C  # noqa: E402
 
 # what the live site is made of (blog/ is included only when the release build writes it)
 FILES = ["index.html", "404.html", "sitemap.xml", "robots.txt", "llms.txt", "favicon.ico"]
-DIRS = ["archive", "blog", "contact", "get-in-touch", "info", "privacy", "services", "work", "assets", "css", "js"]
+DIRS = ["archive", "blog", "contact", "get-in-touch", "info", "privacy", "services", "work", "ru", "assets", "css", "js"]
 # never part of the copy the release is built in
 SKIP = {".git", "dist", "_backups", "__pycache__", "node_modules", ".claude"}
 
