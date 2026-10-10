@@ -38,12 +38,9 @@ updated: 2026-10-09
             <a class="social social--down" href="#work"><span class="social__name" data-roll>Смотреть работы</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 1.5v9M2.5 7l3.5 3.5L9.5 7"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M6 1.5v9M2.5 7l3.5 3.5L9.5 7"/></svg></span></a>
           </p>
           <div class="socials-wrap">
-          <p class="side__label"><span>{{t.socials}}</span><span>(04)</span></p>
+          <p class="side__label"><span>{{t.socials}}</span><span>({{profile_count_2}})</span></p>
           <ul class="socials" aria-label="{{t.socials}}">
-            <li><a class="social" href="https://www.linkedin.com/in/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>LinkedIn</span><span class="visually-hidden">{{t.new_tab}}</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
-            <li><a class="social" href="https://contra.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>Contra</span><span class="visually-hidden">{{t.new_tab}}</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
-            <li><a class="social" href="https://x.com/helloprokhorov" rel="noopener" target="_blank"><span class="social__name" data-roll>X</span><span class="visually-hidden">{{t.new_tab}}</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
-            <li><a class="social" href="https://www.instagram.com/hello.prokhorov/" rel="noopener" target="_blank"><span class="social__name" data-roll>Instagram</span><span class="visually-hidden">{{t.new_tab}}</span><span class="social__arrow" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg><svg viewBox="0 0 12 12" focusable="false"><path d="M2.5 9.5 9.5 2.5M3.5 2.5h6v6"/></svg></span></a></li>
+{{socials}}
           </ul>
         </div>
         </div>
@@ -323,7 +320,7 @@ updated: 2026-10-09
             </span>
           </a>
           <p class="talk__lead">{{t.reach_lead}} <span class="mute">У меня в Бишкеке сейчас <time data-clock>—</time> (UTC+6).</span></p>
-          <!-- CONTENT: the profiles are in the footer (scripts/site_config.py PROFILES); Telegram still unconfirmed -->
+          <!-- CONTENT: the profiles are in the footer (scripts/site_config.py PROFILES) -->
         </section>
 
 {{> foot}}

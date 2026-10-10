@@ -110,6 +110,7 @@ PROFILES = [
     ("Contra", "CO", "https://contra.com/helloprokhorov"),
     ("X", "X", "https://x.com/helloprokhorov"),
     ("Instagram", "IG", "https://www.instagram.com/hello.prokhorov/"),
+    ("Telegram", "TG", "https://t.me/hello_prokhorov"),
 ]
 
 # Top bar and phone menu, in order.
