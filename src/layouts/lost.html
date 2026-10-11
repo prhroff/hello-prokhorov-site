@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="{{lang}}" class="no-js" data-consent="quiet">
+<head>
+{{head}}
+</head>
+<body class="lost">
+{{> defs}}
+  <a class="lost-skip" href="#main">{{t.skip}}</a>
+
+  <!-- ============ 404 ============
+       The Archive's frame, on the light (css/lost.css, js/lost.js): the bar
+       with the way back, the selected work in one endless column in the
+       middle, and the large 404 above it, drawn in "difference" as the
+       Archive's title is. The text and the ways out sit around it. -->
+  <header class="lost-bar">
+    <a class="lost-bar__brand" href="{{brand_href}}" aria-label="{{brand_label}}"><span class="logo"><svg class="logo__mark" viewBox="1 0 47 48" aria-hidden="true" focusable="false"><use href="#pk-mark"/></svg><svg class="logo__word" viewBox="54 13 181 22" aria-hidden="true" focusable="false"><use href="#pk-word"/></svg></span></a>
+    <p class="lost-bar__time" aria-hidden="true">{{t.bishkek}} <time data-lost-clock>—</time></p>
+    <a class="lost-bar__back" href="{{brand_href}}">{{t.back_to_site}}</a>
+  </header>
+
+  <main class="lost-main" id="main">
+    <header class="lost-hero">
+      <!-- 4 ( ) 4: the zero is a pair of brackets as heavy as the fours and taller,
+           holding the picture in the middle; read out as the heading -->
+      <h1 class="lost-hero__title"><span class="lost-hidden">{{heading}}</span><span class="lost-four" aria-hidden="true">4</span><svg class="lost-paren" viewBox="0 0 30 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M27 3 Q-7 50 27 97" vector-effect="non-scaling-stroke"/></svg><span class="lost-hold" aria-hidden="true"></span><svg class="lost-paren lost-paren--r" viewBox="0 0 30 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M27 3 Q-7 50 27 97" vector-effect="non-scaling-stroke"/></svg><span class="lost-four" aria-hidden="true">4</span></h1>
+      <p class="lost-hero__lead">{{lead}}</p>
+    </header>
+{{content}}
+    <p class="lost-foot">©&nbsp;{{year}} Prokhorov®</p>
+  </main>
+</body>
+</html>

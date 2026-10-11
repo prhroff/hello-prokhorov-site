@@ -1,21 +1,33 @@
 ---
 # Served by the host for any address that does not exist (most static hosts look for /404.html).
+# The Archive's pictures scroll through the middle (js/lost.js reads js/archive/items.js).
 path: /404.html
 title: Page Not Found
 description: This page does not exist or has moved. Go back to the home page of Artem Prokhorov, independent web designer and developer.
-heading: Page Not Found
-lead: The page may have moved, or the link was mistyped.
+heading: 404
+lead: Page Not Found
 status: live
 noindex: yes
+layout: lost
+styles: /css/lost.css
+script: /js/lost.js
 ---
-      <!-- GitHub Pages serves this page for every missing address; one under /ru/ goes to the Russian one -->
-      <script>if (location.pathname.startsWith('/ru/')) location.replace('/ru/404.html');</script>
-      <p class="doc__intro">Nothing here. <span class="mute">Try one of these instead.</span></p>
-      <section class="block" aria-labelledby="go-title">
-        <header class="block__head"><h2 id="go-title"><span class="block__no" aria-hidden="true">(01)</span>Pages</h2></header>
-        <ul class="rows">
-          <li><a class="row" href="/"><span class="row__a">Home</span><span class="row__b">Selected Work, Approach and Contact</span><span class="row__c"></span></a></li>
-          <li><a class="row" href="/#work"><span class="row__a">Work</span><span class="row__b">Projects and Case Studies</span><span class="row__c"></span></a></li>
-          <when live="/blog/"><li><a class="row" href="/blog/"><span class="row__a">Blog</span><span class="row__b">Notes on Web Design and Development</span><span class="row__c"></span></a></li></when>
-        </ul>
-      </section>
+    <!-- GitHub Pages serves this page for every missing address; one under /ru/ goes to the Russian one -->
+    <script>if (location.pathname.startsWith('/ru/')) location.replace('/ru/404.html');</script>
+
+    <div class="lost-info">
+      <p>Nothing at this address. <span class="mute">The page may have moved, or the link has a typo.</span></p>
+      <p><span class="mute">Try</span> <a href="/">Home</a>, <a href="{{work_href}}">Work</a>, <a href="/services/">Services</a> <span class="mute">or</span> <a href="/contact/">Contact</a></p>
+      <p><span class="mute">Or write to me:</span><br><a href="mailto:{{email}}">{{email}}</a></p>
+    </div>
+
+    <section class="lost-work" aria-hidden="true" data-lost>
+      <p class="lost-work__title"><span>From the Archive</span></p>
+      <div class="lost-ticks" data-lost-ticks></div>
+      <p class="lost-kind" data-lost-kind></p>
+      <p class="lost-type" data-lost-type></p>
+      <p class="lost-num" data-lost-num></p>
+      <div class="lost-reel" data-lost-reel></div>
+    </section>
+
+    <a class="lost-home" href="/"><span class="lost-home__arrow" aria-hidden="true">←</span>Back to Home</a>

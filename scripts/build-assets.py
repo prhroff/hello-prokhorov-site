@@ -92,6 +92,8 @@ SOURCES = {
     "lu-page": ("cases/site/Frame 2147229530.png", [800, 1600], None),
     "lu-display": ("cases/site/Luma.png", [800, 1600], None),
     "lu-stories": ("cases/site/Luma Stories.png", [800, 1600], None),
+    # Archive only
+    "eye-star": ("archive/Eye_Star.jpg", [700, 1400], None),   # the white lens with the star (895 wide: the 1400 step stops at 895)
     # Social share image
     "og": ("cases/site/Case Study/Website/scene_2026-07-20.webp", [1200], None),
 }

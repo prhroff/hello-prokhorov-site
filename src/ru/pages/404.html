@@ -1,20 +1,30 @@
 ---
 # Русская 404. GitHub Pages отдаёт только корневой /404.html: тот для адресов под /ru/ отправляет сюда.
+# Устроена как английская (src/pages/404.html): в ленте картинки из архива (js/archive/items.js).
 path: /ru/404.html
 title: Страница не найдена
 description: Такой страницы нет или она переехала. Вернитесь на главную сайта Артёма Прохорова, дизайнера и разработчика сайтов.
-heading: Страница не найдена
-lead: Возможно, её перенесли или в ссылке опечатка.
+heading: 404
+lead: Страница не найдена
 status: live
 noindex: yes
+layout: lost
+styles: /css/lost.css
+script: /js/lost.js
 ---
-      <p class="doc__intro">Тут пусто. <span class="mute">Загляните лучше сюда.</span></p>
-      <section class="block" aria-labelledby="go-title">
-        <header class="block__head"><h2 id="go-title"><span class="block__no" aria-hidden="true">(01)</span>Страницы</h2></header>
-        <ul class="rows">
-          <li><a class="row" href="/ru/"><span class="row__a">Главная</span><span class="row__b">Работы, подход и контакты</span><span class="row__c"></span></a></li>
-          <li><a class="row" href="/ru/#work"><span class="row__a">Работы</span><span class="row__b">Проекты и кейсы</span><span class="row__c"></span></a></li>
-          <li><a class="row" href="/ru/services/"><span class="row__a">Услуги</span><span class="row__b">Что делаю, сроки и цены</span><span class="row__c"></span></a></li>
-          <li><a class="row" href="/ru/contact/"><span class="row__a">Контакты</span><span class="row__b">Почта, профили и бриф</span><span class="row__c"></span></a></li>
-        </ul>
-      </section>
+    <div class="lost-info">
+      <p>По этому адресу ничего нет. <span class="mute">Страницу могли перенести, или в ссылке опечатка.</span></p>
+      <p><span class="mute">Загляните на</span> <a href="/ru/">главную</a>, <span class="mute">в</span> <a href="/ru/work/">работы</a>, <a href="/ru/services/">услуги</a> <span class="mute">или</span> <a href="/ru/contact/">контакты</a></p>
+      <p><span class="mute">Или напишите мне:</span><br><a href="mailto:{{email}}">{{email}}</a></p>
+    </div>
+
+    <section class="lost-work" aria-hidden="true" data-lost>
+      <p class="lost-work__title"><span>Из архива</span></p>
+      <div class="lost-ticks" data-lost-ticks></div>
+      <p class="lost-kind" data-lost-kind></p>
+      <p class="lost-type" data-lost-type></p>
+      <p class="lost-num" data-lost-num></p>
+      <div class="lost-reel" data-lost-reel></div>
+    </section>
+
+    <a class="lost-home" href="/ru/"><span class="lost-home__arrow" aria-hidden="true">←</span>На главную</a>
