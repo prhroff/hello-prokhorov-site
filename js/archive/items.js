@@ -84,7 +84,7 @@ export const ARCHIVE_ITEMS = [
   { img: 'prokhorov-site', alt: 'Prokhorov® portfolio website, full page', title: 'Prokhorov®', category: 'Web Concept' },
   { img: 'pm-blog', alt: 'Powermatic® blog listing, “Perspectives on technology”', title: 'Powermatic®', category: 'Interface' },
   { img: 'service-landing', alt: 'Landing page design, full page', category: 'Landing Page' },
-  { img: 'pm-contact', alt: 'Powermatic® contact page with the email address set large', title: 'Powermatic®', category: 'Interface' },
+  { img: 'eye-star', alt: 'Close-up of an eye with a white lens and a black four-pointed star in the centre', category: 'Image Study' },
   { img: 'service-framer', alt: 'Framer website design, full page', category: 'Web Concept' },
   { img: 'powermatic-phone', alt: 'Powermatic® on a phone', title: 'Powermatic®', category: 'Mobile UI' },
 ];

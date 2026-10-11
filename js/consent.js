@@ -8,6 +8,8 @@
      scripts are gone too.
    · The scripts run only on the live domain: a preview shows the bar and keeps
      the choice, but sends nothing.
+   · A page can ask not to be asked (<html data-consent="quiet">, the 404): no bar
+     there; a choice already made still holds, so accepted analytics still load.
    · Yandex Metrica runs without Session Replay (webvisor: false).
    · Both get the page's language (<html lang>, "en" | "ru"): GA4 as the content group,
      Metrica as a visit parameter, so the English and Russian pages can be told apart. */
@@ -90,7 +92,7 @@ function ask() {
 if (GA4 || YM) {
   const choice = read();
   if (choice === 'granted') load();
-  else if (choice !== 'denied') {
+  else if (choice !== 'denied' && document.documentElement.dataset.consent !== 'quiet') {
     // after the opening animation, not over it
     const html = document.documentElement;
     const ready = () => html.classList.contains('is-loaded') || !document.querySelector('[data-loader]');
