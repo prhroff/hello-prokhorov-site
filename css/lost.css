@@ -2,7 +2,7 @@
    Self-contained, as css/archive.css: the site's bar, logotype and type, on the light.
    Layout (desktop): the column in the middle, the case in the middle larger
    than the rest; the list of cases on the left, the current one level with the middle;
-   the text and the ways out top right. On a phone the text sits at the foot. */
+   the text and the ways out top right. On a phone only the way home is kept, at the foot. */
 
 @font-face {
   font-family: "Inter";
@@ -119,7 +119,7 @@ img { display: block; }
    legible over dark and light pictures alike as they pass under it
    (white in "difference" over the white page reads as the ink). */
 .lost-hero {
-  position: fixed; inset: var(--bar) 0 var(--foot, 0px); z-index: 5;   /* --foot: the phone's text panel (js/lost.js) */
+  position: fixed; inset: var(--bar) 0 0; z-index: 5;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 0 var(--pad); text-align: center;
   pointer-events: none; user-select: none;
@@ -216,7 +216,7 @@ html.no-js .lost-kind, html.no-js .lost-type, html.no-js .lost-num { display: no
 
 /* ---------- The column ---------- */
 .lost-reel {
-  position: fixed; inset: var(--bar) 0 var(--foot, 0px); z-index: 1;
+  position: fixed; inset: var(--bar) 0 0; z-index: 1;
   overflow: hidden;
 }
 .lost-card {
@@ -267,34 +267,30 @@ html.no-js .lost-kind, html.no-js .lost-type, html.no-js .lost-num { display: no
   .lost-kind, .lost-type, .lost-bar__time { display: none; }
 }
 
-/* ---------- Phone: the stage above the text, the text at the foot ----------
-   The column, the brackets and the fours share the space above the text panel
-   (--foot, measured by js/lost.js), so the picture in the middle is never under
-   it. Smaller cards and larger fours keep the 4 ( ) 4 in proportion; the
-   category and the number sit just above the panel. */
+/* ---------- Phone: one centred column ----------
+   No text panel: the page says what it is at the top, the 4 ( ) 4 and the
+   pictures fill the middle, and the way home is the one thing at the foot,
+   with the current category just above it. Everything on the middle axis. */
 @media (max-width: 767px) {
-  .lost-work__title, .lost-type, .lost-bar__time, .lost-foot, .lost-ticks { display: none; }
-  .lost-home { bottom: calc(var(--foot, 0px) + 6px); padding: 10px 16px 10px 14px; gap: 8px; font-size: 14px; }
-  /* what the page is, said at once: large, top left, above the pictures */
+  .lost-work__title, .lost-type, .lost-bar__time, .lost-foot, .lost-ticks, .lost-info { display: none; }
+  .lost-home { padding: 12px 20px 12px 16px; gap: 8px; font-size: 15px; }
+  /* what the page is, said at once: large, centred, above the pictures */
   .lost-hero__lead {
-    bottom: auto; top: 14px;
+    bottom: auto; top: 16px; left: var(--pad); right: var(--pad);
     font-size: clamp(24px, 7.4vw, 32px); font-weight: 600; line-height: 1.1; letter-spacing: -0.03em;
-    text-transform: none; text-align: left; color: #fff;
+    text-transform: none; text-align: center; color: #fff;
   }
   .lost-hero__title { font-size: 25vw; gap: 0.04em; }
   .lost-paren { width: calc(var(--card) * 0.22); height: calc(var(--card) * 1.2); }
   .lost-hold { width: var(--card); }
-  .lost-kind, .lost-num { top: auto; translate: none; bottom: calc(var(--foot, 0px) + 12px); font-size: 13px; }
-  .lost-kind { display: block; right: auto; left: var(--pad); }
-  .lost-kind .lost-roll.is-out { right: auto; left: 0; }
-  .lost-info {
-    top: auto; left: 0; right: 0; bottom: 0; width: auto;
-    padding: 14px var(--pad) calc(14px + env(safe-area-inset-bottom, 0px));
-    gap: 0.6em; font-size: 14px;
-    background: var(--bg); border-top: 1px solid var(--line);
-    mix-blend-mode: normal; color: var(--fg);
+  /* the number under the heading, the category above the button, both centred */
+  .lost-kind, .lost-num {
+    left: var(--pad); right: var(--pad); translate: none;
+    font-size: 13px; text-align: center;
   }
-  .lost-info .mute { color: var(--mute); }
+  .lost-num { top: calc(var(--bar) + 16px + clamp(24px, 7.4vw, 32px) * 1.1 + 6px); color: #8d8d8d; }
+  .lost-kind { display: block; top: auto; bottom: calc(var(--pad) + env(safe-area-inset-bottom, 0px) + 54px); }
+  .lost-kind .lost-roll.is-out, .lost-num .lost-roll.is-out { left: 0; right: 0; }
 }
 
 /* ---------- Reduced motion: nothing glides ---------- */

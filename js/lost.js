@@ -116,11 +116,7 @@ async function start() {
   let pos = 0, target = 0, last = performance.now(), touched = performance.now();
   let current = -1;
 
-  // on a phone the text panel sits at the foot: the stage keeps above it
-  const info = document.querySelector('.lost-info');
-  const phone = matchMedia('(max-width: 767px)');
   function measure() {
-    document.documentElement.style.setProperty('--foot', phone.matches && info ? `${info.offsetHeight}px` : '0px');
     const css = getComputedStyle(document.documentElement);
     grow = parseFloat(css.getPropertyValue('--grow')) || 1.15;
     gap = originals[0].offsetWidth * Math.sqrt(parseFloat(originals[0].style.getPropertyValue('--r'))) * 0.12;
