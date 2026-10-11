@@ -491,7 +491,7 @@ def head(p):
         f'<meta property="og:url" content="{url}">',
         f'<meta property="og:title" content="{e(title)}">',
         f'<meta property="og:description" content="{e(m.get("og_description", desc))}">',
-        f'<meta property="og:image" content="{C.URL + image}">',
+        f'<meta property="og:image" content="{C.URL + versioned(image)}">',   # a new picture, a new address for the previews' caches
     ]
     if image == C.OG_IMAGE or image.startswith("/assets/img/og/"):     # both made at 1200 × 630
         lines += ['<meta property="og:image:width" content="1200">', '<meta property="og:image:height" content="630">']
@@ -771,7 +771,7 @@ def picture(match):
     info = MANIFEST[name]
     widths = info["widths"]
     base = f"/assets/img/{name}"
-    srcset = lambda ext: ", ".join(f"{base}-{w}.{ext} {w}w" for w in widths)
+    srcset = lambda ext: ", ".join(f"{versioned(f'{base}-{w}.{ext}')} {w}w" for w in widths)   # ?v=: a rebuilt image is fetched anew
     largest = widths[-1]
     height = round(largest * info["ratio"])
     eager = "eager" in attrs
@@ -780,7 +780,7 @@ def picture(match):
     return (
         f'<picture{cls}>'
         f'<source type="image/avif" srcset="{srcset("avif")}" sizes="{attrs["sizes"]}">'
-        f'<img src="{base}-{widths[0]}.webp" srcset="{srcset("webp")}" sizes="{attrs["sizes"]}" '
+        f'<img src="{versioned(f'{base}-{widths[0]}.webp')}" srcset="{srcset("webp")}" sizes="{attrs["sizes"]}" '
         f'width="{largest}" height="{height}" alt="{escape(attrs.get("alt", ""))}" {loading} decoding="async">'
         f'</picture>'
     )
