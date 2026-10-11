@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prokhorov® — Blog</title>
+    <link>https://helloprokhorov.com/blog/</link>
+    <description>Notes by Artem Prokhorov on web design and development — how websites are planned, designed and built, and what each project teaches along the way.</description>
+    <language>en</language>
+    <atom:link href="https://helloprokhorov.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Sun, 11 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <item><title>Design and Development in One Pair of Hands</title><link>https://helloprokhorov.com/blog/design-and-build-in-one-pair-of-hands/</link><guid isPermaLink="true">https://helloprokhorov.com/blog/design-and-build-in-one-pair-of-hands/</guid><pubDate>Sun, 11 Oct 2026 00:00:00 +0000</pubDate><description>Why I now build the websites I design, what changes when the designer is also the developer, and when a separate development team is the better choice.</description></item>
+    <item><title>How I Price Fixed-Scope Projects</title><link>https://helloprokhorov.com/blog/how-i-price-fixed-scope-projects/</link><guid isPermaLink="true">https://helloprokhorov.com/blog/how-i-price-fixed-scope-projects/</guid><pubDate>Sun, 11 Oct 2026 00:00:00 +0000</pubDate><description>How I price website projects: where prices start, what the written scope includes, how payment and timelines work, and what happens when the scope changes.</description></item>
+    <item><title>One Page or a Full Site</title><link>https://helloprokhorov.com/blog/one-page-or-a-full-site/</link><guid isPermaLink="true">https://helloprokhorov.com/blog/one-page-or-a-full-site/</guid><pubDate>Sun, 11 Oct 2026 00:00:00 +0000</pubDate><description>How I decide whether a project needs a landing page or a multi-page website: what you sell, where visitors come from and how much they need to trust you.</description></item>
+    <item><title>Structure Before Style</title><link>https://helloprokhorov.com/blog/structure-before-style/</link><guid isPermaLink="true">https://helloprokhorov.com/blog/structure-before-style/</guid><pubDate>Sun, 11 Oct 2026 00:00:00 +0000</pubDate><description>Why every website I design starts as a sitemap and a plain-text outline of each page, and what that changes for the design and the price.</description></item>
+  </channel>
+</rss>
