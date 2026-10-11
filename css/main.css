@@ -355,8 +355,6 @@ html.menu-open { overflow: hidden; }
 .motion-ok .social:active .social__arrow { scale: 0.8; }
 .motion-ok .social__arrow { transition: color 0.3s var(--ease), scale 0.3s var(--ease); }
 .social:focus-visible { outline-offset: 2px; }
-.social--down .social__arrow svg + svg { translate: 0 -100%; }
-.motion-ok .social--down:is(:hover, :focus-visible) .social__arrow svg:first-child { translate: 0 100%; }
 .services__no { display: inline-block; width: 2.2rem; color: var(--mute); font-size: 13px; letter-spacing: 0; font-variant-numeric: tabular-nums; }
 .services { width: 100%; }
 .services li { padding-block: 6px 5px; border-bottom: 1px solid var(--line); }
