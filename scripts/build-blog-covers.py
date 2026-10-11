@@ -1,22 +1,25 @@
-"""Build the blog post covers: a stock photo, full bleed, with the post's heading on a card.
+"""Build the blog post covers: a botanical plate, full bleed, with the post's heading on a card.
 
-For every post in src/blog/ that has a photo at ../blog-covers/photos/<slug>.jpg:
+For every post in src/blog/ that has a plate at ../blog-covers/plates/<slug>.jpg:
 
   * assets/img/blog-<slug>-{800,1600,2400}.{avif,webp}  the cover, 3 : 2 (card, featured
     card and post hero crop it to 5 : 3, 16 : 9 and 3 : 2; the cards stay clear of every crop)
   * assets/img/og/blog-<slug>.jpg                       the link preview, 1200 x 630
   * an entry in assets/img/manifest.json, and image / og_image in the post's front matter
 
-The cover: the photo, a little muted; a card tilted behind and a card in front carrying only the
+The cover: a close crop of the plate, its paper re-tinted to one warm grey-beige so every cover
+matches, with a visible film grain; a card tilted behind and a card in front carrying only the
 heading, a dotted rule and the Prokhorov® mark; a fine grain over all of it. The colours are the post's
 topic (TOPICS in site_config.py), the same ones its tag and the /blog/ filter use. Re-run after
 changing a heading or a topic.
 
-    python scripts/build-blog-covers.py              all posts with a photo
+    python scripts/build-blog-covers.py              all posts with a plate
     python scripts/build-blog-covers.py my-post      one post
 
-Photos: CC0 stock (credits in ../blog-covers/photos/CREDITS.md). Optional focus point per
-post in FOCUS below (fractions of the photo; the crop keeps that point as central as it can).
+Plates: Köhler's Medizinal-Pflanzen (1887), public domain (sources in ../blog-covers/plates/CREDITS.md).
+The crop per post is in CROP below: the centre (fractions of the plate) and the width it takes
+(a fraction of the plate's width); pick one where the leaves run off the edges and the small
+figures and plate numbers stay out. The earlier stock-photo version is in _backups/blog-covers-photos/.
 """
 import json
 import math
@@ -25,14 +28,14 @@ import re
 import sys
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont, ImageStat
 
 HERE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HERE / "scripts"))
 import site_config as C  # noqa: E402
 
 BLOG = HERE / "src" / "blog"
-PHOTOS = HERE.parent / "blog-covers" / "photos"
+PLATES = HERE.parent / "blog-covers" / "plates"
 OUT = HERE / "assets" / "img"
 FONT = HERE / "assets" / "fonts" / "inter-opsz.woff2"
 DEFS = HERE / "src" / "partials" / "defs.html"      # the Prokhorov® mark, as the site draws it
@@ -41,8 +44,16 @@ TOPIC = {t["slug"]: t for t in C.TOPICS}
 FALLBACK = dict(card="#e6e6e6", back="#9a9a9a", ink="#121212")   # a post without a known topic
 WIDTHS = [800, 1600, 2400]
 
-FOCUS = {                    # slug: (x, y) focus point in the photo
-    "what-a-ux-audit-actually-finds": (0.5, 0.45),
+PAPER = (226, 221, 210)      # the paper of every cover, a warm grey-beige
+CROP = {                     # slug: (centre x, centre y, width), fractions of the plate
+    "one-page-or-a-full-site": (0.55, 0.33, 0.85),
+    "structure-before-style": (0.5, 0.3, 0.9),
+    "design-and-build-in-one-pair-of-hands": (0.55, 0.42, 0.85),
+    "how-i-price-fixed-scope-projects": (0.48, 0.6, 0.6),
+    "the-homepage-brief-i-send-startups": (0.55, 0.48, 0.68),
+    "what-a-ux-audit-actually-finds": (0.56, 0.3, 0.42),
+    "fewer-screens-clearer-product": (0.6, 0.5, 0.6),
+    "where-ai-helps-in-my-workflow": (0.6, 0.62, 0.65),
 }
 
 
@@ -170,21 +181,46 @@ def grain(im, amount):
     return ImageChops.overlay(im, noise)
 
 
-def fit(photo, W, H, focus):
-    """Cover-crop the photo to W x H around the focus point."""
-    pw, ph = photo.size
-    scale = max(W / pw, H / ph)
-    rw, rh = math.ceil(pw * scale), math.ceil(ph * scale)
-    im = photo.resize((rw, rh), Image.LANCZOS)
-    left = min(max(0, round(rw * focus[0] - W / 2)), rw - W)
-    top = min(max(0, round(rh * focus[1] - H / 2)), rh - H)
-    return im.crop((left, top, left + W, top + H))
+def paper(plate):
+    """Re-tint the plate's paper to PAPER: the paper colour is the median of its lightest 40% of
+    pixels (whole pixels, so the hue stays true), and each channel is scaled by PAPER / paper."""
+    lum = plate.convert("L")
+    h, n, acc = lum.histogram(), plate.width * plate.height, 0
+    for t in range(256):
+        acc += h[t]
+        if acc >= n * 0.6:
+            break
+    ref = ImageStat.Stat(plate, lum.point(lambda v: 255 if v > t else 0)).median
+    return Image.merge("RGB", [b.point(lambda x, k=p / max(r, 1): min(255, round(x * k)))
+                               for b, p, r in zip(plate.split(), PAPER, ref)])
 
 
-def compose(photo, heading, colours, W, H, s, focus):
-    bg = fit(photo, W, H, focus)
-    bg = ImageEnhance.Color(bg).enhance(0.7)                     # muted, so the soft card leads
-    bg = ImageEnhance.Brightness(bg).enhance(0.86)
+def crop(plate, W, H, box):
+    """The W x H crop of the plate around box = (centre x, centre y, width), kept inside the plate."""
+    cx, cy, wf = box
+    pw, ph = plate.size
+    cw = pw * wf
+    ch = cw * H / W
+    if ch > ph:                                   # a wide format: as tall as the plate allows
+        ch, cw = ph, ph * W / H
+    x0 = min(max(0, cx * pw - cw / 2), pw - cw)
+    y0 = min(max(0, cy * ph - ch / 2), ph - ch)
+    return plate.crop((round(x0), round(y0), round(x0 + cw), round(y0 + ch))).resize((W, H), Image.LANCZOS)
+
+
+def film_grain(im, amount, size):
+    """A visible film grain for the background: monochrome noise in grains of about `size` px,
+    softened a touch so it reads as grain, not pixels."""
+    rnd = random.Random(11)
+    w, h = round(im.width / size), round(im.height / size)
+    small = Image.new("L", (w, h))
+    small.putdata([max(0, min(255, round(rnd.gauss(128, amount)))) for _ in range(w * h)])
+    noise = small.resize(im.size, Image.BICUBIC).filter(ImageFilter.GaussianBlur(0.6 * size / 2)).convert("RGB")
+    return ImageChops.overlay(im, noise)
+
+
+def compose(plate, heading, colours, W, H, s, box):
+    bg = film_grain(crop(plate, W, H, box), 34, 2.0 * s)
     im = bg.convert("RGBA")
     front_card, back = card(heading, colours, s), back_card(colours, s)
     cx, cy = W // 2, H // 2
@@ -214,18 +250,18 @@ def main():
 
     for path in sorted(BLOG.glob("*.html")):
         slug = path.stem
-        src = PHOTOS / f"{slug}.jpg"
+        src = PLATES / f"{slug}.jpg"
         if path.name.startswith("_") or (only and slug not in only) or not src.exists():
             continue
         meta, _ = front(path.read_text(encoding="utf-8").replace("\r\n", "\n"))
         colours = TOPIC.get(meta.get("topic"), FALLBACK)
         if meta.get("topic") not in TOPIC:
             print(f"  ! {slug}: topic {meta.get('topic')!r} is not in TOPICS; grey cover")
-        photo = Image.open(src).convert("RGB")
-        focus = FOCUS.get(slug, (0.5, 0.5))
+        plate = paper(Image.open(src).convert("RGB"))
+        box = CROP.get(slug, (0.5, 0.4, 0.85))
         name = f"blog-{slug}"
 
-        cover = compose(photo, meta["heading"], colours, 2400, 1600, 1.0, focus)
+        cover = compose(plate, meta["heading"], colours, 2400, 1600, 1.0, box)
         manifest[name] = {"w": 2400, "h": 1600, "ratio": round(1600 / 2400, 4), "widths": []}
         for w in WIDTHS:
             v = cover if w == 2400 else cover.resize((w, round(w * 1600 / 2400)), Image.LANCZOS)
@@ -233,7 +269,7 @@ def main():
             v.save(OUT / f"{name}-{w}.webp", quality=80, method=6)
             manifest[name]["widths"].append(w)
 
-        og = compose(photo, meta["heading"], colours, 1200, 630, 0.5, focus)
+        og = compose(plate, meta["heading"], colours, 1200, 630, 0.5, box)
         og.save(OUT / "og" / f"{name}.jpg", quality=84, optimize=True, progressive=True)
 
         set_front(path, {"image": name, "og_image": f"/assets/img/og/{name}.jpg"})

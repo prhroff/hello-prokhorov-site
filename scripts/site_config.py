@@ -96,12 +96,12 @@ PRICING_RU = dict(
 # (scripts/build-blog-covers.py). Soft colours on purpose: the card under the title (card), the
 # card tilted behind it (back), the title on it (ink); `card` is also the tag's fill on the site,
 # `back` its dot. Keep the list short: a topic earns its place with two or more posts.
-TOPICS = [
-    dict(slug="web-design", label="Web Design", card="#bccdf0", back="#5f78a8", ink="#141f38"),
-    dict(slug="development", label="Development", card="#c3dcc3", back="#5d8462", ink="#152a19"),
-    dict(slug="ux-product", label="UX & Product", card="#d6ccef", back="#7a6ca8", ink="#221b3a"),
-    dict(slug="process", label="Process", card="#f1d5b9", back="#a87d55", ink="#33210f"),
-    dict(slug="ai", label="AI Tools", card="#ece2ac", back="#978945", ink="#2d2810"),
+TOPICS = [   # muted inks that sit with the botanical covers: clay, olive, dried lavender, ochre, engraving teal
+    dict(slug="web-design", label="Web Design", card="#ecd3c3", back="#a5604a", ink="#3b1d13"),
+    dict(slug="development", label="Development", card="#dbdcc4", back="#6d7748", ink="#22270f"),
+    dict(slug="ux-product", label="UX & Product", card="#e2d2dc", back="#8c6680", ink="#2f1b29"),
+    dict(slug="process", label="Process", card="#efdca8", back="#a9843a", ink="#35280b"),
+    dict(slug="ai", label="AI Tools", card="#ccd8d6", back="#4d6e6f", ink="#132424"),
 ]
 
 # Confirmed profiles: they also feed the Person's sameAs.
