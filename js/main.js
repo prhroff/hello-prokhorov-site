@@ -404,7 +404,10 @@ $$('[data-reviews]').forEach((root) => {
     requestAnimationFrame(() => { syncTick = false; sync(); });
   }, { passive: true });
   addEventListener('resize', sync);
-  sync();
+  // the first sync waits until the row is near the screen, so loading the page reads no layout
+  // (the markup already starts at 01 with Previous disabled)
+  const near = new IntersectionObserver(([en]) => { if (en.isIntersecting) { near.disconnect(); sync(); } }, { rootMargin: '200px 0px' });
+  near.observe(track);
 
   prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior }));
   next.addEventListener('click', () => track.scrollBy({ left: step(), behavior }));
@@ -1116,8 +1119,13 @@ $$('[data-process]').forEach((root) => {
 
 /* ---------- Cover videos ----------
    <pic … video> lays a muted loop over its poster. It loads and plays only
-   while it is on screen; with reduced motion or Save-Data the poster stays. */
-if (!reduceMotion && !navigator.connection?.saveData) {
+   while it is on screen, and not before the page has loaded, so it never competes
+   with the first paint; with reduced motion or Save-Data the poster stays. */
+function afterLoad(fn) {
+  const go = () => setTimeout(fn, 300);
+  if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });
+}
+if (!reduceMotion && !navigator.connection?.saveData && $('[data-video]')) afterLoad(() => {
   const seen = new IntersectionObserver((entries) => {
     for (const { target: v, isIntersecting } of entries) {
       if (isIntersecting) v.play().catch(() => {});
@@ -1128,7 +1136,7 @@ if (!reduceMotion && !navigator.connection?.saveData) {
     v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
     seen.observe(v);
   });
-}
+});
 
 /* ---------- Arcade ----------
    The invader in the footer opens Invader, a small hidden 8-bit game. Its
