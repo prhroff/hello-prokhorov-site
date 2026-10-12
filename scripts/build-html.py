@@ -29,6 +29,7 @@ Front matter, at the top of each source:
     card: lattice-hero              (cases: the picture on the /work/ card, as on the home page)
     card_alt: What it shows         (cases: that picture's alt text)
     card_pos: 60% 50%               (cases: which part of that picture the crops keep)
+    card_video: yes                 (cases: the card plays assets/video/<card>-*.webm/.mp4 over that picture)
     card_tags: Framer / Concept  (cases without a picture: the card shows these tags and card_text instead)
     card_text: A short line         (cases without a picture: see card_tags)
     kind: Client website            (cases: the descriptor in the card's caption, after its dot)
@@ -647,7 +648,7 @@ def case_card(q, sizes, wide=False, eager=False, lang="en"):
     pos = f' style="--pos: {e(m["card_pos"])}"' if m.get("card_pos") else ""
     if m.get("card"):
         media = (f'<span class="item__media"{pos}><pic name="{m["card"]}" alt="{e(own("card_alt"))}" '
-                 f'sizes="{sizes}"{" eager" if eager else ""}></span>')
+                 f'sizes="{sizes}"{" eager" if eager else ""}{" video" if m.get("card_video") == "yes" else ""}></span>')
     else:
         tags = "".join(f'<span class="tag">{t(x.strip())}</span>' for x in m.get("card_tags", "").split("/") if x.strip())
         media = f'<span class="item__media item__media--text"><span class="tags">{tags}</span><span>{t(m.get("card_text", ""))}</span></span>'
@@ -782,8 +783,22 @@ def picture(match):
         f'<source type="image/avif" srcset="{srcset("avif")}" sizes="{attrs["sizes"]}">'
         f'<img src="{versioned(f'{base}-{widths[0]}.webp')}" srcset="{srcset("webp")}" sizes="{attrs["sizes"]}" '
         f'width="{largest}" height="{height}" alt="{escape(attrs.get("alt", ""))}" {loading} decoding="async">'
-        f'</picture>'
+        f'</picture>{video(name) if "video" in attrs else ""}'
     )
+
+
+def video(name):
+    """<pic … video>: over the picture (its poster, and all there is with reduced motion or before it
+    plays), a muted loop from assets/video/<name>-<width>.webm/.mp4, the smallest width on phones.
+    js/main.js plays it only while it is on screen."""
+    widths = sorted(int(f.stem.rsplit("-", 1)[1]) for f in (ROOT / "assets/video").glob(f"{name}-*.mp4"))
+    sources = []
+    for k, w in enumerate(reversed(widths)):
+        media = f' media="(max-width: 767px)"' if k == len(widths) - 1 and len(widths) > 1 else ""
+        sources += [f'<source{media} src="{versioned(f"/assets/video/{name}-{w}.{ext}")}" type="video/{ext}">' for ext in ("webm", "mp4")]
+    sources.sort(key=lambda s: "media=" not in s)   # the first matching source plays: the phone one first
+    return (f'<video class="vid" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-video>'
+            f'{"".join(sources)}</video>')
 
 
 def small_marks(html):

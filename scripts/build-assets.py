@@ -37,6 +37,9 @@ SOURCES = {
     "monolith-render": ("cases/monolith/2a480fe4-4c3e-4af7-a178-e41ef7078cfd.png", [1024], None),
     "monolith-tower": ("cases/monolith/product-philosophy.png", [800, 1440], None),
     "monolith-detail": ("cases/monolith/monolith.png", [700, 1080], None),
+    # Supaminds: the poster of the looping cover video (the video itself: assets/video/supaminds-cover-*.mp4/.webm,
+    # encoded from cases/supaminds/Supaminds_Cover.mp4 with ffmpeg; see TECH.md)
+    "supaminds-cover": ("cases/supaminds/Supaminds_Cover.png", [800, 1600, 2400], None),
     # Lattice
     "lattice-hero": ("hero/hero-section.png", [800, 1600, 1920], None),
     "lattice-plinth": ("cases/site/Image_Lattice_Crop.png", [700, 1350], None),
@@ -103,7 +106,7 @@ SOURCES = {
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     manifest = {}
-    for name, (rel, widths, crop) in SOURCES.items():
+Так     for name, (rel, widths, crop) in SOURCES.items():
         im = Image.open(SRC / rel).convert("RGB")
         if crop:
             w, h = im.size
