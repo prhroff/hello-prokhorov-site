@@ -1114,6 +1114,22 @@ $$('[data-process]').forEach((root) => {
   });
 });
 
+/* ---------- Cover videos ----------
+   <pic … video> lays a muted loop over its poster. It loads and plays only
+   while it is on screen; with reduced motion or Save-Data the poster stays. */
+if (!reduceMotion && !navigator.connection?.saveData) {
+  const seen = new IntersectionObserver((entries) => {
+    for (const { target: v, isIntersecting } of entries) {
+      if (isIntersecting) v.play().catch(() => {});
+      else v.pause();
+    }
+  }, { rootMargin: '100px 0px' });
+  $$('[data-video]').forEach((v) => {
+    v.addEventListener('playing', () => v.classList.add('is-playing'), { once: true });
+    seen.observe(v);
+  });
+}
+
 /* ---------- Arcade ----------
    The invader in the footer opens Invader, a small hidden 8-bit game. Its
    code and styles (js/game/, css/game.css) load on the first click; until
