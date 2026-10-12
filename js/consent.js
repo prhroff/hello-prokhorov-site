@@ -65,6 +65,9 @@ function clearCookies() {
 let bar = null;
 function ask() {
   if (bar) { bar.querySelector('button').focus(); return; }
+  // consent.css loads without blocking the page (media="print" until it arrives): wait for it
+  const css = document.querySelector('link[data-consent-css]');
+  if (css && css.media !== 'all') { css.addEventListener('load', ask, { once: true }); return; }
   // the policy in the page's language, as the footer links it
   const privacy = document.querySelector('.foot__legal')?.getAttribute('href') || '/privacy/';
   bar = document.createElement('section');

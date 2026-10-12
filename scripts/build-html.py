@@ -533,7 +533,8 @@ def head(p):
     if any(C.ANALYTICS.values()):
         lines += [
             f'<meta name="pk-analytics" data-ga4="{e(C.ANALYTICS["ga4"])}" data-ym="{e(C.ANALYTICS["metrica"])}">',
-            f'<link rel="stylesheet" href="{versioned("/css/consent.css")}">',
+            # not render-blocking: the bar it styles is built later by consent.js, which waits for it
+            f'<link rel="stylesheet" href="{versioned("/css/consent.css")}" media="print" onload="this.media=\'all\'" data-consent-css>',
             f'<script type="module" src="{versioned("/js/consent.js")}"></script>',
         ]
     lines += [
@@ -794,9 +795,10 @@ def video(name):
     widths = sorted(int(f.stem.rsplit("-", 1)[1]) for f in (ROOT / "assets/video").glob(f"{name}-*.mp4"))
     sources = []
     for k, w in enumerate(reversed(widths)):
-        media = f' media="(max-width: 767px)"' if k == len(widths) - 1 and len(widths) > 1 else ""
+        # complementary media: a phone never falls through to the large file (if its own fails, the poster stays)
+        media = "" if len(widths) == 1 else ' media="(max-width: 767px)"' if k == len(widths) - 1 else ' media="(min-width: 768px)"'
         sources += [f'<source{media} src="{versioned(f"/assets/video/{name}-{w}.{ext}")}" type="video/{ext}">' for ext in ("webm", "mp4")]
-    sources.sort(key=lambda s: "media=" not in s)   # the first matching source plays: the phone one first
+    sources.sort(key=lambda s: "max-width" not in s)   # the first matching source plays: the phone one first
     return (f'<video class="vid" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" data-video>'
             f'{"".join(sources)}</video>')
 
