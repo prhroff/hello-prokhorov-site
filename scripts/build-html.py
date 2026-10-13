@@ -233,6 +233,11 @@ def modified(p):
     return m.get("updated") or m.get("date") or date.fromtimestamp(p["src"].stat().st_mtime).isoformat()
 
 
+def stamp(day):
+    """A front-matter date as a full ISO 8601 datetime (midnight in Bishkek): Google wants time and zone in schema/OG dates."""
+    return day if "T" in day else f"{day}T00:00:00+06:00"
+
+
 def absolute(path):
     return C.URL + path
 
@@ -399,7 +404,7 @@ def schema(p):
                "inLanguage": built if len(built) > 1 else "en", "publisher": {"@id": person_id}}
     kind = m.get("schema", "WebPage")
     page = {"@type": kind, "@id": page_id, "url": url, "name": full_title(p), "description": m.get("description", ""),
-            "isPartOf": {"@id": site_id}, "inLanguage": lang, "dateModified": modified(p)}
+            "isPartOf": {"@id": site_id}, "inLanguage": lang, "dateModified": stamp(modified(p))}
     other = [q for x, q in versions(p).items() if x != lang and q["live"]]
     if other:
         page["workTranslation" if lang == "en" else "translationOfWork"] = [{"@id": absolute(q["path"]) + "#webpage"} for q in other]
@@ -410,7 +415,7 @@ def schema(p):
         page["about"] = {"@id": person_id}
     if p["kind"] == "post":
         graph.append({"@type": "BlogPosting", "@id": url + "#article", "headline": m["heading"], "description": m.get("description", ""),
-                      "datePublished": m.get("date", modified(p)), "dateModified": modified(p), "author": {"@id": person_id},
+                      "datePublished": stamp(m.get("date", modified(p))), "dateModified": stamp(modified(p)), "author": {"@id": person_id},
                       "publisher": {"@id": person_id}, "image": C.URL + m.get("og_image", C.OG_IMAGE),
                       "mainEntityOfPage": {"@id": page_id}, "inLanguage": "en"})
     if is_case(p):
@@ -502,8 +507,8 @@ def head(p):
     if alt:
         lines.append(f'<meta property="og:image:alt" content="{e(alt)}">')
     if p["kind"] == "post":
-        lines += [f'<meta property="article:published_time" content="{m.get("date", modified(p))}">',
-                  f'<meta property="article:modified_time" content="{modified(p)}">']
+        lines += [f'<meta property="article:published_time" content="{stamp(m.get("date", modified(p)))}">',
+                  f'<meta property="article:modified_time" content="{stamp(modified(p))}">']
     lines += [
         '<meta name="twitter:card" content="summary_large_image">',
         "",
