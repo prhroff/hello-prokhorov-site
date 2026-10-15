@@ -9,7 +9,7 @@ URL = "https://helloprokhorov.com"
 NAME = "Prokhorov®"
 EMAIL = "contact@helloprokhorov.com"
 OG_IMAGE = "/assets/img/og.jpg"          # 1200×630, used when a page sets none
-OG_IMAGE_ALT = "Powermatic® website on a tablet lying on a rust-red velvet armchair"
+OG_IMAGE_ALT = "The designer and the developer, one person, no hand-offs: Powermatic®, Visual Hunters and Supaminds work, and the Powermatic® site on a tablet in a rust-red velvet armchair"   # assets/img/og.jpg, from _og/site.html (scripts/build-og-card.py)
 
 # The project form on /get-in-touch/ posts to Web3Forms (https://web3forms.com), which
 # emails the answers to the address the access key was created for. The key is
