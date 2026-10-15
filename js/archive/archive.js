@@ -44,12 +44,13 @@ function describe(item, manifest) {
     const m = manifest[item.img];
     if (!m) return null;
     const base = `${IMG}${item.img}`;
-    const set = (ext) => m.widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(', ');
+    const v = m.v ? `?v=${m.v}` : '';   // set by scripts/build-html.py: a rebuilt image is fetched anew
+    const set = (ext) => m.widths.map((w) => `${base}-${w}.${ext}${v} ${w}w`).join(', ');
     return {
       ...item, ar: 1 / m.ratio,
       sources: [{ type: 'image/avif', srcset: set('avif') }, { type: 'image/webp', srcset: set('webp') }],
-      src: `${base}-${m.widths[0]}.webp`,
-      full: `${base}-${m.widths.at(-1)}.webp`,
+      src: `${base}-${m.widths[0]}.webp${v}`,
+      full: `${base}-${m.widths.at(-1)}.webp${v}`,
     };
   }
   if (item.src && item.w && item.h) return { ...item, ar: item.w / item.h, sources: [], src: item.src, full: item.src };

@@ -16,6 +16,7 @@ scripts/build-release.py  the production package: a release build of only the we
 _backups/legacy/build-cases.py   legacy, disabled: its CASES table is where the case copy came from
 scripts/build-assets.py   source artwork -> AVIF + WebP variants (+ manifest.json)
 css/main.css              tokens, layout, components, motion
+MOTION.md                 the easing, duration and stagger values in use; pick from it
 js/main.js                interactions (works on every page)
 js/contact.js             Get in touch (/contact/): the project form; set FORM_ACCESS_KEY in site_config.py
 js/transitions.js, css/transitions.css   page-to-page transitions, loaded in every page's <head>

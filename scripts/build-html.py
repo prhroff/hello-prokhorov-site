@@ -940,8 +940,30 @@ def checks(p, html):
     return warn
 
 
+def stamp_manifest():
+    """Give every manifest entry a "v": a hash of all its files. The pages built here version their
+    image addresses themselves (versioned()); the pages that build theirs in JS from the manifest
+    (js/lost.js, js/archive/) append ?v=<v>. build-assets.py and build-blog-covers.py rewrite the
+    manifest without it, and this build, run after them, puts it back."""
+    changed = False
+    for name, info in MANIFEST.items():
+        h = hashlib.sha1()
+        for w in info["widths"]:
+            for ext in ("avif", "webp"):
+                f = ROOT / f"assets/img/{name}-{w}.{ext}"
+                if f.is_file():
+                    h.update(f.read_bytes())
+        v = h.hexdigest()[:8]
+        if info.get("v") != v:
+            info["v"] = v
+            changed = True
+    if changed:
+        (ROOT / "assets/img/manifest.json").write_text(json.dumps(MANIFEST, indent=2))
+
+
 def main():
     written = []
+    stamp_manifest()
 
     def write(path, text):
         path.parent.mkdir(parents=True, exist_ok=True)
