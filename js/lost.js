@@ -37,8 +37,9 @@ function describe(item, manifest) {
     const m = manifest[item.img];
     if (!m) return null;
     const base = `${IMG}${item.img}`;
-    const set = (ext) => m.widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(', ');
-    return { ...item, r: m.ratio, avif: set('avif'), webp: set('webp'), src: `${base}-${m.widths[0]}.webp` };
+    const v = m.v ? `?v=${m.v}` : '';   // set by scripts/build-html.py: a rebuilt image is fetched anew
+    const set = (ext) => m.widths.map((w) => `${base}-${w}.${ext}${v} ${w}w`).join(', ');
+    return { ...item, r: m.ratio, avif: set('avif'), webp: set('webp'), src: `${base}-${m.widths[0]}.webp${v}` };
   }
   if (item.src && item.w && item.h) return { ...item, r: item.h / item.w, src: item.src };
   return null;

@@ -443,6 +443,9 @@ button.row:hover .row__a::after { translate: 4px 0; }
 
 /* Info prose */
 .prose { display: grid; gap: 16px; max-width: 36em; }
+/* a link inside running text (to a blog post): the hairline under it, as in an article */
+.prose a, .cs-lead a, .info-do__desc a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: color 0.3s var(--ease); }
+@media (hover: hover) { .prose a:hover { color: var(--mute); } :is(.cs-lead, .info-do__desc) a:hover { color: var(--fg); } }
 .lede { font-size: var(--t-state); line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 16px; }
 
 /* Process: one continuous sequence (see main.js). Desktop: the section holds
