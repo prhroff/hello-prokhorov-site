@@ -1,20 +1,20 @@
 ---
 # Бриф: сюда ведут все кнопки «Напишите мне». Остальные способы связи — на /ru/contact/.
-title: Бриф на сайт — Артём Прохоров
-description: Расскажите Артёму Прохорову, дизайнеру и разработчику сайтов, о вашем сайте: что нужно, когда стартовать и какой бюджет.
+title: Заказать сайт в Бишкеке — бриф
+description: Расскажите о сайте, который нужен вашей компании: что сделать, когда стартовать и какой бюджет. Отвечу и предложу встретиться в Бишкеке.
 heading: Напишите мне
 label: Бриф
-lead: Расскажите, что делаете, на каком вы этапе и с чем нужна помощь.
+lead: Расскажите, чем занимается компания и какой сайт нужен.
 status: live
 schema: ContactPage
 class: doc--intake
 back: yes
 script: /js/contact.js
-updated: 2026-10-10
+updated: 2026-10-18
 ---
       <!-- БРИФ: как на /get-in-touch/, те же имена полей. Ответы приходят на почту по-русски;
            тема письма помечена (RU), чтобы было видно, с какой версии сайта заявка. -->
-      <form class="intake" action="{{form_action}}" method="post" data-intake data-mode="{{form_mode}}">
+      <form class="intake" action="{{form_action}}" method="post" data-intake data-mode="{{form_mode}}" data-phone="{{phone}}">
         <input type="hidden" name="access_key" value="{{form_key}}">
         <input type="hidden" name="subject" value="Новый проект (RU) — helloprokhorov.com">
         <input type="hidden" name="from_name" value="helloprokhorov.com">
@@ -23,7 +23,7 @@ updated: 2026-10-10
           <legend class="q__title"><span class="q__no">01</span>Сайт у вас уже есть?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
           <div class="q__opts">
             <label class="opt"><input type="radio" name="website" value="Есть" required><span>Есть</span></label>
-            <label class="opt"><input type="radio" name="website" value="Делаем с нуля"><span>Делаем с нуля</span></label>
+            <label class="opt"><input type="radio" name="website" value="Нет, делаем с нуля"><span>Нет, делаем с нуля</span></label>
             <label class="opt"><input type="radio" name="website" value="Есть, но, может, начнём заново"><span>Есть, но, может, начнём заново</span></label>
           </div>
           <p class="q__error" data-error></p>
@@ -36,22 +36,25 @@ updated: 2026-10-10
             <label class="opt"><input type="checkbox" name="needs" value="Дизайн и разработка"><span>Дизайн и разработка</span></label>
             <label class="opt"><input type="checkbox" name="needs" value="Новый сайт"><span>Новый сайт</span></label>
             <label class="opt"><input type="checkbox" name="needs" value="Редизайн"><span>Редизайн</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Лендинг"><span>Лендинг</span></label>
             <label class="opt"><input type="checkbox" name="needs" value="UI/UX-дизайн"><span>UI/UX-дизайн</span></label>
             <label class="opt"><input type="checkbox" name="needs" value="Только разработка"><span>Только разработка</span></label>
+            <label class="opt"><input type="checkbox" name="needs" value="Поддержка сайта"><span>Поддержка сайта</span></label>
             <label class="opt"><input type="checkbox" name="needs" value="Другое"><span>Другое</span></label>
           </div>
           <p class="q__error" data-error></p>
         </fieldset>
 
         <fieldset class="block q" data-q="one">
-          <legend class="q__title"><span class="q__no">03</span>Какой сайт?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
+          <legend class="q__title"><span class="q__no">03</span>Для кого сайт?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
           <div class="q__opts">
-            <label class="opt"><input type="radio" name="type" value="SaaS / IT" required><span>SaaS / IT</span></label>
-            <label class="opt"><input type="radio" name="type" value="Стартап"><span>Стартап</span></label>
-            <label class="opt"><input type="radio" name="type" value="Сайт компании"><span>Сайт компании</span></label>
-            <label class="opt"><input type="radio" name="type" value="Лендинг"><span>Лендинг</span></label>
+            <!-- сферы, ради которых RU-версия: Кыргызстан, Бишкек -->
+            <label class="opt"><input type="radio" name="type" value="Застройщик или строительная компания" required><span>Застройщик или строительная компания</span></label>
+            <label class="opt"><input type="radio" name="type" value="Юридическая или бухгалтерская фирма"><span>Юридическая или бухгалтерская фирма</span></label>
+            <label class="opt"><input type="radio" name="type" value="Студия дизайна интерьера"><span>Студия дизайна интерьера</span></label>
+            <label class="opt"><input type="radio" name="type" value="Стартап или IT-продукт"><span>Стартап или IT-продукт</span></label>
             <label class="opt"><input type="radio" name="type" value="Интернет-магазин"><span>Интернет-магазин</span></label>
-            <label class="opt"><input type="radio" name="type" value="Личный сайт / портфолио"><span>Личный сайт / портфолио</span></label>
+            <label class="opt"><input type="radio" name="type" value="Личный сайт"><span>Личный сайт</span></label>
             <label class="opt"><input type="radio" name="type" value="Другое"><span>Другое</span></label>
           </div>
           <p class="q__error" data-error></p>
@@ -82,16 +85,17 @@ updated: 2026-10-10
         </fieldset>
 
         <div class="block q">
-          <p class="q__title"><span class="q__no">06</span><span><label for="f-message">Расскажите о проекте</label><span class="q__hint" id="f-message-hint">Ссылки тоже присылайте: на текущий сайт, на продукт, на референсы, которые нравятся.</span></span></p>
+          <p class="q__title"><span class="q__no">06</span><span><label for="f-message">Расскажите о проекте</label><span class="q__hint" id="f-message-hint">Ссылки тоже присылайте: на текущий сайт, Instagram компании, сайты, которые нравятся.</span></span></p>
           <textarea class="q__text" id="f-message" name="message" rows="4" maxlength="10000" aria-describedby="f-message-hint" placeholder="Что делаете, что нужно и всё, что может пригодиться." data-grow></textarea>
         </div>
 
         <fieldset class="block q q--reach">
-          <legend class="q__title"><span class="q__no">07</span><span>Ваши контакты<span class="q__hint">Чтобы было куда ответить.</span></span></legend>
+          <legend class="q__title"><span class="q__no">07</span><span>Ваши контакты<span class="q__hint">Почта или номер — хватит чего-то одного.</span></span></legend>
           <div class="fields">
             <p class="field"><label class="field__label" for="f-name">Имя<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-name" name="name" type="text" maxlength="120" autocomplete="name" required><span class="field__error" data-error></span></p>
-            <p class="field"><label class="field__label" for="f-email">Почта<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-email" name="email" type="email" maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" required><span class="field__error" data-error></span></p>
-            <p class="field field--wide"><label class="field__label" for="f-company">Компания или сайт <span class="mute">(если хотите)</span></label><input class="field__input" id="f-company" name="company" type="text" maxlength="200" autocomplete="organization"></p>
+            <p class="field"><label class="field__label" for="f-phone">WhatsApp или телефон</label><input class="field__input" id="f-phone" name="phone" type="tel" maxlength="40" autocomplete="tel" inputmode="tel" placeholder="+996"><span class="field__error" data-error></span></p>
+            <p class="field"><label class="field__label" for="f-email">Почта</label><input class="field__input" id="f-email" name="email" type="email" maxlength="254" autocomplete="email" inputmode="email" spellcheck="false"><span class="field__error" data-error></span></p>
+            <p class="field"><label class="field__label" for="f-company">Компания или сайт <span class="mute">(если хотите)</span></label><input class="field__input" id="f-company" name="company" type="text" maxlength="200" autocomplete="organization"></p>
           </div>
         </fieldset>
 
@@ -100,9 +104,9 @@ updated: 2026-10-10
 
         <section class="intake-end" aria-labelledby="end-title">
           <h2 class="intake-end__title" id="end-title">Осталось отправить</h2>
-          <p class="intake-end__lead">Прочитаю и вернусь с вопросами или с оценкой.</p>
+          <p class="intake-end__lead">Прочитаю, вернусь с вопросами и предложу встретиться.</p>
           <p class="consent">
-            <label class="consent__label"><input type="checkbox" name="privacy" value="Принято" required><span class="consent__box" aria-hidden="true"></span><span>Принимаю <when live="/ru/privacy/"><a href="/ru/privacy/">политику конфиденциальности</a></when><when draft="/ru/privacy/">политику конфиденциальности</when>.<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></span></label>
+            <label class="consent__label"><input type="checkbox" name="privacy" value="Прочитал(а)" required><span class="consent__box" aria-hidden="true"></span><span>Я прочитал(а) <when live="/ru/privacy/"><a href="/ru/privacy/">политику конфиденциальности</a></when><when draft="/ru/privacy/">политику конфиденциальности</when>.<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></span></label>
             <span class="field__error" data-error></span>
           </p>
           <p class="intake-end__send">

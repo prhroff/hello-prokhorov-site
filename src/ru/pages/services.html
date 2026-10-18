@@ -1,14 +1,14 @@
 ---
 # «Услуги»: как /services/ (src/layouts/services.html), тексты по-русски. Цены — PRICING_RU в
 # scripts/site_config.py ({{price_text_0}} … ).
-title: Услуги — веб-дизайн, разработка сайтов и UI/UX-дизайн
-description: Веб-дизайн, разработка сайтов, моушн, UI/UX-дизайн и арт-дирекшн от Артёма Прохорова: что входит, цены и сроки.
+title: Создание сайтов в Бишкеке — услуги и цены
+description: Дизайн, разработка и поддержка сайтов в Бишкеке: от лендинга до сайта компании. Что входит в каждую услугу, сроки и цены: проекты от $490, поддержка $200 в месяц.
 heading: Услуги
 label: Услуги
-lead: От одного лендинга до большого сайта. Продумываю, рисую и собираю всё сам.
+lead: От одного лендинга до большого сайта. Продумываю, рисую и собираю всё сам, а после запуска могу вести сайт дальше.
 status: live
 schema: WebPage
-updated: 2026-10-10
+updated: 2026-10-18
 layout: services
 class: sw
 ---
@@ -41,7 +41,7 @@ class: sw
       <p class="sw-hint" aria-hidden="true">Тяните или листайте</p>
     </header>
 
-    <p class="sw-intro" data-light>Шесть форматов работы. <span class="mute">Цену фиксируем, когда договоримся об объёме. Где указана сумма — с неё всё начинается, остальное считаю под проект.</span></p>
+    <p class="sw-intro" data-light>Семь форматов работы. <span class="mute">Где стоит «от», с этой суммы начинается цена. Остальное считаю под проект.</span></p>
 
     <!-- two rows of the services' names drifting in opposite directions as you scroll (decorative) -->
     <div class="sw-ticker" aria-hidden="true">
@@ -60,9 +60,9 @@ class: sw
               <li>Структура и порядок контента</li>
               <li>Дизайн под десктоп и мобильные</li>
               <li>Сборка в коде или во Framer</li>
-              <li>Админка для всего, что будете менять</li>
+              <li>Админка для простых правок</li>
               <li>Тесты и запуск</li>
-              <li><span class="sw-svc__k">Цена:</span> {{price_text_0}}</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_lc_0}}</li>
               <li><span class="sw-svc__k">Сроки:</span> 4–6 недель</li>
           </ul>
           <when built="/ru/services/design-development/"><p class="sw-svc__more"><a href="/ru/services/design-development/"><span data-roll>Подробнее о дизайне и разработке</span><span aria-hidden="true">→</span></a></p></when>
@@ -71,7 +71,7 @@ class: sw
       <li class="sw-svc" aria-labelledby="sw-2">
         <p class="sw-svc__no" aria-hidden="true">(02)</p>
         <h2 class="sw-svc__title" id="sw-2"><when built="/ru/services/web-design/"><a class="sw-svc__link" href="/ru/services/web-design/"></when><span class="sw-svc__word">Веб-дизайн</span><when built="/ru/services/web-design/"></a></when></h2>
-        <p class="sw-svc__lead">Структура, UX и дизайн сайта или лендинга — сразу готовые к разработке.</p>
+        <p class="sw-svc__lead">Структура, UX и дизайн сайта или лендинга. Макеты можно сразу отдавать в разработку.</p>
         <div class="sw-svc__row">
           <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/ru/work/contour-office/" tabindex="-1" aria-hidden="true"><pic name="co-hero" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/ru/work/contour-office/">Contour Office©</a></figcaption></figure>
           <ul class="sw-svc__list">
@@ -79,7 +79,7 @@ class: sw
               <li>Сценарии и порядок контента</li>
               <li>Дизайн под десктоп и мобильные</li>
               <li>Макеты, готовые к разработке</li>
-              <li><span class="sw-svc__k">Цена:</span> {{price_text_1}}</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_lc_1}}</li>
               <li><span class="sw-svc__k">Сроки:</span> 2–3 недели</li>
           </ul>
           <when built="/ru/services/web-design/"><p class="sw-svc__more"><a href="/ru/services/web-design/"><span data-roll>Подробнее о веб-дизайне</span><span aria-hidden="true">→</span></a></p></when>
@@ -93,11 +93,11 @@ class: sw
           <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/ru/work/renovate/" tabindex="-1" aria-hidden="true"><pic name="renovate-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/ru/work/renovate/">Renovate</a></figcaption></figure>
           <ul class="sw-svc__list">
               <li>Адаптивная вёрстка один в один с макетами</li>
-              <li>В коде или во Framer с админкой</li>
+              <li>В коде или во Framer, с админкой для правок</li>
               <li>Скорость и техническое SEO</li>
               <li>Проверка в разных браузерах и на устройствах</li>
               <li>Запуск на вашем домене</li>
-              <li><span class="sw-svc__k">Цена:</span> {{price_text_2}}</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_lc_2}}</li>
               <li><span class="sw-svc__k">Сроки:</span> 2–4 недели</li>
           </ul>
         </div>
@@ -113,7 +113,7 @@ class: sw
               <li>Анимация на скролле</li>
               <li>Ховеры и состояния фокуса</li>
               <li>Без анимации для тех, кто отключил её в системе</li>
-              <li><span class="sw-svc__k">Цена:</span> {{price_text_3}}</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_lc_3}}</li>
               <li><span class="sw-svc__k">Сроки:</span> 1–2 недели</li>
           </ul>
         </div>
@@ -129,7 +129,7 @@ class: sw
               <li>Дизайн интерфейса</li>
               <li>Дизайн-система, если она нужна продукту</li>
               <li>Передача в разработку и работа с вашими разработчиками</li>
-              <li><span class="sw-svc__k">Цена:</span> {{price_text_4}}</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_lc_4}}</li>
               <li><span class="sw-svc__k">Сроки:</span> 3–6 недель</li>
           </ul>
         </div>
@@ -137,7 +137,7 @@ class: sw
       <li class="sw-svc" aria-labelledby="sw-6">
         <p class="sw-svc__no" aria-hidden="true">(06)</p>
         <h2 class="sw-svc__title" id="sw-6"><span class="sw-svc__word">Арт-дирекшн</span></h2>
-        <p class="sw-svc__lead">Визуальное направление: типографика, цвет, сетка и правила, по которым всё двигается.</p>
+        <p class="sw-svc__lead">Визуальный стиль сайта или продукта: типографика, цвет, сетка и правила, по которым всё двигается.</p>
         <div class="sw-svc__row">
           <figure class="sw-svc__fig"><a class="sw-svc__frame" href="/ru/work/visual-hunters/" tabindex="-1" aria-hidden="true"><pic name="vh-laptop" alt="" sizes="(min-width: 768px) 40vw, 100vw"></a><figcaption><a href="/ru/work/visual-hunters/">Visual Hunters®</a></figcaption></figure>
           <ul class="sw-svc__list">
@@ -145,8 +145,25 @@ class: sw
               <li>Сетка</li>
               <li>Как всё двигается и откликается</li>
               <li>Ключевые экраны, которые задают стиль</li>
-              <li><span class="sw-svc__k">Цена:</span> {{price_text_5}}</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_lc_5}}</li>
               <li><span class="sw-svc__k">Сроки:</span> 1–2 недели</li>
+          </ul>
+        </div>
+      </li>
+      <li class="sw-svc" aria-labelledby="sw-7">
+        <p class="sw-svc__no" aria-hidden="true">(07)</p>
+        <h2 class="sw-svc__title" id="sw-7"><span class="sw-svc__word">Поддержка сайта</span></h2>
+        <p class="sw-svc__lead">Поддержка — это когда после запуска сайтом занимаюсь я. Нужно что-то поменять, добавить или починить — пишете мне, и я делаю. Только для сайтов, которые я сделал сам.</p>
+        <div class="sw-svc__row">
+          <!-- картинка: этот сайт (его Артём ведёт сам), не клиентский кейс -->
+          <figure class="sw-svc__fig"><span class="sw-svc__frame" aria-hidden="true"><pic name="prokhorov-site" alt="" sizes="(min-width: 768px) 40vw, 100vw"></span><figcaption>Этот сайт я тоже веду сам</figcaption></figure>
+          <ul class="sw-svc__list">
+              <li>Правки, новые страницы и разделы</li>
+              <li>Чиню, если что-то сломалось</li>
+              <li>Слежу, чтобы хостинг, домен и формы работали</li>
+              <li>Скорость и SEO</li>
+              <li>Пишете в WhatsApp, а если нужно, заеду в офис</li>
+              <li><span class="sw-svc__k">Цена:</span> {{price_lc_6}}</li>
           </ul>
         </div>
       </li>

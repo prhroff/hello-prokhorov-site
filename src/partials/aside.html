@@ -4,10 +4,10 @@
         <p class="doc__status"><span class="dot" aria-hidden="true"></span><span>{{t.working_worldwide}}<span class="mute"> · {{t.bishkek}}, <time data-clock>—</time></span></span></p>
         <div class="doc__reach">
           <p class="doc__reach-lead">{{t.reach_lead}}</p>
-          <p><span class="reach__mail">{{email}}</span><br><button class="reach__copy" type="button" data-copy="{{email}}"><span data-copy-label>{{t.copy_email}}</span></button></p>
+{{reach_phone}}          <p><span class="reach__mail">{{email}}</span><br><button class="reach__copy" type="button" data-copy="{{email}}"><span data-copy-label>{{t.copy_email}}</span></button></p>
         </div>
         <div class="socials-wrap doc__socials">
-          <p class="side__label"><span>{{t.socials}}</span><span>({{profile_count_2}})</span></p>
+          <p class="side__label"><span>{{t.socials}}</span><span>({{socials_count_2}})</span></p>
           <ul class="socials" aria-label="{{t.socials}}">
 {{socials}}
           </ul>

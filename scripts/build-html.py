@@ -167,7 +167,9 @@ TOPIC = {t["slug"]: t for t in C.TOPICS}
 # The languages: English at the root, the first and the default; Russian under /ru/. A page exists
 # in Russian only once src/ru/ has it; until then the Russian pages link to the English one.
 LANGS = ("en", "ru")
-LOCALE = {"en": "en_US", "ru": "ru_RU"}
+# the Russian pages are for clients in Kyrgyzstan: og:locale ru_KG, and hreflang ru-KG beside ru
+LOCALE = {"en": "en_US", "ru": "ru_KG"}
+HREFLANG = {"en": ["en"], "ru": ["ru", "ru-KG"]}
 I18N = {lang: json.loads((SRC / "i18n" / f"{lang}.json").read_text(encoding="utf-8")) for lang in LANGS}
 
 
@@ -302,17 +304,20 @@ def lang_switch(p, cls="lang__link"):
     return "".join(links)
 
 
-def profiles(lang="en"):
-    """PROFILES in the order for `lang`: the ones PROFILES_FIRST names for it lead."""
+def profiles(lang="en", extra=True):
+    """PROFILES in the order for `lang`: the ones PROFILES_FIRST names for it lead. With `extra`, also
+    the contacts PROFILES_EXTRA lists for that language (WhatsApp on the Russian pages)."""
     first = C.PROFILES_FIRST.get(lang, [])
-    return sorted(C.PROFILES, key=lambda p: first.index(p[0]) if p[0] in first else len(first))
+    found = C.PROFILES + (C.PROFILES_EXTRA.get(lang, []) if extra else [])
+    return sorted(found, key=lambda p: first.index(p[0]) if p[0] in first else len(first))
 
 
 def socials(lang="en"):
+    """The side column's list: the profiles only (the phone has its own line where this list is shown)."""
     return "\n".join(
         f'            <li><a class="social" href="{e(url)}" rel="noopener" target="_blank"><span class="social__name" data-roll>{t(name)}</span>'
         f'<span class="visually-hidden">{t(tr(lang, "new_tab"))}</span>{ARROW}</a></li>'
-        for name, _, url in profiles(lang))
+        for name, _, url in profiles(lang, extra=False))
 
 
 def pricing(lang="en"):
@@ -321,9 +326,13 @@ def pricing(lang="en"):
 
 
 def price(amount, lang="en"):
-    """990 -> "from $990"; None -> the quoted-per-project label (/llms.txt, /services/)."""
+    """990 -> "from $990"; (200, "monthly") -> "$200 a month", a fixed fee in that PRICING key's
+    wording; None -> the quoted-per-project label (/llms.txt, /services/)."""
     P = pricing(lang)
-    return P["quoted"] if amount is None else P.get("from", "from ${amount}").format(amount=f"{amount:,}".replace(",", P.get("thousands", ",")))
+    if amount is None:
+        return P["quoted"]
+    amount, form = amount if isinstance(amount, tuple) else (amount, "from")
+    return P.get(form, f"{form} ${{amount}}").format(amount=f"{amount:,}".replace(",", P.get("thousands", ",")))
 
 
 def service_prices(lang="en"):
@@ -332,6 +341,8 @@ def service_prices(lang="en"):
     P = pricing(lang)
     amounts = [P["lead"][2]] + [a for _, _, a in P["services"]]
     out = {f"price_text_{i}": t(price(a, lang)[0].upper() + price(a, lang)[1:]) for i, a in enumerate(amounts)}
+    # after «Цена:» (/ru/services/) the price runs on in lower case: {{price_lc_0}} …
+    out.update({f"price_lc_{i}": t(price(a, lang)[0].lower() + price(a, lang)[1:]) for i, a in enumerate(amounts)})
     return dict(out, price_factors=t(P["factors"]), price_note=t(P["note"]))
 
 
@@ -339,7 +350,7 @@ def profile_rows(lang="en"):
     """The profiles as ruled rows (/contact/): the name, the address without its scheme, the arrow."""
     return "\n".join(
         f'          <li><a class="row" href="{e(url)}" rel="noopener" target="_blank"><span class="row__a">{t(name)}</span>'
-        f'<span class="row__b">{t(url.split("://", 1)[-1].removeprefix("www.").rstrip("/"))}</span>'
+        f'<span class="row__b">{t(C.PHONE if url == C.WHATSAPP else url.split("://", 1)[-1].removeprefix("www.").rstrip("/"))}</span>'
         f'<span class="row__c">{t(tr(lang, "open"))}<span class="visually-hidden">{t(tr(lang, "new_tab"))}</span></span></a></li>'
         for name, _, url in profiles(lang))
 
@@ -387,7 +398,7 @@ def schema(p):
     lang = p["lang"]
     person = {
         "@type": "Person", "@id": person_id, "name": C.PERSON["name"], "alternateName": C.PERSON["alternateName"],
-        "jobTitle": C.PERSON["jobTitle"], "url": C.URL + "/", "email": "mailto:" + C.EMAIL,
+        "jobTitle": C.PERSON["jobTitle"], "url": C.URL + "/", "email": "mailto:" + C.EMAIL, "telephone": C.PHONE.replace(" ", ""),
         "image": C.URL + C.PERSON["image"],
         "address": {"@type": "PostalAddress", "addressLocality": C.PERSON["locality"], "addressCountry": C.PERSON["country"]},
         "knowsAbout": C.PERSON["knowsAbout"], "knowsLanguage": C.PERSON["knowsLanguage"],
@@ -396,7 +407,8 @@ def schema(p):
     }
     brand = {"@type": "Organization", "@id": C.URL + "/#brand", "name": C.BRAND["name"],
              "alternateName": C.BRAND["alternateName"], "url": C.URL + "/", "logo": C.URL + C.BRAND["logo"],
-             "founder": {"@id": person_id}, "email": "mailto:" + C.EMAIL}
+             "founder": {"@id": person_id}, "email": "mailto:" + C.EMAIL, "telephone": C.PHONE.replace(" ", ""),
+             "areaServed": C.AREA_SERVED}
     if "/info/" in LIVE:
         person["mainEntityOfPage"] = C.URL + "/info/"
     built = [x for x in LANGS if any(q["lang"] == x and q["live"] for q in PAGES)]
@@ -433,7 +445,7 @@ def schema(p):
         amount = dict([(P["lead"][0], P["lead"][2])] + [(n, a) for n, _, a in P["services"]]).get(m["service"])
         svc = {"@type": "Service", "@id": url + "#service", "name": m["service"], "serviceType": m["service"],
                "description": m.get("description", ""), "url": url, "provider": {"@id": person_id},
-               "areaServed": "Worldwide", "availableLanguage": ["en", "ru"], "inLanguage": lang}
+               "areaServed": C.AREA_SERVED, "availableLanguage": ["en", "ru"], "inLanguage": lang}
         if amount is not None:
             svc["offers"] = {"@type": "Offer", "priceCurrency": "USD", "priceSpecification": {
                 "@type": "PriceSpecification", "minPrice": amount, "priceCurrency": "USD"}}
@@ -466,7 +478,8 @@ def head(p):
     title = full_title(p)
     desc = m.get("description", "")
     og_type = "article" if p["kind"] == "post" else "profile" if m.get("schema") == "ProfilePage" else "website"
-    image = m.get("og_image", C.OG_IMAGE)
+    own = C.OG_IMAGE_RU if p["lang"] == "ru" else C.OG_IMAGE     # the site's card, in the page's language
+    image = m.get("og_image", own)
     lines = [
         '<meta charset="utf-8">',
         # GitHub Pages sets no security headers, so what a <meta> can carry goes here: no <base> or
@@ -482,7 +495,7 @@ def head(p):
     lines.append('<meta name="robots" content="noindex">' if noindex(p) else f'<link rel="canonical" href="{url}">')
     # the same page in the other languages, for search engines; English is the default
     alt = alternates(p)
-    lines += [f'<link rel="alternate" hreflang="{lang}" href="{absolute(q["path"])}">' for lang, q in alt.items()]
+    lines += [f'<link rel="alternate" hreflang="{code}" href="{absolute(q["path"])}">' for lang, q in alt.items() for code in HREFLANG[lang]]
     if alt:
         lines.append(f'<link rel="alternate" hreflang="x-default" href="{absolute(alt.get("en", p)["path"])}">')
     lines += [
@@ -499,10 +512,10 @@ def head(p):
         f'<meta property="og:description" content="{e(m.get("og_description", desc))}">',
         f'<meta property="og:image" content="{C.URL + versioned(image)}">',   # a new picture, a new address for the previews' caches
     ]
-    if image == C.OG_IMAGE or image.startswith("/assets/img/og/"):     # both made at 1200 × 630
+    if image == own or image.startswith("/assets/img/og/"):     # both made at 1200 × 630
         lines += ['<meta property="og:image:width" content="1200">', '<meta property="og:image:height" content="630">']
     # a case's preview is a crop of its card, a post's is its cover: both already say what they show
-    alt = (I18N[p["lang"]].get("og_image_alt", C.OG_IMAGE_ALT) if image == C.OG_IMAGE
+    alt = (I18N[p["lang"]].get("og_image_alt", C.OG_IMAGE_ALT) if image == own
            else m.get("og_image_alt") or m.get("image_alt") or m.get("card_alt"))
     if alt:
         lines.append(f'<meta property="og:image:alt" content="{e(alt)}">')
@@ -734,7 +747,12 @@ def context(p):
         # the one footer: in the home feed it is a plain row, on inner pages it also takes the page grid's foot cell
         foot_class="foot" if p["kind"] == "home" else "doc__foot foot",
         socials=socials(lang), menu_socials=menu_socials(lang), profile_rows=profile_rows(lang),
-        profile_count=len(C.PROFILES), profile_count_2=f"{len(C.PROFILES):02d}",
+        profile_count=len(profiles(lang)), profile_count_2=f"{len(profiles(lang)):02d}",
+        socials_count_2=f"{len(profiles(lang, extra=False)):02d}", phone=C.PHONE, whatsapp=C.WHATSAPP,
+        # the inner pages' right column: the number above the email, where WhatsApp is a listed contact (RU)
+        reach_phone=(f'          <p class="doc__phone">WhatsApp <a href="{e(C.WHATSAPP)}" rel="noopener" target="_blank">{t(C.PHONE)}</a>'
+                     f'<br><button class="reach__copy" type="button" data-copy="{e(C.PHONE)}"><span data-copy-label>Скопировать номер</span></button></p>\n'
+                     if C.PROFILES_EXTRA.get(lang) else ""),
         heading=t(m["heading"]), lead=t(m.get("lead", "")),
         crumbs=crumbs(p) if p["kind"] != "home" else "",
         side_extra=post_meta(p) if p["kind"] == "post" else "",
@@ -860,7 +878,7 @@ def sitemap():
     too) and the English one as x-default, as Google asks for hreflang in a sitemap."""
     def entry(p):
         alt = alternates(p)
-        links = "".join(f'<xhtml:link rel="alternate" hreflang="{lang}" href="{absolute(q["path"])}"/>' for lang, q in alt.items())
+        links = "".join(f'<xhtml:link rel="alternate" hreflang="{code}" href="{absolute(q["path"])}"/>' for lang, q in alt.items() for code in HREFLANG[lang])
         if alt:
             links += f'<xhtml:link rel="alternate" hreflang="x-default" href="{absolute(alt.get("en", p)["path"])}"/>'
         return f"  <url><loc>{absolute(p['path'])}</loc><lastmod>{modified(p)}</lastmod>{links}</url>\n"
@@ -889,7 +907,7 @@ def llms():
     home = BY_PATH["/"]["meta"]
     lines = [f"# {C.PERSON['name']} ({C.NAME})", "", f"> {home.get('description', '')}", "",
              f"- Role: {C.PERSON['jobTitle']}", f"- Based in: {C.PERSON['locality']}, Kyrgyzstan (UTC+6); works remotely worldwide",
-             f"- Languages: English, Russian", f"- Contact: {C.EMAIL}", ""]
+             f"- Languages: English, Russian", f"- Contact: {C.EMAIL}; WhatsApp {C.PHONE}", ""]
     lines += ["## Services", ""] + [f"- {name}: {line}" for name, line in C.SERVICES] + [""]
     P = C.PRICING
     lines += ["## Pricing (USD)", "", P["intro"], "", f"- {P['lead'][0]}: {price(P['lead'][2])}. {P['lead'][1]}"]
@@ -911,7 +929,7 @@ def llms():
     ru += [q for q in cases_in_order("ru") if q["lang"] == "ru"]
     ru = [q for q in ru if q and q["path"] in LINKABLE and not noindex(q)]
     if ru:
-        lines += ["", "## Russian version", "", "The site in Russian: the same pages and case studies, for Russian-speaking clients.", ""]
+        lines += ["", "## Russian version", "", "The site in Russian, for clients in Kyrgyzstan: the same pages and case studies. Artem meets clients in person in Bishkek; WhatsApp is the main contact.", ""]
         for q in ru:
             label = "Главная" if q["path"] == "/ru/" else q["meta"].get("label", q["meta"]["heading"])
             lines.append(f"- [{label}]({absolute(q['path'])}): {q['meta'].get('description', '')}")

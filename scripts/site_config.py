@@ -8,7 +8,14 @@ description and status sit in its front matter (src/pages/**, src/blog/*).
 URL = "https://helloprokhorov.com"
 NAME = "Prokhorov®"
 EMAIL = "contact@helloprokhorov.com"
+# The phone, for WhatsApp first (the main channel for clients in Kyrgyzstan), Telegram and calls.
+# Shown on the Russian pages; in the structured data on all of them (one person, one number).
+PHONE = "+996 702 33 35 09"
+WHATSAPP = "https://wa.me/996702333509"
+# Where the work is offered (schema.org areaServed, on the brand and each Service): Kyrgyzstan first.
+AREA_SERVED = [{"@type": "Country", "name": "Kyrgyzstan"}, "Worldwide"]
 OG_IMAGE = "/assets/img/og.jpg"          # 1200×630, used when a page sets none
+OG_IMAGE_RU = "/assets/img/og-ru.jpg"    # the same for the Russian pages, from _og/site-ru.html
 OG_IMAGE_ALT = "The designer and the developer, one person, no hand-offs: Powermatic®, Visual Hunters and Supaminds work, and the Powermatic® site on a tablet in a rust-red velvet armchair"   # assets/img/og.jpg, from _og/site.html (scripts/build-og-card.py)
 
 # The project form on /get-in-touch/ posts to Web3Forms (https://web3forms.com), which
@@ -71,24 +78,25 @@ PRICING = dict(
     next="Tell me what you need, and I’ll come back with a quote.",
 )
 
-# The same, on the Russian pages (/ru/services/): the texts only, the amounts stay those of PRICING
-# (USD). Draft translation, for Artem to edit.
+# The same, on the Russian pages (/ru/services/): the texts and the list itself, with its amounts
+# (USD); the last entry, support, is on the Russian site only. Draft translation, for Artem to edit.
 PRICING_RU = dict(
     title="Цены",
     intro="Стартовые цены, чтобы ещё до разговора понимать, о каких суммах речь.",
     lead=("Дизайн и разработка", "Сайт целиком: структура, арт-дирекшн, дизайн, разработка и запуск.", 990),
     services=[
-        ("Веб-дизайн", "Структура, UX и дизайн сайта или лендинга — сразу готовые к разработке.", 490),
+        ("Веб-дизайн", "Структура, UX и дизайн сайта или лендинга. Макеты можно сразу отдавать в разработку.", 490),
         ("Разработка сайтов", "Собираю ваш утверждённый дизайн в адаптивный сайт, проверяю и запускаю.", None),
         ("Моушн для сайтов", "Переходы, анимация на скролле и ховеры для сайта или интерфейса.", None),
         ("UI/UX-дизайн", "Сценарии, прототипы и интерфейс цифрового продукта.", None),
         ("Арт-дирекшн", "Типографика, цвет, сетка и правила, по которым всё двигается.", None),
+        ("Поддержка сайта", "После запуска сайтом занимаюсь я: делаю правки и новые страницы, подтягиваю скорость и SEO и слежу, чтобы хостинг, домен и формы работали. Только для сайтов, которые я сделал сам.", (200, "monthly")),   # RU only: a fixed monthly fee, not "from"
     ],
     quoted="Считаю под проект",
     factors="Цена зависит от числа страниц и сложности сайта, от того, сколько нужно UX-работы и насколько сложный визуал. А ещё от анимации, требований к разработке, готовых материалов и сроков.",
-    note="«От» — это нижняя планка, а не смета. Когда договоримся об объёме, цена станет фиксированной.",
+    note="Сумма «от» — нижняя планка. Точную цену назову, когда договоримся об объёме, и дальше она не меняется.",
     next="Расскажите, что нужно, и я вернусь с оценкой.",
-    **{"from": "от ${amount}", "thousands": " "},
+    **{"from": "от ${amount}", "monthly": "${amount} в месяц", "thousands": " "},
 )
 
 # Blog topics, in filter order. A post names one with `topic: <slug>`; the topic gives the label
@@ -140,9 +148,11 @@ REDIRECTS = {
     "/project/contour-office": "/work/contour-office/",
 }
 
-# Shown first on the pages in that language (the rest keep their order): Telegram is the main
-# channel for Russian-speaking clients.
-PROFILES_FIRST = dict(ru=["Telegram"])
+# Shown first on the pages in that language (the rest keep their order). The Russian pages are for
+# clients in Kyrgyzstan: WhatsApp (PHONE, listed with the profiles there only) first, then Telegram.
+PROFILES_FIRST = dict(ru=["WhatsApp", "Telegram"])
+# Contacts listed with the profiles on the pages in that language only: not profiles, so not in sameAs.
+PROFILES_EXTRA = dict(ru=[("WhatsApp", "WA", WHATSAPP)])
 
 # Top bar and phone menu, in order.
 #   page    the page this item stands for

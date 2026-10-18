@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Site link preview (RU)</title>
+<style>
+  @font-face { font-family: "Inter"; src: url("/assets/fonts/inter-opsz.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Inter"; src: url("/assets/fonts/inter-opsz-cyrillic.woff2") format("woff2"); font-weight: 100 900; unicode-range: U+0400-04FF; }
+  :root { --bg: #f2f2f2; --fg: #121212; --mute: #757575; --line: #b5b5b5; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+  body { position: relative; font-family: "Inter", sans-serif; color: var(--fg); font-optical-sizing: auto; -webkit-font-smoothing: antialiased; }
+
+  .t { position: absolute; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.05em; z-index: 3; }
+  .t--top { left: 36px; top: 30px; }
+  .t--bottom { right: 36px; bottom: 34px; text-align: right; }
+  .logo { position: absolute; right: 40px; top: 42px; width: 150px; z-index: 3; }
+
+  /* the collage: work cards stacked, a little offset */
+  .card { position: absolute; overflow: hidden; border-radius: 8px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 18px 40px -18px rgba(0,0,0,.28); }
+  .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card--glass { background: rgba(255,255,255,.55); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.7); }
+
+  .pill { position: absolute; padding: 3px 11px 4px; border: 1px solid var(--line); border-radius: 999px; font-size: 15px; letter-spacing: -0.01em; color: var(--mute); background: var(--bg); white-space: nowrap; z-index: 2; }
+  .dash { position: absolute; border: 0 dashed var(--line); z-index: 1; }
+
+  .hero { position: absolute; overflow: hidden; border-radius: 10px; z-index: 1; box-shadow: 0 30px 60px -30px rgba(0,0,0,.35); }
+  .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  
+</style>
+</head>
+<body>
+  <img class="logo" src="/assets/img/Prokhorov_Logotype_SVG.svg" alt="">
+
+  <p class="t t--top">Дизайнер<br>и разработчик</p>
+  <p class="t t--bottom">сайтов<br>в Бишкеке</p>
+
+  <!-- one large work on the right -->
+  <div class="hero" style="left: 780px; top: 96px; width: 384px; height: 300px;"><img src="/assets/img/powermatic-tablet-1600.webp" alt="" style="object-position: 50% 55%"></div>
+
+  <!-- collage -->
+  <div class="collage">
+    <div class="card" style="left: 72px; top: 396px; width: 150px; height: 196px;"><img src="/assets/img/pm-hero-red-800.webp" alt="" style="object-position: 0 50%"></div>
+    <div class="card" style="left: 164px; top: 340px; width: 168px; height: 210px;"><img src="/assets/img/vh-teaser-800.webp" alt=""></div>
+    <div class="card" style="left: 270px; top: 298px; width: 172px; height: 150px;"><img src="/assets/img/supaminds-cover-800.webp" alt="" style="object-position: 40% 50%"></div>
+    <div class="card" style="left: 372px; top: 262px; width: 120px; height: 120px;"><img src="/assets/img/powermatic-phone-700.webp" alt=""></div>
+  </div>
+
+  <span class="pill" style="left: 60px; top: 262px;">Структура</span>
+  <span class="pill" style="left: 104px; top: 296px;">UX</span>
+  <span class="pill" style="left: 80px; top: 330px;">Веб-дизайн</span>
+  <span class="dash" style="left: 52px; top: 276px; height: 152px; border-left-width: 1px;"></span>
+  <span class="dash" style="left: 52px; top: 276px; width: 8px; border-top-width: 1px;"></span>
+  <span class="dash" style="left: 52px; top: 344px; width: 28px; border-top-width: 1px;"></span>
+  <span class="dash" style="left: 52px; top: 428px; width: 20px; border-top-width: 1px;"></span>
+
+  <span class="pill" style="left: 462px; top: 470px;">Framer</span>
+  <span class="pill" style="left: 440px; top: 504px;">Код</span>
+  <span class="pill" style="left: 452px; top: 538px;">Запуск</span>
+  <span class="dash" style="left: 420px; top: 450px; height: 102px; border-left-width: 1px;"></span>
+  <span class="dash" style="left: 420px; top: 484px; width: 42px; border-top-width: 1px;"></span>
+  <span class="dash" style="left: 420px; top: 518px; width: 20px; border-top-width: 1px;"></span>
+  <span class="dash" style="left: 420px; top: 552px; width: 32px; border-top-width: 1px;"></span>
+</body>
+</html>
