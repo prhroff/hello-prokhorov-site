@@ -5,7 +5,7 @@
 - Role: Independent Web Designer & Developer
 - Based in: Bishkek, Kyrgyzstan (UTC+6); works remotely worldwide
 - Languages: English, Russian
-- Contact: contact@helloprokhorov.com
+- Contact: contact@helloprokhorov.com; WhatsApp +996 702 33 35 09
 
 ## Services
 
@@ -50,21 +50,21 @@ The price depends on scope and number of pages, how complex the site is, how muc
 
 ## Russian version
 
-The site in Russian: the same pages and case studies, for Russian-speaking clients.
+The site in Russian, for clients in Kyrgyzstan: the same pages and case studies. Artem meets clients in person in Bishkek; WhatsApp is the main contact.
 
-- [Главная](https://helloprokhorov.com/ru/): Придумываю, рисую и сам собираю сайты для стартапов, основателей и продуктовых команд. Плюс интерфейсы для сервисов и ИИ-продуктов.
-- [Работы](https://helloprokhorov.com/ru/work/): Избранные работы Артёма Прохорова: сайт для клиента, который он придумал и собрал, лендинги и концепты сайтов.
-- [Услуги](https://helloprokhorov.com/ru/services/): Веб-дизайн, разработка сайтов, моушн, UI/UX-дизайн и арт-дирекшн от Артёма Прохорова: что входит, цены и сроки.
-- [Обо мне](https://helloprokhorov.com/ru/info/): Артём Прохоров — дизайнер и разработчик сайтов из Бишкека. Работает на себя: придумывает и собирает сайты для основателей, стартапов и компаний из разных стран.
-- [Контакты](https://helloprokhorov.com/ru/contact/): Как связаться с Артёмом Прохоровым, дизайнером и разработчиком сайтов из Бишкека: почта, Telegram, LinkedIn, Contra, X, Instagram или бриф проекта.
-- [Бриф](https://helloprokhorov.com/ru/get-in-touch/): Расскажите Артёму Прохорову, дизайнеру и разработчику сайтов, о вашем сайте: что нужно, когда стартовать и какой бюджет.
+- [Главная](https://helloprokhorov.com/ru/): Нарисую и соберу сайт вашей компании в Бишкеке: застройщика, юридической или бухгалтерской фирмы, студии интерьера. После запуска могу его вести. Начнём со встречи.
+- [Работы](https://helloprokhorov.com/ru/work/): Работы Артёма Прохорова, веб-дизайнера из Бишкека: сайты для клиентов, лендинги и концепты сайтов.
+- [Услуги](https://helloprokhorov.com/ru/services/): Дизайн, разработка и поддержка сайтов в Бишкеке: от лендинга до сайта компании. Что входит в каждую услугу, сроки и цены: проекты от $490, поддержка $200 в месяц.
+- [Обо мне](https://helloprokhorov.com/ru/info/): Артём Прохоров — дизайнер и разработчик сайтов в Бишкеке. Работает на себя: сам придумывает, рисует и собирает сайты для компаний.
+- [Контакты](https://helloprokhorov.com/ru/contact/): Как связаться с Артёмом Прохоровым, дизайнером и разработчиком сайтов в Бишкеке: WhatsApp, Telegram, почта или бриф. Можно встретиться лично.
+- [Бриф](https://helloprokhorov.com/ru/get-in-touch/): Расскажите о сайте, который нужен вашей компании: что сделать, когда стартовать и какой бюджет. Отвечу и предложу встретиться в Бишкеке.
 - [Supaminds](https://helloprokhorov.com/ru/work/supaminds/): Многостраничный сайт для Supaminds — консультантов, которые помогают бизнесу принимать решения точнее, разбираться в сложных задачах и уверенно двигаться дальше.
 - [Powermatic®](https://helloprokhorov.com/ru/work/powermatic/): Маркетинговый сайт для Powermatic Technologies®, технологического партнёра растущих компаний. Сайт придумал и собрал я, от начала до конца.
 - [Visual Hunters®](https://helloprokhorov.com/ru/work/visual-hunters/): Концепт сайта, в котором я пробую смелую типографику и 3D. Личный эксперимент с визуальным стилем и системой сетки.
-- [Contour Office©](https://helloprokhorov.com/ru/work/contour-office/): Типографический концепт сайта для бухгалтерских и аудиторских фирм: сдержанный и строгий, всё держится на сетке, пропорциях и дизайн-манифесте.
-- [Renovate](https://helloprokhorov.com/ru/work/renovate/): Сайт для Renovate — консультантов, которые помогают бизнесу перестроиться. Без лишнего, только решения с измеримым результатом.
+- [Contour Office©](https://helloprokhorov.com/ru/work/contour-office/): Типографический концепт сайта для бухгалтерской или аудиторской фирмы. Строгий: держится на сетке и пропорциях, а правила записаны в дизайн-манифесте.
+- [Renovate](https://helloprokhorov.com/ru/work/renovate/): Сайт для Renovate — консультантов, которые помогают бизнесу перестроиться.
 - [Lattice](https://helloprokhorov.com/ru/work/lattice/): Концепт многостраничного сайта для софта, с которым собственные серверы компании работают как публичное облако. Для команд со своим железом.
-- [Luma](https://helloprokhorov.com/ru/work/luma/): Концепт лендинга для Luma — продукта, который собирает входящие обращения из разных источников и сортирует их по вероятности конверсии.
+- [Luma](https://helloprokhorov.com/ru/work/luma/): Концепт лендинга продукта Luma: он собирает входящие обращения из разных источников и сортирует их по вероятности конверсии.
 
 ## Profiles
 

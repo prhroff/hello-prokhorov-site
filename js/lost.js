@@ -15,6 +15,7 @@
    · A click on any picture but the middle one brings it to the middle. */
 
 import { ARCHIVE_ITEMS } from './archive/items.js';
+import { L } from './i18n.js';
 
 const root = document.querySelector('[data-lost]');
 
@@ -179,7 +180,7 @@ async function start() {
       t.dataset.d = d < 3 ? d : 'far';
       t.style.setProperty('--o', Math.max(0.15, 1 - d * 0.09).toFixed(2));
     });
-    roll(kind, it.category || '');
+    roll(kind, L(it.category || ''));
     roll(type, it.title || '');
     roll(num, String(i + 1).padStart(2, '0'));
     first = false;

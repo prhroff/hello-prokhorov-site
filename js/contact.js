@@ -2,7 +2,8 @@
    (menu, clock, label rolls …) comes from main.js; this adds the form.
 
    · Questions 01–05 ask for one answer each (02: at least one), plus a name,
-     an email and the privacy box. Nothing is checked while the visitor is
+     an email and the privacy box (where the form has a phone field, as the
+     Russian one does, an email or a phone will do). Nothing is checked while the visitor is
      still answering; on send, the first thing missing is brought into view
      with a short note, and the note clears as soon as it is answered.
    · Sending: data-mode="post" posts the answers to the form's action (Web3Forms,
@@ -50,6 +51,8 @@ if (form) {
 
   /* ---------- Checks ---------- */
   const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const PHONE = /^\+?[\d\s().-]+$/;                   // digits, with the usual spaces, brackets and dashes
+  const phoneOk = (v) => PHONE.test(v) && v.replace(/\D/g, '').length >= 7;
   const groups = $$('[data-q]', form);   // the choice questions
 
   function setError(holder, text, controls) {
@@ -80,10 +83,20 @@ if (form) {
       return ok ? null : el;
     },
     () => {
+      const el = form.elements.phone;
+      if (!el) return null;
+      const v = el.value.trim();
+      const ok = !v || phoneOk(v);
+      setError(el.closest('.field'), ok ? '' : L('That number doesn’t look right.'), [el]);
+      return ok ? null : el;
+    },
+    () => {
       const el = form.elements.email;
       const v = el.value.trim();
-      const ok = EMAIL.test(v);
-      setError(el.closest('.field'), ok ? '' : v ? L('That email doesn’t look right.') : L('An email to reply to.'), [el]);
+      const tel = form.elements.phone?.value.trim();
+      const ok = EMAIL.test(v) || (!v && Boolean(tel) && phoneOk(tel));
+      const empty = form.elements.phone ? L('An email or a phone to reply to.') : L('An email to reply to.');
+      setError(el.closest('.field'), ok ? '' : v ? L('That email doesn’t look right.') : empty, [el]);
       return ok ? null : el;
     },
     () => {
@@ -103,6 +116,9 @@ if (form) {
   form.addEventListener('input', (e) => {
     const field = e.target.closest('.field');
     if (field?.classList.contains('is-invalid') && e.target.value.trim()) setError(field, '', [e.target]);
+    // a number answers "an email or a phone" too
+    const mail = form.elements.email;
+    if (e.target.name === 'phone' && !mail.value.trim() && phoneOk(e.target.value.trim())) setError(mail.closest('.field'), '', [mail]);
   });
 
   /* ---------- The project text grows with what is written ---------- */
@@ -120,7 +136,7 @@ if (form) {
     return {
       website: one('website'), needs: d.getAll('needs').join(', '), type: one('type'),
       start: one('start'), budget: one('budget'), message: one('message'),
-      name: one('name'), email: one('email'), company: one('company'),
+      name: one('name'), email: one('email'), phone: one('phone'), company: one('company'),
     };
   };
 
@@ -153,7 +169,7 @@ if (form) {
       `${L('Website')}: ${a.website}`, `${L('Needs')}: ${a.needs}`, `${L('Type')}: ${a.type}`,
       `${L('Start')}: ${a.start}`, `${L('Budget')}: ${a.budget}`, '',
       a.message || L('(no project notes)'), '',
-      `${a.name} · ${a.email}${a.company ? ` · ${a.company}` : ''}`,
+      [a.name, a.phone, a.email, a.company].filter(Boolean).join(' · '),
     ];
     return lines.join('\n');
   }
@@ -176,6 +192,8 @@ if (form) {
     busy(true);
     const data = new FormData(form);
     data.set('needs', a.needs);                    // one readable line instead of repeated fields
+    if (!a.email) data.delete('email');            // phone only: no empty reply-to address
+    if (!a.phone) data.delete('phone');
     try {
       const res = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
       const json = await res.json().catch(() => ({}));
@@ -183,7 +201,7 @@ if (form) {
       swapTo(done);
     } catch {
       busy(false);
-      msg.textContent = L('That didn’t go through. Your answers are still here — try again, or write to {email}.', { email: $('[data-email]', mailDone).textContent });
+      msg.textContent = L('That didn’t go through. Your answers are still here — try again, or write to {email}.', { email: $('[data-email]', mailDone).textContent, phone: form.dataset.phone || '' });
     }
   });
 
