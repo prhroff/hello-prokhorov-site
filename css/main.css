@@ -25,6 +25,7 @@
   --bg: #ffffff;
   --fg: #121212;
   --mute: #757575;
+  --read: #4d4d4d;           /* article body text: 8.4:1 on --bg, 7.5:1 on --soft (WCAG AAA) */
   --line: #e3e3e3;
   --soft: #f2f2f2;
 
@@ -1511,7 +1512,9 @@ fieldset.q { margin: 0; border: 0; min-width: 0; }
 .legal__pdf { font-size: var(--t-base); }
 
 /* blog posts */
-.article { padding: 0 var(--in) clamp(72px, 10svh, 120px); max-width: 40em; font-size: var(--t-head); line-height: 1.45; letter-spacing: -0.02em; }
+.article { padding: 0 var(--in) clamp(72px, 10svh, 120px); max-width: 40em; font-size: var(--t-head); line-height: 1.55; letter-spacing: -0.015em; color: var(--read); }
+/* headings, bold, links and quotes stay black so the eye finds them in the grey text */
+.article :is(h2, h3, h4, strong, b, a, blockquote, th) { color: var(--fg); }
 .article > * + * { margin-top: 1em; }
 .article h2 { margin-top: 2.2em; font-size: var(--t-state); line-height: 1.15; letter-spacing: -0.04em; }
 .article h3 { margin-top: 1.8em; font-weight: 500; }
