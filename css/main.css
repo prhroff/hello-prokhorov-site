@@ -215,8 +215,16 @@ a, button { transition: color 0.3s var(--ease); }
   position: relative;
   min-height: 100%;
   display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
-  padding: 96px var(--pad) calc(var(--pad) + env(safe-area-inset-bottom, 0px));
+  padding: var(--pad) var(--pad) calc(var(--pad) + env(safe-area-inset-bottom, 0px));
 }
+/* the cards fit the screen Safari leaves between its bars (svh), so the menu opens without scrolling:
+   the first card's text runs the full width with its two pills in one row under it,
+   and the large type below shrinks on a short screen */
+.mcard--about { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 8px; }
+.mcard--about .mcard__top { display: contents; }
+.mcard--about .mcard__text { flex-basis: 100%; padding-top: 0; }
+.mcard--about .mcard__top + .mpill { margin-top: 0; }
+.mcard--about .mcard__more { flex-basis: 100%; padding-top: 0; }
 .mcard {
   border-radius: 22px;
   background: rgb(12 12 12 / 0.95);
@@ -251,7 +259,7 @@ a, button { transition: color 0.3s var(--ease); }
 .mbig { margin: -2px 0 16px; }
 .mbig a {
   display: inline-flex; align-items: center; gap: 0.3em;
-  font-size: clamp(34px, 10.2vw, 46px); line-height: 1.06; letter-spacing: -0.05em;
+  font-size: clamp(26px, min(10.2vw, 4.6svh), 46px); line-height: 1.06; letter-spacing: -0.05em;
 }
 .mbig .mchev { width: 0.3em; height: 0.3em; stroke-width: 1.4; transition: translate 0.4s var(--ease); }
 .mbig a:active .mchev { translate: 4px 0; }
@@ -263,7 +271,7 @@ a, button { transition: color 0.3s var(--ease); }
 .mcard__more { overflow: hidden; }
 .mcard__more[hidden] { display: none; }
 
-.mmix { font-size: clamp(30px, 9vw, 40px); line-height: 1.06; letter-spacing: -0.05em; }
+.mmix { font-size: clamp(22px, min(9vw, 3.8svh), 40px); line-height: 1.06; letter-spacing: -0.05em; }
 .mmix__line { display: block; }
 .mmix__dim { color: #8a8a8a; }
 html.menu-open { overflow: hidden; }
@@ -764,6 +772,12 @@ img.review__avatar { object-fit: cover; }
 @media (min-width: 768px) and (max-width: 1199px) {
   .bar { grid-template-columns: 36fr 64fr; }
   .bar__end { position: absolute; right: 0; }
+}
+/* a narrow tablet: five page pills and the language leave no room for "Get in touch" (Contact is in the pills) */
+@media (min-width: 768px) and (max-width: 979px) {
+  .bar__cta { display: none; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
   .page {
     grid-template-columns: 36fr 64fr;
     grid-template-areas: "intro info" "intro feed";
@@ -829,10 +843,6 @@ img.review__avatar { object-fit: cover; }
   .reach { order: 18; grid-column: 1 / -1; margin: 0 var(--pad) 40px; }
   .foot { order: 19; }
   .ask-wrap { display: none; }               /* in the menu instead */
-  /* socials: their full names, on one line */
-  .socials { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); }
-  .socials-wrap .socials li, .motion-ok .socials-wrap .socials li { border: 0; background: none; }
-  .socials .social { gap: 6px; padding-block: 10px 9px; }
 
   /* the pinned-sheet effect is a desktop idea */
   .feed__body { margin: 0; }
@@ -1905,6 +1915,19 @@ fieldset.q { margin: 0; border: 0; min-width: 0; }
   .doc-cta__title { font-size: clamp(56px, 17vw, 80px); }
   .article { font-size: 17px; }
   .doc__aside .socials-wrap { margin: 0; width: auto; }
+}
+
+/* phone, every page: the contacts and the footer roomy and large enough to read and tap —
+   the phone and email bigger, the socials a ruled list (one per row, as on desktop),
+   the footer rows apart */
+@media (max-width: 767px) {
+  .reach__mail, .doc__phone { font-size: 22px; line-height: 1.2; letter-spacing: -0.03em; }
+  .reach__copy { padding-block: 6px; font-size: var(--t-base); letter-spacing: -0.03em; }
+  .reach > p.mute { display: none; }   /* the home page's "© 2026": the footer below says it */
+  .doc__reach { gap: 20px; }
+  .socials .social { font-size: 20px; padding-block: 13px 12px; }
+  .foot { row-gap: 22px; padding-top: 16px; }
+  .foot > p { flex-basis: 100%; }
 }
 
 /* page to page: three colour sheets (css/transitions.css, js/transitions.js) */
