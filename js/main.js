@@ -704,7 +704,13 @@ if (topicBar) {
     if (byUser) {
       const n = $$('article.post').filter((p) => !boxOf(p).hasAttribute('data-topic-hidden')).length;
       const label = $('.topics__label', word).textContent;
-      status.textContent = `${n} ${n === 1 ? 'article' : 'articles'}${word.dataset.topic ? ` on ${label}` : ''}`;
+      if (document.documentElement.lang === 'ru') {
+        const m10 = n % 10, m100 = n % 100;
+        const noun = m10 === 1 && m100 !== 11 ? 'статья' : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? 'статьи' : 'статей';
+        status.textContent = `${n} ${noun}${word.dataset.topic ? `, тема: ${label}` : ''}`;
+      } else {
+        status.textContent = `${n} ${n === 1 ? 'article' : 'articles'}${word.dataset.topic ? ` on ${label}` : ''}`;
+      }
     }
   }
 

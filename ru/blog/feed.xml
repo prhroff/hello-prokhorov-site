@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prokhorov® — Блог</title>
+    <link>https://helloprokhorov.com/ru/blog/</link>
+    <description>Артём Прохоров о том, сколько стоит сайт в Бишкеке, что должно быть на сайте компании и как сайт приводит клиентов застройщикам, юристам и студиям интерьера.</description>
+    <language>ru-KG</language>
+    <atom:link href="https://helloprokhorov.com/ru/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Wed, 21 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <item><title>Сколько стоит сайт для компании в Бишкеке в 2026 году</title><link>https://helloprokhorov.com/ru/blog/website-cost-bishkek/</link><guid isPermaLink="true">https://helloprokhorov.com/ru/blog/website-cost-bishkek/</guid><pubDate>Wed, 21 Oct 2026 00:00:00 +0000</pubDate><description>Сколько стоит сайт в Бишкеке в 2026 году: цены студий, частников и мои, домен и хостинг в год, расчёт первого года и вопросы подрядчику до оплаты.</description></item>
+  </channel>
+</rss>
