@@ -780,5 +780,27 @@
       2400
     ],
     "v": "500e124e"
+  },
+  "blog-developer-website-trust": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "b8927f4a"
+  },
+  "blog-website-losing-clients": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "1489428f"
   }
 }
