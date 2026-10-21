@@ -216,8 +216,10 @@ if (swPage) {
    (orbitcarousel.framer.media): the ring leans and is seen a little from above; each
    card is a few upright strips set along the ring, so it bends with it; the cards
    behind fade back. It turns slowly on its own, follows a sideways drag and glides on
-   after it, and sways with the pointer like a boat. The cards arrive one after another.
-   It runs only while it is on screen; with reduced motion it is laid out and still. */
+   after it, and sways with the pointer like a boat. On arrival the cards fly in one after
+   another from beyond the right edge and wind into the ring along its back, the way it
+   turns, slowing to its own pace as they settle. It runs only while it is on screen;
+   with reduced motion it is laid out and still. */
 const orbit = $('[data-orbit]');
 if (orbit) {
   const ring = $('[data-orbit-ring]', orbit);
@@ -230,14 +232,30 @@ if (orbit) {
   const ROCK_X = 2.5, ROCK_SHIFT = 10;  // sway with the pointer anywhere: degrees, px
   const HOVER_X = 6, HOVER_SHIFT = 24;  // …and more over the ring itself
   const SCRUB = 0.05;                   // degrees the ring turns per px the pointer moves across it
-  const INTRO = 1100;                   // ms the ring takes to swing into place
+  // arrival, like a reel winding film: the empty ring turns TURN degrees in one long
+  // ease-out (sine: no jolt at the start, at rest at the end), and as each card's place
+  // passes the right side (ENTRY) the card leaves from `far` px out, past the right edge,
+  // and flies in to it while the ring carries it on along the back. Every place passes
+  // ENTRY within the first 360 degrees, so the cards come thick at first and thin out as
+  // the ring slows
+  const ENTRY = 70;                     // where the cards come in, degrees on the screen (90 = the right side)
+  const TURN = 480;                     // degrees the ring winds in all
+  const WIND = 1700;                    // ms it takes
+  const FLY = 650;                      // ms one card is in flight
   const easeOut = (x) => 1 - (1 - x) ** 3;
   const FADE = 0.7;                     // how far the cards behind wash out
 
-  let cards = [];      // { strips: [el], at: degrees on the ring, born: ms }
-  let radius = 0;
-  const st = { angle: 0, target: 0, glide: 0, tilt: 0, shift: 0, px: 0, py: 0, over: 0, overTo: 0, swing: reduceMotion ? 1 : 0 };
-  let start = performance.now();
+  let cards = [];      // { card, strips: [el], at: degrees on the ring, born: ms it leaves }
+  let radius = 0, far = 0;
+  const st = { angle: 0, target: 0, glide: 0, tilt: 0, shift: 0, px: 0, py: 0, over: 0, overTo: 0, wound: 0 };
+  const wd = { from: 0, on: false };   // the arrival turn: start ms, still winding
+  // how far the ring still is behind its place, degrees (negative, 0 once it has wound)
+  function wind(now) {
+    if (!wd.on) return 0;
+    const u = clamp((now - wd.from) / WIND);
+    if (u >= 1) { wd.on = false; return 0; }
+    return TURN * (Math.sin((u * Math.PI) / 2) - 1);
+  }
 
   // the cards: as many as fit around the ring, the pictures repeated in order
   function layout() {
@@ -248,8 +266,18 @@ if (orbit) {
     const step = 360 / count;
     const stripW = size / STRIPS;
     const bend = (size / radius) * (180 / Math.PI);   // the arc one card spans, degrees
+    far = Math.max(size, (w / 2 + size * 1.5) / Math.sin((ENTRY * Math.PI) / 180) - radius);   // out of sight on the right
     ring.querySelectorAll('.orbit__card').forEach((c) => c.remove());
-    const born = cards.length ? -Infinity : performance.now();   // a relayout (a new width) does not arrive again
+    // the first layout arrives; a relayout (a new width) does not arrive again
+    const first = !cards.length && !reduceMotion;
+    wd.on = first;
+    wd.from = performance.now() + 120;
+    // a card leaves when its place passes ENTRY: the ring has wound `x` of its TURN degrees then
+    const leaves = (at) => {
+      if (!first) return -Infinity;
+      const x = (((ENTRY - at - st.angle + TURN) % 360) + 360) % 360;
+      return wd.from + (Math.asin(x / TURN) * 2 / Math.PI) * WIND;
+    };
     cards = Array.from({ length: count }, (_, i) => {
       const img = sources[i % sources.length];
       const card = document.createElement('div');
@@ -268,24 +296,35 @@ if (orbit) {
       const paint = () => { const src = img.currentSrc || img.src; strips.forEach((s) => { s.style.backgroundImage = `url("${src}")`; }); };
       if (img.complete && img.naturalWidth) paint(); else img.addEventListener('load', paint, { once: true });
       ring.append(card);
-      return { strips, at: i * step, born: born + 120 + i * 32, last: -1, intro: -1 };
+      const at = i * step;
+      const born = leaves(at);
+      if (first) card.style.transform = `rotateY(${at}deg) translateZ(${far}px)`;
+      return { card, strips, at, born, done: !first, last: -1, intro: -1 };
     });
   }
 
-  // arriving, the ring swings in from a quarter turn back and settles to its size
-  function place() {
-    const e = easeOut(st.swing);
-    ring.style.transform = `translateX(${st.shift}px) rotateZ(${LEAN_Z}deg) rotateX(${leanX() + st.tilt}deg) `
-      + `rotateY(${st.angle - (1 - e) * 70}deg) scale(${0.86 + 0.14 * e})`;
+  function place(now) {
+    st.wound = wind(now);
+    ring.style.transform = `translateX(${st.shift}px) rotateZ(${LEAN_Z}deg) rotateX(${leanX() + st.tilt}deg) rotateY(${st.angle + st.wound}deg)`;
+  }
+  // in flight the card rides with its place on the ring and closes in on it from `far`;
+  // ease-out, so it comes in fast and settles onto the ring without a jolt
+  function fly(now) {
+    for (const c of cards) {
+      if (c.done) continue;
+      const p = clamp((now - c.born) / FLY);
+      if (p >= 1) { c.done = true; c.card.style.transform = `rotateY(${c.at}deg)`; continue; }
+      c.card.style.transform = `rotateY(${c.at}deg) translateZ(${((1 - easeOut(p)) * far).toFixed(1)}px)`;
+    }
   }
   // the cards behind wash out towards the page (a filter, not opacity: the strips overlap
-  // a hair, and see-through strips would show their seams); each card also fades in on
-  // its turn the first time
+  // a hair, and see-through strips would show their seams); each card also fades in as it
+  // leaves, while it is still out of sight
   function shade(now) {
     for (const c of cards) {
-      const a = ((c.at + st.angle) * Math.PI) / 180;
+      const a = ((c.at + st.angle + st.wound) * Math.PI) / 180;
       const back = Math.round(FADE * Math.max(0, -Math.cos(a)) * 100) / 100;
-      const intro = reduceMotion ? 1 : Math.round(easeOut(clamp((now - c.born) / 480)) * 100) / 100;
+      const intro = reduceMotion ? 1 : Math.round(clamp((now - c.born) / 200) * 100) / 100;
       if (back !== c.last) {
         c.last = back;
         const f = back ? `saturate(${1 - back}) brightness(${1 + back * 0.55}) contrast(${1 - back * 0.45})` : '';
@@ -299,11 +338,11 @@ if (orbit) {
   }
 
   layout();
-  place();
+  place(performance.now());
   shade(reduceMotion ? Infinity : performance.now());
 
   let fitW = innerWidth;
-  addEventListener('resize', () => { if (innerWidth !== fitW) { fitW = innerWidth; layout(); place(); shade(Infinity); } });
+  addEventListener('resize', () => { if (innerWidth !== fitW) { fitW = innerWidth; layout(); place(performance.now()); shade(Infinity); } });
 
   if (!reduceMotion) {
     // turning, following the drag, gliding on, swaying with the pointer
@@ -319,12 +358,12 @@ if (orbit) {
       }
       st.angle += (st.target - st.angle) * (1 - Math.exp(-7 * dt));
       const clock = performance.now();
-      st.swing = clamp((clock - start) / INTRO);
       st.over += (st.overTo - st.over) * (1 - Math.exp(-4 * dt));
       const k = 1 - Math.exp(-3 * dt);
       st.tilt += (st.py * (ROCK_X + (HOVER_X - ROCK_X) * st.over) - st.tilt) * k;
       st.shift += (-st.px * (ROCK_SHIFT + (HOVER_SHIFT - ROCK_SHIFT) * st.over) - st.shift) * k;
-      place();
+      place(clock);
+      fly(clock);
       shade(clock);
       raf = requestAnimationFrame(tick);
     }
