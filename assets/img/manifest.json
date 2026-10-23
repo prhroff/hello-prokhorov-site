@@ -813,5 +813,38 @@
       2400
     ],
     "v": "a2b12f03"
+  },
+  "blog-interior-studio-website-instagram": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "c1cf7e38"
+  },
+  "blog-landing-or-company-website": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "94a97965"
+  },
+  "blog-tilda-framer-or-code": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "4c6c76f1"
   }
 }
