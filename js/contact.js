@@ -19,7 +19,7 @@ import { L } from './i18n.js';
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const EASE_OUT = getComputedStyle(document.documentElement).getPropertyValue('--ease').trim() || 'cubic-bezier(0.16, 1, 0.3, 1)';   // --ease (MOTION.md)
 
 const form = $('[data-intake]');
 const done = $('[data-intake-done]');

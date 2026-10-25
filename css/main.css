@@ -1219,9 +1219,9 @@ html.is-loading { overflow: hidden; }
 .motion-ok .cs-overview__body > :nth-child(2) { transition-delay: 0.1s; }
 .motion-ok .cs-facts > div { transition-delay: calc(0.1s + var(--k, 0) * 80ms); }
 .motion-ok :is(.cs-top, .cs-facts).is-in > *, .motion-ok .cs-top.is-in .cs-overview__body > * { opacity: 1; translate: none; }
-.motion-ok .cs-fig .cs-fig__frame { clip-path: inset(12% 0 0 0); transition: clip-path 1.3s var(--ease); }
+.motion-ok .cs-fig .cs-fig__frame { clip-path: inset(12% 0 0 0); transition: clip-path 1.2s var(--ease); }
 .motion-ok .cs-fig figcaption { opacity: 0; transition: opacity 0.8s var(--ease) 0.4s; }
-.motion-ok .cs-fig .cs-fig__frame img { scale: 1.08; transition: scale 1.8s var(--ease); }
+.motion-ok .cs-fig .cs-fig__frame img { scale: 1.08; transition: scale 1.6s var(--ease); }
 .motion-ok .cs-row > .cs-fig:nth-child(2) :is(.cs-fig__frame, img) { transition-delay: 0.12s; }
 .motion-ok .cs-fig.is-in .cs-fig__frame { clip-path: inset(0); }
 .motion-ok .cs-fig.is-in figcaption { opacity: 1; }
@@ -1983,7 +1983,7 @@ fieldset.q { margin: 0; border: 0; min-width: 0; }
 .motion-ok .sw-svc .ch { translate: 0 112%; transition: translate 1.2s var(--ease); transition-delay: calc(0.15s + var(--i, 0) * 28ms); }
 .motion-ok .sw-svc__lead .wd { opacity: 0; translate: 0 0.4em; transition: opacity 0.9s var(--ease), translate 1s var(--ease); transition-delay: calc(0.45s + var(--i, 0) * 30ms); }
 .motion-ok .sw-svc__frame { clip-path: inset(16% 0 0 0); transition: clip-path 1.4s var(--ease) 0.3s; }
-.motion-ok .sw-svc__frame img { scale: 1.1; filter: grayscale(clamp(0, calc((0.42 - var(--p, 1)) * 4), 1)); transition: scale 1.9s var(--ease) 0.3s; }
+.motion-ok .sw-svc__frame img { scale: 1.1; filter: grayscale(clamp(0, calc((0.42 - var(--p, 1)) * 4), 1)); transition: scale 1.6s var(--ease) 0.3s; }
 .motion-ok .sw-svc__fig figcaption { opacity: 0; transition: opacity 1s var(--ease) 0.8s; }
 .motion-ok :is(.sw-svc__list, .sw-svc__list li) { border-color: transparent; }
 .motion-ok :is(.sw-svc__list, .sw-svc__list li)::before {

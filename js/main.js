@@ -10,6 +10,11 @@ const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+// the curves (MOTION.md): enter with --ease, read from the stylesheet, its one source;
+// leave with EASE_IN; cross the whole screen with EASE_IO
+const EASE_OUT = getComputedStyle(html).getPropertyValue('--ease').trim() || 'cubic-bezier(0.16, 1, 0.3, 1)';
+const EASE_IN = 'cubic-bezier(0.64, 0, 0.78, 0)';
+const EASE_IO = 'cubic-bezier(0.76, 0, 0.24, 1)';
 
 if (!reduceMotion) html.classList.add('motion-ok');
 
@@ -81,11 +86,11 @@ function runLoader() {
   function exit() {
     $$('.loader__top, .loader__bottom', loader).forEach((el) => el.animate(
       [{ opacity: 1, translate: '0 0' }, { opacity: 0, translate: '0 -24px' }],
-      { duration: 450, delay: 200, easing: 'cubic-bezier(0.7, 0, 0.84, 0)', fill: 'forwards' },
+      { duration: 450, delay: 200, easing: EASE_IN, fill: 'forwards' },
     ));
     loader.animate(
       [{ clipPath: 'inset(0 0 0 0)' }, { clipPath: 'inset(0 0 100% 0)' }],
-      { duration: 1000, delay: 450, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'forwards' },
+      { duration: 1000, delay: 450, easing: EASE_IO, fill: 'forwards' },
     ).onfinish = () => loader.remove();
     setTimeout(() => { html.classList.remove('is-loading'); reveal(); }, 380);
   }
@@ -127,9 +132,12 @@ const enterIO = new IntersectionObserver((entries) => {
     enterIO.unobserve(e.target);
   }
 }, { rootMargin: '0px 0px -8% 0px' });
-$$('.item, .block, .post, .vzf, .doc__figure, .sw-svc').forEach((el) => enterIO.observe(el));
-// case pages: each part's text and pictures as they arrive
-$$('.cs-fig, .cs-top, .cs-facts, .cs-wip__title, .cs-wip__bar, .cs-grid').forEach((el) => enterIO.observe(el));
+// not under the ink: what is on the first screen arrives as the sheet lifts (js/transitions.js)
+(window.pkLifting || Promise.resolve()).then(() => {
+  $$('.item, .block, .post, .vzf, .doc__figure, .sw-svc').forEach((el) => enterIO.observe(el));
+  // case pages: each part's text and pictures as they arrive
+  $$('.cs-fig, .cs-top, .cs-facts, .cs-wip__title, .cs-wip__bar, .cs-grid').forEach((el) => enterIO.observe(el));
+});
 $$('.services, .socials, .rows, .faq, .reviews__track, .cs-facts, .cs-col').forEach((list) => {
   [...list.children].forEach((el, k) => el.style.setProperty('--k', k));
 });
@@ -337,12 +345,15 @@ if (orbit) {
     }
   }
 
-  layout();
-  place(performance.now());
-  shade(reduceMotion ? Infinity : performance.now());
-
-  let fitW = innerWidth;
-  addEventListener('resize', () => { if (innerWidth !== fitW) { fitW = innerWidth; layout(); place(performance.now()); shade(Infinity); } });
+  // the arrival winds once the ink starts to lift (js/transitions.js), not under it
+  let fitW = 0;
+  (window.pkLifting || Promise.resolve()).then(() => {
+    fitW = innerWidth;
+    layout();
+    place(performance.now());
+    shade(reduceMotion ? Infinity : performance.now());
+  });
+  addEventListener('resize', () => { if (fitW && innerWidth !== fitW) { fitW = innerWidth; layout(); place(performance.now()); shade(Infinity); } });
 
   if (!reduceMotion) {
     // turning, following the drag, gliding on, swaying with the pointer
@@ -586,19 +597,18 @@ setInterval(tickClock, 15000);
    The label rolls over to "Copied!" and a handful of small stars burst out of
    the button, drift and fade. */
 const STAR = '<use href="#pk-mark"/>';   // the logotype star, defined once in the page
-const EASE_OUT_ = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 function rollLabel(label, text) {
   if (reduceMotion) { label.textContent = text; return; }
   label.getAnimations().forEach((an) => an.cancel());
   const out = label.animate(
     [{ translate: '0 0', opacity: 1 }, { translate: '0 -0.9em', opacity: 0 }],
-    { duration: 200, easing: 'cubic-bezier(0.7, 0, 0.84, 0)', fill: 'forwards' },
+    { duration: 200, easing: EASE_IN, fill: 'forwards' },
   );
   out.onfinish = () => {
     label.textContent = text;
     out.cancel();
-    label.animate([{ translate: '0 0.9em', opacity: 0 }, { translate: '0 0', opacity: 1 }], { duration: 520, easing: EASE_OUT_ });
+    label.animate([{ translate: '0 0.9em', opacity: 0 }, { translate: '0 0', opacity: 1 }], { duration: 520, easing: EASE_OUT });
   };
 }
 
@@ -625,7 +635,7 @@ function burst(el) {
     const spin = (Math.random() < 0.5 ? -1 : 1) * (120 + Math.random() * 160);
     // out fast, hang for a moment, then drift down and fade
     star.animate([
-      { transform: 'translate(0, 0) scale(0) rotate(0deg)', opacity: 1, easing: EASE_OUT_ },
+      { transform: 'translate(0, 0) scale(0) rotate(0deg)', opacity: 1, easing: EASE_OUT },
       { transform: `translate(${dx}px, ${dy}px) scale(1) rotate(${spin * 0.7}deg)`, opacity: 1, offset: 0.4, easing: 'ease-in-out' },
       { transform: `translate(${dx * 1.08}px, ${dy + 6}px) scale(0.85) rotate(${spin * 0.85}deg)`, opacity: 1, offset: 0.7, easing: 'ease-in' },
       { transform: `translate(${dx * 1.12}px, ${dy + 18}px) scale(0) rotate(${spin}deg)`, opacity: 0 },
@@ -667,7 +677,7 @@ function animateFaq(item, open) {
   const anim = answer.animate(
     open ? [{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }]
          : [{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
-    { duration: open ? 650 : 450, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+    { duration: open ? 650 : 450, easing: EASE_OUT },
   );
   if (!open) anim.onfinish = () => { item.open = false; };
 }
@@ -724,7 +734,7 @@ if (topicBar) {
       const leaving = sections.filter(shown);
       await Promise.all(leaving.map((s) => s.animate(
         [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(12px)' }],
-        { duration: 260, easing: 'cubic-bezier(0.64, 0, 0.78, 0)', fill: 'forwards' },
+        { duration: 260, easing: EASE_IN, fill: 'forwards' },
       ).finished.catch(() => {})));
       if (mine !== turn) return;                      // a newer choice took over
       apply(word);
@@ -734,7 +744,7 @@ if (topicBar) {
         $$('article.post', s).filter((p) => !boxOf(p).hasAttribute('data-topic-hidden')).forEach((p, k) => {
           p.animate(
             [{ opacity: 0, transform: 'translateY(28px)' }, { opacity: 1, transform: 'none' }],
-            { duration: 900, delay: 70 * k, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'backwards' },
+            { duration: 900, delay: 70 * k, easing: EASE_OUT, fill: 'backwards' },
           );
         });
       });
@@ -765,8 +775,6 @@ const main = $('#main');
 // Opening: the photo fades up and settles, the cards rise one after another,
 // and the page links follow inside their card. Closing plays it backwards,
 // faster, the lowest card first. Either can interrupt the other.
-const EASE_OUT_Q = 'cubic-bezier(0.22, 1, 0.36, 1)';
-const EASE_IN_Q = 'cubic-bezier(0.64, 0, 0.78, 0)';
 let menuOpen = false;
 let menuAnims = [];
 function stopMenuAnims() { menuAnims.forEach((an) => an.cancel()); menuAnims = []; }
@@ -801,18 +809,18 @@ function setMenu(open) {
   };
   if (open) {
     run(menu, [{ opacity: 0 }, { opacity: 1 }], { duration: 260, easing: 'linear' });
-    run(bg, [{ opacity: 0, transform: 'scale(1.06)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 900, easing: EASE_OUT_Q });
+    run(bg, [{ opacity: 0, transform: 'scale(1.06)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 900, easing: EASE_OUT });
     cards.forEach((c, i) => run(c, [{ opacity: 0, transform: 'translateY(36px)' }, { opacity: 1, transform: 'none' }],
-      { duration: 720, delay: 80 + i * 70, easing: EASE_OUT_Q }));
+      { duration: 720, delay: 80 + i * 70, easing: EASE_OUT }));
     links.forEach((l, i) => run(l, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }],
-      { duration: 620, delay: 200 + i * 45, easing: EASE_OUT_Q }));
+      { duration: 620, delay: 200 + i * 45, easing: EASE_OUT }));
     // once everything has landed, drop the fills so nothing stays pinned
     const mine = menuAnims;
     Promise.all(mine.map((an) => an.finished)).then(() => { if (menuOpen && menuAnims === mine) stopMenuAnims(); }, () => {});
   } else {
     const n = cards.length;
     cards.forEach((c, i) => run(c, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(28px)' }],
-      { duration: 300, delay: (n - 1 - i) * 45, easing: EASE_IN_Q }));
+      { duration: 300, delay: (n - 1 - i) * 45, easing: EASE_IN }));
     run(bg, [{ opacity: 1 }, { opacity: 0 }], { duration: 300, delay: 120, easing: 'linear' });
     const last = run(menu, [{ opacity: 1 }, { opacity: 0 }], { duration: 220, delay: 230, easing: 'linear' });
     last.finished.then(() => { if (!menuOpen) { menu.hidden = true; stopMenuAnims(); } }, () => {});
@@ -834,7 +842,7 @@ $$('[data-disclose]', menu).forEach((btn) => {
     const anim = panel.animate(
       open ? [{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }]
            : [{ height: h + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
-      { duration: open ? 500 : 350, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
+      { duration: open ? 500 : 350, easing: EASE_OUT },
     );
     if (!open) anim.onfinish = () => { panel.hidden = true; };
   });
@@ -852,8 +860,6 @@ phone.addEventListener('change', (e) => { if (!e.matches && menuOpen) setMenu(fa
    frame is held across the load (js/transitions.js, a view transition) until
    the cover is decoded, then the cover settles while the title rises.
    Without a picture on screen, the usual page transition plays. */
-const EASE_IO = 'cubic-bezier(0.76, 0, 0.24, 1)';
-const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const onScreen = (el) => {
   const r = el && el.getBoundingClientRect();
   return r && r.width > 0 && r.bottom > 0 && r.top < innerHeight ? r : null;
@@ -932,7 +938,9 @@ if (caseCover && !reduceMotion) {
       { duration: 1100, delay: (grown ? 150 : 250) + i * 110, easing: EASE_OUT, fill: 'backwards' },
     ));
   };
-  window.pkRevealed.then(play);                           // grown: once the held frame gives way to the page
+  // as the ink starts to lift, so the still cover never jumps back to its start in view;
+  // grown: once the held frame gives way to the page (the same moment there)
+  (window.pkLifting || window.pkRevealed).then(play);
 }
 
 /* ---------- Smooth scroll ----------

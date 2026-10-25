@@ -7,7 +7,7 @@
   background: var(--bg, #fff); color: var(--fg, #121212);
   font-size: 14px; line-height: 1.4; letter-spacing: -0.01em;
   box-shadow: 0 12px 40px rgb(0 0 0 / 0.08);
-  animation: consent-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: consent-in 0.6s var(--ease, cubic-bezier(0.16, 1, 0.3, 1)) both;
 }
 .consent-bar__text { margin: 0; }
 .consent-bar__text a { color: var(--mute, #757575); text-decoration: underline; text-underline-offset: 2px; }
