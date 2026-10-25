@@ -21,10 +21,10 @@ Starting prices, so you know roughly where a project sits before we talk.
 
 - Design & Development: from $990. A complete website, from structure and visual direction through development and launch — one person throughout.
 - Web Design: from $490. Structure, UX and visual design for a website or landing page, ready to build.
-- Website Development: Quoted per project. Your approved design built as a responsive, tested website, ready to launch.
-- Website Motion: Quoted per project. Transitions, scroll motion and hover states for a website or interface.
-- UI/UX Design: Quoted per project. User flows, wireframes and interface design for a digital product.
-- Design Direction: Quoted per project. A visual direction: typography, colour, layout and interaction principles.
+- Website Development: from $500. Your approved design built as a responsive, tested website, ready to launch.
+- Website Motion: from $300. Transitions, scroll motion and hover states for a website or interface.
+- UI/UX Design: from $800. User flows, wireframes and interface design for a digital product.
+- Design Direction: from $400. A visual direction: typography, colour, layout and interaction principles.
 
 The price depends on scope and number of pages, how complex the site is, how much UX work it needs and the visual direction. Motion, development requirements, the materials you already have and the timeline matter too. “From” is where pricing starts, not a quote — once we agree the scope, you get a fixed price.
 
