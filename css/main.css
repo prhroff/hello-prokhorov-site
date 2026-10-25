@@ -453,8 +453,8 @@ button.row:hover .row__a::after { translate: 4px 0; }
 /* Info prose */
 .prose { display: grid; gap: 16px; max-width: 36em; }
 /* a link inside running text (to a blog post): the hairline under it, as in an article */
-.prose a, .cs-lead a, .info-do__desc a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: color 0.3s var(--ease); }
-@media (hover: hover) { .prose a:hover { color: var(--mute); } :is(.cs-lead, .info-do__desc) a:hover { color: var(--fg); } }
+.prose a, .cs-lead a, .info-do__desc a, .cs-facts dd a { background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px; transition: color 0.3s var(--ease); }
+@media (hover: hover) { :is(.prose, .cs-facts) a:hover { color: var(--mute); } :is(.cs-lead, .info-do__desc) a:hover { color: var(--fg); } }
 .lede { font-size: var(--t-state); line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 16px; }
 
 /* Process: one continuous sequence (see main.js). Desktop: the section holds
@@ -1125,6 +1125,15 @@ html.is-loading { overflow: hidden; }
 .case__cover--panel .case__over { right: auto; max-width: calc(100% - var(--pad)); padding: clamp(16px, 2.4svh, 26px) clamp(20px, 2.6vw, 40px) clamp(18px, 3svh, 30px) var(--pad); background: var(--bg); color: var(--fg); }
 .case__cover--panel .case__meta { grid-template-columns: auto auto auto; gap: 24px; box-shadow: inset 0 1px var(--line); }
 .case__cover--panel .case__meta > span:last-child { text-align: left; }
+/* where the case sits (Home / Work / the case), at the cover's top left, on the picture:
+   white on a dark cover, the page greys on a light one */
+.case__crumbs { position: absolute; top: clamp(14px, 2.2svh, 24px); left: var(--pad); right: var(--pad); z-index: 1; }
+.case__crumbs .crumbs ol { margin: 0; font-size: var(--t-base); }
+.case__cover--dark .case__crumbs .crumbs ol { color: rgb(255 255 255 / 0.66); text-shadow: 0 1px 16px rgb(0 0 0 / 0.35); }
+.case__cover--dark .case__crumbs li + li::before { color: rgb(255 255 255 / 0.35); }
+.case__cover--dark .case__crumbs [aria-current] { color: #fff; }
+@media (hover: hover) { .case__cover--dark .case__crumbs a:hover { color: #fff; } }
+.case__cover--light .case__crumbs [aria-current], .case__cover--panel .case__crumbs [aria-current] { color: var(--fg); }
 /* a case without a picture gets a cover set in type: what the work covered */
 .case__type {
   display: grid; align-content: start; padding: clamp(24px, 5svh, 56px) var(--pad);
@@ -1253,6 +1262,131 @@ html.is-loading { overflow: hidden; }
   .cs-wip__title { font-size: clamp(56px, 18vw, 92px); }
   .cs-wip__line + .cs-wip__line { padding-left: 0.5em; }
   .cs-wip__bar { margin: 40px var(--pad) 28px; }
+}
+
+/* ---------- Case study, v2 (preview: src/pages/work/case-template.html) ----------
+   The cover as above. Then each part is a quiet block of text and its pictures.
+   The text keeps to two places on a twelve-column grid: the part's number and
+   name, small and grey, in the first columns; its point, its paragraphs, its
+   details and lists in a narrow column just right of the middle, with a lot of
+   page around it. The pictures run edge to edge, in ones and twos, close
+   together; a phone or a screen on its own sits on a grey stage. */
+/* sizes follow the screen (measured on a 3440 reference): the point at 3.5vw, the text at
+   1.45vw, the label at 1.3vw, the column from 42% to 92% of the width */
+.cs--v2 { --cs-title: clamp(28px, 3.5vw, 140px); --cs-text: clamp(16px, 1.45vw, 54px); --cs-label: clamp(15px, 1.3vw, 48px); --cs-small: clamp(13px, 0.9vw, 32px); }
+.cs--v2 .cs-part { padding-top: clamp(128px, 13vw, 460px); }
+.cs-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--in); margin: 0 var(--pad); }
+/* the number, then the name a little lower, one word to a line */
+.cs--v2 .cs-label { grid-column: 1 / 5; display: grid; align-content: start; gap: 1.1em; font-size: var(--cs-label); line-height: 1.3; letter-spacing: -0.02em; color: var(--fg); }
+.cs--v2 .cs-label > span { color: inherit; }
+.cs--v2 .cs-label::after { content: none; }
+.cs-label__name { max-width: 6.5em; }
+.cs-col { grid-column: 6 / 11; }
+.cs-col__title { font-size: var(--cs-title); line-height: 1.08; letter-spacing: -0.045em; text-wrap: balance; }
+.cs-copy { display: grid; gap: 0.8em; margin-top: clamp(24px, 4vw, 150px); font-size: var(--cs-text); line-height: 1.35; letter-spacing: -0.02em; color: var(--read); text-wrap: pretty; }
+.cs-sub { margin-top: clamp(48px, 4.4vw, 160px); font-size: var(--cs-text); letter-spacing: -0.02em; color: var(--mute); }
+.cs-sub + * { margin-top: 0.8em; }
+/* rows: a name on the left, its value on the right, between hairlines */
+.cs-spec { border-bottom: 1px solid var(--line); }
+.cs-spec > div { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 0.6em 0; border-top: 1px solid var(--line); font-size: var(--cs-text); line-height: 1.35; letter-spacing: -0.02em; }
+.cs-spec dt { color: var(--mute); }
+.cs-spec dd { margin: 0; text-align: right; }
+/* sentences (a decision): the name in a narrow column, the sentence after it */
+.cs-spec--long > div { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); }
+.cs-spec--long dd { text-align: left; }
+.cs-list { font-size: var(--cs-text); line-height: 1.45; letter-spacing: -0.02em; }
+ol.cs-list { counter-reset: cs-next; }
+ol.cs-list > li { display: flex; gap: 0.6em; counter-increment: cs-next; }
+ol.cs-list > li::before { content: "(" counter(cs-next, decimal-leading-zero) ")"; color: var(--mute); font-variant-numeric: tabular-nums; }
+.cs-swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: var(--cs-small); line-height: 1.4; color: var(--mute); }
+.cs-swatch { display: block; aspect-ratio: 1; margin-bottom: 0.6em; background: var(--c); box-shadow: inset 0 0 0 1px var(--line); }
+.cs-quote { margin-top: clamp(48px, 4.4vw, 160px); }
+.cs-quote blockquote p { font-size: calc(var(--cs-title) * 0.62); line-height: 1.2; letter-spacing: -0.04em; text-indent: -0.4em; }
+.cs-quote figcaption { margin-top: 0.8em; font-size: var(--cs-text); color: var(--mute); }
+.cs-nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--in); margin-top: clamp(48px, 4.4vw, 160px); }
+.cs-nums > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.4em; padding-top: 0.8em; border-top: 1px solid var(--line); }
+.cs-nums dd { margin: 0; font-size: var(--cs-title); line-height: 1; letter-spacing: -0.05em; }
+.cs-nums dt { font-size: var(--cs-small); line-height: 1.4; color: var(--mute); }
+.cs-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: clamp(32px, 3vw, 110px); }
+/* the site's outlined, fully rounded buttons; the main one filled */
+.cs-pill {
+  display: inline-flex; gap: 0.35em; padding: 0.3em 0.9em; border: 1px solid var(--fg); border-radius: 999px;
+  font-size: clamp(15px, 1vw, 36px); line-height: 1.3; color: var(--fg);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.cs-pill--fill { background: var(--fg); color: var(--bg); }
+@media (hover: hover) {
+  .cs-pill:not(.cs-pill--fill):hover { background: var(--soft); }
+  .cs-pill--fill:hover { background: #333; }
+}
+
+/* a picture not made yet (the template's preview): a grey field saying what goes there,
+   its number and ratio, what it shows, and how */
+.cs-ph { display: grid; place-content: center; justify-items: center; gap: 0.5em; padding: 6%; background: #e6e6e6; text-align: center; font-size: var(--cs-small, 13px); line-height: 1.4; color: var(--mute); }
+.cs-ph__what { max-width: 22em; font-size: var(--cs-text, 16px); line-height: 1.25; letter-spacing: -0.02em; color: var(--fg); }
+.cs-ph__how { max-width: 30em; }
+.cs-ph--cover { height: 100%; padding-bottom: 18%; background: #dcdcdc; }
+.cs-fig--stage .cs-ph { background: var(--soft); box-shadow: inset 0 0 0 1px var(--line); }
+/* the placeholder's tone hints at the picture: the brand colour (a darker grey), a dark photo */
+.cs-ph--brand { background: #c9c9c9; }
+.cs-fig--dark .cs-ph { background: #2a2a2a; color: rgb(255 255 255 / 0.6); }
+.cs-fig--dark .cs-ph__what { color: #fff; }
+.cs-ph__alt { max-width: 30em; margin-top: 0.4em; color: var(--fg); }
+.cs-fig--dark .cs-ph__alt { color: #fff; }
+/* preview only: what a block or a slot needs before it goes in */
+.cs-opt { display: inline-block; margin-left: 0.4em; padding: 0.1em 0.6em; border: 1px dashed currentColor; border-radius: 999px; font-size: 0.8em; line-height: 1.3; vertical-align: 0.1em; }
+
+/* the template's preview: the part numbers count themselves, so the short version
+   (the parts marked data-full left out) closes up; a switch at the lower right */
+.cs--preview { counter-reset: cs-n; }
+.cs--preview .cs-part { counter-increment: cs-n; }
+.cs--preview .cs-label > [aria-hidden] { font-size: 0; }
+.cs--preview .cs-label > [aria-hidden]::before { content: "(" counter(cs-n, decimal-leading-zero) ")"; font-size: var(--cs-label); }
+.cs--preview:has(#cs-short:checked) [data-full] { display: none; }
+.cs-mode {
+  position: fixed; right: var(--pad); bottom: var(--pad); z-index: 15;
+  display: flex; align-items: center; gap: 4px; margin: 0; padding: 4px 4px 4px 12px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: 13px;
+}
+.cs-mode__k { float: left; padding: 0 6px 0 0; color: var(--mute); }
+.cs-mode label { padding: 3px 10px; border-radius: 999px; cursor: pointer; }
+.cs-mode label:has(:checked) { background: var(--fg); color: var(--bg); }
+.cs-mode input { position: absolute; opacity: 0; pointer-events: none; }
+.cs-mode label:has(:focus-visible) { outline: 2px solid var(--fg); outline-offset: 2px; }
+
+/* pictures: edge to edge, 8px apart, well below their text */
+.cs--v2 .cs-row { gap: 8px; margin: 8px 0 0; }
+.cs--v2 .cs-grid + .cs-row { margin-top: clamp(80px, 13svh, 168px); }
+/* one picture at half width, on the right (or the left), the other half left empty */
+.cs-row--half { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.cs-row--half > .cs-fig { grid-column: 2; }
+.cs-row--half-left > .cs-fig { grid-column: 1; }
+.cs-fig--stage .cs-fig__frame { background: var(--soft); }
+.cs-fig--stage .cs-fig__frame img { object-fit: contain; padding: clamp(32px, 6vw, 112px); }
+/* a loop (<pic … video>) over its poster in a case picture: framed as the picture is */
+.cs-fig--stage .vid { object-fit: contain; padding: clamp(32px, 6vw, 112px); }
+.cs-fig--contain .vid { object-fit: contain; padding: 6%; }
+/* once it plays the poster goes: the poster settles and drifts with the scroll, the loop moves on its own */
+.cs-fig__frame picture { transition: opacity 0.6s var(--ease); }
+.cs-fig__frame:has(> .vid.is-playing) picture { opacity: 0; }
+
+/* motion: the label and each piece of the column rise in turn as the block arrives */
+.motion-ok .cs-grid > .cs-label, .motion-ok .cs-col > * { opacity: 0; translate: 0 24px; transition: opacity 1s var(--ease), translate 1.2s var(--ease); transition-delay: calc(var(--k, 0) * 70ms); }
+.motion-ok .cs-grid.is-in > .cs-label, .motion-ok .cs-grid.is-in .cs-col > * { opacity: 1; translate: none; }
+
+@media (max-width: 1199px) {
+  .cs-col { grid-column: 5 / 13; }
+}
+@media (max-width: 767px) {
+  .cs--v2 .cs-part { padding-top: 104px; }
+  .cs-grid > *, .cs--v2 .cs-label { grid-column: 1 / -1; }
+  .cs--v2 .cs-label { display: flex; gap: 0.5em; margin-bottom: 20px; }
+  .cs-label__name { max-width: none; }
+  .cs--v2 { --cs-title: clamp(26px, 7.4vw, 34px); --cs-text: 16px; --cs-label: 15px; --cs-small: 13px; }
+  .cs--v2 .cs-grid + .cs-row { margin-top: 56px; }
+  .cs--v2 :is(.cs-row--pair, .cs-row--half) { grid-template-columns: 1fr; }
+  .cs--v2 .cs-row--half > .cs-fig { grid-column: 1; }
+  .cs-nums { grid-template-columns: 1fr; }
 }
 
 /* ---------- Work (/work/) ----------

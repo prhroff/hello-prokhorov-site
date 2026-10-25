@@ -129,8 +129,8 @@ const enterIO = new IntersectionObserver((entries) => {
 }, { rootMargin: '0px 0px -8% 0px' });
 $$('.item, .block, .post, .vzf, .doc__figure, .sw-svc').forEach((el) => enterIO.observe(el));
 // case pages: each part's text and pictures as they arrive
-$$('.cs-fig, .cs-top, .cs-facts, .cs-wip__title, .cs-wip__bar').forEach((el) => enterIO.observe(el));
-$$('.services, .socials, .rows, .faq, .reviews__track, .cs-facts').forEach((list) => {
+$$('.cs-fig, .cs-top, .cs-facts, .cs-wip__title, .cs-wip__bar, .cs-grid').forEach((el) => enterIO.observe(el));
+$$('.services, .socials, .rows, .faq, .reviews__track, .cs-facts, .cs-col').forEach((list) => {
   [...list.children].forEach((el, k) => el.style.setProperty('--k', k));
 });
 
@@ -927,7 +927,7 @@ if (caseCover && !reduceMotion) {
   const play = () => {
     const img = $('img', caseCover);
     if (img) img.animate([{ scale: grown ? 1.1 : 1.25 }, { scale: 1 }], { duration: 1600, easing: EASE_OUT });
-    $$(':is(.case__type > *, .case__over > *)', caseCover).forEach((el, i) => el.animate(
+    $$(':is(.case__crumbs, .case__type > *, .case__over > *)', caseCover).forEach((el, i) => el.animate(
       [{ opacity: 0, translate: '0 56px' }, { opacity: 1, translate: '0 0' }],
       { duration: 1100, delay: (grown ? 150 : 250) + i * 110, easing: EASE_OUT, fill: 'backwards' },
     ));
