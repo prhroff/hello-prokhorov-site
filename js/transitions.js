@@ -80,7 +80,8 @@
       var img = document.querySelector('[data-case-cover] img');
       if (!img || !img.decode) { go(); return; }
       img.decoding = 'sync';
-      img.decode().then(painted, go);
+      // and the cookie bar built (js/consent.js), or the held frame's copy of it would blink out
+      Promise.all([img.decode(), window.pkConsentShown]).then(painted, go);
     };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready); else ready();
     setTimeout(go, 2500);                           // never hold longer than this

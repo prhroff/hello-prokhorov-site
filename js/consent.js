@@ -62,6 +62,11 @@ function clearCookies() {
   }
 }
 
+// a case grown out of a picture holds the old page's last frame, the bar in it, until this
+// resolves (js/transitions.js): the bar is on the new page by then, so it never blinks
+let shown;
+window.pkConsentShown = new Promise((r) => { shown = r; });
+
 let bar = null;
 function ask() {
   if (bar) { bar.querySelector('button').focus(); return; }
@@ -90,8 +95,10 @@ function ask() {
     else if (before === 'granted') { clearCookies(); location.reload(); }
   });
   document.body.append(bar);
+  shown();
 }
 
+if (!GA4 && !YM) shown();
 if (GA4 || YM) {
   const choice = read();
   if (choice === 'granted') load();
@@ -101,11 +108,13 @@ if (GA4 || YM) {
     const ready = () => html.classList.contains('is-loaded') || !document.querySelector('[data-loader]');
     if (ready()) ask();
     else {
+      shown();                                          // a page with the preloader: nothing is held
       const mo = new MutationObserver(() => { if (ready()) { mo.disconnect(); setTimeout(ask, 600); } });
       mo.observe(html, { attributes: true, attributeFilter: ['class'] });
       setTimeout(() => { mo.disconnect(); if (!bar && read() === null) ask(); }, 8000);
     }
   }
+  if (choice || document.documentElement.dataset.consent === 'quiet') shown();   // no bar to wait for
   for (const el of document.querySelectorAll('[data-consent-open]')) {
     el.hidden = false;
     el.querySelector('button')?.addEventListener('click', ask);

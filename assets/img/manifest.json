@@ -716,17 +716,6 @@
     ],
     "v": "ca542151"
   },
-  "blog-the-homepage-brief-i-send-startups": {
-    "w": 2400,
-    "h": 1600,
-    "ratio": 0.6667,
-    "widths": [
-      800,
-      1600,
-      2400
-    ],
-    "v": "46f5cd58"
-  },
   "blog-design-and-build-in-one-pair-of-hands": {
     "w": 2400,
     "h": 1600,
@@ -846,5 +835,16 @@
       2400
     ],
     "v": "4c6c76f1"
+  },
+  "blog-homepage-questions": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "aef3cf52"
   }
 }
