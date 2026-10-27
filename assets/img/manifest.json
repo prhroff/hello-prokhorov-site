@@ -846,5 +846,38 @@
       2400
     ],
     "v": "aef3cf52"
+  },
+  "blog-choose-website-contractor": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "be9ac095"
+  },
+  "blog-website-development-process": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "fb2a1c7b"
+  },
+  "blog-website-support": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "902970a8"
   }
 }
