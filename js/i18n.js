@@ -27,7 +27,7 @@ const RU = {
   'Copy Answers': 'Скопировать ответы',
   'That didn’t go through. Your answers are still here — try again, or write to {email}.':
     'Не отправилось, но ответы на месте. Попробуйте ещё раз или напишите мне в WhatsApp ({phone}) либо на {email}.',
-  'Website': 'Сайт', 'Needs': 'Задачи', 'Type': 'Тип', 'Start': 'Старт', 'Budget': 'Бюджет',
+  'Website': 'Сайт', 'Needs': 'Задачи', 'Type': 'Тип', 'Start': 'Старт', 'Budget': 'Бюджет', 'Found via': 'Откуда узнали',
   '(no project notes)': '(без комментария к проекту)',
   // consent.js
   'Cookie consent': 'Согласие на куки',

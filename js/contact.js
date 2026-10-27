@@ -53,7 +53,7 @@ if (form) {
   const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   const PHONE = /^\+?[\d\s().-]+$/;                   // digits, with the usual spaces, brackets and dashes
   const phoneOk = (v) => PHONE.test(v) && v.replace(/\D/g, '').length >= 7;
-  const groups = $$('[data-q]', form);   // the choice questions
+  const groups = $$('[data-q]', form);   // the choice questions; data-q="any" may stay empty
 
   function setError(holder, text, controls) {
     const out = $('[data-error]', holder);
@@ -72,7 +72,7 @@ if (form) {
   const checks = [
     ...groups.map((q) => () => {
       const inputs = $$('input', q);
-      const ok = inputs.some((i) => i.checked);
+      const ok = q.dataset.q === 'any' || inputs.some((i) => i.checked);
       setError(q, ok ? '' : q.dataset.q === 'some' ? L('Choose at least one.') : L('Choose one.'), inputs);
       return ok ? null : inputs[0];
     }),
@@ -135,7 +135,7 @@ if (form) {
     const one = (k) => (d.get(k) || '').toString().trim();
     return {
       website: one('website'), needs: d.getAll('needs').join(', '), type: one('type'),
-      start: one('start'), budget: one('budget'), message: one('message'),
+      start: one('start'), budget: one('budget'), source: one('source'), message: one('message'),
       name: one('name'), email: one('email'), phone: one('phone'), company: one('company'),
     };
   };
@@ -167,7 +167,8 @@ if (form) {
   function brief(a) {
     const lines = [
       `${L('Website')}: ${a.website}`, `${L('Needs')}: ${a.needs}`, `${L('Type')}: ${a.type}`,
-      `${L('Start')}: ${a.start}`, `${L('Budget')}: ${a.budget}`, '',
+      `${L('Start')}: ${a.start}`, `${L('Budget')}: ${a.budget}`,
+      ...(a.source ? [`${L('Found via')}: ${a.source}`] : []), '',
       a.message || L('(no project notes)'), '',
       [a.name, a.phone, a.email, a.company].filter(Boolean).join(' · '),
     ];

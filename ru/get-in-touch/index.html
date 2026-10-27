@@ -40,7 +40,7 @@
   <link rel="stylesheet" href="/css/transitions.css?v=a0e449f1">
   <script src="/js/transitions.js?v=7dedc58d"></script>
   <script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>
-  <script type="module" src="/js/contact.js?v=33031092"></script>
+  <script type="module" src="/js/contact.js?v=1ed4d7b3"></script>
   <meta name="pk-analytics" data-ga4="G-544DF591BD" data-ym="111169023">
   <link rel="stylesheet" href="/css/consent.css?v=67cff838" media="print" onload="this.media='all'" data-consent-css>
   <script type="module" src="/js/consent.js?v=0704c268"></script>
@@ -315,8 +315,19 @@
           <textarea class="q__text" id="f-message" name="message" rows="4" maxlength="10000" aria-describedby="f-message-hint" placeholder="Что делаете, что нужно и всё, что может пригодиться." data-grow></textarea>
         </div>
 
+        <fieldset class="block q" data-q="any">
+          <legend class="q__title"><span class="q__no">07</span>Как вы обо мне узнали?</legend>
+          <div class="q__opts">
+            <label class="opt"><input type="radio" name="source" value="Нашли в Google"><span>Нашли в Google</span></label>
+            <label class="opt"><input type="radio" name="source" value="В 2ГИС"><span>В 2ГИС</span></label>
+            <label class="opt"><input type="radio" name="source" value="В Instagram"><span>В Instagram</span></label>
+            <label class="opt"><input type="radio" name="source" value="Посоветовали"><span>Посоветовали</span></label>
+            <label class="opt"><input type="radio" name="source" value="Другое"><span>Другое</span></label>
+          </div>
+        </fieldset>
+
         <fieldset class="block q q--reach">
-          <legend class="q__title"><span class="q__no">07</span><span>Ваши контакты<span class="q__hint">Почта или номер — хватит чего-то одного.</span></span></legend>
+          <legend class="q__title"><span class="q__no">08</span><span>Ваши контакты<span class="q__hint">Почта или номер — хватит чего-то одного.</span></span></legend>
           <div class="fields">
             <p class="field"><label class="field__label" for="f-name">Имя<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-name" name="name" type="text" maxlength="120" autocomplete="name" required><span class="field__error" data-error></span></p>
             <p class="field"><label class="field__label" for="f-phone">WhatsApp или телефон</label><input class="field__input" id="f-phone" name="phone" type="tel" maxlength="40" autocomplete="tel" inputmode="tel" placeholder="+996"><span class="field__error" data-error></span></p>
