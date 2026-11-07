@@ -1212,9 +1212,9 @@ html.is-loading { overflow: hidden; }
 @keyframes wip-run { from { translate: -100% 0; } to { translate: 560% 0; } }
 
 /* motion, in the order the case is read: the text of each part rises; each
-   picture opens from its lower edge as it arrives and its image settles;
-   wide pictures drift slightly with the scroll; the detail rows follow one
-   another */
+   picture opens from its lower edge as it arrives and its image settles at
+   full size (no drift: a slide shown whole, never cropped); the detail rows
+   follow one another */
 .motion-ok .cs-top > *, .motion-ok .cs-overview__body > *, .motion-ok .cs-facts > div { opacity: 0; translate: 0 28px; transition: opacity 1s var(--ease), translate 1.2s var(--ease); }
 .motion-ok .cs-top > :nth-child(2) { transition-delay: 0.08s; }
 .motion-ok .cs-top > :nth-child(3) { transition-delay: 0.16s; }
@@ -1228,12 +1228,6 @@ html.is-loading { overflow: hidden; }
 .motion-ok .cs-fig.is-in .cs-fig__frame { clip-path: inset(0); }
 .motion-ok .cs-fig.is-in figcaption { opacity: 1; }
 .motion-ok .cs-fig.is-in .cs-fig__frame img { scale: 1; }
-@supports (animation-timeline: view()) {
-  @media (min-width: 768px) {
-    .motion-ok .cs-row--wide .cs-fig.is-in .cs-fig__frame img { animation: cs-drift linear both; animation-timeline: view(); animation-range: cover; }
-  }
-}
-@keyframes cs-drift { from { scale: 1.06; translate: 0 -2%; } to { scale: 1.06; translate: 0 2%; } }
 
 /* a case page closes on the inner pages' grid, as /work/ (src/layouts/full.html):
    where this is and the way back to all work on the left; the next case as a
@@ -1368,7 +1362,7 @@ ol.cs-list > li::before { content: "(" counter(cs-next, decimal-leading-zero) ")
 /* a loop (<pic … video>) over its poster in a case picture: framed as the picture is */
 .cs-fig--stage .vid { object-fit: contain; padding: clamp(32px, 6vw, 112px); }
 .cs-fig--contain .vid { object-fit: contain; padding: 6%; }
-/* once it plays the poster goes: the poster settles and drifts with the scroll, the loop moves on its own */
+/* once it plays the poster goes */
 .cs-fig__frame picture { transition: opacity 0.6s var(--ease); }
 .cs-fig__frame:has(> .vid.is-playing) picture { opacity: 0; }
 

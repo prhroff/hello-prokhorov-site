@@ -1175,8 +1175,10 @@ $$('[data-process]').forEach((root) => {
    while it is on screen, and not before the page has loaded, so it never competes
    with the first paint; with reduced motion or Save-Data the poster stays. */
 function afterLoad(fn) {
-  const go = () => setTimeout(fn, 300);
-  if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });
+  let done = false;
+  const go = () => { if (!done) { done = true; setTimeout(fn, 300); } };
+  if (document.readyState === 'complete') go();
+  else { addEventListener('load', go, { once: true }); setTimeout(go, 4000); }   // a slow picture must not keep the loops still
 }
 if (!reduceMotion && !navigator.connection?.saveData && $('[data-video]')) afterLoad(() => {
   const seen = new IntersectionObserver((entries) => {
