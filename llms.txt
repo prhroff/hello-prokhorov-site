@@ -59,7 +59,7 @@ The site in Russian, for clients in Kyrgyzstan: the same pages and case studies.
 - [Контакты](https://helloprokhorov.com/ru/contact/): Как связаться с Артёмом Прохоровым, дизайнером и разработчиком сайтов в Бишкеке: WhatsApp, Telegram, почта или бриф. Можно встретиться лично.
 - [Бриф](https://helloprokhorov.com/ru/get-in-touch/): Расскажите о сайте, который нужен вашей компании: что сделать, когда стартовать и какой бюджет. Отвечу и предложу встретиться в Бишкеке.
 - [Блог](https://helloprokhorov.com/ru/blog/): Артём Прохоров о том, сколько стоит сайт в Бишкеке, что должно быть на сайте компании и как сайт приводит клиентов застройщикам, юристам и студиям интерьера.
-- [Powermatic®](https://helloprokhorov.com/ru/work/powermatic/): Маркетинговый сайт для Powermatic Technologies®, технологического партнёра растущих компаний. Сайт придумал и собрал я, от начала до конца.
+- [Powermatic®](https://helloprokhorov.com/ru/work/powermatic/): Логотип, айдентика и многостраничный сайт для Powermatic Technologies®, технологического партнёра растущих компаний. Сайт нарисовал в Figma и собрал в коде.
 - [Supaminds](https://helloprokhorov.com/ru/work/supaminds/): Многостраничный сайт для Supaminds — консультантов, которые помогают бизнесу принимать решения точнее, разбираться в сложных задачах и уверенно двигаться дальше.
 - [Visual Hunters®](https://helloprokhorov.com/ru/work/visual-hunters/): Концепт сайта, в котором я пробую смелую типографику и 3D. Личный эксперимент с визуальным стилем и системой сетки.
 - [Contour Office©](https://helloprokhorov.com/ru/work/contour-office/): Типографический концепт сайта для бухгалтерской или аудиторской фирмы. Строгий: держится на сетке и пропорциях, а правила записаны в дизайн-манифесте.
