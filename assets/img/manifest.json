@@ -1108,5 +1108,16 @@
       2400
     ],
     "v": "5ed5b504"
+  },
+  "blog-residential-complex-website": {
+    "w": 2400,
+    "h": 1600,
+    "ratio": 0.6667,
+    "widths": [
+      800,
+      1600,
+      2400
+    ],
+    "v": "61b3af7c"
   }
 }
