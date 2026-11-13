@@ -479,6 +479,8 @@ button.row:hover .row__a::after { translate: 4px 0; }
   background: var(--fg); transform: scaleX(var(--p, 0)); transform-origin: 0 50%;
 }
 .process__now { color: var(--fg); }
+/* one line under the cards: how the work runs (remote and async / in person in Bishkek) */
+.process__note { margin-top: 16px; font-size: 13px; color: var(--mute); letter-spacing: 0; }
 
 /* five quiet surfaces: blue, sage, clay, sand, lilac */
 .process__step { --d: 0; --c: #e3e8f7; }
@@ -1555,6 +1557,7 @@ fieldset.q { margin: 0; border: 0; min-width: 0; }
 .q__text:focus, .field__input:focus { outline: none; background-size: 100% 1px, 100% 1px; }
 .q__text::placeholder { color: var(--mute); opacity: 1; }
 .q__text { padding-bottom: 12px; min-height: calc(4 * 1.4em + 12px); resize: none; field-sizing: content; }
+.q__text--short { min-height: calc(1.4em + 12px); }   /* the optional one-line questions (07, 08); still grows as you type */
 .fields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--q-gap) var(--in); }
 .field { display: grid; gap: 6px; min-width: 0; }
 .field--wide { grid-column: 1 / -1; }
@@ -1576,6 +1579,8 @@ fieldset.q { margin: 0; border: 0; min-width: 0; }
 .intake-end { margin: 0 var(--in); padding: 14px 0 var(--q-space); border-top: 1px solid var(--line); }
 .intake-end__title { padding-top: 24px; font-size: clamp(30px, 2.8vw, 48px); line-height: 1; letter-spacing: -0.05em; }
 .intake-end__lead { margin-top: 12px; max-width: 30em; font-size: var(--t-head); letter-spacing: -0.03em; }
+/* what happens after the form is sent, three short steps */
+.intake-end__steps { display: grid; gap: 4px; margin-top: 16px; padding-left: 1.2em; list-style: decimal; color: var(--mute); }
 .consent { display: grid; gap: 6px; margin-top: 28px; }
 .consent__label { position: relative; display: inline-flex; align-items: baseline; gap: 10px; cursor: pointer; justify-self: start; }
 .consent__label input { position: absolute; left: 0; top: 0.2em; width: 16px; height: 16px; margin: 0; opacity: 0; cursor: pointer; }

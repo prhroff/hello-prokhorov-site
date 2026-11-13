@@ -15,24 +15,57 @@
 - UI/UX Design: User flows, wireframes and interfaces for digital products, with a design system where the product needs one.
 - Design Direction: Visual direction for websites and products: typography, colour, layout and interaction principles that keep them consistent.
 
-## Pricing (USD)
+## Pricing (USD), international
 
-Starting prices, so you know roughly where a project sits before we talk.
+Fixed packages, so you know roughly where a project sits before we talk. Most projects land between $2,000 and $4,000.
 
-- Design & Development: from $990. A complete website, from structure and visual direction through development and launch — one person throughout.
-- Web Design: from $490. Structure, UX and visual design for a website or landing page, ready to build.
-- Website Development: from $500. Your approved design built as a responsive, tested website, ready to launch.
-- Website Motion: from $300. Transitions, scroll motion and hover states for a website or interface.
-- UI/UX Design: from $800. User flows, wireframes and interface design for a digital product.
-- Design Direction: from $400. A visual direction: typography, colour, layout and interaction principles.
+- Homepage Sprint: $490, 5 days. Homepage structure and design. The fee counts toward the full project if we carry on.
+- Landing Page: $1,200, 2 weeks. One page: structure, copy structure, design, responsive build, a form, analytics and launch.
+- Website, up to 6 pages: $2,200, 3–4 weeks. Up to 6 pages with a CMS, forms, basic SEO, analytics and launch on your domain.
+- Website, 7–12 pages: from $3,500, 5–6 weeks. The same, plus CMS collections (blog, case studies) and motion.
+- Design Only: Landing Page: $600, 1–2 weeks. Structure, user flows, desktop and mobile layouts, ready for development.
+- Design Only: Website: from $1,200, 1–3 weeks. Structure, user flows, desktop and mobile layouts, ready for development.
+- Development of Your Design: from $900, 2–3 weeks. A responsive build of your approved design, basic SEO and launch.
+- Website Motion: from $450, 1–2 weeks. Transitions, scroll motion, hover and focus states, with reduced-motion support.
+- UI/UX Design: from $1,200, 3–6 weeks. User flows, wireframes and interface design for a digital product, with a design system where it needs one.
+- Design Direction: from $600, 1–2 weeks. A visual direction: typography, colour, layout and interaction principles.
+- Website Care: $200 a month. Up to 3 hours of edits a month, updates, checks on analytics and forms. Only for sites I built.
+- Website Growth: $450 a month. Up to 8 hours a month: new sections and landing pages, A/B tests, conversion improvements. Only for sites I built.
+- White-label for Agencies, hourly: $35 an hour, by scope. Figma to code or Framer, no contact with your client, NDA.
+- White-label for Agencies, fixed: from $800, by scope. Figma to code or Framer, no contact with your client, NDA.
 
-The price depends on scope and number of pages, how complex the site is, how much UX work it needs and the visual direction. Motion, development requirements, the materials you already have and the timeline matter too. “From” is where pricing starts, not a quote — once we agree the scope, you get a fixed price.
+- Price: Fixed once the scope is agreed.
+- Payment: Through Contra: 50% to start, 50% before launch. Projects from $3,000: 40% to start, 30% when the design is approved, 30% before launch.
+- Revisions: 3 rounds included; each round is one consolidated set of comments. Extra work is quoted in writing first.
+- Rush: Timeline cut in half: +30%.
+- Async: By default: reply within 24 hours on weekdays, Loom progress updates twice a week, no meetings required.
+
+The price depends on scope and number of pages, how complex the site is, how much UX work it needs and the visual direction. Motion, development requirements, the materials you already have and the timeline matter too. Final price is fixed once we agree the scope.
+
+## Pricing in Kyrgyzstan (KGS), on /ru/
+
+Цены для проектов в Кыргызстане, чтобы ещё до встречи понимать, о каких суммах речь.
+
+- Лендинг под ключ: 60 000–90 000 сом, 2 недели. Форма, WhatsApp, аналитика, подключение домена.
+- Сайт до 6 страниц с админкой: от 95 000 сом, 3–4 недели. Структура, дизайн, сборка, админка для простых правок, базовое SEO и запуск.
+- Сайт на 7–12 страниц: от 160 000 сом, 5–6 недель. То же, плюс разделы вроде блога или проектов и моушн.
+- Дизайн без разработки: от 45 000 сом, 1–3 недели. Структура, сценарии, макеты под десктоп и мобильные, готовые к разработке.
+- Поддержка: 15 000 сом в месяц. До 3 часов правок в месяц, обновления, присмотр за формами и аналитикой. Только для сайтов, которые я сделал сам.
+- Поддержка + SEO: 30 000 сом в месяц. До 8 часов в месяц: статьи, ссылки между страницами, новые блоки. Только для сайтов, которые я сделал сам.
+
+- Цена: Фиксированная, когда договоримся об объёме.
+- Оплата: Договор и предоплата 50 %. Остаток — перед запуском.
+- Правки: Три круга. Круг — это один общий список комментариев. Дополнительную работу сначала оцениваю письменно.
+- Срочность: Если срок нужен вдвое короче: +30 %.
+- Встреча: Можно встретиться лично в Бишкеке или работать удалённо, как вам удобнее.
+
+Цена зависит от числа страниц и сложности сайта, от того, сколько нужно UX-работы и насколько сложный визуал. А ещё от анимации, требований к разработке, готовых материалов и сроков. Точную цену назову, когда договоримся об объёме, и дальше она не меняется.
 
 ## Pages
 
 - [Home](https://helloprokhorov.com/): Artem Prokhorov is an independent web designer and developer who designs and builds websites from structure to launch, and works on UI/UX for digital products.
 - [Work](https://helloprokhorov.com/work/): Selected work by Artem Prokhorov: a client website I designed and built, landing pages and website concepts.
-- [Services](https://helloprokhorov.com/services/): Web design, website development, motion, UI/UX design and design direction by Artem Prokhorov — what each includes, starting prices and timelines.
+- [Services](https://helloprokhorov.com/services/): Web design, website development, motion, UI/UX design and design direction by Artem Prokhorov — packages, fixed prices and timelines.
 - [Info](https://helloprokhorov.com/info/): Artem Prokhorov is an independent web designer and developer in Bishkek, designing and building websites for founders, startups and companies worldwide.
 - [Contact](https://helloprokhorov.com/contact/): How to reach Artem Prokhorov, an independent web designer and developer in Bishkek: email, Telegram, LinkedIn, Contra, X and Instagram, or the project form.
 - [Get in Touch](https://helloprokhorov.com/get-in-touch/): Tell Artem Prokhorov, an independent web designer and developer, about your website — what you need, when you want to start and your budget.
@@ -54,7 +87,7 @@ The site in Russian, for clients in Kyrgyzstan: the same pages and case studies.
 
 - [Главная](https://helloprokhorov.com/ru/): Нарисую и соберу сайт вашей компании в Бишкеке: застройщика, юридической или бухгалтерской фирмы, студии интерьера. После запуска могу его вести. Начнём со встречи.
 - [Работы](https://helloprokhorov.com/ru/work/): Работы Артёма Прохорова, веб-дизайнера из Бишкека: сайты для клиентов, лендинги и концепты сайтов.
-- [Услуги](https://helloprokhorov.com/ru/services/): Дизайн, разработка и поддержка сайтов в Бишкеке: от лендинга до сайта компании. Что входит в каждую услугу, сроки и цены: проекты от $490, поддержка $200 в месяц.
+- [Услуги](https://helloprokhorov.com/ru/services/): Дизайн, разработка и поддержка сайтов в Бишкеке. Что входит в каждую услугу, сроки и цены: лендинг под ключ от 60 000 сом, поддержка от 15 000 сом в месяц.
 - [Обо мне](https://helloprokhorov.com/ru/info/): Артём Прохоров — дизайнер и разработчик сайтов в Бишкеке. Работает на себя: сам придумывает, рисует и собирает сайты для компаний.
 - [Контакты](https://helloprokhorov.com/ru/contact/): Как связаться с Артёмом Прохоровым, дизайнером и разработчиком сайтов в Бишкеке: WhatsApp, Telegram, почта или бриф. Можно встретиться лично.
 - [Бриф](https://helloprokhorov.com/ru/get-in-touch/): Расскажите о сайте, который нужен вашей компании: что сделать, когда стартовать и какой бюджет. Отвечу и предложу встретиться в Бишкеке.

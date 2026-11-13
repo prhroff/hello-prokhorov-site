@@ -136,6 +136,7 @@ if (form) {
     return {
       website: one('website'), needs: d.getAll('needs').join(', '), type: one('type'),
       start: one('start'), budget: one('budget'), source: one('source'), message: one('message'),
+      goal: one('goal'), likes: one('likes'),
       name: one('name'), email: one('email'), phone: one('phone'), company: one('company'),
     };
   };
@@ -168,7 +169,9 @@ if (form) {
     const lines = [
       `${L('Website')}: ${a.website}`, `${L('Needs')}: ${a.needs}`, `${L('Type')}: ${a.type}`,
       `${L('Start')}: ${a.start}`, `${L('Budget')}: ${a.budget}`,
-      ...(a.source ? [`${L('Found via')}: ${a.source}`] : []), '',
+      ...(a.source ? [`${L('Found via')}: ${a.source}`] : []),
+      ...(a.goal ? [`${L('Visitor should')}: ${a.goal}`] : []),
+      ...(a.likes ? [`${L('Sites they like')}: ${a.likes}`] : []), '',
       a.message || L('(no project notes)'), '',
       [a.name, a.phone, a.email, a.company].filter(Boolean).join(' · '),
     ];

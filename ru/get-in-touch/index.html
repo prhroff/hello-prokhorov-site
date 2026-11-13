@@ -36,11 +36,11 @@
   <link rel="preload" href="/assets/fonts/inter-opsz-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="Prokhorov® — Блог" href="/ru/blog/feed.xml">
 
-  <link rel="stylesheet" href="/css/main.css?v=ffdf9f05">
+  <link rel="stylesheet" href="/css/main.css?v=f6724abd">
   <link rel="stylesheet" href="/css/transitions.css?v=a0e449f1">
   <script src="/js/transitions.js?v=7dedc58d"></script>
   <script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>
-  <script type="module" src="/js/contact.js?v=1ed4d7b3"></script>
+  <script type="module" src="/js/contact.js?v=67d49495"></script>
   <meta name="pk-analytics" data-ga4="G-544DF591BD" data-ym="111169023">
   <link rel="stylesheet" href="/css/consent.css?v=67cff838" media="print" onload="this.media='all'" data-consent-css>
   <script type="module" src="/js/consent.js?v=0704c268"></script>
@@ -151,7 +151,7 @@
         "@id": "https://helloprokhorov.com/#website"
       },
       "inLanguage": "ru",
-      "dateModified": "2026-10-18T00:00:00+06:00",
+      "dateModified": "2026-11-13T00:00:00+06:00",
       "translationOfWork": [
         {
           "@id": "https://helloprokhorov.com/get-in-touch/#webpage"
@@ -306,23 +306,32 @@
         <fieldset class="block q" data-q="one">
           <legend class="q__title"><span class="q__no">05</span>Какой бюджет?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></legend>
           <div class="q__opts">
-            <label class="opt"><input type="radio" name="budget" value="До $1 000" required><span>До $1 000</span></label>
-            <label class="opt"><input type="radio" name="budget" value="$1 000–2 500"><span>$1 000–2 500</span></label>
-            <label class="opt"><input type="radio" name="budget" value="$2 500–5 000"><span>$2 500–5 000</span></label>
-            <label class="opt"><input type="radio" name="budget" value="$5 000–10 000"><span>$5 000–10 000</span></label>
-            <label class="opt"><input type="radio" name="budget" value="$10 000+"><span>$10 000+</span></label>
+            <label class="opt"><input type="radio" name="budget" value="До 60 000 сом" required><span>До 60&nbsp;000&nbsp;сом</span></label>
+            <label class="opt"><input type="radio" name="budget" value="60 000–100 000 сом"><span>60&nbsp;000–100&nbsp;000&nbsp;сом</span></label>
+            <label class="opt"><input type="radio" name="budget" value="100 000–200 000 сом"><span>100&nbsp;000–200&nbsp;000&nbsp;сом</span></label>
+            <label class="opt"><input type="radio" name="budget" value="200 000+ сом"><span>200&nbsp;000+&nbsp;сом</span></label>
             <label class="opt"><input type="radio" name="budget" value="Пока не знаю"><span>Пока не знаю</span></label>
           </div>
           <p class="q__error" data-error></p>
         </fieldset>
 
         <div class="block q">
-          <p class="q__title"><span class="q__no">06</span><span><label for="f-message">Расскажите о проекте</label><span class="q__hint" id="f-message-hint">Ссылки тоже присылайте: на текущий сайт, Instagram компании, сайты, которые нравятся.</span></span></p>
+          <p class="q__title"><span class="q__no">06</span><span><label for="f-message">Расскажите о проекте</label><span class="q__hint" id="f-message-hint">Ссылки тоже присылайте: на текущий сайт или Instagram компании.</span></span></p>
           <textarea class="q__text" id="f-message" name="message" rows="4" maxlength="10000" aria-describedby="f-message-hint" placeholder="Что делаете, что нужно и всё, что может пригодиться." data-grow></textarea>
         </div>
 
+        <div class="block q">
+          <p class="q__title"><span class="q__no">07</span><span><label for="f-goal">Что посетитель должен сделать на сайте? <span class="mute">(если хотите)</span></label><span class="q__hint" id="f-goal-hint">Позвонить, написать в WhatsApp, оставить заявку, записаться.</span></span></p>
+          <textarea class="q__text q__text--short" id="f-goal" name="goal" rows="1" maxlength="1000" aria-describedby="f-goal-hint" placeholder="Главное действие на сайте." data-grow></textarea>
+        </div>
+
+        <div class="block q">
+          <p class="q__title"><span class="q__no">08</span><span><label for="f-likes">2–3 сайта, которые вам нравятся <span class="mute">(если хотите)</span></label><span class="q__hint" id="f-likes-hint">Ссылки и пара слов о том, чем нравятся.</span></span></p>
+          <textarea class="q__text q__text--short" id="f-likes" name="likes" rows="1" maxlength="1000" aria-describedby="f-likes-hint" placeholder="Ссылки на сайты." data-grow></textarea>
+        </div>
+
         <fieldset class="block q" data-q="any">
-          <legend class="q__title"><span class="q__no">07</span>Как вы обо мне узнали?</legend>
+          <legend class="q__title"><span class="q__no">09</span>Как вы обо мне узнали?</legend>
           <div class="q__opts">
             <label class="opt"><input type="radio" name="source" value="Нашли в Google"><span>Нашли в Google</span></label>
             <label class="opt"><input type="radio" name="source" value="В 2ГИС"><span>В 2ГИС</span></label>
@@ -333,7 +342,7 @@
         </fieldset>
 
         <fieldset class="block q q--reach">
-          <legend class="q__title"><span class="q__no">08</span><span>Ваши контакты<span class="q__hint">Почта или номер — хватит чего-то одного.</span></span></legend>
+          <legend class="q__title"><span class="q__no">10</span><span>Ваши контакты<span class="q__hint">Почта или номер — хватит чего-то одного.</span></span></legend>
           <div class="fields">
             <p class="field"><label class="field__label" for="f-name">Имя<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-name" name="name" type="text" maxlength="120" autocomplete="name" required><span class="field__error" data-error></span></p>
             <p class="field"><label class="field__label" for="f-phone">WhatsApp или телефон</label><input class="field__input" id="f-phone" name="phone" type="tel" maxlength="40" autocomplete="tel" inputmode="tel" placeholder="+996"><span class="field__error" data-error></span></p>
@@ -346,7 +355,11 @@
 
         <section class="intake-end" aria-labelledby="end-title">
           <h2 class="intake-end__title" id="end-title">Осталось отправить</h2>
-          <p class="intake-end__lead">Прочитаю, вернусь с вопросами и предложу встретиться.</p>
+          <ol class="intake-end__steps">
+            <li>Вернусь с вопросами и предложу встретиться</li>
+            <li>После встречи пришлю список работ и фиксированную цену</li>
+            <li>Договор и предоплата, и я начинаю</li>
+          </ol>
           <p class="consent">
             <label class="consent__label"><input type="checkbox" name="privacy" value="Прочитал(а)" required><span class="consent__box" aria-hidden="true"></span><span>Я прочитал(а) <a href="/ru/privacy/">политику конфиденциальности</a>.<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (обязательно)</span></span></label>
             <span class="field__error" data-error></span>

@@ -35,11 +35,11 @@
   <link rel="preload" href="/assets/fonts/inter-opsz.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="Prokhorov® — Blog" href="/blog/feed.xml">
 
-  <link rel="stylesheet" href="/css/main.css?v=ffdf9f05">
+  <link rel="stylesheet" href="/css/main.css?v=f6724abd">
   <link rel="stylesheet" href="/css/transitions.css?v=a0e449f1">
   <script src="/js/transitions.js?v=7dedc58d"></script>
   <script>(function (h) { h.classList.replace('no-js', 'js'); try { if (sessionStorage.getItem('pk-seen') === '1') h.classList.add('is-seen'); } catch (e) {} })(document.documentElement)</script>
-  <script type="module" src="/js/contact.js?v=1ed4d7b3"></script>
+  <script type="module" src="/js/contact.js?v=67d49495"></script>
   <meta name="pk-analytics" data-ga4="G-544DF591BD" data-ym="111169023">
   <link rel="stylesheet" href="/css/consent.css?v=67cff838" media="print" onload="this.media='all'" data-consent-css>
   <script type="module" src="/js/consent.js?v=0704c268"></script>
@@ -150,7 +150,7 @@
         "@id": "https://helloprokhorov.com/#website"
       },
       "inLanguage": "en",
-      "dateModified": "2026-10-10T00:00:00+06:00",
+      "dateModified": "2026-11-13T00:00:00+06:00",
       "workTranslation": [
         {
           "@id": "https://helloprokhorov.com/ru/get-in-touch/#webpage"
@@ -303,12 +303,12 @@
         <fieldset class="block q" data-q="one">
           <legend class="q__title"><span class="q__no">05</span>What’s your project budget?<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></legend>
           <div class="q__opts">
-            <label class="opt"><input type="radio" name="budget" value="Under $1,000" required><span>Under $1,000</span></label>
-            <label class="opt"><input type="radio" name="budget" value="$1,000–2,500"><span>$1,000–2,500</span></label>
+            <label class="opt"><input type="radio" name="budget" value="Under $1,200 (landing page)" required><span>Under $1,200 (landing page)</span></label>
+            <label class="opt"><input type="radio" name="budget" value="$1,200–2,500"><span>$1,200–2,500</span></label>
             <label class="opt"><input type="radio" name="budget" value="$2,500–5,000"><span>$2,500–5,000</span></label>
             <label class="opt"><input type="radio" name="budget" value="$5,000–10,000"><span>$5,000–10,000</span></label>
             <label class="opt"><input type="radio" name="budget" value="$10,000+"><span>$10,000+</span></label>
-            <label class="opt"><input type="radio" name="budget" value="Not Sure Yet"><span>Not Sure Yet</span></label>
+            <label class="opt"><input type="radio" name="budget" value="Not sure yet"><span>Not sure yet</span></label>
           </div>
           <p class="q__error" data-error></p>
         </fieldset>
@@ -318,18 +318,31 @@
           <textarea class="q__text" id="f-message" name="message" rows="4" maxlength="10000" aria-describedby="f-message-hint" placeholder="Tell me what you’re building, what you need, and anything else that might be useful." data-grow></textarea>
         </div>
 
+        <div class="block q">
+          <p class="q__title"><span class="q__no">07</span><span><label for="f-goal">What should a visitor do on your site? <span class="mute">(optional)</span></label><span class="q__hint" id="f-goal-hint">Book a call, buy, sign up, send an enquiry.</span></span></p>
+          <textarea class="q__text q__text--short" id="f-goal" name="goal" rows="1" maxlength="1000" aria-describedby="f-goal-hint" placeholder="The one thing a visitor should do." data-grow></textarea>
+        </div>
+
+        <div class="block q">
+          <p class="q__title"><span class="q__no">08</span><span><label for="f-likes">2–3 sites you like <span class="mute">(optional)</span></label><span class="q__hint" id="f-likes-hint">Links, and a word on what you like about each.</span></span></p>
+          <textarea class="q__text q__text--short" id="f-likes" name="likes" rows="1" maxlength="1000" aria-describedby="f-likes-hint" placeholder="Links to sites you like." data-grow></textarea>
+        </div>
+
         <fieldset class="block q" data-q="any">
-          <legend class="q__title"><span class="q__no">07</span>How did you find me?</legend>
+          <legend class="q__title"><span class="q__no">09</span>How did you find me?</legend>
           <div class="q__opts">
             <label class="opt"><input type="radio" name="source" value="Google Search"><span>Google Search</span></label>
+            <label class="opt"><input type="radio" name="source" value="LinkedIn"><span>LinkedIn</span></label>
+            <label class="opt"><input type="radio" name="source" value="Contra"><span>Contra</span></label>
             <label class="opt"><input type="radio" name="source" value="Instagram"><span>Instagram</span></label>
+            <label class="opt"><input type="radio" name="source" value="Email"><span>Email</span></label>
             <label class="opt"><input type="radio" name="source" value="A Recommendation"><span>A Recommendation</span></label>
             <label class="opt"><input type="radio" name="source" value="Other"><span>Other</span></label>
           </div>
         </fieldset>
 
         <fieldset class="block q q--reach">
-          <legend class="q__title"><span class="q__no">08</span>How can I reach you?</legend>
+          <legend class="q__title"><span class="q__no">10</span>How can I reach you?</legend>
           <div class="fields">
             <p class="field"><label class="field__label" for="f-name">Name<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-name" name="name" type="text" maxlength="120" autocomplete="name" required><span class="field__error" data-error></span></p>
             <p class="field"><label class="field__label" for="f-email">Email<span class="req" aria-hidden="true">*</span></label><input class="field__input" id="f-email" name="email" type="email" maxlength="254" autocomplete="email" inputmode="email" spellcheck="false" required><span class="field__error" data-error></span></p>
@@ -341,7 +354,12 @@
 
         <section class="intake-end" aria-labelledby="end-title">
           <h2 class="intake-end__title" id="end-title">Ready to start?</h2>
-          <p class="intake-end__lead">Send a link, a few lines, or just say hello. <span class="mute">I’ll get back to you as soon as I can.</span></p>
+          <p class="intake-end__lead">Send a link, a few lines, or just say hello. <span class="mute">I’ll reply within 24 hours on weekdays.</span></p>
+          <ol class="intake-end__steps">
+            <li>I’ll ask a few questions if needed</li>
+            <li>You get a fixed quote</li>
+            <li>We start on Contra</li>
+          </ol>
           <p class="consent">
             <label class="consent__label"><input type="checkbox" name="privacy" value="Agreed" required><span class="consent__box" aria-hidden="true"></span><span>I agree to the <a href="/privacy/">Privacy Policy</a>.<span class="req" aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></span></label>
             <span class="field__error" data-error></span>
